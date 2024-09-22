@@ -20,7 +20,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>When dynamic render pass instances are being used, instead of specifying {@link NVXMultiviewPerViewAttributes#VK_SUBPASS_DESCRIPTION_PER_VIEW_ATTRIBUTES_BIT_NVX SUBPASS_DESCRIPTION_PER_VIEW_ATTRIBUTES_BIT_NVX} or {@link NVXMultiviewPerViewAttributes#VK_SUBPASS_DESCRIPTION_PER_VIEW_POSITION_X_ONLY_BIT_NVX SUBPASS_DESCRIPTION_PER_VIEW_POSITION_X_ONLY_BIT_NVX} in the subpass description flags, the per-attribute properties of the render pass instance <b>must</b> be specified by the {@link VkMultiviewPerViewAttributesInfoNVX} structure Include the {@link VkMultiviewPerViewAttributesInfoNVX} structure in the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo} when creating a graphics pipeline for dynamic rendering, {@link VkRenderingInfo} when starting a dynamic render pass instance, and {@link VkCommandBufferInheritanceInfo} when specifying the dynamic render pass instance parameters for secondary command buffers.</p>
+ * <p>When dynamic render pass instances are being used, instead of specifying {@link NVXMultiviewPerViewAttributes#VK_SUBPASS_DESCRIPTION_PER_VIEW_ATTRIBUTES_BIT_NVX SUBPASS_DESCRIPTION_PER_VIEW_ATTRIBUTES_BIT_NVX} or {@link NVXMultiviewPerViewAttributes#VK_SUBPASS_DESCRIPTION_PER_VIEW_POSITION_X_ONLY_BIT_NVX SUBPASS_DESCRIPTION_PER_VIEW_POSITION_X_ONLY_BIT_NVX} in the subpass description flags, the per-attibute properties of the render pass instance <b>must</b> be specified by the {@link VkMultiviewPerViewAttributesInfoNVX} structure Include the {@link VkMultiviewPerViewAttributesInfoNVX} structure in the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo} when creating a graphics pipeline for dynamic rendering, {@link VkRenderingInfo} when starting a dynamic render pass instance, and {@link VkCommandBufferInheritanceInfo} when specifying the dynamic render pass instance parameters for secondary command buffers.</p>
+ * 
+ * <h5>Valid Usage</h5>
+ * 
+ * <ul>
+ * <li>If {@code perViewAttributesPositionXOnly} is {@link VK10#VK_TRUE TRUE} then {@code perViewAttributes} <b>must</b> also be {@link VK10#VK_TRUE TRUE}</li>
+ * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -38,7 +44,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #perViewAttributesPositionXOnly};
  * }</code></pre>
  */
-public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerViewAttributesInfoNVX> implements NativeResource {
+public class VkMultiviewPerViewAttributesInfoNVX extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -70,15 +76,6 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
         PERVIEWATTRIBUTESPOSITIONXONLY = layout.offsetof(3);
     }
 
-    protected VkMultiviewPerViewAttributesInfoNVX(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkMultiviewPerViewAttributesInfoNVX create(long address, @Nullable ByteBuffer container) {
-        return new VkMultiviewPerViewAttributesInfoNVX(address, container);
-    }
-
     /**
      * Creates a {@code VkMultiviewPerViewAttributesInfoNVX} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -92,7 +89,7 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -147,29 +144,29 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
 
     /** Returns a new {@code VkMultiviewPerViewAttributesInfoNVX} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkMultiviewPerViewAttributesInfoNVX malloc() {
-        return new VkMultiviewPerViewAttributesInfoNVX(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkMultiviewPerViewAttributesInfoNVX.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkMultiviewPerViewAttributesInfoNVX} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkMultiviewPerViewAttributesInfoNVX calloc() {
-        return new VkMultiviewPerViewAttributesInfoNVX(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkMultiviewPerViewAttributesInfoNVX.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkMultiviewPerViewAttributesInfoNVX} instance allocated with {@link BufferUtils}. */
     public static VkMultiviewPerViewAttributesInfoNVX create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkMultiviewPerViewAttributesInfoNVX(memAddress(container), container);
+        return wrap(VkMultiviewPerViewAttributesInfoNVX.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkMultiviewPerViewAttributesInfoNVX} instance for the specified memory address. */
     public static VkMultiviewPerViewAttributesInfoNVX create(long address) {
-        return new VkMultiviewPerViewAttributesInfoNVX(address, null);
+        return wrap(VkMultiviewPerViewAttributesInfoNVX.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMultiviewPerViewAttributesInfoNVX createSafe(long address) {
-        return address == NULL ? null : new VkMultiviewPerViewAttributesInfoNVX(address, null);
+        return address == NULL ? null : wrap(VkMultiviewPerViewAttributesInfoNVX.class, address);
     }
 
     /**
@@ -178,7 +175,7 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
      * @param capacity the buffer capacity
      */
     public static VkMultiviewPerViewAttributesInfoNVX.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -187,7 +184,7 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
      * @param capacity the buffer capacity
      */
     public static VkMultiviewPerViewAttributesInfoNVX.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -197,7 +194,7 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
      */
     public static VkMultiviewPerViewAttributesInfoNVX.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -207,13 +204,13 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
      * @param capacity the buffer capacity
      */
     public static VkMultiviewPerViewAttributesInfoNVX.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMultiviewPerViewAttributesInfoNVX.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -222,7 +219,7 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
      * @param stack the stack from which to allocate
      */
     public static VkMultiviewPerViewAttributesInfoNVX malloc(MemoryStack stack) {
-        return new VkMultiviewPerViewAttributesInfoNVX(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkMultiviewPerViewAttributesInfoNVX.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -231,7 +228,7 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
      * @param stack the stack from which to allocate
      */
     public static VkMultiviewPerViewAttributesInfoNVX calloc(MemoryStack stack) {
-        return new VkMultiviewPerViewAttributesInfoNVX(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkMultiviewPerViewAttributesInfoNVX.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -241,7 +238,7 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
      * @param capacity the buffer capacity
      */
     public static VkMultiviewPerViewAttributesInfoNVX.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -251,7 +248,7 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
      * @param capacity the buffer capacity
      */
     public static VkMultiviewPerViewAttributesInfoNVX.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -284,9 +281,9 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
         /**
          * Creates a new {@code VkMultiviewPerViewAttributesInfoNVX.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkMultiviewPerViewAttributesInfoNVX#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkMultiviewPerViewAttributesInfoNVX#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

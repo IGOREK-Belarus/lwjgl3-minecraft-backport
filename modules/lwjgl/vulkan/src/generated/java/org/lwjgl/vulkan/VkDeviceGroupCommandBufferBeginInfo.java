@@ -46,7 +46,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #deviceMask};
  * }</code></pre>
  */
-public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCommandBufferBeginInfo> implements NativeResource {
+public class VkDeviceGroupCommandBufferBeginInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -75,15 +75,6 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
         DEVICEMASK = layout.offsetof(2);
     }
 
-    protected VkDeviceGroupCommandBufferBeginInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkDeviceGroupCommandBufferBeginInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkDeviceGroupCommandBufferBeginInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkDeviceGroupCommandBufferBeginInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -97,7 +88,7 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -145,29 +136,29 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
 
     /** Returns a new {@code VkDeviceGroupCommandBufferBeginInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDeviceGroupCommandBufferBeginInfo malloc() {
-        return new VkDeviceGroupCommandBufferBeginInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkDeviceGroupCommandBufferBeginInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceGroupCommandBufferBeginInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDeviceGroupCommandBufferBeginInfo calloc() {
-        return new VkDeviceGroupCommandBufferBeginInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkDeviceGroupCommandBufferBeginInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceGroupCommandBufferBeginInfo} instance allocated with {@link BufferUtils}. */
     public static VkDeviceGroupCommandBufferBeginInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkDeviceGroupCommandBufferBeginInfo(memAddress(container), container);
+        return wrap(VkDeviceGroupCommandBufferBeginInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkDeviceGroupCommandBufferBeginInfo} instance for the specified memory address. */
     public static VkDeviceGroupCommandBufferBeginInfo create(long address) {
-        return new VkDeviceGroupCommandBufferBeginInfo(address, null);
+        return wrap(VkDeviceGroupCommandBufferBeginInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceGroupCommandBufferBeginInfo createSafe(long address) {
-        return address == NULL ? null : new VkDeviceGroupCommandBufferBeginInfo(address, null);
+        return address == NULL ? null : wrap(VkDeviceGroupCommandBufferBeginInfo.class, address);
     }
 
     /**
@@ -176,7 +167,7 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupCommandBufferBeginInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -185,7 +176,7 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupCommandBufferBeginInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -195,7 +186,7 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
      */
     public static VkDeviceGroupCommandBufferBeginInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -205,13 +196,13 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupCommandBufferBeginInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceGroupCommandBufferBeginInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -239,7 +230,7 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
      * @param stack the stack from which to allocate
      */
     public static VkDeviceGroupCommandBufferBeginInfo malloc(MemoryStack stack) {
-        return new VkDeviceGroupCommandBufferBeginInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkDeviceGroupCommandBufferBeginInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -248,7 +239,7 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
      * @param stack the stack from which to allocate
      */
     public static VkDeviceGroupCommandBufferBeginInfo calloc(MemoryStack stack) {
-        return new VkDeviceGroupCommandBufferBeginInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkDeviceGroupCommandBufferBeginInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -258,7 +249,7 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupCommandBufferBeginInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -268,7 +259,7 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupCommandBufferBeginInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -297,9 +288,9 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
         /**
          * Creates a new {@code VkDeviceGroupCommandBufferBeginInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDeviceGroupCommandBufferBeginInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkDeviceGroupCommandBufferBeginInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

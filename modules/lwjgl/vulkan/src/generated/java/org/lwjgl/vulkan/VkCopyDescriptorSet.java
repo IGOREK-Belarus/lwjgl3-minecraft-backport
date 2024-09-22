@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If the {@link VkDescriptorSetLayoutBinding} for {@code dstBinding} is {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} and {@code srcBinding} is not {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}, the new active descriptor type becomes the descriptor type of {@code srcBinding}. If both {@link VkDescriptorSetLayoutBinding} for {@code srcBinding} and {@code dstBinding} are {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}, the active descriptor type in each source descriptor is copied into the corresponding destination descriptor. The active descriptor type <b>can</b> be different for each source descriptor.</p>
+ * <p>If the {@link VkDescriptorSetLayoutBinding} for {@code dstBinding} is {@link VALVEMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_VALVE DESCRIPTOR_TYPE_MUTABLE_VALVE} and {@code srcBinding} is not {@link VALVEMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_VALVE DESCRIPTOR_TYPE_MUTABLE_VALVE}, the new active descriptor type becomes the descriptor type of {@code srcBinding}. If both {@link VkDescriptorSetLayoutBinding} for {@code srcBinding} and {@code dstBinding} are {@link VALVEMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_VALVE DESCRIPTOR_TYPE_MUTABLE_VALVE}, the active descriptor type in each source descriptor is copied into the corresponding destination descriptor. The active descriptor type <b>can</b> be different for each source descriptor.</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
@@ -31,22 +31,22 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code srcBinding} <b>must</b> be a valid binding within {@code srcSet}</li>
- * <li>The sum of {@code srcArrayElement} and {@code descriptorCount} <b>must</b> be less than or equal to the number of array elements in the descriptor set binding specified by {@code srcBinding}, and all applicable consecutive bindings, as described by <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-updates-consecutive">consecutive binding updates</a></li>
+ * <li>The sum of {@code srcArrayElement} and {@code descriptorCount} <b>must</b> be less than or equal to the number of array elements in the descriptor set binding specified by {@code srcBinding}, and all applicable consecutive bindings, as described by <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-updates-consecutive">consecutive binding updates</a></li>
  * <li>{@code dstBinding} <b>must</b> be a valid binding within {@code dstSet}</li>
- * <li>The sum of {@code dstArrayElement} and {@code descriptorCount} <b>must</b> be less than or equal to the number of array elements in the descriptor set binding specified by {@code dstBinding}, and all applicable consecutive bindings, as described by <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-updates-consecutive">consecutive binding updates</a></li>
+ * <li>The sum of {@code dstArrayElement} and {@code descriptorCount} <b>must</b> be less than or equal to the number of array elements in the descriptor set binding specified by {@code dstBinding}, and all applicable consecutive bindings, as described by <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-updates-consecutive">consecutive binding updates</a></li>
  * <li>The type of {@code dstBinding} within {@code dstSet} <b>must</b> be equal to the type of {@code srcBinding} within {@code srcSet}</li>
- * <li>If {@code srcSet} is equal to {@code dstSet}, then the source and destination ranges of descriptors <b>must</b> not overlap, where the ranges <b>may</b> include array elements from consecutive bindings as described by <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-updates-consecutive">consecutive binding updates</a></li>
+ * <li>If {@code srcSet} is equal to {@code dstSet}, then the source and destination ranges of descriptors <b>must</b> not overlap, where the ranges <b>may</b> include array elements from consecutive bindings as described by <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-updates-consecutive">consecutive binding updates</a></li>
  * <li>If the descriptor type of the descriptor set binding specified by {@code srcBinding} is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}, {@code srcArrayElement} <b>must</b> be an integer multiple of 4</li>
  * <li>If the descriptor type of the descriptor set binding specified by {@code dstBinding} is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}, {@code dstArrayElement} <b>must</b> be an integer multiple of 4</li>
  * <li>If the descriptor type of the descriptor set binding specified by either {@code srcBinding} or {@code dstBinding} is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}, {@code descriptorCount} <b>must</b> be an integer multiple of 4</li>
  * <li>If {@code srcSet}’s layout was created with the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} flag set, then {@code dstSet}’s layout <b>must</b> also have been created with the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} flag set</li>
- * <li>If {@code srcSet}’s layout was created without either the {@link EXTMutableDescriptorType#VK_DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_EXT DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_EXT} flag or the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} flag set, then {@code dstSet}’s layout <b>must</b> have been created without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} flag set</li>
+ * <li>If {@code srcSet}’s layout was created with neither {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} nor {@link VALVEMutableDescriptorType#VK_DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_VALVE DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_VALVE} flags set, then {@code dstSet}’s layout <b>must</b> have been created without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} flag set</li>
  * <li>If the descriptor pool from which {@code srcSet} was allocated was created with the {@link VK12#VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT} flag set, then the descriptor pool from which {@code dstSet} was allocated <b>must</b> also have been created with the {@link VK12#VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT} flag set</li>
- * <li>If the descriptor pool from which {@code srcSet} was allocated was created without either the {@link EXTMutableDescriptorType#VK_DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT} flag or the {@link VK12#VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT} flag set, then the descriptor pool from which {@code dstSet} was allocated <b>must</b> have been created without the {@link VK12#VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT} flag set</li>
+ * <li>If the descriptor pool from which {@code srcSet} was allocated was created with neither {@link VK12#VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT} nor {@link VALVEMutableDescriptorType#VK_DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_VALVE DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_VALVE} flags set, then the descriptor pool from which {@code dstSet} was allocated <b>must</b> have been created without the {@link VK12#VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT} flag set</li>
  * <li>If the descriptor type of the descriptor set binding specified by {@code dstBinding} is {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLER DESCRIPTOR_TYPE_SAMPLER}, then {@code dstSet} <b>must</b> not have been allocated with a layout that included immutable samplers for {@code dstBinding}</li>
- * <li>If {@link VkDescriptorSetLayoutBinding} for {@code dstSet} at {@code dstBinding} is {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}, the new active descriptor type <b>must</b> exist in the corresponding {@code pMutableDescriptorTypeLists} list for {@code dstBinding} if the new active descriptor type is not {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}</li>
- * <li>If {@link VkDescriptorSetLayoutBinding} for {@code srcSet} at {@code srcBinding} is {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} and the {@link VkDescriptorSetLayoutBinding} for {@code dstSet} at {@code dstBinding} is not {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}, the active descriptor type for the source descriptor <b>must</b> match the descriptor type of {@code dstBinding}</li>
- * <li>If {@link VkDescriptorSetLayoutBinding} for {@code dstSet} at {@code dstBinding} is {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}, and the new active descriptor type is {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}, the {@code pMutableDescriptorTypeLists} for {@code srcBinding} and {@code dstBinding} <b>must</b> match exactly</li>
+ * <li>If {@link VkDescriptorSetLayoutBinding} for {@code dstSet} at {@code dstBinding} is {@link VALVEMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_VALVE DESCRIPTOR_TYPE_MUTABLE_VALVE}, the new active descriptor type <b>must</b> exist in the corresponding {@code pMutableDescriptorTypeLists} list for {@code dstBinding} if the new active descriptor type is not {@link VALVEMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_VALVE DESCRIPTOR_TYPE_MUTABLE_VALVE}</li>
+ * <li>If {@link VkDescriptorSetLayoutBinding} for {@code srcSet} at {@code srcBinding} is {@link VALVEMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_VALVE DESCRIPTOR_TYPE_MUTABLE_VALVE} and the {@link VkDescriptorSetLayoutBinding} for {@code dstSet} at {@code dstBinding} is not {@link VALVEMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_VALVE DESCRIPTOR_TYPE_MUTABLE_VALVE}, the active descriptor type for the source descriptor <b>must</b> match the descriptor type of {@code dstBinding}</li>
+ * <li>If {@link VkDescriptorSetLayoutBinding} for {@code dstSet} at {@code dstBinding} is {@link VALVEMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_VALVE DESCRIPTOR_TYPE_MUTABLE_VALVE}, and the new active descriptor type is {@link VALVEMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_VALVE DESCRIPTOR_TYPE_MUTABLE_VALVE}, the {@code pMutableDescriptorTypeLists} for {@code srcBinding} and {@code dstBinding} <b>must</b> match exactly</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -78,7 +78,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #descriptorCount};
  * }</code></pre>
  */
-public class VkCopyDescriptorSet extends Struct<VkCopyDescriptorSet> implements NativeResource {
+public class VkCopyDescriptorSet extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -125,15 +125,6 @@ public class VkCopyDescriptorSet extends Struct<VkCopyDescriptorSet> implements 
         DESCRIPTORCOUNT = layout.offsetof(8);
     }
 
-    protected VkCopyDescriptorSet(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkCopyDescriptorSet create(long address, @Nullable ByteBuffer container) {
-        return new VkCopyDescriptorSet(address, container);
-    }
-
     /**
      * Creates a {@code VkCopyDescriptorSet} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -147,7 +138,7 @@ public class VkCopyDescriptorSet extends Struct<VkCopyDescriptorSet> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -237,29 +228,29 @@ public class VkCopyDescriptorSet extends Struct<VkCopyDescriptorSet> implements 
 
     /** Returns a new {@code VkCopyDescriptorSet} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkCopyDescriptorSet malloc() {
-        return new VkCopyDescriptorSet(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkCopyDescriptorSet.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkCopyDescriptorSet} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkCopyDescriptorSet calloc() {
-        return new VkCopyDescriptorSet(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkCopyDescriptorSet.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkCopyDescriptorSet} instance allocated with {@link BufferUtils}. */
     public static VkCopyDescriptorSet create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkCopyDescriptorSet(memAddress(container), container);
+        return wrap(VkCopyDescriptorSet.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkCopyDescriptorSet} instance for the specified memory address. */
     public static VkCopyDescriptorSet create(long address) {
-        return new VkCopyDescriptorSet(address, null);
+        return wrap(VkCopyDescriptorSet.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCopyDescriptorSet createSafe(long address) {
-        return address == NULL ? null : new VkCopyDescriptorSet(address, null);
+        return address == NULL ? null : wrap(VkCopyDescriptorSet.class, address);
     }
 
     /**
@@ -268,7 +259,7 @@ public class VkCopyDescriptorSet extends Struct<VkCopyDescriptorSet> implements 
      * @param capacity the buffer capacity
      */
     public static VkCopyDescriptorSet.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -277,7 +268,7 @@ public class VkCopyDescriptorSet extends Struct<VkCopyDescriptorSet> implements 
      * @param capacity the buffer capacity
      */
     public static VkCopyDescriptorSet.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -287,7 +278,7 @@ public class VkCopyDescriptorSet extends Struct<VkCopyDescriptorSet> implements 
      */
     public static VkCopyDescriptorSet.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -297,13 +288,13 @@ public class VkCopyDescriptorSet extends Struct<VkCopyDescriptorSet> implements 
      * @param capacity the buffer capacity
      */
     public static VkCopyDescriptorSet.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCopyDescriptorSet.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -331,7 +322,7 @@ public class VkCopyDescriptorSet extends Struct<VkCopyDescriptorSet> implements 
      * @param stack the stack from which to allocate
      */
     public static VkCopyDescriptorSet malloc(MemoryStack stack) {
-        return new VkCopyDescriptorSet(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkCopyDescriptorSet.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -340,7 +331,7 @@ public class VkCopyDescriptorSet extends Struct<VkCopyDescriptorSet> implements 
      * @param stack the stack from which to allocate
      */
     public static VkCopyDescriptorSet calloc(MemoryStack stack) {
-        return new VkCopyDescriptorSet(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkCopyDescriptorSet.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -350,7 +341,7 @@ public class VkCopyDescriptorSet extends Struct<VkCopyDescriptorSet> implements 
      * @param capacity the buffer capacity
      */
     public static VkCopyDescriptorSet.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -360,7 +351,7 @@ public class VkCopyDescriptorSet extends Struct<VkCopyDescriptorSet> implements 
      * @param capacity the buffer capacity
      */
     public static VkCopyDescriptorSet.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -413,9 +404,9 @@ public class VkCopyDescriptorSet extends Struct<VkCopyDescriptorSet> implements 
         /**
          * Creates a new {@code VkCopyDescriptorSet.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkCopyDescriptorSet#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkCopyDescriptorSet#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

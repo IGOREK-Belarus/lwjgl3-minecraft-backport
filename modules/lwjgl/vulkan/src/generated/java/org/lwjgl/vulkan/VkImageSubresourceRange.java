@@ -24,15 +24,15 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>For cube and cube array image views, the layers of the image view starting at {@code baseArrayLayer} correspond to faces in the order +X, -X, +Y, -Y, +Z, -Z. For cube arrays, each set of six sequential layers is a single cube, so the number of cube maps in a cube map array view is <em>{@code layerCount} / 6</em>, and image array layer <code>(baseArrayLayer + i)</code> is face index <code>(i mod 6)</code> of cube <em>i / 6</em>. If the number of layers in the view, whether set explicitly in {@code layerCount} or implied by {@link VK10#VK_REMAINING_ARRAY_LAYERS REMAINING_ARRAY_LAYERS}, is not a multiple of 6, the last cube map in the array <b>must</b> not be accessed.</p>
  * 
- * <p>{@code aspectMask} <b>must</b> be only {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT}, {@link VK10#VK_IMAGE_ASPECT_DEPTH_BIT IMAGE_ASPECT_DEPTH_BIT} or {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT} if {@code format} is a color, depth-only or stencil-only format, respectively, except if {@code format} is a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar format</a>. If using a depth/stencil format with both depth and stencil components, {@code aspectMask} <b>must</b> include at least one of {@link VK10#VK_IMAGE_ASPECT_DEPTH_BIT IMAGE_ASPECT_DEPTH_BIT} and {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT}, and <b>can</b> include both.</p>
+ * <p>{@code aspectMask} <b>must</b> be only {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT}, {@link VK10#VK_IMAGE_ASPECT_DEPTH_BIT IMAGE_ASPECT_DEPTH_BIT} or {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT} if {@code format} is a color, depth-only or stencil-only format, respectively, except if {@code format} is a <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar format</a>. If using a depth/stencil format with both depth and stencil components, {@code aspectMask} <b>must</b> include at least one of {@link VK10#VK_IMAGE_ASPECT_DEPTH_BIT IMAGE_ASPECT_DEPTH_BIT} and {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT}, and <b>can</b> include both.</p>
  * 
  * <p>When the {@link VkImageSubresourceRange} structure is used to select a subset of the slices of a 3D image’s mip level in order to create a 2D or 2D array image view of a 3D image created with {@link VK11#VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT}, {@code baseArrayLayer} and {@code layerCount} specify the first slice index and the number of slices to include in the created image view. Such an image view <b>can</b> be used as a framebuffer attachment that refers only to the specified range of slices of the selected mip level. However, any layout transitions performed on such an attachment view during a render pass instance still apply to the entire subresource referenced which includes all the slices of the selected mip level.</p>
  * 
  * <p>When using an image view of a depth/stencil image to populate a descriptor set (e.g. for sampling in the shader, or for use as an input attachment), the {@code aspectMask} <b>must</b> only include one bit, which selects whether the image view is used for depth reads (i.e. using a floating-point sampler or input attachment in the shader) or stencil reads (i.e. using an unsigned integer sampler or input attachment in the shader). When an image view of a depth/stencil image is used as a depth/stencil framebuffer attachment, the {@code aspectMask} is ignored and both depth and stencil image subresources are used.</p>
  * 
- * <p>When creating a {@code VkImageView}, if <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> is enabled in the sampler, the {@code aspectMask} of a {@code subresourceRange} used by the {@code VkImageView} <b>must</b> be {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT}.</p>
+ * <p>When creating a {@code VkImageView}, if <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> is enabled in the sampler, the {@code aspectMask} of a {@code subresourceRange} used by the {@code VkImageView} <b>must</b> be {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT}.</p>
  * 
- * <p>When creating a {@code VkImageView}, if sampler Y′C<sub>B</sub>C<sub>R</sub> conversion is not enabled in the sampler and the image {@code format} is <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar</a>, the image <b>must</b> have been created with {@link VK10#VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT IMAGE_CREATE_MUTABLE_FORMAT_BIT}, and the {@code aspectMask} of the {@code VkImageView}’s {@code subresourceRange} <b>must</b> be {@link VK11#VK_IMAGE_ASPECT_PLANE_0_BIT IMAGE_ASPECT_PLANE_0_BIT}, {@link VK11#VK_IMAGE_ASPECT_PLANE_1_BIT IMAGE_ASPECT_PLANE_1_BIT} or {@link VK11#VK_IMAGE_ASPECT_PLANE_2_BIT IMAGE_ASPECT_PLANE_2_BIT}.</p>
+ * <p>When creating a {@code VkImageView}, if sampler Y′C<sub>B</sub>C<sub>R</sub> conversion is not enabled in the sampler and the image {@code format} is <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar</a>, the image <b>must</b> have been created with {@link VK10#VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT IMAGE_CREATE_MUTABLE_FORMAT_BIT}, and the {@code aspectMask} of the {@code VkImageView}’s {@code subresourceRange} <b>must</b> be {@link VK11#VK_IMAGE_ASPECT_PLANE_0_BIT IMAGE_ASPECT_PLANE_0_BIT}, {@link VK11#VK_IMAGE_ASPECT_PLANE_1_BIT IMAGE_ASPECT_PLANE_1_BIT} or {@link VK11#VK_IMAGE_ASPECT_PLANE_2_BIT IMAGE_ASPECT_PLANE_2_BIT}.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
@@ -52,7 +52,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkHostImageLayoutTransitionInfoEXT}, {@link VkImageMemoryBarrier}, {@link VkImageMemoryBarrier2}, {@link VkImageViewCreateInfo}, {@link VK10#vkCmdClearColorImage CmdClearColorImage}, {@link VK10#vkCmdClearDepthStencilImage CmdClearDepthStencilImage}</p>
+ * <p>{@link VkImageMemoryBarrier}, {@link VkImageMemoryBarrier2}, {@link VkImageViewCreateInfo}, {@link VK10#vkCmdClearColorImage CmdClearColorImage}, {@link VK10#vkCmdClearDepthStencilImage CmdClearDepthStencilImage}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -65,7 +65,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #layerCount};
  * }</code></pre>
  */
-public class VkImageSubresourceRange extends Struct<VkImageSubresourceRange> implements NativeResource {
+public class VkImageSubresourceRange extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -98,15 +98,6 @@ public class VkImageSubresourceRange extends Struct<VkImageSubresourceRange> imp
         LEVELCOUNT = layout.offsetof(2);
         BASEARRAYLAYER = layout.offsetof(3);
         LAYERCOUNT = layout.offsetof(4);
-    }
-
-    protected VkImageSubresourceRange(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkImageSubresourceRange create(long address, @Nullable ByteBuffer container) {
-        return new VkImageSubresourceRange(address, container);
     }
 
     /**
@@ -182,29 +173,29 @@ public class VkImageSubresourceRange extends Struct<VkImageSubresourceRange> imp
 
     /** Returns a new {@code VkImageSubresourceRange} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkImageSubresourceRange malloc() {
-        return new VkImageSubresourceRange(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkImageSubresourceRange.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkImageSubresourceRange} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkImageSubresourceRange calloc() {
-        return new VkImageSubresourceRange(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkImageSubresourceRange.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkImageSubresourceRange} instance allocated with {@link BufferUtils}. */
     public static VkImageSubresourceRange create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkImageSubresourceRange(memAddress(container), container);
+        return wrap(VkImageSubresourceRange.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkImageSubresourceRange} instance for the specified memory address. */
     public static VkImageSubresourceRange create(long address) {
-        return new VkImageSubresourceRange(address, null);
+        return wrap(VkImageSubresourceRange.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImageSubresourceRange createSafe(long address) {
-        return address == NULL ? null : new VkImageSubresourceRange(address, null);
+        return address == NULL ? null : wrap(VkImageSubresourceRange.class, address);
     }
 
     /**
@@ -213,7 +204,7 @@ public class VkImageSubresourceRange extends Struct<VkImageSubresourceRange> imp
      * @param capacity the buffer capacity
      */
     public static VkImageSubresourceRange.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -222,7 +213,7 @@ public class VkImageSubresourceRange extends Struct<VkImageSubresourceRange> imp
      * @param capacity the buffer capacity
      */
     public static VkImageSubresourceRange.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -232,7 +223,7 @@ public class VkImageSubresourceRange extends Struct<VkImageSubresourceRange> imp
      */
     public static VkImageSubresourceRange.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -242,13 +233,13 @@ public class VkImageSubresourceRange extends Struct<VkImageSubresourceRange> imp
      * @param capacity the buffer capacity
      */
     public static VkImageSubresourceRange.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImageSubresourceRange.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -276,7 +267,7 @@ public class VkImageSubresourceRange extends Struct<VkImageSubresourceRange> imp
      * @param stack the stack from which to allocate
      */
     public static VkImageSubresourceRange malloc(MemoryStack stack) {
-        return new VkImageSubresourceRange(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkImageSubresourceRange.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -285,7 +276,7 @@ public class VkImageSubresourceRange extends Struct<VkImageSubresourceRange> imp
      * @param stack the stack from which to allocate
      */
     public static VkImageSubresourceRange calloc(MemoryStack stack) {
-        return new VkImageSubresourceRange(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkImageSubresourceRange.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -295,7 +286,7 @@ public class VkImageSubresourceRange extends Struct<VkImageSubresourceRange> imp
      * @param capacity the buffer capacity
      */
     public static VkImageSubresourceRange.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -305,7 +296,7 @@ public class VkImageSubresourceRange extends Struct<VkImageSubresourceRange> imp
      * @param capacity the buffer capacity
      */
     public static VkImageSubresourceRange.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -342,9 +333,9 @@ public class VkImageSubresourceRange extends Struct<VkImageSubresourceRange> imp
         /**
          * Creates a new {@code VkImageSubresourceRange.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkImageSubresourceRange#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkImageSubresourceRange#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

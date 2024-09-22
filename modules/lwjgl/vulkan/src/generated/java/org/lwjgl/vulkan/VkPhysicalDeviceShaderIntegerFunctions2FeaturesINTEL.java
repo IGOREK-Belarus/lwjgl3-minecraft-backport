@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If the {@code VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTELfeatures}. structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@code VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTELfeatures}. <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
+ * <p>If the {@link VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #shaderIntegerFunctions2};
  * }</code></pre>
  */
-public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct<VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL> implements NativeResource {
+public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,15 +66,6 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
         SHADERINTEGERFUNCTIONS2 = layout.offsetof(2);
     }
 
-    protected VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -88,7 +79,7 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -136,29 +127,29 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
 
     /** Returns a new {@code VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL malloc() {
-        return new VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL calloc() {
-        return new VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL(memAddress(container), container);
+        return wrap(VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL} instance for the specified memory address. */
     public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL create(long address) {
-        return new VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL(address, null);
+        return wrap(VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.class, address);
     }
 
     /**
@@ -167,7 +158,7 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -176,7 +167,7 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -186,7 +177,7 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
      */
     public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -196,13 +187,13 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -230,7 +221,7 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -239,7 +230,7 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -249,7 +240,7 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -259,7 +250,7 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -288,9 +279,9 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
         /**
          * Creates a new {@code VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct ovrRecti")
-public class OVRRecti extends Struct<OVRRecti> implements NativeResource {
+public class OVRRecti extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -51,15 +51,6 @@ public class OVRRecti extends Struct<OVRRecti> implements NativeResource {
 
         POS = layout.offsetof(0);
         SIZE = layout.offsetof(1);
-    }
-
-    protected OVRRecti(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected OVRRecti create(long address, @Nullable ByteBuffer container) {
-        return new OVRRecti(address, container);
     }
 
     /**
@@ -118,29 +109,29 @@ public class OVRRecti extends Struct<OVRRecti> implements NativeResource {
 
     /** Returns a new {@code OVRRecti} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static OVRRecti malloc() {
-        return new OVRRecti(nmemAllocChecked(SIZEOF), null);
+        return wrap(OVRRecti.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code OVRRecti} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static OVRRecti calloc() {
-        return new OVRRecti(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(OVRRecti.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code OVRRecti} instance allocated with {@link BufferUtils}. */
     public static OVRRecti create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new OVRRecti(memAddress(container), container);
+        return wrap(OVRRecti.class, memAddress(container), container);
     }
 
     /** Returns a new {@code OVRRecti} instance for the specified memory address. */
     public static OVRRecti create(long address) {
-        return new OVRRecti(address, null);
+        return wrap(OVRRecti.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static OVRRecti createSafe(long address) {
-        return address == NULL ? null : new OVRRecti(address, null);
+        return address == NULL ? null : wrap(OVRRecti.class, address);
     }
 
     /**
@@ -149,7 +140,7 @@ public class OVRRecti extends Struct<OVRRecti> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static OVRRecti.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -158,7 +149,7 @@ public class OVRRecti extends Struct<OVRRecti> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static OVRRecti.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -168,7 +159,7 @@ public class OVRRecti extends Struct<OVRRecti> implements NativeResource {
      */
     public static OVRRecti.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -178,13 +169,13 @@ public class OVRRecti extends Struct<OVRRecti> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static OVRRecti.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static OVRRecti.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -212,7 +203,7 @@ public class OVRRecti extends Struct<OVRRecti> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static OVRRecti malloc(MemoryStack stack) {
-        return new OVRRecti(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(OVRRecti.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -221,7 +212,7 @@ public class OVRRecti extends Struct<OVRRecti> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static OVRRecti calloc(MemoryStack stack) {
-        return new OVRRecti(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(OVRRecti.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -231,7 +222,7 @@ public class OVRRecti extends Struct<OVRRecti> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static OVRRecti.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -241,7 +232,7 @@ public class OVRRecti extends Struct<OVRRecti> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static OVRRecti.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -266,9 +257,9 @@ public class OVRRecti extends Struct<OVRRecti> implements NativeResource {
         /**
          * Creates a new {@code OVRRecti.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link OVRRecti#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link OVRRecti#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

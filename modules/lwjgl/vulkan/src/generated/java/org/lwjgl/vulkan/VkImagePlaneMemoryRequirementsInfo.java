@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the image’s {@code tiling} is {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR} or {@link VK10#VK_IMAGE_TILING_OPTIMAL IMAGE_TILING_OPTIMAL}, then {@code planeAspect} <b>must</b> be a single valid <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-planes-image-aspect">multi-planar aspect mask</a> bit</li>
+ * <li>If the image’s {@code tiling} is {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR} or {@link VK10#VK_IMAGE_TILING_OPTIMAL IMAGE_TILING_OPTIMAL}, then {@code planeAspect} <b>must</b> be a single valid <em>format plane</em> for the image (that is, for a two-plane image {@code planeAspect} <b>must</b> be {@link VK11#VK_IMAGE_ASPECT_PLANE_0_BIT IMAGE_ASPECT_PLANE_0_BIT} or {@link VK11#VK_IMAGE_ASPECT_PLANE_1_BIT IMAGE_ASPECT_PLANE_1_BIT}, and for a three-plane image {@code planeAspect} <b>must</b> be {@link VK11#VK_IMAGE_ASPECT_PLANE_0_BIT IMAGE_ASPECT_PLANE_0_BIT}, {@link VK11#VK_IMAGE_ASPECT_PLANE_1_BIT IMAGE_ASPECT_PLANE_1_BIT} or {@link VK11#VK_IMAGE_ASPECT_PLANE_2_BIT IMAGE_ASPECT_PLANE_2_BIT})</li>
  * <li>If the image’s {@code tiling} is {@link EXTImageDrmFormatModifier#VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT}, then {@code planeAspect} <b>must</b> be a single valid <em>memory plane</em> for the image (that is, {@code aspectMask} <b>must</b> specify a plane index that is less than the {@link VkDrmFormatModifierPropertiesEXT}{@code ::drmFormatModifierPlaneCount} associated with the image’s {@code format} and {@link VkImageDrmFormatModifierPropertiesEXT}{@code ::drmFormatModifier})</li>
  * </ul>
  * 
@@ -41,7 +41,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkImageAspectFlagBits {@link #planeAspect};
  * }</code></pre>
  */
-public class VkImagePlaneMemoryRequirementsInfo extends Struct<VkImagePlaneMemoryRequirementsInfo> implements NativeResource {
+public class VkImagePlaneMemoryRequirementsInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -70,15 +70,6 @@ public class VkImagePlaneMemoryRequirementsInfo extends Struct<VkImagePlaneMemor
         PLANEASPECT = layout.offsetof(2);
     }
 
-    protected VkImagePlaneMemoryRequirementsInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkImagePlaneMemoryRequirementsInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkImagePlaneMemoryRequirementsInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkImagePlaneMemoryRequirementsInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -92,7 +83,7 @@ public class VkImagePlaneMemoryRequirementsInfo extends Struct<VkImagePlaneMemor
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -140,29 +131,29 @@ public class VkImagePlaneMemoryRequirementsInfo extends Struct<VkImagePlaneMemor
 
     /** Returns a new {@code VkImagePlaneMemoryRequirementsInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkImagePlaneMemoryRequirementsInfo malloc() {
-        return new VkImagePlaneMemoryRequirementsInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkImagePlaneMemoryRequirementsInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkImagePlaneMemoryRequirementsInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkImagePlaneMemoryRequirementsInfo calloc() {
-        return new VkImagePlaneMemoryRequirementsInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkImagePlaneMemoryRequirementsInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkImagePlaneMemoryRequirementsInfo} instance allocated with {@link BufferUtils}. */
     public static VkImagePlaneMemoryRequirementsInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkImagePlaneMemoryRequirementsInfo(memAddress(container), container);
+        return wrap(VkImagePlaneMemoryRequirementsInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkImagePlaneMemoryRequirementsInfo} instance for the specified memory address. */
     public static VkImagePlaneMemoryRequirementsInfo create(long address) {
-        return new VkImagePlaneMemoryRequirementsInfo(address, null);
+        return wrap(VkImagePlaneMemoryRequirementsInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImagePlaneMemoryRequirementsInfo createSafe(long address) {
-        return address == NULL ? null : new VkImagePlaneMemoryRequirementsInfo(address, null);
+        return address == NULL ? null : wrap(VkImagePlaneMemoryRequirementsInfo.class, address);
     }
 
     /**
@@ -171,7 +162,7 @@ public class VkImagePlaneMemoryRequirementsInfo extends Struct<VkImagePlaneMemor
      * @param capacity the buffer capacity
      */
     public static VkImagePlaneMemoryRequirementsInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -180,7 +171,7 @@ public class VkImagePlaneMemoryRequirementsInfo extends Struct<VkImagePlaneMemor
      * @param capacity the buffer capacity
      */
     public static VkImagePlaneMemoryRequirementsInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -190,7 +181,7 @@ public class VkImagePlaneMemoryRequirementsInfo extends Struct<VkImagePlaneMemor
      */
     public static VkImagePlaneMemoryRequirementsInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -200,13 +191,13 @@ public class VkImagePlaneMemoryRequirementsInfo extends Struct<VkImagePlaneMemor
      * @param capacity the buffer capacity
      */
     public static VkImagePlaneMemoryRequirementsInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImagePlaneMemoryRequirementsInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -234,7 +225,7 @@ public class VkImagePlaneMemoryRequirementsInfo extends Struct<VkImagePlaneMemor
      * @param stack the stack from which to allocate
      */
     public static VkImagePlaneMemoryRequirementsInfo malloc(MemoryStack stack) {
-        return new VkImagePlaneMemoryRequirementsInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkImagePlaneMemoryRequirementsInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -243,7 +234,7 @@ public class VkImagePlaneMemoryRequirementsInfo extends Struct<VkImagePlaneMemor
      * @param stack the stack from which to allocate
      */
     public static VkImagePlaneMemoryRequirementsInfo calloc(MemoryStack stack) {
-        return new VkImagePlaneMemoryRequirementsInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkImagePlaneMemoryRequirementsInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -253,7 +244,7 @@ public class VkImagePlaneMemoryRequirementsInfo extends Struct<VkImagePlaneMemor
      * @param capacity the buffer capacity
      */
     public static VkImagePlaneMemoryRequirementsInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -263,7 +254,7 @@ public class VkImagePlaneMemoryRequirementsInfo extends Struct<VkImagePlaneMemor
      * @param capacity the buffer capacity
      */
     public static VkImagePlaneMemoryRequirementsInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -292,9 +283,9 @@ public class VkImagePlaneMemoryRequirementsInfo extends Struct<VkImagePlaneMemor
         /**
          * Creates a new {@code VkImagePlaneMemoryRequirementsInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkImagePlaneMemoryRequirementsInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkImagePlaneMemoryRequirementsInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

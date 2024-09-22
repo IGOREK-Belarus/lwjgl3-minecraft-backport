@@ -18,6 +18,13 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Container for value and types of parameters that can be queried.
  * 
+ * <h5>Valid Usage (Implicit)</h5>
+ * 
+ * <ul>
+ * <li>{@code type} <b>must</b> be a valid {@code VkPerformanceValueTypeINTEL} value</li>
+ * <li>If {@code type} is {@link INTELPerformanceQuery#VK_PERFORMANCE_VALUE_TYPE_STRING_INTEL PERFORMANCE_VALUE_TYPE_STRING_INTEL}, the {@code valueString} member of {@code data} <b>must</b> be a null-terminated UTF-8 string</li>
+ * </ul>
+ * 
  * <h5>See Also</h5>
  * 
  * <p>{@link VkPerformanceValueDataINTEL}, {@link INTELPerformanceQuery#vkGetPerformanceParameterINTEL GetPerformanceParameterINTEL}</p>
@@ -30,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkPerformanceValueDataINTEL VkPerformanceValueDataINTEL} {@link #data};
  * }</code></pre>
  */
-public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> implements NativeResource {
+public class VkPerformanceValueINTEL extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -56,15 +63,6 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
         DATA = layout.offsetof(1);
     }
 
-    protected VkPerformanceValueINTEL(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPerformanceValueINTEL create(long address, @Nullable ByteBuffer container) {
-        return new VkPerformanceValueINTEL(address, container);
-    }
-
     /**
      * Creates a {@code VkPerformanceValueINTEL} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -84,33 +82,63 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
     /** a {@link VkPerformanceValueDataINTEL} union specifying the value of the returned data. */
     public VkPerformanceValueDataINTEL data() { return ndata(address()); }
 
+    /** Sets the specified value to the {@link #type} field. */
+    public VkPerformanceValueINTEL type(@NativeType("VkPerformanceValueTypeINTEL") int value) { ntype(address(), value); return this; }
+    /** Copies the specified {@link VkPerformanceValueDataINTEL} to the {@link #data} field. */
+    public VkPerformanceValueINTEL data(VkPerformanceValueDataINTEL value) { ndata(address(), value); return this; }
+    /** Passes the {@link #data} field to the specified {@link java.util.function.Consumer Consumer}. */
+    public VkPerformanceValueINTEL data(java.util.function.Consumer<VkPerformanceValueDataINTEL> consumer) { consumer.accept(data()); return this; }
+
+    /** Initializes this struct with the specified values. */
+    public VkPerformanceValueINTEL set(
+        int type,
+        VkPerformanceValueDataINTEL data
+    ) {
+        type(type);
+        data(data);
+
+        return this;
+    }
+
+    /**
+     * Copies the specified struct data to this struct.
+     *
+     * @param src the source struct
+     *
+     * @return this struct
+     */
+    public VkPerformanceValueINTEL set(VkPerformanceValueINTEL src) {
+        memCopy(src.address(), address(), SIZEOF);
+        return this;
+    }
+
     // -----------------------------------
 
     /** Returns a new {@code VkPerformanceValueINTEL} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPerformanceValueINTEL malloc() {
-        return new VkPerformanceValueINTEL(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPerformanceValueINTEL.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPerformanceValueINTEL} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPerformanceValueINTEL calloc() {
-        return new VkPerformanceValueINTEL(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPerformanceValueINTEL.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPerformanceValueINTEL} instance allocated with {@link BufferUtils}. */
     public static VkPerformanceValueINTEL create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPerformanceValueINTEL(memAddress(container), container);
+        return wrap(VkPerformanceValueINTEL.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPerformanceValueINTEL} instance for the specified memory address. */
     public static VkPerformanceValueINTEL create(long address) {
-        return new VkPerformanceValueINTEL(address, null);
+        return wrap(VkPerformanceValueINTEL.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPerformanceValueINTEL createSafe(long address) {
-        return address == NULL ? null : new VkPerformanceValueINTEL(address, null);
+        return address == NULL ? null : wrap(VkPerformanceValueINTEL.class, address);
     }
 
     /**
@@ -119,7 +147,7 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
      * @param capacity the buffer capacity
      */
     public static VkPerformanceValueINTEL.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -128,7 +156,7 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
      * @param capacity the buffer capacity
      */
     public static VkPerformanceValueINTEL.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -138,7 +166,7 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
      */
     public static VkPerformanceValueINTEL.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -148,13 +176,13 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
      * @param capacity the buffer capacity
      */
     public static VkPerformanceValueINTEL.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPerformanceValueINTEL.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -182,7 +210,7 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
      * @param stack the stack from which to allocate
      */
     public static VkPerformanceValueINTEL malloc(MemoryStack stack) {
-        return new VkPerformanceValueINTEL(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPerformanceValueINTEL.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -191,7 +219,7 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
      * @param stack the stack from which to allocate
      */
     public static VkPerformanceValueINTEL calloc(MemoryStack stack) {
-        return new VkPerformanceValueINTEL(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPerformanceValueINTEL.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -201,7 +229,7 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
      * @param capacity the buffer capacity
      */
     public static VkPerformanceValueINTEL.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -211,7 +239,7 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
      * @param capacity the buffer capacity
      */
     public static VkPerformanceValueINTEL.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -220,6 +248,11 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
     public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceValueINTEL.TYPE); }
     /** Unsafe version of {@link #data}. */
     public static VkPerformanceValueDataINTEL ndata(long struct) { return VkPerformanceValueDataINTEL.create(struct + VkPerformanceValueINTEL.DATA); }
+
+    /** Unsafe version of {@link #type(int) type}. */
+    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceValueINTEL.TYPE, value); }
+    /** Unsafe version of {@link #data(VkPerformanceValueDataINTEL) data}. */
+    public static void ndata(long struct, VkPerformanceValueDataINTEL value) { memCopy(value.address(), struct + VkPerformanceValueINTEL.DATA, VkPerformanceValueDataINTEL.SIZEOF); }
 
     // -----------------------------------
 
@@ -231,9 +264,9 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
         /**
          * Creates a new {@code VkPerformanceValueINTEL.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPerformanceValueINTEL#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPerformanceValueINTEL#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -264,6 +297,13 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
         public int type() { return VkPerformanceValueINTEL.ntype(address()); }
         /** @return a {@link VkPerformanceValueDataINTEL} view of the {@link VkPerformanceValueINTEL#data} field. */
         public VkPerformanceValueDataINTEL data() { return VkPerformanceValueINTEL.ndata(address()); }
+
+        /** Sets the specified value to the {@link VkPerformanceValueINTEL#type} field. */
+        public VkPerformanceValueINTEL.Buffer type(@NativeType("VkPerformanceValueTypeINTEL") int value) { VkPerformanceValueINTEL.ntype(address(), value); return this; }
+        /** Copies the specified {@link VkPerformanceValueDataINTEL} to the {@link VkPerformanceValueINTEL#data} field. */
+        public VkPerformanceValueINTEL.Buffer data(VkPerformanceValueDataINTEL value) { VkPerformanceValueINTEL.ndata(address(), value); return this; }
+        /** Passes the {@link VkPerformanceValueINTEL#data} field to the specified {@link java.util.function.Consumer Consumer}. */
+        public VkPerformanceValueINTEL.Buffer data(java.util.function.Consumer<VkPerformanceValueDataINTEL> consumer) { consumer.accept(data()); return this; }
 
     }
 

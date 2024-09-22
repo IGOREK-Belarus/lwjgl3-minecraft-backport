@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint16_t long_term_pic_num;
  * }</code></pre>
  */
-public class StdVideoEncodeH264RefListModEntry extends Struct<StdVideoEncodeH264RefListModEntry> implements NativeResource {
+public class StdVideoEncodeH264RefListModEntry extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -52,15 +52,6 @@ public class StdVideoEncodeH264RefListModEntry extends Struct<StdVideoEncodeH264
         MODIFICATION_OF_PIC_NUMS_IDC = layout.offsetof(0);
         ABS_DIFF_PIC_NUM_MINUS1 = layout.offsetof(1);
         LONG_TERM_PIC_NUM = layout.offsetof(2);
-    }
-
-    protected StdVideoEncodeH264RefListModEntry(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected StdVideoEncodeH264RefListModEntry create(long address, @Nullable ByteBuffer container) {
-        return new StdVideoEncodeH264RefListModEntry(address, container);
     }
 
     /**
@@ -122,29 +113,29 @@ public class StdVideoEncodeH264RefListModEntry extends Struct<StdVideoEncodeH264
 
     /** Returns a new {@code StdVideoEncodeH264RefListModEntry} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static StdVideoEncodeH264RefListModEntry malloc() {
-        return new StdVideoEncodeH264RefListModEntry(nmemAllocChecked(SIZEOF), null);
+        return wrap(StdVideoEncodeH264RefListModEntry.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code StdVideoEncodeH264RefListModEntry} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static StdVideoEncodeH264RefListModEntry calloc() {
-        return new StdVideoEncodeH264RefListModEntry(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(StdVideoEncodeH264RefListModEntry.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code StdVideoEncodeH264RefListModEntry} instance allocated with {@link BufferUtils}. */
     public static StdVideoEncodeH264RefListModEntry create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new StdVideoEncodeH264RefListModEntry(memAddress(container), container);
+        return wrap(StdVideoEncodeH264RefListModEntry.class, memAddress(container), container);
     }
 
     /** Returns a new {@code StdVideoEncodeH264RefListModEntry} instance for the specified memory address. */
     public static StdVideoEncodeH264RefListModEntry create(long address) {
-        return new StdVideoEncodeH264RefListModEntry(address, null);
+        return wrap(StdVideoEncodeH264RefListModEntry.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoEncodeH264RefListModEntry createSafe(long address) {
-        return address == NULL ? null : new StdVideoEncodeH264RefListModEntry(address, null);
+        return address == NULL ? null : wrap(StdVideoEncodeH264RefListModEntry.class, address);
     }
 
     /**
@@ -153,7 +144,7 @@ public class StdVideoEncodeH264RefListModEntry extends Struct<StdVideoEncodeH264
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH264RefListModEntry.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -162,7 +153,7 @@ public class StdVideoEncodeH264RefListModEntry extends Struct<StdVideoEncodeH264
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH264RefListModEntry.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -172,7 +163,7 @@ public class StdVideoEncodeH264RefListModEntry extends Struct<StdVideoEncodeH264
      */
     public static StdVideoEncodeH264RefListModEntry.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -182,13 +173,13 @@ public class StdVideoEncodeH264RefListModEntry extends Struct<StdVideoEncodeH264
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH264RefListModEntry.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoEncodeH264RefListModEntry.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -197,7 +188,7 @@ public class StdVideoEncodeH264RefListModEntry extends Struct<StdVideoEncodeH264
      * @param stack the stack from which to allocate
      */
     public static StdVideoEncodeH264RefListModEntry malloc(MemoryStack stack) {
-        return new StdVideoEncodeH264RefListModEntry(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(StdVideoEncodeH264RefListModEntry.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -206,7 +197,7 @@ public class StdVideoEncodeH264RefListModEntry extends Struct<StdVideoEncodeH264
      * @param stack the stack from which to allocate
      */
     public static StdVideoEncodeH264RefListModEntry calloc(MemoryStack stack) {
-        return new StdVideoEncodeH264RefListModEntry(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(StdVideoEncodeH264RefListModEntry.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -216,7 +207,7 @@ public class StdVideoEncodeH264RefListModEntry extends Struct<StdVideoEncodeH264
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH264RefListModEntry.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -226,7 +217,7 @@ public class StdVideoEncodeH264RefListModEntry extends Struct<StdVideoEncodeH264
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH264RefListModEntry.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -255,9 +246,9 @@ public class StdVideoEncodeH264RefListModEntry extends Struct<StdVideoEncodeH264
         /**
          * Creates a new {@code StdVideoEncodeH264RefListModEntry.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link StdVideoEncodeH264RefListModEntry#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link StdVideoEncodeH264RefListModEntry#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -31,8 +31,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>The memory from which {@code fd} was exported <b>must</b> have been created on the same underlying physical device as {@code device}</li>
  * <li>If {@code handleType} is not 0, it <b>must</b> be {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT} or {@link EXTExternalMemoryDmaBuf#VK_EXTERNAL_MEMORY_HANDLE_TYPE_DMA_BUF_BIT_EXT EXTERNAL_MEMORY_HANDLE_TYPE_DMA_BUF_BIT_EXT}</li>
  * <li>If {@code handleType} is not 0, {@code fd} <b>must</b> be a valid handle of the type specified by {@code handleType}</li>
- * <li>The memory represented by {@code fd} <b>must</b> have been created from a physical device and driver that is compatible with {@code device} and {@code handleType}, as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#external-memory-handle-types-compatibility">External memory handle types compatibility</a></li>
- * <li>{@code fd} <b>must</b> obey any requirements listed for {@code handleType} in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#external-memory-handle-types-compatibility">external memory handle types compatibility</a></li>
+ * <li>The memory represented by {@code fd} <b>must</b> have been created from a physical device and driver that is compatible with {@code device} and {@code handleType}, as described in <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#external-memory-handle-types-compatibility">External memory handle types compatibility</a></li>
+ * <li>{@code fd} <b>must</b> obey any requirements listed for {@code handleType} in <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#external-memory-handle-types-compatibility">external memory handle types compatibility</a></li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -52,7 +52,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     int {@link #fd};
  * }</code></pre>
  */
-public class VkImportMemoryFdInfoKHR extends Struct<VkImportMemoryFdInfoKHR> implements NativeResource {
+public class VkImportMemoryFdInfoKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -84,15 +84,6 @@ public class VkImportMemoryFdInfoKHR extends Struct<VkImportMemoryFdInfoKHR> imp
         FD = layout.offsetof(3);
     }
 
-    protected VkImportMemoryFdInfoKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkImportMemoryFdInfoKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkImportMemoryFdInfoKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkImportMemoryFdInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -106,7 +97,7 @@ public class VkImportMemoryFdInfoKHR extends Struct<VkImportMemoryFdInfoKHR> imp
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -160,29 +151,29 @@ public class VkImportMemoryFdInfoKHR extends Struct<VkImportMemoryFdInfoKHR> imp
 
     /** Returns a new {@code VkImportMemoryFdInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkImportMemoryFdInfoKHR malloc() {
-        return new VkImportMemoryFdInfoKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkImportMemoryFdInfoKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkImportMemoryFdInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkImportMemoryFdInfoKHR calloc() {
-        return new VkImportMemoryFdInfoKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkImportMemoryFdInfoKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkImportMemoryFdInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkImportMemoryFdInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkImportMemoryFdInfoKHR(memAddress(container), container);
+        return wrap(VkImportMemoryFdInfoKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkImportMemoryFdInfoKHR} instance for the specified memory address. */
     public static VkImportMemoryFdInfoKHR create(long address) {
-        return new VkImportMemoryFdInfoKHR(address, null);
+        return wrap(VkImportMemoryFdInfoKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImportMemoryFdInfoKHR createSafe(long address) {
-        return address == NULL ? null : new VkImportMemoryFdInfoKHR(address, null);
+        return address == NULL ? null : wrap(VkImportMemoryFdInfoKHR.class, address);
     }
 
     /**
@@ -191,7 +182,7 @@ public class VkImportMemoryFdInfoKHR extends Struct<VkImportMemoryFdInfoKHR> imp
      * @param capacity the buffer capacity
      */
     public static VkImportMemoryFdInfoKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -200,7 +191,7 @@ public class VkImportMemoryFdInfoKHR extends Struct<VkImportMemoryFdInfoKHR> imp
      * @param capacity the buffer capacity
      */
     public static VkImportMemoryFdInfoKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -210,7 +201,7 @@ public class VkImportMemoryFdInfoKHR extends Struct<VkImportMemoryFdInfoKHR> imp
      */
     public static VkImportMemoryFdInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -220,13 +211,13 @@ public class VkImportMemoryFdInfoKHR extends Struct<VkImportMemoryFdInfoKHR> imp
      * @param capacity the buffer capacity
      */
     public static VkImportMemoryFdInfoKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImportMemoryFdInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -254,7 +245,7 @@ public class VkImportMemoryFdInfoKHR extends Struct<VkImportMemoryFdInfoKHR> imp
      * @param stack the stack from which to allocate
      */
     public static VkImportMemoryFdInfoKHR malloc(MemoryStack stack) {
-        return new VkImportMemoryFdInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkImportMemoryFdInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -263,7 +254,7 @@ public class VkImportMemoryFdInfoKHR extends Struct<VkImportMemoryFdInfoKHR> imp
      * @param stack the stack from which to allocate
      */
     public static VkImportMemoryFdInfoKHR calloc(MemoryStack stack) {
-        return new VkImportMemoryFdInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkImportMemoryFdInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -273,7 +264,7 @@ public class VkImportMemoryFdInfoKHR extends Struct<VkImportMemoryFdInfoKHR> imp
      * @param capacity the buffer capacity
      */
     public static VkImportMemoryFdInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -283,7 +274,7 @@ public class VkImportMemoryFdInfoKHR extends Struct<VkImportMemoryFdInfoKHR> imp
      * @param capacity the buffer capacity
      */
     public static VkImportMemoryFdInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -316,9 +307,9 @@ public class VkImportMemoryFdInfoKHR extends Struct<VkImportMemoryFdInfoKHR> imp
         /**
          * Creates a new {@code VkImportMemoryFdInfoKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkImportMemoryFdInfoKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkImportMemoryFdInfoKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

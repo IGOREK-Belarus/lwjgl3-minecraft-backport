@@ -17,9 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Custom heap memory allocator.
- * 
- * <p>This describes a custom heap memory allocator for GLFW. To set an allocator, pass it to {@link GLFW#glfwInitAllocator InitAllocator} before initializing the library.</p>
+ * A custom memory allocator that can be set with {@link GLFW#glfwInitAllocator InitAllocator}.
  * 
  * <h3>Layout</h3>
  * 
@@ -34,7 +32,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * @since version 3.4
  */
 @NativeType("struct GLFWallocator")
-public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResource {
+public class GLFWAllocator extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,15 +64,6 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
         USER = layout.offsetof(3);
     }
 
-    protected GLFWAllocator(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected GLFWAllocator create(long address, @Nullable ByteBuffer container) {
-        return new GLFWAllocator(address, container);
-    }
-
     /**
      * Creates a {@code GLFWAllocator} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -88,16 +77,16 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the memory allocation function */
+    /** the memory allocation callback */
     @NativeType("GLFWallocatefun")
     public GLFWAllocateCallback allocate() { return nallocate(address()); }
-    /** the memory reallocation function */
+    /** the memory reallocation callback */
     @NativeType("GLFWreallocatefun")
     public GLFWReallocateCallback reallocate() { return nreallocate(address()); }
-    /** the memory deallocation function */
+    /** the memory deallocation callback */
     @NativeType("GLFWdeallocatefun")
     public GLFWDeallocateCallback deallocate() { return ndeallocate(address()); }
-    /** the user pointer for this custom allocator. This value will be passed to the allocator functions. */
+    /** a user-defined pointer that will be passed to the callbacks */
     @NativeType("void *")
     public long user() { return nuser(address()); }
 
@@ -141,29 +130,29 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
 
     /** Returns a new {@code GLFWAllocator} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static GLFWAllocator malloc() {
-        return new GLFWAllocator(nmemAllocChecked(SIZEOF), null);
+        return wrap(GLFWAllocator.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code GLFWAllocator} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static GLFWAllocator calloc() {
-        return new GLFWAllocator(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(GLFWAllocator.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code GLFWAllocator} instance allocated with {@link BufferUtils}. */
     public static GLFWAllocator create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new GLFWAllocator(memAddress(container), container);
+        return wrap(GLFWAllocator.class, memAddress(container), container);
     }
 
     /** Returns a new {@code GLFWAllocator} instance for the specified memory address. */
     public static GLFWAllocator create(long address) {
-        return new GLFWAllocator(address, null);
+        return wrap(GLFWAllocator.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static GLFWAllocator createSafe(long address) {
-        return address == NULL ? null : new GLFWAllocator(address, null);
+        return address == NULL ? null : wrap(GLFWAllocator.class, address);
     }
 
     /**
@@ -172,7 +161,7 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static GLFWAllocator.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -181,7 +170,7 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static GLFWAllocator.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -191,7 +180,7 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
      */
     public static GLFWAllocator.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -201,13 +190,13 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static GLFWAllocator.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static GLFWAllocator.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -216,7 +205,7 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
      * @param stack the stack from which to allocate
      */
     public static GLFWAllocator malloc(MemoryStack stack) {
-        return new GLFWAllocator(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(GLFWAllocator.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -225,7 +214,7 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
      * @param stack the stack from which to allocate
      */
     public static GLFWAllocator calloc(MemoryStack stack) {
-        return new GLFWAllocator(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(GLFWAllocator.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -235,7 +224,7 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static GLFWAllocator.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -245,7 +234,7 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static GLFWAllocator.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -289,9 +278,9 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
         /**
          * Creates a new {@code GLFWAllocator.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link GLFWAllocator#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link GLFWAllocator#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

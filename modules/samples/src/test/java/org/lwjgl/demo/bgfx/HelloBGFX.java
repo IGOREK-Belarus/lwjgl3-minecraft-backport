@@ -9,10 +9,8 @@ import org.lwjgl.glfw.*;
 import org.lwjgl.system.*;
 
 import java.nio.*;
-import java.util.*;
 
 import static org.lwjgl.bgfx.BGFX.*;
-import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
@@ -25,13 +23,12 @@ import static org.lwjgl.system.MemoryUtil.*;
  */
 public final class HelloBGFX {
 
-    private HelloBGFX() { }
+    private HelloBGFX() {}
 
     public static void main(String[] args) {
         int width  = 1024;
         int height = 480;
 
-        GLFWErrorCallback.createThrow().set();
         if (!glfwInit()) {
             throw new RuntimeException("Error initializing GLFW");
         }
@@ -69,7 +66,6 @@ public final class HelloBGFX {
                     .reset(BGFX_RESET_VSYNC));
 
             switch (Platform.get()) {
-                case FREEBSD:
                 case LINUX:
                     init.platformData()
                         .ndt(GLFWNativeX11.glfwGetX11Display())
@@ -133,11 +129,8 @@ public final class HelloBGFX {
 
         bgfx_shutdown();
 
-        glfwFreeCallbacks(window);
         glfwDestroyWindow(window);
-
         glfwTerminate();
-        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
     }
 
 }

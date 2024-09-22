@@ -7,9 +7,6 @@ package org.lwjgl.system.windows;
 import org.lwjgl.system.*;
 import org.testng.annotations.*;
 
-import java.nio.*;
-
-import static org.lwjgl.system.windows.Crypt32.*;
 import static org.lwjgl.system.windows.WinBase.*;
 import static org.lwjgl.system.windows.WindowsLibrary.*;
 import static org.testng.Assert.*;
@@ -22,15 +19,6 @@ public class WindowsTest {
             GetModuleHandle(Library.JNI_LIBRARY_NAME),
             HINSTANCE
         );
-    }
-
-    public void testCryptProtectBindings() {
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            ByteBuffer buffer = stack.calloc(4 * CRYPTPROTECTMEMORY_BLOCK_SIZE);
-
-            assertTrue(CryptProtectMemory(buffer, CRYPTPROTECTMEMORY_SAME_PROCESS));
-            assertTrue(CryptUnprotectMemory(buffer, CRYPTPROTECTMEMORY_SAME_PROCESS));
-        }
     }
 
     public void testDefWindowProc() {

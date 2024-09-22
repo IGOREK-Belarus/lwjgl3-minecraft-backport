@@ -38,7 +38,8 @@ import org.lwjgl.vulkan.*;
  * <ul>
  * <li>The {@link KHRVulkanEnable XR_KHR_vulkan_enable} extension <b>must</b> be enabled prior to using {@link XrSwapchainImageVulkanKHR}</li>
  * <li>{@code type} <b>must</b> be {@link KHRVulkanEnable#XR_TYPE_SWAPCHAIN_IMAGE_VULKAN_KHR TYPE_SWAPCHAIN_IMAGE_VULKAN_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrSwapchainImageFoveationVulkanFB}</li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrSwapchainImageFoveationVulkanFB}</li>
+ * <li>{@code image} <b>must</b> be a valid {@code VkImage} value</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -54,7 +55,7 @@ import org.lwjgl.vulkan.*;
  *     VkImage {@link #image};
  * }</code></pre>
  */
-public class XrSwapchainImageVulkanKHR extends Struct<XrSwapchainImageVulkanKHR> implements NativeResource {
+public class XrSwapchainImageVulkanKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -81,15 +82,6 @@ public class XrSwapchainImageVulkanKHR extends Struct<XrSwapchainImageVulkanKHR>
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
         IMAGE = layout.offsetof(2);
-    }
-
-    protected XrSwapchainImageVulkanKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSwapchainImageVulkanKHR create(long address, @Nullable ByteBuffer container) {
-        return new XrSwapchainImageVulkanKHR(address, container);
     }
 
     /**
@@ -123,14 +115,18 @@ public class XrSwapchainImageVulkanKHR extends Struct<XrSwapchainImageVulkanKHR>
     public XrSwapchainImageVulkanKHR next(@NativeType("void *") long value) { nnext(address(), value); return this; }
     /** Prepends the specified {@link XrSwapchainImageFoveationVulkanFB} value to the {@code next} chain. */
     public XrSwapchainImageVulkanKHR next(XrSwapchainImageFoveationVulkanFB value) { return this.next(value.next(this.next()).address()); }
+    /** Sets the specified value to the {@link #image} field. */
+    public XrSwapchainImageVulkanKHR image(@NativeType("VkImage") long value) { nimage(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrSwapchainImageVulkanKHR set(
         int type,
-        long next
+        long next,
+        long image
     ) {
         type(type);
         next(next);
+        image(image);
 
         return this;
     }
@@ -151,34 +147,34 @@ public class XrSwapchainImageVulkanKHR extends Struct<XrSwapchainImageVulkanKHR>
 
     /** Returns a new {@code XrSwapchainImageVulkanKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSwapchainImageVulkanKHR malloc() {
-        return new XrSwapchainImageVulkanKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSwapchainImageVulkanKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSwapchainImageVulkanKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSwapchainImageVulkanKHR calloc() {
-        return new XrSwapchainImageVulkanKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSwapchainImageVulkanKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSwapchainImageVulkanKHR} instance allocated with {@link BufferUtils}. */
     public static XrSwapchainImageVulkanKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSwapchainImageVulkanKHR(memAddress(container), container);
+        return wrap(XrSwapchainImageVulkanKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSwapchainImageVulkanKHR} instance for the specified memory address. */
     public static XrSwapchainImageVulkanKHR create(long address) {
-        return new XrSwapchainImageVulkanKHR(address, null);
+        return wrap(XrSwapchainImageVulkanKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSwapchainImageVulkanKHR createSafe(long address) {
-        return address == NULL ? null : new XrSwapchainImageVulkanKHR(address, null);
+        return address == NULL ? null : wrap(XrSwapchainImageVulkanKHR.class, address);
     }
 
     /** Downcasts the specified {@code XrSwapchainImageBaseHeader} instance to {@code XrSwapchainImageVulkanKHR}. */
     public static XrSwapchainImageVulkanKHR create(XrSwapchainImageBaseHeader value) {
-        return new XrSwapchainImageVulkanKHR(value.address(), __getContainer(value));
+        return wrap(XrSwapchainImageVulkanKHR.class, value);
     }
 
     /**
@@ -187,7 +183,7 @@ public class XrSwapchainImageVulkanKHR extends Struct<XrSwapchainImageVulkanKHR>
      * @param capacity the buffer capacity
      */
     public static XrSwapchainImageVulkanKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -196,7 +192,7 @@ public class XrSwapchainImageVulkanKHR extends Struct<XrSwapchainImageVulkanKHR>
      * @param capacity the buffer capacity
      */
     public static XrSwapchainImageVulkanKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -206,7 +202,7 @@ public class XrSwapchainImageVulkanKHR extends Struct<XrSwapchainImageVulkanKHR>
      */
     public static XrSwapchainImageVulkanKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -216,18 +212,18 @@ public class XrSwapchainImageVulkanKHR extends Struct<XrSwapchainImageVulkanKHR>
      * @param capacity the buffer capacity
      */
     public static XrSwapchainImageVulkanKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSwapchainImageVulkanKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /** Downcasts the specified {@code XrSwapchainImageBaseHeader.Buffer} instance to {@code XrSwapchainImageVulkanKHR.Buffer}. */
     public static XrSwapchainImageVulkanKHR.Buffer create(XrSwapchainImageBaseHeader.Buffer value) {
-        return new XrSwapchainImageVulkanKHR.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+        return wrap(Buffer.class, value);
     }
 
     /**
@@ -236,7 +232,7 @@ public class XrSwapchainImageVulkanKHR extends Struct<XrSwapchainImageVulkanKHR>
      * @param stack the stack from which to allocate
      */
     public static XrSwapchainImageVulkanKHR malloc(MemoryStack stack) {
-        return new XrSwapchainImageVulkanKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSwapchainImageVulkanKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -245,7 +241,7 @@ public class XrSwapchainImageVulkanKHR extends Struct<XrSwapchainImageVulkanKHR>
      * @param stack the stack from which to allocate
      */
     public static XrSwapchainImageVulkanKHR calloc(MemoryStack stack) {
-        return new XrSwapchainImageVulkanKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSwapchainImageVulkanKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -255,7 +251,7 @@ public class XrSwapchainImageVulkanKHR extends Struct<XrSwapchainImageVulkanKHR>
      * @param capacity the buffer capacity
      */
     public static XrSwapchainImageVulkanKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -265,7 +261,7 @@ public class XrSwapchainImageVulkanKHR extends Struct<XrSwapchainImageVulkanKHR>
      * @param capacity the buffer capacity
      */
     public static XrSwapchainImageVulkanKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -281,6 +277,8 @@ public class XrSwapchainImageVulkanKHR extends Struct<XrSwapchainImageVulkanKHR>
     public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainImageVulkanKHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSwapchainImageVulkanKHR.NEXT, value); }
+    /** Unsafe version of {@link #image(long) image}. */
+    public static void nimage(long struct, long value) { UNSAFE.putLong(null, struct + XrSwapchainImageVulkanKHR.IMAGE, value); }
 
     // -----------------------------------
 
@@ -292,9 +290,9 @@ public class XrSwapchainImageVulkanKHR extends Struct<XrSwapchainImageVulkanKHR>
         /**
          * Creates a new {@code XrSwapchainImageVulkanKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSwapchainImageVulkanKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSwapchainImageVulkanKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -338,6 +336,8 @@ public class XrSwapchainImageVulkanKHR extends Struct<XrSwapchainImageVulkanKHR>
         public XrSwapchainImageVulkanKHR.Buffer next(@NativeType("void *") long value) { XrSwapchainImageVulkanKHR.nnext(address(), value); return this; }
         /** Prepends the specified {@link XrSwapchainImageFoveationVulkanFB} value to the {@code next} chain. */
         public XrSwapchainImageVulkanKHR.Buffer next(XrSwapchainImageFoveationVulkanFB value) { return this.next(value.next(this.next()).address()); }
+        /** Sets the specified value to the {@link XrSwapchainImageVulkanKHR#image} field. */
+        public XrSwapchainImageVulkanKHR.Buffer image(@NativeType("VkImage") long value) { XrSwapchainImageVulkanKHR.nimage(address(), value); return this; }
 
     }
 

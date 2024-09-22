@@ -16,38 +16,40 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
+ * 3D memory copy parameters.
+ * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct CUDA_MEMCPY3D {
- *     size_t srcXInBytes;
- *     size_t srcY;
- *     size_t srcZ;
- *     size_t srcLOD;
- *     CUmemorytype srcMemoryType;
- *     void const * srcHost;
- *     CUdeviceptr srcDevice;
- *     CUarray srcArray;
- *     void * reserved0;
- *     size_t srcPitch;
- *     size_t srcHeight;
- *     size_t dstXInBytes;
- *     size_t dstY;
- *     size_t dstZ;
- *     size_t dstLOD;
- *     CUmemorytype dstMemoryType;
- *     void * dstHost;
- *     CUdeviceptr dstDevice;
- *     CUarray dstArray;
- *     void * reserved1;
- *     size_t dstPitch;
- *     size_t dstHeight;
- *     size_t WidthInBytes;
- *     size_t Height;
- *     size_t Depth;
+ *     size_t {@link #srcXInBytes};
+ *     size_t {@link #srcY};
+ *     size_t {@link #srcZ};
+ *     size_t {@link #srcLOD};
+ *     CUmemorytype {@link #srcMemoryType};
+ *     void const * {@link #srcHost};
+ *     CUdeviceptr {@link #srcDevice};
+ *     CUarray {@link #srcArray};
+ *     void * {@link #reserved0};
+ *     size_t {@link #srcPitch};
+ *     size_t {@link #srcHeight};
+ *     size_t {@link #dstXInBytes};
+ *     size_t {@link #dstY};
+ *     size_t {@link #dstZ};
+ *     size_t {@link #dstLOD};
+ *     CUmemorytype {@link #dstMemoryType};
+ *     void * {@link #dstHost};
+ *     CUdeviceptr {@link #dstDevice};
+ *     CUarray {@link #dstArray};
+ *     void * {@link #reserved1};
+ *     size_t {@link #dstPitch};
+ *     size_t {@link #dstHeight};
+ *     size_t {@link #WidthInBytes};
+ *     size_t {@link #Height};
+ *     size_t {@link #Depth};
  * }</code></pre>
  */
-public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResource {
+public class CUDA_MEMCPY3D extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -142,15 +144,6 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
         DEPTH = layout.offsetof(24);
     }
 
-    protected CUDA_MEMCPY3D(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CUDA_MEMCPY3D create(long address, @Nullable ByteBuffer container) {
-        return new CUDA_MEMCPY3D(address, container);
-    }
-
     /**
      * Creates a {@code CUDA_MEMCPY3D} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -164,141 +157,141 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return the value of the {@code srcXInBytes} field. */
+    /** Source X in bytes */
     @NativeType("size_t")
     public long srcXInBytes() { return nsrcXInBytes(address()); }
-    /** @return the value of the {@code srcY} field. */
+    /** Source Y */
     @NativeType("size_t")
     public long srcY() { return nsrcY(address()); }
-    /** @return the value of the {@code srcZ} field. */
+    /** Source Z */
     @NativeType("size_t")
     public long srcZ() { return nsrcZ(address()); }
-    /** @return the value of the {@code srcLOD} field. */
+    /** Source LOD */
     @NativeType("size_t")
     public long srcLOD() { return nsrcLOD(address()); }
-    /** @return the value of the {@code srcMemoryType} field. */
+    /** Source memory type (host, device, array) */
     @NativeType("CUmemorytype")
     public int srcMemoryType() { return nsrcMemoryType(address()); }
     /**
-     * @return a {@link ByteBuffer} view of the data pointed to by the {@code srcHost} field.
-     *
      * @param capacity the number of elements in the returned buffer
+     *
+     * @return Source host pointer
      */
     @Nullable
     @NativeType("void const *")
     public ByteBuffer srcHost(int capacity) { return nsrcHost(address(), capacity); }
-    /** @return the value of the {@code srcDevice} field. */
+    /** Source device pointer */
     @NativeType("CUdeviceptr")
     public long srcDevice() { return nsrcDevice(address()); }
-    /** @return the value of the {@code srcArray} field. */
+    /** Source array reference */
     @NativeType("CUarray")
     public long srcArray() { return nsrcArray(address()); }
-    /** @return the value of the {@code reserved0} field. */
+    /** Must be {@code NULL} */
     @NativeType("void *")
     public long reserved0() { return nreserved0(address()); }
-    /** @return the value of the {@code srcPitch} field. */
+    /** Source pitch (ignored when src is array) */
     @NativeType("size_t")
     public long srcPitch() { return nsrcPitch(address()); }
-    /** @return the value of the {@code srcHeight} field. */
+    /** Source height (ignored when src is array; may be 0 if Depth==1) */
     @NativeType("size_t")
     public long srcHeight() { return nsrcHeight(address()); }
-    /** @return the value of the {@code dstXInBytes} field. */
+    /** Destination X in bytes */
     @NativeType("size_t")
     public long dstXInBytes() { return ndstXInBytes(address()); }
-    /** @return the value of the {@code dstY} field. */
+    /** Destination Y */
     @NativeType("size_t")
     public long dstY() { return ndstY(address()); }
-    /** @return the value of the {@code dstZ} field. */
+    /** Destination Z */
     @NativeType("size_t")
     public long dstZ() { return ndstZ(address()); }
-    /** @return the value of the {@code dstLOD} field. */
+    /** Destination LOD */
     @NativeType("size_t")
     public long dstLOD() { return ndstLOD(address()); }
-    /** @return the value of the {@code dstMemoryType} field. */
+    /** Destination memory type (host, device, array) */
     @NativeType("CUmemorytype")
     public int dstMemoryType() { return ndstMemoryType(address()); }
     /**
-     * @return a {@link ByteBuffer} view of the data pointed to by the {@code dstHost} field.
-     *
      * @param capacity the number of elements in the returned buffer
+     *
+     * @return Destination host pointer
      */
     @Nullable
     @NativeType("void *")
     public ByteBuffer dstHost(int capacity) { return ndstHost(address(), capacity); }
-    /** @return the value of the {@code dstDevice} field. */
+    /** Destination device pointer */
     @NativeType("CUdeviceptr")
     public long dstDevice() { return ndstDevice(address()); }
-    /** @return the value of the {@code dstArray} field. */
+    /** Destination array reference */
     @NativeType("CUarray")
     public long dstArray() { return ndstArray(address()); }
-    /** @return the value of the {@code reserved1} field. */
+    /** Must be {@code NULL} */
     @NativeType("void *")
     public long reserved1() { return nreserved1(address()); }
-    /** @return the value of the {@code dstPitch} field. */
+    /** Destination pitch (ignored when dst is array) */
     @NativeType("size_t")
     public long dstPitch() { return ndstPitch(address()); }
-    /** @return the value of the {@code dstHeight} field. */
+    /** Destination height (ignored when dst is array; may be 0 if Depth==1) */
     @NativeType("size_t")
     public long dstHeight() { return ndstHeight(address()); }
-    /** @return the value of the {@code WidthInBytes} field. */
+    /** Width of 3D memory copy in bytes */
     @NativeType("size_t")
     public long WidthInBytes() { return nWidthInBytes(address()); }
-    /** @return the value of the {@code Height} field. */
+    /** Height of 3D memory copy */
     @NativeType("size_t")
     public long Height() { return nHeight(address()); }
-    /** @return the value of the {@code Depth} field. */
+    /** Depth of 3D memory copy */
     @NativeType("size_t")
     public long Depth() { return nDepth(address()); }
 
-    /** Sets the specified value to the {@code srcXInBytes} field. */
+    /** Sets the specified value to the {@link #srcXInBytes} field. */
     public CUDA_MEMCPY3D srcXInBytes(@NativeType("size_t") long value) { nsrcXInBytes(address(), value); return this; }
-    /** Sets the specified value to the {@code srcY} field. */
+    /** Sets the specified value to the {@link #srcY} field. */
     public CUDA_MEMCPY3D srcY(@NativeType("size_t") long value) { nsrcY(address(), value); return this; }
-    /** Sets the specified value to the {@code srcZ} field. */
+    /** Sets the specified value to the {@link #srcZ} field. */
     public CUDA_MEMCPY3D srcZ(@NativeType("size_t") long value) { nsrcZ(address(), value); return this; }
-    /** Sets the specified value to the {@code srcLOD} field. */
+    /** Sets the specified value to the {@link #srcLOD} field. */
     public CUDA_MEMCPY3D srcLOD(@NativeType("size_t") long value) { nsrcLOD(address(), value); return this; }
-    /** Sets the specified value to the {@code srcMemoryType} field. */
+    /** Sets the specified value to the {@link #srcMemoryType} field. */
     public CUDA_MEMCPY3D srcMemoryType(@NativeType("CUmemorytype") int value) { nsrcMemoryType(address(), value); return this; }
-    /** Sets the address of the specified {@link ByteBuffer} to the {@code srcHost} field. */
+    /** Sets the address of the specified {@link ByteBuffer} to the {@link #srcHost} field. */
     public CUDA_MEMCPY3D srcHost(@Nullable @NativeType("void const *") ByteBuffer value) { nsrcHost(address(), value); return this; }
-    /** Sets the specified value to the {@code srcDevice} field. */
+    /** Sets the specified value to the {@link #srcDevice} field. */
     public CUDA_MEMCPY3D srcDevice(@NativeType("CUdeviceptr") long value) { nsrcDevice(address(), value); return this; }
-    /** Sets the specified value to the {@code srcArray} field. */
+    /** Sets the specified value to the {@link #srcArray} field. */
     public CUDA_MEMCPY3D srcArray(@NativeType("CUarray") long value) { nsrcArray(address(), value); return this; }
-    /** Sets the specified value to the {@code reserved0} field. */
+    /** Sets the specified value to the {@link #reserved0} field. */
     public CUDA_MEMCPY3D reserved0(@NativeType("void *") long value) { nreserved0(address(), value); return this; }
-    /** Sets the specified value to the {@code srcPitch} field. */
+    /** Sets the specified value to the {@link #srcPitch} field. */
     public CUDA_MEMCPY3D srcPitch(@NativeType("size_t") long value) { nsrcPitch(address(), value); return this; }
-    /** Sets the specified value to the {@code srcHeight} field. */
+    /** Sets the specified value to the {@link #srcHeight} field. */
     public CUDA_MEMCPY3D srcHeight(@NativeType("size_t") long value) { nsrcHeight(address(), value); return this; }
-    /** Sets the specified value to the {@code dstXInBytes} field. */
+    /** Sets the specified value to the {@link #dstXInBytes} field. */
     public CUDA_MEMCPY3D dstXInBytes(@NativeType("size_t") long value) { ndstXInBytes(address(), value); return this; }
-    /** Sets the specified value to the {@code dstY} field. */
+    /** Sets the specified value to the {@link #dstY} field. */
     public CUDA_MEMCPY3D dstY(@NativeType("size_t") long value) { ndstY(address(), value); return this; }
-    /** Sets the specified value to the {@code dstZ} field. */
+    /** Sets the specified value to the {@link #dstZ} field. */
     public CUDA_MEMCPY3D dstZ(@NativeType("size_t") long value) { ndstZ(address(), value); return this; }
-    /** Sets the specified value to the {@code dstLOD} field. */
+    /** Sets the specified value to the {@link #dstLOD} field. */
     public CUDA_MEMCPY3D dstLOD(@NativeType("size_t") long value) { ndstLOD(address(), value); return this; }
-    /** Sets the specified value to the {@code dstMemoryType} field. */
+    /** Sets the specified value to the {@link #dstMemoryType} field. */
     public CUDA_MEMCPY3D dstMemoryType(@NativeType("CUmemorytype") int value) { ndstMemoryType(address(), value); return this; }
-    /** Sets the address of the specified {@link ByteBuffer} to the {@code dstHost} field. */
+    /** Sets the address of the specified {@link ByteBuffer} to the {@link #dstHost} field. */
     public CUDA_MEMCPY3D dstHost(@Nullable @NativeType("void *") ByteBuffer value) { ndstHost(address(), value); return this; }
-    /** Sets the specified value to the {@code dstDevice} field. */
+    /** Sets the specified value to the {@link #dstDevice} field. */
     public CUDA_MEMCPY3D dstDevice(@NativeType("CUdeviceptr") long value) { ndstDevice(address(), value); return this; }
-    /** Sets the specified value to the {@code dstArray} field. */
+    /** Sets the specified value to the {@link #dstArray} field. */
     public CUDA_MEMCPY3D dstArray(@NativeType("CUarray") long value) { ndstArray(address(), value); return this; }
-    /** Sets the specified value to the {@code reserved1} field. */
+    /** Sets the specified value to the {@link #reserved1} field. */
     public CUDA_MEMCPY3D reserved1(@NativeType("void *") long value) { nreserved1(address(), value); return this; }
-    /** Sets the specified value to the {@code dstPitch} field. */
+    /** Sets the specified value to the {@link #dstPitch} field. */
     public CUDA_MEMCPY3D dstPitch(@NativeType("size_t") long value) { ndstPitch(address(), value); return this; }
-    /** Sets the specified value to the {@code dstHeight} field. */
+    /** Sets the specified value to the {@link #dstHeight} field. */
     public CUDA_MEMCPY3D dstHeight(@NativeType("size_t") long value) { ndstHeight(address(), value); return this; }
-    /** Sets the specified value to the {@code WidthInBytes} field. */
+    /** Sets the specified value to the {@link #WidthInBytes} field. */
     public CUDA_MEMCPY3D WidthInBytes(@NativeType("size_t") long value) { nWidthInBytes(address(), value); return this; }
-    /** Sets the specified value to the {@code Height} field. */
+    /** Sets the specified value to the {@link #Height} field. */
     public CUDA_MEMCPY3D Height(@NativeType("size_t") long value) { nHeight(address(), value); return this; }
-    /** Sets the specified value to the {@code Depth} field. */
+    /** Sets the specified value to the {@link #Depth} field. */
     public CUDA_MEMCPY3D Depth(@NativeType("size_t") long value) { nDepth(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -374,29 +367,29 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
 
     /** Returns a new {@code CUDA_MEMCPY3D} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CUDA_MEMCPY3D malloc() {
-        return new CUDA_MEMCPY3D(nmemAllocChecked(SIZEOF), null);
+        return wrap(CUDA_MEMCPY3D.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code CUDA_MEMCPY3D} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CUDA_MEMCPY3D calloc() {
-        return new CUDA_MEMCPY3D(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(CUDA_MEMCPY3D.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code CUDA_MEMCPY3D} instance allocated with {@link BufferUtils}. */
     public static CUDA_MEMCPY3D create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new CUDA_MEMCPY3D(memAddress(container), container);
+        return wrap(CUDA_MEMCPY3D.class, memAddress(container), container);
     }
 
     /** Returns a new {@code CUDA_MEMCPY3D} instance for the specified memory address. */
     public static CUDA_MEMCPY3D create(long address) {
-        return new CUDA_MEMCPY3D(address, null);
+        return wrap(CUDA_MEMCPY3D.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_MEMCPY3D createSafe(long address) {
-        return address == NULL ? null : new CUDA_MEMCPY3D(address, null);
+        return address == NULL ? null : wrap(CUDA_MEMCPY3D.class, address);
     }
 
     /**
@@ -405,7 +398,7 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static CUDA_MEMCPY3D.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -414,7 +407,7 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static CUDA_MEMCPY3D.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -424,7 +417,7 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
      */
     public static CUDA_MEMCPY3D.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -434,13 +427,13 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static CUDA_MEMCPY3D.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_MEMCPY3D.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -468,7 +461,7 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
      * @param stack the stack from which to allocate
      */
     public static CUDA_MEMCPY3D malloc(MemoryStack stack) {
-        return new CUDA_MEMCPY3D(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(CUDA_MEMCPY3D.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -477,7 +470,7 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
      * @param stack the stack from which to allocate
      */
     public static CUDA_MEMCPY3D calloc(MemoryStack stack) {
-        return new CUDA_MEMCPY3D(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(CUDA_MEMCPY3D.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -487,7 +480,7 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static CUDA_MEMCPY3D.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -497,7 +490,7 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static CUDA_MEMCPY3D.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -614,9 +607,9 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
         /**
          * Creates a new {@code CUDA_MEMCPY3D.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CUDA_MEMCPY3D#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CUDA_MEMCPY3D#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -642,141 +635,141 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@code srcXInBytes} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#srcXInBytes} field. */
         @NativeType("size_t")
         public long srcXInBytes() { return CUDA_MEMCPY3D.nsrcXInBytes(address()); }
-        /** @return the value of the {@code srcY} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#srcY} field. */
         @NativeType("size_t")
         public long srcY() { return CUDA_MEMCPY3D.nsrcY(address()); }
-        /** @return the value of the {@code srcZ} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#srcZ} field. */
         @NativeType("size_t")
         public long srcZ() { return CUDA_MEMCPY3D.nsrcZ(address()); }
-        /** @return the value of the {@code srcLOD} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#srcLOD} field. */
         @NativeType("size_t")
         public long srcLOD() { return CUDA_MEMCPY3D.nsrcLOD(address()); }
-        /** @return the value of the {@code srcMemoryType} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#srcMemoryType} field. */
         @NativeType("CUmemorytype")
         public int srcMemoryType() { return CUDA_MEMCPY3D.nsrcMemoryType(address()); }
         /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@code srcHost} field.
+         * @return a {@link ByteBuffer} view of the data pointed to by the {@link CUDA_MEMCPY3D#srcHost} field.
          *
          * @param capacity the number of elements in the returned buffer
          */
         @Nullable
         @NativeType("void const *")
         public ByteBuffer srcHost(int capacity) { return CUDA_MEMCPY3D.nsrcHost(address(), capacity); }
-        /** @return the value of the {@code srcDevice} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#srcDevice} field. */
         @NativeType("CUdeviceptr")
         public long srcDevice() { return CUDA_MEMCPY3D.nsrcDevice(address()); }
-        /** @return the value of the {@code srcArray} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#srcArray} field. */
         @NativeType("CUarray")
         public long srcArray() { return CUDA_MEMCPY3D.nsrcArray(address()); }
-        /** @return the value of the {@code reserved0} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#reserved0} field. */
         @NativeType("void *")
         public long reserved0() { return CUDA_MEMCPY3D.nreserved0(address()); }
-        /** @return the value of the {@code srcPitch} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#srcPitch} field. */
         @NativeType("size_t")
         public long srcPitch() { return CUDA_MEMCPY3D.nsrcPitch(address()); }
-        /** @return the value of the {@code srcHeight} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#srcHeight} field. */
         @NativeType("size_t")
         public long srcHeight() { return CUDA_MEMCPY3D.nsrcHeight(address()); }
-        /** @return the value of the {@code dstXInBytes} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#dstXInBytes} field. */
         @NativeType("size_t")
         public long dstXInBytes() { return CUDA_MEMCPY3D.ndstXInBytes(address()); }
-        /** @return the value of the {@code dstY} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#dstY} field. */
         @NativeType("size_t")
         public long dstY() { return CUDA_MEMCPY3D.ndstY(address()); }
-        /** @return the value of the {@code dstZ} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#dstZ} field. */
         @NativeType("size_t")
         public long dstZ() { return CUDA_MEMCPY3D.ndstZ(address()); }
-        /** @return the value of the {@code dstLOD} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#dstLOD} field. */
         @NativeType("size_t")
         public long dstLOD() { return CUDA_MEMCPY3D.ndstLOD(address()); }
-        /** @return the value of the {@code dstMemoryType} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#dstMemoryType} field. */
         @NativeType("CUmemorytype")
         public int dstMemoryType() { return CUDA_MEMCPY3D.ndstMemoryType(address()); }
         /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@code dstHost} field.
+         * @return a {@link ByteBuffer} view of the data pointed to by the {@link CUDA_MEMCPY3D#dstHost} field.
          *
          * @param capacity the number of elements in the returned buffer
          */
         @Nullable
         @NativeType("void *")
         public ByteBuffer dstHost(int capacity) { return CUDA_MEMCPY3D.ndstHost(address(), capacity); }
-        /** @return the value of the {@code dstDevice} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#dstDevice} field. */
         @NativeType("CUdeviceptr")
         public long dstDevice() { return CUDA_MEMCPY3D.ndstDevice(address()); }
-        /** @return the value of the {@code dstArray} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#dstArray} field. */
         @NativeType("CUarray")
         public long dstArray() { return CUDA_MEMCPY3D.ndstArray(address()); }
-        /** @return the value of the {@code reserved1} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#reserved1} field. */
         @NativeType("void *")
         public long reserved1() { return CUDA_MEMCPY3D.nreserved1(address()); }
-        /** @return the value of the {@code dstPitch} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#dstPitch} field. */
         @NativeType("size_t")
         public long dstPitch() { return CUDA_MEMCPY3D.ndstPitch(address()); }
-        /** @return the value of the {@code dstHeight} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#dstHeight} field. */
         @NativeType("size_t")
         public long dstHeight() { return CUDA_MEMCPY3D.ndstHeight(address()); }
-        /** @return the value of the {@code WidthInBytes} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#WidthInBytes} field. */
         @NativeType("size_t")
         public long WidthInBytes() { return CUDA_MEMCPY3D.nWidthInBytes(address()); }
-        /** @return the value of the {@code Height} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#Height} field. */
         @NativeType("size_t")
         public long Height() { return CUDA_MEMCPY3D.nHeight(address()); }
-        /** @return the value of the {@code Depth} field. */
+        /** @return the value of the {@link CUDA_MEMCPY3D#Depth} field. */
         @NativeType("size_t")
         public long Depth() { return CUDA_MEMCPY3D.nDepth(address()); }
 
-        /** Sets the specified value to the {@code srcXInBytes} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#srcXInBytes} field. */
         public CUDA_MEMCPY3D.Buffer srcXInBytes(@NativeType("size_t") long value) { CUDA_MEMCPY3D.nsrcXInBytes(address(), value); return this; }
-        /** Sets the specified value to the {@code srcY} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#srcY} field. */
         public CUDA_MEMCPY3D.Buffer srcY(@NativeType("size_t") long value) { CUDA_MEMCPY3D.nsrcY(address(), value); return this; }
-        /** Sets the specified value to the {@code srcZ} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#srcZ} field. */
         public CUDA_MEMCPY3D.Buffer srcZ(@NativeType("size_t") long value) { CUDA_MEMCPY3D.nsrcZ(address(), value); return this; }
-        /** Sets the specified value to the {@code srcLOD} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#srcLOD} field. */
         public CUDA_MEMCPY3D.Buffer srcLOD(@NativeType("size_t") long value) { CUDA_MEMCPY3D.nsrcLOD(address(), value); return this; }
-        /** Sets the specified value to the {@code srcMemoryType} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#srcMemoryType} field. */
         public CUDA_MEMCPY3D.Buffer srcMemoryType(@NativeType("CUmemorytype") int value) { CUDA_MEMCPY3D.nsrcMemoryType(address(), value); return this; }
-        /** Sets the address of the specified {@link ByteBuffer} to the {@code srcHost} field. */
+        /** Sets the address of the specified {@link ByteBuffer} to the {@link CUDA_MEMCPY3D#srcHost} field. */
         public CUDA_MEMCPY3D.Buffer srcHost(@Nullable @NativeType("void const *") ByteBuffer value) { CUDA_MEMCPY3D.nsrcHost(address(), value); return this; }
-        /** Sets the specified value to the {@code srcDevice} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#srcDevice} field. */
         public CUDA_MEMCPY3D.Buffer srcDevice(@NativeType("CUdeviceptr") long value) { CUDA_MEMCPY3D.nsrcDevice(address(), value); return this; }
-        /** Sets the specified value to the {@code srcArray} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#srcArray} field. */
         public CUDA_MEMCPY3D.Buffer srcArray(@NativeType("CUarray") long value) { CUDA_MEMCPY3D.nsrcArray(address(), value); return this; }
-        /** Sets the specified value to the {@code reserved0} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#reserved0} field. */
         public CUDA_MEMCPY3D.Buffer reserved0(@NativeType("void *") long value) { CUDA_MEMCPY3D.nreserved0(address(), value); return this; }
-        /** Sets the specified value to the {@code srcPitch} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#srcPitch} field. */
         public CUDA_MEMCPY3D.Buffer srcPitch(@NativeType("size_t") long value) { CUDA_MEMCPY3D.nsrcPitch(address(), value); return this; }
-        /** Sets the specified value to the {@code srcHeight} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#srcHeight} field. */
         public CUDA_MEMCPY3D.Buffer srcHeight(@NativeType("size_t") long value) { CUDA_MEMCPY3D.nsrcHeight(address(), value); return this; }
-        /** Sets the specified value to the {@code dstXInBytes} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#dstXInBytes} field. */
         public CUDA_MEMCPY3D.Buffer dstXInBytes(@NativeType("size_t") long value) { CUDA_MEMCPY3D.ndstXInBytes(address(), value); return this; }
-        /** Sets the specified value to the {@code dstY} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#dstY} field. */
         public CUDA_MEMCPY3D.Buffer dstY(@NativeType("size_t") long value) { CUDA_MEMCPY3D.ndstY(address(), value); return this; }
-        /** Sets the specified value to the {@code dstZ} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#dstZ} field. */
         public CUDA_MEMCPY3D.Buffer dstZ(@NativeType("size_t") long value) { CUDA_MEMCPY3D.ndstZ(address(), value); return this; }
-        /** Sets the specified value to the {@code dstLOD} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#dstLOD} field. */
         public CUDA_MEMCPY3D.Buffer dstLOD(@NativeType("size_t") long value) { CUDA_MEMCPY3D.ndstLOD(address(), value); return this; }
-        /** Sets the specified value to the {@code dstMemoryType} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#dstMemoryType} field. */
         public CUDA_MEMCPY3D.Buffer dstMemoryType(@NativeType("CUmemorytype") int value) { CUDA_MEMCPY3D.ndstMemoryType(address(), value); return this; }
-        /** Sets the address of the specified {@link ByteBuffer} to the {@code dstHost} field. */
+        /** Sets the address of the specified {@link ByteBuffer} to the {@link CUDA_MEMCPY3D#dstHost} field. */
         public CUDA_MEMCPY3D.Buffer dstHost(@Nullable @NativeType("void *") ByteBuffer value) { CUDA_MEMCPY3D.ndstHost(address(), value); return this; }
-        /** Sets the specified value to the {@code dstDevice} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#dstDevice} field. */
         public CUDA_MEMCPY3D.Buffer dstDevice(@NativeType("CUdeviceptr") long value) { CUDA_MEMCPY3D.ndstDevice(address(), value); return this; }
-        /** Sets the specified value to the {@code dstArray} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#dstArray} field. */
         public CUDA_MEMCPY3D.Buffer dstArray(@NativeType("CUarray") long value) { CUDA_MEMCPY3D.ndstArray(address(), value); return this; }
-        /** Sets the specified value to the {@code reserved1} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#reserved1} field. */
         public CUDA_MEMCPY3D.Buffer reserved1(@NativeType("void *") long value) { CUDA_MEMCPY3D.nreserved1(address(), value); return this; }
-        /** Sets the specified value to the {@code dstPitch} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#dstPitch} field. */
         public CUDA_MEMCPY3D.Buffer dstPitch(@NativeType("size_t") long value) { CUDA_MEMCPY3D.ndstPitch(address(), value); return this; }
-        /** Sets the specified value to the {@code dstHeight} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#dstHeight} field. */
         public CUDA_MEMCPY3D.Buffer dstHeight(@NativeType("size_t") long value) { CUDA_MEMCPY3D.ndstHeight(address(), value); return this; }
-        /** Sets the specified value to the {@code WidthInBytes} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#WidthInBytes} field. */
         public CUDA_MEMCPY3D.Buffer WidthInBytes(@NativeType("size_t") long value) { CUDA_MEMCPY3D.nWidthInBytes(address(), value); return this; }
-        /** Sets the specified value to the {@code Height} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#Height} field. */
         public CUDA_MEMCPY3D.Buffer Height(@NativeType("size_t") long value) { CUDA_MEMCPY3D.nHeight(address(), value); return this; }
-        /** Sets the specified value to the {@code Depth} field. */
+        /** Sets the specified value to the {@link CUDA_MEMCPY3D#Depth} field. */
         public CUDA_MEMCPY3D.Buffer Depth(@NativeType("size_t") long value) { CUDA_MEMCPY3D.nDepth(address(), value); return this; }
 
     }

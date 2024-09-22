@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>{@code samples} <b>must</b> be a valid {@code VkSampleCountFlagBits} value that is set in {@link VkImageFormatProperties}{@code ::sampleCounts} returned by {@code vkGetPhysicalDeviceImageFormatProperties} with {@code format}, {@code type}, {@code tiling}, and {@code usage} equal to those in this command</li>
+ * <li>{@code samples} <b>must</b> be a bit value that is set in {@link VkImageFormatProperties}{@code ::sampleCounts} returned by {@code vkGetPhysicalDeviceImageFormatProperties} with {@code format}, {@code type}, {@code tiling}, and {@code usage} equal to those in this command and {@code flags} equal to the value that is set in {@link VkImageCreateInfo}{@code ::flags} when the image is created</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -54,7 +54,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkImageTiling {@link #tiling};
  * }</code></pre>
  */
-public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct<VkPhysicalDeviceSparseImageFormatInfo2> implements NativeResource {
+public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -95,15 +95,6 @@ public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct<VkPhysicalDev
         TILING = layout.offsetof(6);
     }
 
-    protected VkPhysicalDeviceSparseImageFormatInfo2(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceSparseImageFormatInfo2 create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceSparseImageFormatInfo2(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceSparseImageFormatInfo2} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -117,7 +108,7 @@ public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct<VkPhysicalDev
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -126,7 +117,7 @@ public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct<VkPhysicalDev
     /** the image format. */
     @NativeType("VkFormat")
     public int format() { return nformat(address()); }
-    /** the dimensionality of the image. */
+    /** the dimensionality of image. */
     @NativeType("VkImageType")
     public int type() { return ntype(address()); }
     /** a {@code VkSampleCountFlagBits} value specifying the number of samples per texel. */
@@ -193,29 +184,29 @@ public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct<VkPhysicalDev
 
     /** Returns a new {@code VkPhysicalDeviceSparseImageFormatInfo2} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceSparseImageFormatInfo2 malloc() {
-        return new VkPhysicalDeviceSparseImageFormatInfo2(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceSparseImageFormatInfo2.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceSparseImageFormatInfo2} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceSparseImageFormatInfo2 calloc() {
-        return new VkPhysicalDeviceSparseImageFormatInfo2(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceSparseImageFormatInfo2.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceSparseImageFormatInfo2} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceSparseImageFormatInfo2 create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceSparseImageFormatInfo2(memAddress(container), container);
+        return wrap(VkPhysicalDeviceSparseImageFormatInfo2.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceSparseImageFormatInfo2} instance for the specified memory address. */
     public static VkPhysicalDeviceSparseImageFormatInfo2 create(long address) {
-        return new VkPhysicalDeviceSparseImageFormatInfo2(address, null);
+        return wrap(VkPhysicalDeviceSparseImageFormatInfo2.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceSparseImageFormatInfo2 createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceSparseImageFormatInfo2(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceSparseImageFormatInfo2.class, address);
     }
 
     /**
@@ -224,7 +215,7 @@ public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct<VkPhysicalDev
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSparseImageFormatInfo2.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -233,7 +224,7 @@ public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct<VkPhysicalDev
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSparseImageFormatInfo2.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -243,7 +234,7 @@ public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct<VkPhysicalDev
      */
     public static VkPhysicalDeviceSparseImageFormatInfo2.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -253,13 +244,13 @@ public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct<VkPhysicalDev
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSparseImageFormatInfo2.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceSparseImageFormatInfo2.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -287,7 +278,7 @@ public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct<VkPhysicalDev
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceSparseImageFormatInfo2 malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceSparseImageFormatInfo2(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceSparseImageFormatInfo2.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -296,7 +287,7 @@ public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct<VkPhysicalDev
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceSparseImageFormatInfo2 calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceSparseImageFormatInfo2(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceSparseImageFormatInfo2.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -306,7 +297,7 @@ public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct<VkPhysicalDev
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSparseImageFormatInfo2.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -316,7 +307,7 @@ public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct<VkPhysicalDev
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSparseImageFormatInfo2.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -361,9 +352,9 @@ public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct<VkPhysicalDev
         /**
          * Creates a new {@code VkPhysicalDeviceSparseImageFormatInfo2.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceSparseImageFormatInfo2#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceSparseImageFormatInfo2#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -23,7 +23,11 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link EXTPerformanceSettings XR_EXT_performance_settings} extension <b>must</b> be enabled prior to using {@link XrEventDataPerfSettingsEXT}</li>
  * <li>{@code type} <b>must</b> be {@link EXTPerformanceSettings#XR_TYPE_EVENT_DATA_PERF_SETTINGS_EXT TYPE_EVENT_DATA_PERF_SETTINGS_EXT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code domain} <b>must</b> be a valid {@code XrPerfSettingsDomainEXT} value</li>
+ * <li>{@code subDomain} <b>must</b> be a valid {@code XrPerfSettingsSubDomainEXT} value</li>
+ * <li>{@code fromLevel} <b>must</b> be a valid {@code XrPerfSettingsNotificationLevelEXT} value</li>
+ * <li>{@code toLevel} <b>must</b> be a valid {@code XrPerfSettingsNotificationLevelEXT} value</li>
  * </ul>
  * 
  * <h3>Layout</h3>
@@ -38,7 +42,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrPerfSettingsNotificationLevelEXT {@link #toLevel};
  * }</code></pre>
  */
-public class XrEventDataPerfSettingsEXT extends Struct<XrEventDataPerfSettingsEXT> implements NativeResource {
+public class XrEventDataPerfSettingsEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -74,15 +78,6 @@ public class XrEventDataPerfSettingsEXT extends Struct<XrEventDataPerfSettingsEX
         SUBDOMAIN = layout.offsetof(3);
         FROMLEVEL = layout.offsetof(4);
         TOLEVEL = layout.offsetof(5);
-    }
-
-    protected XrEventDataPerfSettingsEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrEventDataPerfSettingsEXT create(long address, @Nullable ByteBuffer container) {
-        return new XrEventDataPerfSettingsEXT(address, container);
     }
 
     /**
@@ -123,14 +118,30 @@ public class XrEventDataPerfSettingsEXT extends Struct<XrEventDataPerfSettingsEX
     public XrEventDataPerfSettingsEXT type$Default() { return type(EXTPerformanceSettings.XR_TYPE_EVENT_DATA_PERF_SETTINGS_EXT); }
     /** Sets the specified value to the {@link #next} field. */
     public XrEventDataPerfSettingsEXT next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
+    /** Sets the specified value to the {@link #domain} field. */
+    public XrEventDataPerfSettingsEXT domain(@NativeType("XrPerfSettingsDomainEXT") int value) { ndomain(address(), value); return this; }
+    /** Sets the specified value to the {@link #subDomain} field. */
+    public XrEventDataPerfSettingsEXT subDomain(@NativeType("XrPerfSettingsSubDomainEXT") int value) { nsubDomain(address(), value); return this; }
+    /** Sets the specified value to the {@link #fromLevel} field. */
+    public XrEventDataPerfSettingsEXT fromLevel(@NativeType("XrPerfSettingsNotificationLevelEXT") int value) { nfromLevel(address(), value); return this; }
+    /** Sets the specified value to the {@link #toLevel} field. */
+    public XrEventDataPerfSettingsEXT toLevel(@NativeType("XrPerfSettingsNotificationLevelEXT") int value) { ntoLevel(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrEventDataPerfSettingsEXT set(
         int type,
-        long next
+        long next,
+        int domain,
+        int subDomain,
+        int fromLevel,
+        int toLevel
     ) {
         type(type);
         next(next);
+        domain(domain);
+        subDomain(subDomain);
+        fromLevel(fromLevel);
+        toLevel(toLevel);
 
         return this;
     }
@@ -151,34 +162,34 @@ public class XrEventDataPerfSettingsEXT extends Struct<XrEventDataPerfSettingsEX
 
     /** Returns a new {@code XrEventDataPerfSettingsEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrEventDataPerfSettingsEXT malloc() {
-        return new XrEventDataPerfSettingsEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrEventDataPerfSettingsEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrEventDataPerfSettingsEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrEventDataPerfSettingsEXT calloc() {
-        return new XrEventDataPerfSettingsEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrEventDataPerfSettingsEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrEventDataPerfSettingsEXT} instance allocated with {@link BufferUtils}. */
     public static XrEventDataPerfSettingsEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrEventDataPerfSettingsEXT(memAddress(container), container);
+        return wrap(XrEventDataPerfSettingsEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrEventDataPerfSettingsEXT} instance for the specified memory address. */
     public static XrEventDataPerfSettingsEXT create(long address) {
-        return new XrEventDataPerfSettingsEXT(address, null);
+        return wrap(XrEventDataPerfSettingsEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrEventDataPerfSettingsEXT createSafe(long address) {
-        return address == NULL ? null : new XrEventDataPerfSettingsEXT(address, null);
+        return address == NULL ? null : wrap(XrEventDataPerfSettingsEXT.class, address);
     }
 
     /** Downcasts the specified {@code XrEventDataBaseHeader} instance to {@code XrEventDataPerfSettingsEXT}. */
     public static XrEventDataPerfSettingsEXT create(XrEventDataBaseHeader value) {
-        return new XrEventDataPerfSettingsEXT(value.address(), __getContainer(value));
+        return wrap(XrEventDataPerfSettingsEXT.class, value);
     }
 
     /**
@@ -187,7 +198,7 @@ public class XrEventDataPerfSettingsEXT extends Struct<XrEventDataPerfSettingsEX
      * @param capacity the buffer capacity
      */
     public static XrEventDataPerfSettingsEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -196,7 +207,7 @@ public class XrEventDataPerfSettingsEXT extends Struct<XrEventDataPerfSettingsEX
      * @param capacity the buffer capacity
      */
     public static XrEventDataPerfSettingsEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -206,7 +217,7 @@ public class XrEventDataPerfSettingsEXT extends Struct<XrEventDataPerfSettingsEX
      */
     public static XrEventDataPerfSettingsEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -216,18 +227,18 @@ public class XrEventDataPerfSettingsEXT extends Struct<XrEventDataPerfSettingsEX
      * @param capacity the buffer capacity
      */
     public static XrEventDataPerfSettingsEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrEventDataPerfSettingsEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /** Downcasts the specified {@code XrEventDataBaseHeader.Buffer} instance to {@code XrEventDataPerfSettingsEXT.Buffer}. */
     public static XrEventDataPerfSettingsEXT.Buffer create(XrEventDataBaseHeader.Buffer value) {
-        return new XrEventDataPerfSettingsEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+        return wrap(Buffer.class, value);
     }
 
     /**
@@ -236,7 +247,7 @@ public class XrEventDataPerfSettingsEXT extends Struct<XrEventDataPerfSettingsEX
      * @param stack the stack from which to allocate
      */
     public static XrEventDataPerfSettingsEXT malloc(MemoryStack stack) {
-        return new XrEventDataPerfSettingsEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrEventDataPerfSettingsEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -245,7 +256,7 @@ public class XrEventDataPerfSettingsEXT extends Struct<XrEventDataPerfSettingsEX
      * @param stack the stack from which to allocate
      */
     public static XrEventDataPerfSettingsEXT calloc(MemoryStack stack) {
-        return new XrEventDataPerfSettingsEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrEventDataPerfSettingsEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -255,7 +266,7 @@ public class XrEventDataPerfSettingsEXT extends Struct<XrEventDataPerfSettingsEX
      * @param capacity the buffer capacity
      */
     public static XrEventDataPerfSettingsEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -265,7 +276,7 @@ public class XrEventDataPerfSettingsEXT extends Struct<XrEventDataPerfSettingsEX
      * @param capacity the buffer capacity
      */
     public static XrEventDataPerfSettingsEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -287,6 +298,14 @@ public class XrEventDataPerfSettingsEXT extends Struct<XrEventDataPerfSettingsEX
     public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataPerfSettingsEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataPerfSettingsEXT.NEXT, value); }
+    /** Unsafe version of {@link #domain(int) domain}. */
+    public static void ndomain(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataPerfSettingsEXT.DOMAIN, value); }
+    /** Unsafe version of {@link #subDomain(int) subDomain}. */
+    public static void nsubDomain(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataPerfSettingsEXT.SUBDOMAIN, value); }
+    /** Unsafe version of {@link #fromLevel(int) fromLevel}. */
+    public static void nfromLevel(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataPerfSettingsEXT.FROMLEVEL, value); }
+    /** Unsafe version of {@link #toLevel(int) toLevel}. */
+    public static void ntoLevel(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataPerfSettingsEXT.TOLEVEL, value); }
 
     // -----------------------------------
 
@@ -298,9 +317,9 @@ public class XrEventDataPerfSettingsEXT extends Struct<XrEventDataPerfSettingsEX
         /**
          * Creates a new {@code XrEventDataPerfSettingsEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrEventDataPerfSettingsEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrEventDataPerfSettingsEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -351,6 +370,14 @@ public class XrEventDataPerfSettingsEXT extends Struct<XrEventDataPerfSettingsEX
         public XrEventDataPerfSettingsEXT.Buffer type$Default() { return type(EXTPerformanceSettings.XR_TYPE_EVENT_DATA_PERF_SETTINGS_EXT); }
         /** Sets the specified value to the {@link XrEventDataPerfSettingsEXT#next} field. */
         public XrEventDataPerfSettingsEXT.Buffer next(@NativeType("void const *") long value) { XrEventDataPerfSettingsEXT.nnext(address(), value); return this; }
+        /** Sets the specified value to the {@link XrEventDataPerfSettingsEXT#domain} field. */
+        public XrEventDataPerfSettingsEXT.Buffer domain(@NativeType("XrPerfSettingsDomainEXT") int value) { XrEventDataPerfSettingsEXT.ndomain(address(), value); return this; }
+        /** Sets the specified value to the {@link XrEventDataPerfSettingsEXT#subDomain} field. */
+        public XrEventDataPerfSettingsEXT.Buffer subDomain(@NativeType("XrPerfSettingsSubDomainEXT") int value) { XrEventDataPerfSettingsEXT.nsubDomain(address(), value); return this; }
+        /** Sets the specified value to the {@link XrEventDataPerfSettingsEXT#fromLevel} field. */
+        public XrEventDataPerfSettingsEXT.Buffer fromLevel(@NativeType("XrPerfSettingsNotificationLevelEXT") int value) { XrEventDataPerfSettingsEXT.nfromLevel(address(), value); return this; }
+        /** Sets the specified value to the {@link XrEventDataPerfSettingsEXT#toLevel} field. */
+        public XrEventDataPerfSettingsEXT.Buffer toLevel(@NativeType("XrPerfSettingsNotificationLevelEXT") int value) { XrEventDataPerfSettingsEXT.ntoLevel(address(), value); return this; }
 
     }
 

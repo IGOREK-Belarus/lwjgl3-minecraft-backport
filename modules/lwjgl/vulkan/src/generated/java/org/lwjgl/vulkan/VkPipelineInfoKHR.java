@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link KHRPipelineExecutableProperties#vkGetPipelineExecutablePropertiesKHR GetPipelineExecutablePropertiesKHR}, {@link EXTPipelineProperties#vkGetPipelinePropertiesEXT GetPipelinePropertiesEXT}</p>
+ * <p>{@link KHRPipelineExecutableProperties#vkGetPipelineExecutablePropertiesKHR GetPipelineExecutablePropertiesKHR}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -39,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkPipeline {@link #pipeline};
  * }</code></pre>
  */
-public class VkPipelineInfoKHR extends Struct<VkPipelineInfoKHR> implements NativeResource {
+public class VkPipelineInfoKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -68,15 +68,6 @@ public class VkPipelineInfoKHR extends Struct<VkPipelineInfoKHR> implements Nati
         PIPELINE = layout.offsetof(2);
     }
 
-    protected VkPipelineInfoKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPipelineInfoKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkPipelineInfoKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkPipelineInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -90,7 +81,7 @@ public class VkPipelineInfoKHR extends Struct<VkPipelineInfoKHR> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -138,29 +129,29 @@ public class VkPipelineInfoKHR extends Struct<VkPipelineInfoKHR> implements Nati
 
     /** Returns a new {@code VkPipelineInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPipelineInfoKHR malloc() {
-        return new VkPipelineInfoKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPipelineInfoKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPipelineInfoKHR calloc() {
-        return new VkPipelineInfoKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPipelineInfoKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkPipelineInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPipelineInfoKHR(memAddress(container), container);
+        return wrap(VkPipelineInfoKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPipelineInfoKHR} instance for the specified memory address. */
     public static VkPipelineInfoKHR create(long address) {
-        return new VkPipelineInfoKHR(address, null);
+        return wrap(VkPipelineInfoKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineInfoKHR createSafe(long address) {
-        return address == NULL ? null : new VkPipelineInfoKHR(address, null);
+        return address == NULL ? null : wrap(VkPipelineInfoKHR.class, address);
     }
 
     /**
@@ -169,7 +160,7 @@ public class VkPipelineInfoKHR extends Struct<VkPipelineInfoKHR> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkPipelineInfoKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -178,7 +169,7 @@ public class VkPipelineInfoKHR extends Struct<VkPipelineInfoKHR> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkPipelineInfoKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -188,7 +179,7 @@ public class VkPipelineInfoKHR extends Struct<VkPipelineInfoKHR> implements Nati
      */
     public static VkPipelineInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -198,13 +189,13 @@ public class VkPipelineInfoKHR extends Struct<VkPipelineInfoKHR> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkPipelineInfoKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -232,7 +223,7 @@ public class VkPipelineInfoKHR extends Struct<VkPipelineInfoKHR> implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkPipelineInfoKHR malloc(MemoryStack stack) {
-        return new VkPipelineInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPipelineInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -241,7 +232,7 @@ public class VkPipelineInfoKHR extends Struct<VkPipelineInfoKHR> implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkPipelineInfoKHR calloc(MemoryStack stack) {
-        return new VkPipelineInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPipelineInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -251,7 +242,7 @@ public class VkPipelineInfoKHR extends Struct<VkPipelineInfoKHR> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkPipelineInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -261,7 +252,7 @@ public class VkPipelineInfoKHR extends Struct<VkPipelineInfoKHR> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkPipelineInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -290,9 +281,9 @@ public class VkPipelineInfoKHR extends Struct<VkPipelineInfoKHR> implements Nati
         /**
          * Creates a new {@code VkPipelineInfoKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPipelineInfoKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPipelineInfoKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -34,7 +34,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkDeviceDiagnosticsConfigFlagsNV {@link #flags};
  * }</code></pre>
  */
-public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagnosticsConfigCreateInfoNV> implements NativeResource {
+public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -63,15 +63,6 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
         FLAGS = layout.offsetof(2);
     }
 
-    protected VkDeviceDiagnosticsConfigCreateInfoNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkDeviceDiagnosticsConfigCreateInfoNV create(long address, @Nullable ByteBuffer container) {
-        return new VkDeviceDiagnosticsConfigCreateInfoNV(address, container);
-    }
-
     /**
      * Creates a {@code VkDeviceDiagnosticsConfigCreateInfoNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -85,13 +76,13 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a bitmask of {@code VkDeviceDiagnosticsConfigFlagBitsNV} specifying additional parameters for configuring diagnostic tools. */
+    /** a bitmask of {@code VkDeviceDiagnosticsConfigFlagBitsNV} specifying addtional parameters for configuring diagnostic tools. */
     @NativeType("VkDeviceDiagnosticsConfigFlagsNV")
     public int flags() { return nflags(address()); }
 
@@ -133,29 +124,29 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
 
     /** Returns a new {@code VkDeviceDiagnosticsConfigCreateInfoNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDeviceDiagnosticsConfigCreateInfoNV malloc() {
-        return new VkDeviceDiagnosticsConfigCreateInfoNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkDeviceDiagnosticsConfigCreateInfoNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceDiagnosticsConfigCreateInfoNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDeviceDiagnosticsConfigCreateInfoNV calloc() {
-        return new VkDeviceDiagnosticsConfigCreateInfoNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkDeviceDiagnosticsConfigCreateInfoNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceDiagnosticsConfigCreateInfoNV} instance allocated with {@link BufferUtils}. */
     public static VkDeviceDiagnosticsConfigCreateInfoNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkDeviceDiagnosticsConfigCreateInfoNV(memAddress(container), container);
+        return wrap(VkDeviceDiagnosticsConfigCreateInfoNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkDeviceDiagnosticsConfigCreateInfoNV} instance for the specified memory address. */
     public static VkDeviceDiagnosticsConfigCreateInfoNV create(long address) {
-        return new VkDeviceDiagnosticsConfigCreateInfoNV(address, null);
+        return wrap(VkDeviceDiagnosticsConfigCreateInfoNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceDiagnosticsConfigCreateInfoNV createSafe(long address) {
-        return address == NULL ? null : new VkDeviceDiagnosticsConfigCreateInfoNV(address, null);
+        return address == NULL ? null : wrap(VkDeviceDiagnosticsConfigCreateInfoNV.class, address);
     }
 
     /**
@@ -164,7 +155,7 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
      * @param capacity the buffer capacity
      */
     public static VkDeviceDiagnosticsConfigCreateInfoNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -173,7 +164,7 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
      * @param capacity the buffer capacity
      */
     public static VkDeviceDiagnosticsConfigCreateInfoNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -183,7 +174,7 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
      */
     public static VkDeviceDiagnosticsConfigCreateInfoNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -193,13 +184,13 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
      * @param capacity the buffer capacity
      */
     public static VkDeviceDiagnosticsConfigCreateInfoNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceDiagnosticsConfigCreateInfoNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -208,7 +199,7 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
      * @param stack the stack from which to allocate
      */
     public static VkDeviceDiagnosticsConfigCreateInfoNV malloc(MemoryStack stack) {
-        return new VkDeviceDiagnosticsConfigCreateInfoNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkDeviceDiagnosticsConfigCreateInfoNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -217,7 +208,7 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
      * @param stack the stack from which to allocate
      */
     public static VkDeviceDiagnosticsConfigCreateInfoNV calloc(MemoryStack stack) {
-        return new VkDeviceDiagnosticsConfigCreateInfoNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkDeviceDiagnosticsConfigCreateInfoNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -227,7 +218,7 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
      * @param capacity the buffer capacity
      */
     public static VkDeviceDiagnosticsConfigCreateInfoNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -237,7 +228,7 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
      * @param capacity the buffer capacity
      */
     public static VkDeviceDiagnosticsConfigCreateInfoNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -266,9 +257,9 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
         /**
          * Creates a new {@code VkDeviceDiagnosticsConfigCreateInfoNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDeviceDiagnosticsConfigCreateInfoNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkDeviceDiagnosticsConfigCreateInfoNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

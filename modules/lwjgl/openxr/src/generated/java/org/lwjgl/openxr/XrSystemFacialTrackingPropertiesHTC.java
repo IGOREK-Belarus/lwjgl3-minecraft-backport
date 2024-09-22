@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link HTCFacialTracking XR_HTC_facial_tracking} extension <b>must</b> be enabled prior to using {@link XrSystemFacialTrackingPropertiesHTC}</li>
  * <li>{@code type} <b>must</b> be {@link HTCFacialTracking#XR_TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <p>If a runtime returns {@link XR10#XR_FALSE FALSE} for {@code supportEyeFacialTracking}, the runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link HTCFacialTracking#xrCreateFacialTrackerHTC CreateFacialTrackerHTC} with {@link HTCFacialTracking#XR_FACIAL_TRACKING_TYPE_EYE_DEFAULT_HTC FACIAL_TRACKING_TYPE_EYE_DEFAULT_HTC} set for {@code XrFacialTrackingTypeHTC} in {@link XrFacialTrackerCreateInfoHTC}. Similarly, if a runtime returns {@link XR10#XR_FALSE FALSE} for {@code supportLipFacialTracking} the runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link HTCFacialTracking#xrCreateFacialTrackerHTC CreateFacialTrackerHTC} with {@link HTCFacialTracking#XR_FACIAL_TRACKING_TYPE_LIP_DEFAULT_HTC FACIAL_TRACKING_TYPE_LIP_DEFAULT_HTC} set for {@code XrFacialTrackingTypeHTC} in {@link XrFacialTrackerCreateInfoHTC}.</p>
@@ -42,7 +42,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrBool32 {@link #supportLipFacialTracking};
  * }</code></pre>
  */
-public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTrackingPropertiesHTC> implements NativeResource {
+public class XrSystemFacialTrackingPropertiesHTC extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -72,15 +72,6 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
         NEXT = layout.offsetof(1);
         SUPPORTEYEFACIALTRACKING = layout.offsetof(2);
         SUPPORTLIPFACIALTRACKING = layout.offsetof(3);
-    }
-
-    protected XrSystemFacialTrackingPropertiesHTC(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSystemFacialTrackingPropertiesHTC create(long address, @Nullable ByteBuffer container) {
-        return new XrSystemFacialTrackingPropertiesHTC(address, container);
     }
 
     /**
@@ -115,14 +106,22 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
     public XrSystemFacialTrackingPropertiesHTC type$Default() { return type(HTCFacialTracking.XR_TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC); }
     /** Sets the specified value to the {@link #next} field. */
     public XrSystemFacialTrackingPropertiesHTC next(@NativeType("void *") long value) { nnext(address(), value); return this; }
+    /** Sets the specified value to the {@link #supportEyeFacialTracking} field. */
+    public XrSystemFacialTrackingPropertiesHTC supportEyeFacialTracking(@NativeType("XrBool32") boolean value) { nsupportEyeFacialTracking(address(), value ? 1 : 0); return this; }
+    /** Sets the specified value to the {@link #supportLipFacialTracking} field. */
+    public XrSystemFacialTrackingPropertiesHTC supportLipFacialTracking(@NativeType("XrBool32") boolean value) { nsupportLipFacialTracking(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrSystemFacialTrackingPropertiesHTC set(
         int type,
-        long next
+        long next,
+        boolean supportEyeFacialTracking,
+        boolean supportLipFacialTracking
     ) {
         type(type);
         next(next);
+        supportEyeFacialTracking(supportEyeFacialTracking);
+        supportLipFacialTracking(supportLipFacialTracking);
 
         return this;
     }
@@ -143,29 +142,29 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
 
     /** Returns a new {@code XrSystemFacialTrackingPropertiesHTC} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSystemFacialTrackingPropertiesHTC malloc() {
-        return new XrSystemFacialTrackingPropertiesHTC(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSystemFacialTrackingPropertiesHTC.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSystemFacialTrackingPropertiesHTC} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSystemFacialTrackingPropertiesHTC calloc() {
-        return new XrSystemFacialTrackingPropertiesHTC(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSystemFacialTrackingPropertiesHTC.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSystemFacialTrackingPropertiesHTC} instance allocated with {@link BufferUtils}. */
     public static XrSystemFacialTrackingPropertiesHTC create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSystemFacialTrackingPropertiesHTC(memAddress(container), container);
+        return wrap(XrSystemFacialTrackingPropertiesHTC.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSystemFacialTrackingPropertiesHTC} instance for the specified memory address. */
     public static XrSystemFacialTrackingPropertiesHTC create(long address) {
-        return new XrSystemFacialTrackingPropertiesHTC(address, null);
+        return wrap(XrSystemFacialTrackingPropertiesHTC.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSystemFacialTrackingPropertiesHTC createSafe(long address) {
-        return address == NULL ? null : new XrSystemFacialTrackingPropertiesHTC(address, null);
+        return address == NULL ? null : wrap(XrSystemFacialTrackingPropertiesHTC.class, address);
     }
 
     /**
@@ -174,7 +173,7 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
      * @param capacity the buffer capacity
      */
     public static XrSystemFacialTrackingPropertiesHTC.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -183,7 +182,7 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
      * @param capacity the buffer capacity
      */
     public static XrSystemFacialTrackingPropertiesHTC.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -193,7 +192,7 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
      */
     public static XrSystemFacialTrackingPropertiesHTC.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -203,13 +202,13 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
      * @param capacity the buffer capacity
      */
     public static XrSystemFacialTrackingPropertiesHTC.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSystemFacialTrackingPropertiesHTC.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -218,7 +217,7 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
      * @param stack the stack from which to allocate
      */
     public static XrSystemFacialTrackingPropertiesHTC malloc(MemoryStack stack) {
-        return new XrSystemFacialTrackingPropertiesHTC(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSystemFacialTrackingPropertiesHTC.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -227,7 +226,7 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
      * @param stack the stack from which to allocate
      */
     public static XrSystemFacialTrackingPropertiesHTC calloc(MemoryStack stack) {
-        return new XrSystemFacialTrackingPropertiesHTC(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSystemFacialTrackingPropertiesHTC.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -237,7 +236,7 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
      * @param capacity the buffer capacity
      */
     public static XrSystemFacialTrackingPropertiesHTC.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -247,7 +246,7 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
      * @param capacity the buffer capacity
      */
     public static XrSystemFacialTrackingPropertiesHTC.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -265,6 +264,10 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
     public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemFacialTrackingPropertiesHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemFacialTrackingPropertiesHTC.NEXT, value); }
+    /** Unsafe version of {@link #supportEyeFacialTracking(boolean) supportEyeFacialTracking}. */
+    public static void nsupportEyeFacialTracking(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemFacialTrackingPropertiesHTC.SUPPORTEYEFACIALTRACKING, value); }
+    /** Unsafe version of {@link #supportLipFacialTracking(boolean) supportLipFacialTracking}. */
+    public static void nsupportLipFacialTracking(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemFacialTrackingPropertiesHTC.SUPPORTLIPFACIALTRACKING, value); }
 
     // -----------------------------------
 
@@ -276,9 +279,9 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
         /**
          * Creates a new {@code XrSystemFacialTrackingPropertiesHTC.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSystemFacialTrackingPropertiesHTC#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSystemFacialTrackingPropertiesHTC#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -323,6 +326,10 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
         public XrSystemFacialTrackingPropertiesHTC.Buffer type$Default() { return type(HTCFacialTracking.XR_TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC); }
         /** Sets the specified value to the {@link XrSystemFacialTrackingPropertiesHTC#next} field. */
         public XrSystemFacialTrackingPropertiesHTC.Buffer next(@NativeType("void *") long value) { XrSystemFacialTrackingPropertiesHTC.nnext(address(), value); return this; }
+        /** Sets the specified value to the {@link XrSystemFacialTrackingPropertiesHTC#supportEyeFacialTracking} field. */
+        public XrSystemFacialTrackingPropertiesHTC.Buffer supportEyeFacialTracking(@NativeType("XrBool32") boolean value) { XrSystemFacialTrackingPropertiesHTC.nsupportEyeFacialTracking(address(), value ? 1 : 0); return this; }
+        /** Sets the specified value to the {@link XrSystemFacialTrackingPropertiesHTC#supportLipFacialTracking} field. */
+        public XrSystemFacialTrackingPropertiesHTC.Buffer supportLipFacialTracking(@NativeType("XrBool32") boolean value) { XrSystemFacialTrackingPropertiesHTC.nsupportLipFacialTracking(address(), value ? 1 : 0); return this; }
 
     }
 

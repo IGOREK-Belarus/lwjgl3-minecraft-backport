@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct __kernel_timespec")
-public class KernelTimespec extends Struct<KernelTimespec> implements NativeResource {
+public class KernelTimespec extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -49,15 +49,6 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
 
         TV_SEC = layout.offsetof(0);
         TV_NSEC = layout.offsetof(1);
-    }
-
-    protected KernelTimespec(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected KernelTimespec create(long address, @Nullable ByteBuffer container) {
-        return new KernelTimespec(address, container);
     }
 
     /**
@@ -112,29 +103,29 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
 
     /** Returns a new {@code KernelTimespec} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static KernelTimespec malloc() {
-        return new KernelTimespec(nmemAllocChecked(SIZEOF), null);
+        return wrap(KernelTimespec.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code KernelTimespec} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static KernelTimespec calloc() {
-        return new KernelTimespec(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(KernelTimespec.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code KernelTimespec} instance allocated with {@link BufferUtils}. */
     public static KernelTimespec create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new KernelTimespec(memAddress(container), container);
+        return wrap(KernelTimespec.class, memAddress(container), container);
     }
 
     /** Returns a new {@code KernelTimespec} instance for the specified memory address. */
     public static KernelTimespec create(long address) {
-        return new KernelTimespec(address, null);
+        return wrap(KernelTimespec.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static KernelTimespec createSafe(long address) {
-        return address == NULL ? null : new KernelTimespec(address, null);
+        return address == NULL ? null : wrap(KernelTimespec.class, address);
     }
 
     /**
@@ -143,7 +134,7 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static KernelTimespec.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -152,7 +143,7 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static KernelTimespec.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -162,7 +153,7 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
      */
     public static KernelTimespec.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -172,13 +163,13 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static KernelTimespec.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static KernelTimespec.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -187,7 +178,7 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static KernelTimespec malloc(MemoryStack stack) {
-        return new KernelTimespec(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(KernelTimespec.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -196,7 +187,7 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static KernelTimespec calloc(MemoryStack stack) {
-        return new KernelTimespec(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(KernelTimespec.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -206,7 +197,7 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static KernelTimespec.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -216,7 +207,7 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static KernelTimespec.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -241,9 +232,9 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
         /**
          * Creates a new {@code KernelTimespec.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link KernelTimespec#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link KernelTimespec#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

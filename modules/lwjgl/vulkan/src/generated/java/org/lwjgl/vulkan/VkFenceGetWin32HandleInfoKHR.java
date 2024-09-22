@@ -27,8 +27,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code handleType} <b>must</b> have been included in {@link VkExportFenceCreateInfo}{@code ::handleTypes} when the {@code fence}’s current payload was created</li>
  * <li>If {@code handleType} is defined as an NT handle, {@link KHRExternalFenceWin32#vkGetFenceWin32HandleKHR GetFenceWin32HandleKHR} <b>must</b> be called no more than once for each valid unique combination of {@code fence} and {@code handleType}</li>
- * <li>{@code fence} <b>must</b> not currently have its payload replaced by an imported payload as described below in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-fences-importing">Importing Fence Payloads</a> unless that imported payload’s handle type was included in {@link VkExternalFenceProperties}{@code ::exportFromImportedHandleTypes} for {@code handleType}</li>
- * <li>If {@code handleType} refers to a handle type with copy payload transference semantics, {@code fence} <b>must</b> be signaled, or have an associated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-fences-signaling">fence signal operation</a> pending execution</li>
+ * <li>{@code fence} <b>must</b> not currently have its payload replaced by an imported payload as described below in <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-fences-importing">Importing Fence Payloads</a> unless that imported payload’s handle type was included in {@link VkExternalFenceProperties}{@code ::exportFromImportedHandleTypes} for {@code handleType}</li>
+ * <li>If {@code handleType} refers to a handle type with copy payload transference semantics, {@code fence} <b>must</b> be signaled, or have an associated <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-fences-signaling">fence signal operation</a> pending execution</li>
  * <li>{@code handleType} <b>must</b> be defined as an NT handle or a global share handle</li>
  * </ul>
  * 
@@ -55,7 +55,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkExternalFenceHandleTypeFlagBits {@link #handleType};
  * }</code></pre>
  */
-public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleInfoKHR> implements NativeResource {
+public class VkFenceGetWin32HandleInfoKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -87,15 +87,6 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
         HANDLETYPE = layout.offsetof(3);
     }
 
-    protected VkFenceGetWin32HandleInfoKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkFenceGetWin32HandleInfoKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkFenceGetWin32HandleInfoKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkFenceGetWin32HandleInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -109,7 +100,7 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -164,29 +155,29 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
 
     /** Returns a new {@code VkFenceGetWin32HandleInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkFenceGetWin32HandleInfoKHR malloc() {
-        return new VkFenceGetWin32HandleInfoKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkFenceGetWin32HandleInfoKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkFenceGetWin32HandleInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkFenceGetWin32HandleInfoKHR calloc() {
-        return new VkFenceGetWin32HandleInfoKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkFenceGetWin32HandleInfoKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkFenceGetWin32HandleInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkFenceGetWin32HandleInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkFenceGetWin32HandleInfoKHR(memAddress(container), container);
+        return wrap(VkFenceGetWin32HandleInfoKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkFenceGetWin32HandleInfoKHR} instance for the specified memory address. */
     public static VkFenceGetWin32HandleInfoKHR create(long address) {
-        return new VkFenceGetWin32HandleInfoKHR(address, null);
+        return wrap(VkFenceGetWin32HandleInfoKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkFenceGetWin32HandleInfoKHR createSafe(long address) {
-        return address == NULL ? null : new VkFenceGetWin32HandleInfoKHR(address, null);
+        return address == NULL ? null : wrap(VkFenceGetWin32HandleInfoKHR.class, address);
     }
 
     /**
@@ -195,7 +186,7 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
      * @param capacity the buffer capacity
      */
     public static VkFenceGetWin32HandleInfoKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -204,7 +195,7 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
      * @param capacity the buffer capacity
      */
     public static VkFenceGetWin32HandleInfoKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -214,7 +205,7 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
      */
     public static VkFenceGetWin32HandleInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -224,13 +215,13 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
      * @param capacity the buffer capacity
      */
     public static VkFenceGetWin32HandleInfoKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkFenceGetWin32HandleInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -258,7 +249,7 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
      * @param stack the stack from which to allocate
      */
     public static VkFenceGetWin32HandleInfoKHR malloc(MemoryStack stack) {
-        return new VkFenceGetWin32HandleInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkFenceGetWin32HandleInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -267,7 +258,7 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
      * @param stack the stack from which to allocate
      */
     public static VkFenceGetWin32HandleInfoKHR calloc(MemoryStack stack) {
-        return new VkFenceGetWin32HandleInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkFenceGetWin32HandleInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -277,7 +268,7 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
      * @param capacity the buffer capacity
      */
     public static VkFenceGetWin32HandleInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -287,7 +278,7 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
      * @param capacity the buffer capacity
      */
     public static VkFenceGetWin32HandleInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -320,9 +311,9 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
         /**
          * Creates a new {@code VkFenceGetWin32HandleInfoKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkFenceGetWin32HandleInfoKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkFenceGetWin32HandleInfoKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

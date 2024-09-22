@@ -32,7 +32,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct bgfx_instance_data_buffer_t")
-public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> implements NativeResource {
+public class BGFXInstanceDataBuffer extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -68,15 +68,6 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
         NUM = layout.offsetof(3);
         STRIDE = layout.offsetof(4);
         HANDLE = layout.offsetof(5);
-    }
-
-    protected BGFXInstanceDataBuffer(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected BGFXInstanceDataBuffer create(long address, @Nullable ByteBuffer container) {
-        return new BGFXInstanceDataBuffer(address, container);
     }
 
     /**
@@ -155,29 +146,29 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
 
     /** Returns a new {@code BGFXInstanceDataBuffer} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static BGFXInstanceDataBuffer malloc() {
-        return new BGFXInstanceDataBuffer(nmemAllocChecked(SIZEOF), null);
+        return wrap(BGFXInstanceDataBuffer.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code BGFXInstanceDataBuffer} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static BGFXInstanceDataBuffer calloc() {
-        return new BGFXInstanceDataBuffer(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(BGFXInstanceDataBuffer.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code BGFXInstanceDataBuffer} instance allocated with {@link BufferUtils}. */
     public static BGFXInstanceDataBuffer create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new BGFXInstanceDataBuffer(memAddress(container), container);
+        return wrap(BGFXInstanceDataBuffer.class, memAddress(container), container);
     }
 
     /** Returns a new {@code BGFXInstanceDataBuffer} instance for the specified memory address. */
     public static BGFXInstanceDataBuffer create(long address) {
-        return new BGFXInstanceDataBuffer(address, null);
+        return wrap(BGFXInstanceDataBuffer.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXInstanceDataBuffer createSafe(long address) {
-        return address == NULL ? null : new BGFXInstanceDataBuffer(address, null);
+        return address == NULL ? null : wrap(BGFXInstanceDataBuffer.class, address);
     }
 
     /**
@@ -186,7 +177,7 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
      * @param capacity the buffer capacity
      */
     public static BGFXInstanceDataBuffer.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -195,7 +186,7 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
      * @param capacity the buffer capacity
      */
     public static BGFXInstanceDataBuffer.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -205,7 +196,7 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
      */
     public static BGFXInstanceDataBuffer.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -215,13 +206,13 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
      * @param capacity the buffer capacity
      */
     public static BGFXInstanceDataBuffer.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXInstanceDataBuffer.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -249,7 +240,7 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
      * @param stack the stack from which to allocate
      */
     public static BGFXInstanceDataBuffer malloc(MemoryStack stack) {
-        return new BGFXInstanceDataBuffer(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(BGFXInstanceDataBuffer.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -258,7 +249,7 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
      * @param stack the stack from which to allocate
      */
     public static BGFXInstanceDataBuffer calloc(MemoryStack stack) {
-        return new BGFXInstanceDataBuffer(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(BGFXInstanceDataBuffer.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -268,7 +259,7 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
      * @param capacity the buffer capacity
      */
     public static BGFXInstanceDataBuffer.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -278,7 +269,7 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
      * @param capacity the buffer capacity
      */
     public static BGFXInstanceDataBuffer.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -328,9 +319,9 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
         /**
          * Creates a new {@code BGFXInstanceDataBuffer.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link BGFXInstanceDataBuffer#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link BGFXInstanceDataBuffer#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

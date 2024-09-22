@@ -6,14 +6,12 @@ package meshoptimizer
 
 import org.lwjgl.generator.*
 
-val meshopt_EncodeExpMode = "enum meshopt_EncodeExpMode".enumType
-
 val meshopt_Stream = struct(Module.MESHOPTIMIZER, "MeshoptStream", nativeName = "struct meshopt_Stream") {
     documentation =
         """
-        Vertex attribute stream.
-
-        Each element takes size bytes, beginning at data, with stride controlling the spacing between successive elements ({@code stride} &ge; {@code size}).
+        Vertex attribute stream, similar to {@code glVertexPointer}.
+        
+        Each element takes {@code size} bytes, with {@code stride} controlling the spacing between successive elements.
         """
 
     void.const.p("data", "")

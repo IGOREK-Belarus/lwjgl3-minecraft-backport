@@ -33,15 +33,6 @@ import static org.lwjgl.vulkan.KHRGlobalPriority.*;
  */
 public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGlobalPriorityPropertiesKHR {
 
-    protected VkQueueFamilyGlobalPriorityPropertiesEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkQueueFamilyGlobalPriorityPropertiesEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkQueueFamilyGlobalPriorityPropertiesEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkQueueFamilyGlobalPriorityPropertiesEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -61,15 +52,28 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
     /** Sets the specified value to the {@code pNext} field. */
     @Override
     public VkQueueFamilyGlobalPriorityPropertiesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
+    /** Sets the specified value to the {@code priorityCount} field. */
+    @Override
+    public VkQueueFamilyGlobalPriorityPropertiesEXT priorityCount(@NativeType("uint32_t") int value) { npriorityCount(address(), value); return this; }
+    /** Copies the specified {@link IntBuffer} to the {@code priorities} field. */
+    @Override
+    public VkQueueFamilyGlobalPriorityPropertiesEXT priorities(@NativeType("VkQueueGlobalPriorityKHR[VK_MAX_GLOBAL_PRIORITY_SIZE_KHR]") IntBuffer value) { npriorities(address(), value); return this; }
+    /** Sets the specified value at the specified index of the {@code priorities} field. */
+    @Override
+    public VkQueueFamilyGlobalPriorityPropertiesEXT priorities(int index, @NativeType("VkQueueGlobalPriorityKHR") int value) { npriorities(address(), index, value); return this; }
 
     /** Initializes this struct with the specified values. */
     @Override
     public VkQueueFamilyGlobalPriorityPropertiesEXT set(
         int sType,
-        long pNext
+        long pNext,
+        int priorityCount,
+        IntBuffer priorities
     ) {
         sType(sType);
         pNext(pNext);
+        priorityCount(priorityCount);
+        priorities(priorities);
 
         return this;
     }
@@ -90,29 +94,29 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
 
     /** Returns a new {@code VkQueueFamilyGlobalPriorityPropertiesEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkQueueFamilyGlobalPriorityPropertiesEXT malloc() {
-        return new VkQueueFamilyGlobalPriorityPropertiesEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkQueueFamilyGlobalPriorityPropertiesEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkQueueFamilyGlobalPriorityPropertiesEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkQueueFamilyGlobalPriorityPropertiesEXT calloc() {
-        return new VkQueueFamilyGlobalPriorityPropertiesEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkQueueFamilyGlobalPriorityPropertiesEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkQueueFamilyGlobalPriorityPropertiesEXT} instance allocated with {@link BufferUtils}. */
     public static VkQueueFamilyGlobalPriorityPropertiesEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkQueueFamilyGlobalPriorityPropertiesEXT(memAddress(container), container);
+        return wrap(VkQueueFamilyGlobalPriorityPropertiesEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkQueueFamilyGlobalPriorityPropertiesEXT} instance for the specified memory address. */
     public static VkQueueFamilyGlobalPriorityPropertiesEXT create(long address) {
-        return new VkQueueFamilyGlobalPriorityPropertiesEXT(address, null);
+        return wrap(VkQueueFamilyGlobalPriorityPropertiesEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkQueueFamilyGlobalPriorityPropertiesEXT createSafe(long address) {
-        return address == NULL ? null : new VkQueueFamilyGlobalPriorityPropertiesEXT(address, null);
+        return address == NULL ? null : wrap(VkQueueFamilyGlobalPriorityPropertiesEXT.class, address);
     }
 
     /**
@@ -121,7 +125,7 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
      * @param capacity the buffer capacity
      */
     public static VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -130,7 +134,7 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
      * @param capacity the buffer capacity
      */
     public static VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -140,7 +144,7 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
      */
     public static VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -150,13 +154,13 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
      * @param capacity the buffer capacity
      */
     public static VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -165,7 +169,7 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
      * @param stack the stack from which to allocate
      */
     public static VkQueueFamilyGlobalPriorityPropertiesEXT malloc(MemoryStack stack) {
-        return new VkQueueFamilyGlobalPriorityPropertiesEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkQueueFamilyGlobalPriorityPropertiesEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -174,7 +178,7 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
      * @param stack the stack from which to allocate
      */
     public static VkQueueFamilyGlobalPriorityPropertiesEXT calloc(MemoryStack stack) {
-        return new VkQueueFamilyGlobalPriorityPropertiesEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkQueueFamilyGlobalPriorityPropertiesEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -184,7 +188,7 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
      * @param capacity the buffer capacity
      */
     public static VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -194,7 +198,7 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
      * @param capacity the buffer capacity
      */
     public static VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -207,9 +211,9 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
         /**
          * Creates a new {@code VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkQueueFamilyGlobalPriorityPropertiesEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkQueueFamilyGlobalPriorityPropertiesEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -244,6 +248,15 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
         /** Sets the specified value to the {@code pNext} field. */
         @Override
         public VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer pNext(@NativeType("void *") long value) { VkQueueFamilyGlobalPriorityPropertiesEXT.npNext(address(), value); return this; }
+        /** Sets the specified value to the {@code priorityCount} field. */
+        @Override
+        public VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer priorityCount(@NativeType("uint32_t") int value) { VkQueueFamilyGlobalPriorityPropertiesEXT.npriorityCount(address(), value); return this; }
+        /** Copies the specified {@link IntBuffer} to the {@code priorities} field. */
+        @Override
+        public VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer priorities(@NativeType("VkQueueGlobalPriorityKHR[VK_MAX_GLOBAL_PRIORITY_SIZE_KHR]") IntBuffer value) { VkQueueFamilyGlobalPriorityPropertiesEXT.npriorities(address(), value); return this; }
+        /** Sets the specified value at the specified index of the {@code priorities} field. */
+        @Override
+        public VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer priorities(int index, @NativeType("VkQueueGlobalPriorityKHR") int value) { VkQueueFamilyGlobalPriorityPropertiesEXT.npriorities(address(), index, value); return this; }
 
     }
 

@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     void * {@link #pUserData};
  * }</code></pre>
  */
-public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationCreateInfo> implements NativeResource {
+public class VmaVirtualAllocationCreateInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -60,15 +60,6 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
         PUSERDATA = layout.offsetof(3);
     }
 
-    protected VmaVirtualAllocationCreateInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VmaVirtualAllocationCreateInfo create(long address, @Nullable ByteBuffer container) {
-        return new VmaVirtualAllocationCreateInfo(address, container);
-    }
-
     /**
      * Creates a {@code VmaVirtualAllocationCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -96,7 +87,7 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
      */
     @NativeType("VkDeviceSize")
     public long alignment() { return nalignment(address()); }
-    /** use combination of {@code VmaVirtualAllocationCreateFlagBits}. One or more of:<br><table><tr><td>{@link Vma#VMA_VIRTUAL_ALLOCATION_CREATE_UPPER_ADDRESS_BIT VIRTUAL_ALLOCATION_CREATE_UPPER_ADDRESS_BIT}</td></tr><tr><td>{@link Vma#VMA_VIRTUAL_ALLOCATION_CREATE_STRATEGY_MIN_MEMORY_BIT VIRTUAL_ALLOCATION_CREATE_STRATEGY_MIN_MEMORY_BIT}</td></tr><tr><td>{@link Vma#VMA_VIRTUAL_ALLOCATION_CREATE_STRATEGY_MIN_TIME_BIT VIRTUAL_ALLOCATION_CREATE_STRATEGY_MIN_TIME_BIT}</td></tr><tr><td>{@link Vma#VMA_VIRTUAL_ALLOCATION_CREATE_STRATEGY_MIN_OFFSET_BIT VIRTUAL_ALLOCATION_CREATE_STRATEGY_MIN_OFFSET_BIT}</td></tr><tr><td>{@link Vma#VMA_VIRTUAL_ALLOCATION_CREATE_STRATEGY_MASK VIRTUAL_ALLOCATION_CREATE_STRATEGY_MASK}</td></tr></table> */
+    /** use combination of {@code VmaVirtualAllocationCreateFlagBits}. One or more of:<br><table><tr><td>{@link Vma#VMA_VIRTUAL_ALLOCATION_CREATE_UPPER_ADDRESS_BIT VIRTUAL_ALLOCATION_CREATE_UPPER_ADDRESS_BIT}</td></tr><tr><td>{@link Vma#VMA_VIRTUAL_ALLOCATION_CREATE_STRATEGY_MIN_MEMORY_BIT VIRTUAL_ALLOCATION_CREATE_STRATEGY_MIN_MEMORY_BIT}</td></tr><tr><td>{@link Vma#VMA_VIRTUAL_ALLOCATION_CREATE_STRATEGY_MIN_TIME_BIT VIRTUAL_ALLOCATION_CREATE_STRATEGY_MIN_TIME_BIT}</td></tr><tr><td>{@link Vma#VMA_VIRTUAL_ALLOCATION_CREATE_STRATEGY_MASK VIRTUAL_ALLOCATION_CREATE_STRATEGY_MASK}</td></tr></table> */
     @NativeType("VmaVirtualAllocationCreateFlags")
     public int flags() { return nflags(address()); }
     /**
@@ -147,29 +138,29 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
 
     /** Returns a new {@code VmaVirtualAllocationCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VmaVirtualAllocationCreateInfo malloc() {
-        return new VmaVirtualAllocationCreateInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VmaVirtualAllocationCreateInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VmaVirtualAllocationCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VmaVirtualAllocationCreateInfo calloc() {
-        return new VmaVirtualAllocationCreateInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VmaVirtualAllocationCreateInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VmaVirtualAllocationCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VmaVirtualAllocationCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VmaVirtualAllocationCreateInfo(memAddress(container), container);
+        return wrap(VmaVirtualAllocationCreateInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VmaVirtualAllocationCreateInfo} instance for the specified memory address. */
     public static VmaVirtualAllocationCreateInfo create(long address) {
-        return new VmaVirtualAllocationCreateInfo(address, null);
+        return wrap(VmaVirtualAllocationCreateInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VmaVirtualAllocationCreateInfo createSafe(long address) {
-        return address == NULL ? null : new VmaVirtualAllocationCreateInfo(address, null);
+        return address == NULL ? null : wrap(VmaVirtualAllocationCreateInfo.class, address);
     }
 
     /**
@@ -178,7 +169,7 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
      * @param capacity the buffer capacity
      */
     public static VmaVirtualAllocationCreateInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -187,7 +178,7 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
      * @param capacity the buffer capacity
      */
     public static VmaVirtualAllocationCreateInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -197,7 +188,7 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
      */
     public static VmaVirtualAllocationCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -207,13 +198,13 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
      * @param capacity the buffer capacity
      */
     public static VmaVirtualAllocationCreateInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VmaVirtualAllocationCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -222,7 +213,7 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
      * @param stack the stack from which to allocate
      */
     public static VmaVirtualAllocationCreateInfo malloc(MemoryStack stack) {
-        return new VmaVirtualAllocationCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VmaVirtualAllocationCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -231,7 +222,7 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
      * @param stack the stack from which to allocate
      */
     public static VmaVirtualAllocationCreateInfo calloc(MemoryStack stack) {
-        return new VmaVirtualAllocationCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VmaVirtualAllocationCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -241,7 +232,7 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
      * @param capacity the buffer capacity
      */
     public static VmaVirtualAllocationCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -251,7 +242,7 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
      * @param capacity the buffer capacity
      */
     public static VmaVirtualAllocationCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -284,9 +275,9 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
         /**
          * Creates a new {@code VmaVirtualAllocationCreateInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VmaVirtualAllocationCreateInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VmaVirtualAllocationCreateInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

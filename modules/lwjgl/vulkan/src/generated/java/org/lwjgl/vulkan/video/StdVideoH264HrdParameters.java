@@ -26,7 +26,6 @@ import static org.lwjgl.vulkan.video.STDVulkanVideoCodecH264.*;
  *     uint8_t cpb_cnt_minus1;
  *     uint8_t bit_rate_scale;
  *     uint8_t cpb_size_scale;
- *     uint8_t reserved1;
  *     uint32_t bit_rate_value_minus1[STD_VIDEO_H264_CPB_CNT_LIST_SIZE];
  *     uint32_t cpb_size_value_minus1[STD_VIDEO_H264_CPB_CNT_LIST_SIZE];
  *     uint8_t cbr_flag[STD_VIDEO_H264_CPB_CNT_LIST_SIZE];
@@ -36,7 +35,7 @@ import static org.lwjgl.vulkan.video.STDVulkanVideoCodecH264.*;
  *     uint32_t time_offset_length;
  * }</code></pre>
  */
-public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters> implements NativeResource {
+public class StdVideoH264HrdParameters extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -49,7 +48,6 @@ public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters>
         CPB_CNT_MINUS1,
         BIT_RATE_SCALE,
         CPB_SIZE_SCALE,
-        RESERVED1,
         BIT_RATE_VALUE_MINUS1,
         CPB_SIZE_VALUE_MINUS1,
         CBR_FLAG,
@@ -60,7 +58,6 @@ public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters>
 
     static {
         Layout layout = __struct(
-            __member(1),
             __member(1),
             __member(1),
             __member(1),
@@ -79,23 +76,13 @@ public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters>
         CPB_CNT_MINUS1 = layout.offsetof(0);
         BIT_RATE_SCALE = layout.offsetof(1);
         CPB_SIZE_SCALE = layout.offsetof(2);
-        RESERVED1 = layout.offsetof(3);
-        BIT_RATE_VALUE_MINUS1 = layout.offsetof(4);
-        CPB_SIZE_VALUE_MINUS1 = layout.offsetof(5);
-        CBR_FLAG = layout.offsetof(6);
-        INITIAL_CPB_REMOVAL_DELAY_LENGTH_MINUS1 = layout.offsetof(7);
-        CPB_REMOVAL_DELAY_LENGTH_MINUS1 = layout.offsetof(8);
-        DPB_OUTPUT_DELAY_LENGTH_MINUS1 = layout.offsetof(9);
-        TIME_OFFSET_LENGTH = layout.offsetof(10);
-    }
-
-    protected StdVideoH264HrdParameters(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected StdVideoH264HrdParameters create(long address, @Nullable ByteBuffer container) {
-        return new StdVideoH264HrdParameters(address, container);
+        BIT_RATE_VALUE_MINUS1 = layout.offsetof(3);
+        CPB_SIZE_VALUE_MINUS1 = layout.offsetof(4);
+        CBR_FLAG = layout.offsetof(5);
+        INITIAL_CPB_REMOVAL_DELAY_LENGTH_MINUS1 = layout.offsetof(6);
+        CPB_REMOVAL_DELAY_LENGTH_MINUS1 = layout.offsetof(7);
+        DPB_OUTPUT_DELAY_LENGTH_MINUS1 = layout.offsetof(8);
+        TIME_OFFSET_LENGTH = layout.offsetof(9);
     }
 
     /**
@@ -221,29 +208,29 @@ public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters>
 
     /** Returns a new {@code StdVideoH264HrdParameters} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static StdVideoH264HrdParameters malloc() {
-        return new StdVideoH264HrdParameters(nmemAllocChecked(SIZEOF), null);
+        return wrap(StdVideoH264HrdParameters.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code StdVideoH264HrdParameters} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static StdVideoH264HrdParameters calloc() {
-        return new StdVideoH264HrdParameters(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(StdVideoH264HrdParameters.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code StdVideoH264HrdParameters} instance allocated with {@link BufferUtils}. */
     public static StdVideoH264HrdParameters create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new StdVideoH264HrdParameters(memAddress(container), container);
+        return wrap(StdVideoH264HrdParameters.class, memAddress(container), container);
     }
 
     /** Returns a new {@code StdVideoH264HrdParameters} instance for the specified memory address. */
     public static StdVideoH264HrdParameters create(long address) {
-        return new StdVideoH264HrdParameters(address, null);
+        return wrap(StdVideoH264HrdParameters.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoH264HrdParameters createSafe(long address) {
-        return address == NULL ? null : new StdVideoH264HrdParameters(address, null);
+        return address == NULL ? null : wrap(StdVideoH264HrdParameters.class, address);
     }
 
     /**
@@ -252,7 +239,7 @@ public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters>
      * @param capacity the buffer capacity
      */
     public static StdVideoH264HrdParameters.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -261,7 +248,7 @@ public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters>
      * @param capacity the buffer capacity
      */
     public static StdVideoH264HrdParameters.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -271,7 +258,7 @@ public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters>
      */
     public static StdVideoH264HrdParameters.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -281,13 +268,13 @@ public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters>
      * @param capacity the buffer capacity
      */
     public static StdVideoH264HrdParameters.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoH264HrdParameters.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -296,7 +283,7 @@ public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters>
      * @param stack the stack from which to allocate
      */
     public static StdVideoH264HrdParameters malloc(MemoryStack stack) {
-        return new StdVideoH264HrdParameters(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(StdVideoH264HrdParameters.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -305,7 +292,7 @@ public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters>
      * @param stack the stack from which to allocate
      */
     public static StdVideoH264HrdParameters calloc(MemoryStack stack) {
-        return new StdVideoH264HrdParameters(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(StdVideoH264HrdParameters.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -315,7 +302,7 @@ public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters>
      * @param capacity the buffer capacity
      */
     public static StdVideoH264HrdParameters.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -325,7 +312,7 @@ public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters>
      * @param capacity the buffer capacity
      */
     public static StdVideoH264HrdParameters.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -336,7 +323,6 @@ public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters>
     public static byte nbit_rate_scale(long struct) { return UNSAFE.getByte(null, struct + StdVideoH264HrdParameters.BIT_RATE_SCALE); }
     /** Unsafe version of {@link #cpb_size_scale}. */
     public static byte ncpb_size_scale(long struct) { return UNSAFE.getByte(null, struct + StdVideoH264HrdParameters.CPB_SIZE_SCALE); }
-    public static byte nreserved1(long struct) { return UNSAFE.getByte(null, struct + StdVideoH264HrdParameters.RESERVED1); }
     /** Unsafe version of {@link #bit_rate_value_minus1}. */
     public static IntBuffer nbit_rate_value_minus1(long struct) { return memIntBuffer(struct + StdVideoH264HrdParameters.BIT_RATE_VALUE_MINUS1, STD_VIDEO_H264_CPB_CNT_LIST_SIZE); }
     /** Unsafe version of {@link #bit_rate_value_minus1(int) bit_rate_value_minus1}. */
@@ -370,7 +356,6 @@ public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters>
     public static void nbit_rate_scale(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH264HrdParameters.BIT_RATE_SCALE, value); }
     /** Unsafe version of {@link #cpb_size_scale(byte) cpb_size_scale}. */
     public static void ncpb_size_scale(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH264HrdParameters.CPB_SIZE_SCALE, value); }
-    public static void nreserved1(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH264HrdParameters.RESERVED1, value); }
     /** Unsafe version of {@link #bit_rate_value_minus1(IntBuffer) bit_rate_value_minus1}. */
     public static void nbit_rate_value_minus1(long struct, IntBuffer value) {
         if (CHECKS) { checkGT(value, STD_VIDEO_H264_CPB_CNT_LIST_SIZE); }
@@ -417,9 +402,9 @@ public class StdVideoH264HrdParameters extends Struct<StdVideoH264HrdParameters>
         /**
          * Creates a new {@code StdVideoH264HrdParameters.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link StdVideoH264HrdParameters#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link StdVideoH264HrdParameters#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

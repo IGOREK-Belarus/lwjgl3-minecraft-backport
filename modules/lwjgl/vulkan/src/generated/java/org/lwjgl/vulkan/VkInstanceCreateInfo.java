@@ -21,32 +21,22 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>To capture events that occur while creating or destroying an instance, an application <b>can</b> link a {@link VkDebugReportCallbackCreateInfoEXT} structure or a {@link VkDebugUtilsMessengerCreateInfoEXT} structure to the {@code pNext} element of the {@link VkInstanceCreateInfo} structure given to {@code vkCreateInstance}. This callback is only valid for the duration of the {@link VK10#vkCreateInstance CreateInstance} and the {@link VK10#vkDestroyInstance DestroyInstance} call. Use {@link EXTDebugReport#vkCreateDebugReportCallbackEXT CreateDebugReportCallbackEXT} or {@link EXTDebugUtils#vkCreateDebugUtilsMessengerEXT CreateDebugUtilsMessengerEXT} to create persistent callback objects.</p>
- * 
- * <p>An application can add additional drivers by including the {@link VkDirectDriverLoadingListLUNARG} struct to the {@code pNext} element of the {@link VkInstanceCreateInfo} structure given to {@code vkCreateInstance}.</p>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>{@link VkDirectDriverLoadingListLUNARG} allows applications to ship drivers with themselves. Only drivers that are designed to work with it should be used, such as drivers that implement Vulkan in software or that implement Vulkan by translating it to a different API. Any driver that requires installation should not be used, such as hardware drivers.</p>
- * </div>
+ * <p>To capture events that occur while creating or destroying an instance, an application can link a {@link VkDebugReportCallbackCreateInfoEXT} structure or a {@link VkDebugUtilsMessengerCreateInfoEXT} structure to the {@code pNext} element of the {@link VkInstanceCreateInfo} structure given to {@code vkCreateInstance}. This callback is only valid for the duration of the {@link VK10#vkCreateInstance CreateInstance} and the {@link VK10#vkDestroyInstance DestroyInstance} call. Use {@link EXTDebugReport#vkCreateDebugReportCallbackEXT CreateDebugReportCallbackEXT} or {@link EXTDebugUtils#vkCreateDebugUtilsMessengerEXT CreateDebugUtilsMessengerEXT} to create persistent callback objects.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
  * <li>If the {@code pNext} chain of {@link VkInstanceCreateInfo} includes a {@link VkDebugReportCallbackCreateInfoEXT} structure, the list of enabled extensions in {@code ppEnabledExtensionNames} <b>must</b> contain {@link EXTDebugReport VK_EXT_debug_report}</li>
  * <li>If the {@code pNext} chain of {@link VkInstanceCreateInfo} includes a {@link VkDebugUtilsMessengerCreateInfoEXT} structure, the list of enabled extensions in {@code ppEnabledExtensionNames} <b>must</b> contain {@link EXTDebugUtils VK_EXT_debug_utils}</li>
- * <li>If the {@code pNext} chain includes a {@link VkExportMetalObjectCreateInfoEXT} structure, its {@code exportObjectType} member <b>must</b> be either {@link EXTMetalObjects#VK_EXPORT_METAL_OBJECT_TYPE_METAL_DEVICE_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_DEVICE_BIT_EXT} or {@link EXTMetalObjects#VK_EXPORT_METAL_OBJECT_TYPE_METAL_COMMAND_QUEUE_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_COMMAND_QUEUE_BIT_EXT}</li>
- * <li>If {@code flags} has the {@link KHRPortabilityEnumeration#VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR} bit set, the list of enabled extensions in {@code ppEnabledExtensionNames} <b>must</b> contain {@link KHRPortabilityEnumeration VK_KHR_portability_enumeration}</li>
- * <li>If the {@code pNext} chain of {@link VkInstanceCreateInfo} includes a {@link VkDirectDriverLoadingListLUNARG} structure, the list of enabled extensions in {@code ppEnabledExtensionNames} <b>must</b> contain {@link LUNARGDirectDriverLoading VK_LUNARG_direct_driver_loading}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK10#VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO STRUCTURE_TYPE_INSTANCE_CREATE_INFO}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDebugReportCallbackCreateInfoEXT}, {@link VkDebugUtilsMessengerCreateInfoEXT}, {@link VkDirectDriverLoadingListLUNARG}, {@link VkExportMetalObjectCreateInfoEXT}, {@link VkLayerSettingsCreateInfoEXT}, {@link VkValidationFeaturesEXT}, or {@link VkValidationFlagsEXT}</li>
- * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique, with the exception of structures of type {@link VkDebugUtilsMessengerCreateInfoEXT}, {@link VkExportMetalObjectCreateInfoEXT}, or {@link VkLayerSettingsCreateInfoEXT}</li>
- * <li>{@code flags} <b>must</b> be a valid combination of {@code VkInstanceCreateFlagBits} values</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDebugReportCallbackCreateInfoEXT}, {@link VkDebugUtilsMessengerCreateInfoEXT}, {@link VkValidationFeaturesEXT}, or {@link VkValidationFlagsEXT}</li>
+ * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique, with the exception of structures of type {@link VkDebugUtilsMessengerCreateInfoEXT}</li>
+ * <li>{@code flags} <b>must</b> be 0</li>
  * <li>If {@code pApplicationInfo} is not {@code NULL}, {@code pApplicationInfo} <b>must</b> be a valid pointer to a valid {@link VkApplicationInfo} structure</li>
  * <li>If {@code enabledLayerCount} is not 0, {@code ppEnabledLayerNames} <b>must</b> be a valid pointer to an array of {@code enabledLayerCount} null-terminated UTF-8 strings</li>
  * <li>If {@code enabledExtensionCount} is not 0, {@code ppEnabledExtensionNames} <b>must</b> be a valid pointer to an array of {@code enabledExtensionCount} null-terminated UTF-8 strings</li>
@@ -70,7 +60,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     char const * const * {@link #ppEnabledExtensionNames};
  * }</code></pre>
  */
-public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implements NativeResource {
+public class VkInstanceCreateInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -114,15 +104,6 @@ public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implement
         PPENABLEDEXTENSIONNAMES = layout.offsetof(7);
     }
 
-    protected VkInstanceCreateInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkInstanceCreateInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkInstanceCreateInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkInstanceCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -136,13 +117,13 @@ public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implement
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a bitmask of {@code VkInstanceCreateFlagBits} indicating the behavior of the instance. */
+    /** reserved for future use. */
     @NativeType("VkInstanceCreateFlags")
     public int flags() { return nflags(address()); }
     /** {@code NULL} or a pointer to a {@link VkApplicationInfo} structure. If not {@code NULL}, this information helps implementations recognize behavior inherent to classes of applications. {@link VkApplicationInfo} is defined in detail below. */
@@ -152,7 +133,7 @@ public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implement
     /** the number of global layers to enable. */
     @NativeType("uint32_t")
     public int enabledLayerCount() { return nenabledLayerCount(address()); }
-    /** a pointer to an array of {@code enabledLayerCount} null-terminated UTF-8 strings containing the names of layers to enable for the created instance. The layers are loaded in the order they are listed in this array, with the first array element being the closest to the application, and the last array element being the closest to the driver. See the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-layers">Layers</a> section for further details. */
+    /** a pointer to an array of {@code enabledLayerCount} null-terminated UTF-8 strings containing the names of layers to enable for the created instance. The layers are loaded in the order they are listed in this array, with the first array element being the closest to the application, and the last array element being the closest to the driver. See the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-layers">Layers</a> section for further details. */
     @Nullable
     @NativeType("char const * const *")
     public PointerBuffer ppEnabledLayerNames() { return nppEnabledLayerNames(address()); }
@@ -174,12 +155,6 @@ public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implement
     public VkInstanceCreateInfo pNext(VkDebugReportCallbackCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkDebugUtilsMessengerCreateInfoEXT} value to the {@code pNext} chain. */
     public VkInstanceCreateInfo pNext(VkDebugUtilsMessengerCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkDirectDriverLoadingListLUNARG} value to the {@code pNext} chain. */
-    public VkInstanceCreateInfo pNext(VkDirectDriverLoadingListLUNARG value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkExportMetalObjectCreateInfoEXT} value to the {@code pNext} chain. */
-    public VkInstanceCreateInfo pNext(VkExportMetalObjectCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkLayerSettingsCreateInfoEXT} value to the {@code pNext} chain. */
-    public VkInstanceCreateInfo pNext(VkLayerSettingsCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkValidationFeaturesEXT} value to the {@code pNext} chain. */
     public VkInstanceCreateInfo pNext(VkValidationFeaturesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkValidationFlagsEXT} value to the {@code pNext} chain. */
@@ -228,29 +203,29 @@ public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implement
 
     /** Returns a new {@code VkInstanceCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkInstanceCreateInfo malloc() {
-        return new VkInstanceCreateInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkInstanceCreateInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkInstanceCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkInstanceCreateInfo calloc() {
-        return new VkInstanceCreateInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkInstanceCreateInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkInstanceCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VkInstanceCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkInstanceCreateInfo(memAddress(container), container);
+        return wrap(VkInstanceCreateInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkInstanceCreateInfo} instance for the specified memory address. */
     public static VkInstanceCreateInfo create(long address) {
-        return new VkInstanceCreateInfo(address, null);
+        return wrap(VkInstanceCreateInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkInstanceCreateInfo createSafe(long address) {
-        return address == NULL ? null : new VkInstanceCreateInfo(address, null);
+        return address == NULL ? null : wrap(VkInstanceCreateInfo.class, address);
     }
 
     /**
@@ -259,7 +234,7 @@ public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implement
      * @param capacity the buffer capacity
      */
     public static VkInstanceCreateInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -268,7 +243,7 @@ public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implement
      * @param capacity the buffer capacity
      */
     public static VkInstanceCreateInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -278,7 +253,7 @@ public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implement
      */
     public static VkInstanceCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -288,13 +263,13 @@ public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implement
      * @param capacity the buffer capacity
      */
     public static VkInstanceCreateInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkInstanceCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -322,7 +297,7 @@ public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implement
      * @param stack the stack from which to allocate
      */
     public static VkInstanceCreateInfo malloc(MemoryStack stack) {
-        return new VkInstanceCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkInstanceCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -331,7 +306,7 @@ public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implement
      * @param stack the stack from which to allocate
      */
     public static VkInstanceCreateInfo calloc(MemoryStack stack) {
-        return new VkInstanceCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkInstanceCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -341,7 +316,7 @@ public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implement
      * @param capacity the buffer capacity
      */
     public static VkInstanceCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -351,7 +326,7 @@ public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implement
      * @param capacity the buffer capacity
      */
     public static VkInstanceCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -414,9 +389,9 @@ public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implement
         /**
          * Creates a new {@code VkInstanceCreateInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkInstanceCreateInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkInstanceCreateInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -480,12 +455,6 @@ public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implement
         public VkInstanceCreateInfo.Buffer pNext(VkDebugReportCallbackCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkDebugUtilsMessengerCreateInfoEXT} value to the {@code pNext} chain. */
         public VkInstanceCreateInfo.Buffer pNext(VkDebugUtilsMessengerCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkDirectDriverLoadingListLUNARG} value to the {@code pNext} chain. */
-        public VkInstanceCreateInfo.Buffer pNext(VkDirectDriverLoadingListLUNARG value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkExportMetalObjectCreateInfoEXT} value to the {@code pNext} chain. */
-        public VkInstanceCreateInfo.Buffer pNext(VkExportMetalObjectCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkLayerSettingsCreateInfoEXT} value to the {@code pNext} chain. */
-        public VkInstanceCreateInfo.Buffer pNext(VkLayerSettingsCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkValidationFeaturesEXT} value to the {@code pNext} chain. */
         public VkInstanceCreateInfo.Buffer pNext(VkValidationFeaturesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkValidationFlagsEXT} value to the {@code pNext} chain. */

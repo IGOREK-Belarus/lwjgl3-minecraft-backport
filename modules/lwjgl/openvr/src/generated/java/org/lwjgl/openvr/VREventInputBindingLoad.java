@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct VREvent_InputBindingLoad_t")
-public class VREventInputBindingLoad extends Struct<VREventInputBindingLoad> {
+public class VREventInputBindingLoad extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -55,15 +55,6 @@ public class VREventInputBindingLoad extends Struct<VREventInputBindingLoad> {
         PATHMESSAGE = layout.offsetof(1);
         PATHURL = layout.offsetof(2);
         PATHCONTROLLERTYPE = layout.offsetof(3);
-    }
-
-    protected VREventInputBindingLoad(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VREventInputBindingLoad create(long address, @Nullable ByteBuffer container) {
-        return new VREventInputBindingLoad(address, container);
     }
 
     /**
@@ -96,13 +87,13 @@ public class VREventInputBindingLoad extends Struct<VREventInputBindingLoad> {
 
     /** Returns a new {@code VREventInputBindingLoad} instance for the specified memory address. */
     public static VREventInputBindingLoad create(long address) {
-        return new VREventInputBindingLoad(address, null);
+        return wrap(VREventInputBindingLoad.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventInputBindingLoad createSafe(long address) {
-        return address == NULL ? null : new VREventInputBindingLoad(address, null);
+        return address == NULL ? null : wrap(VREventInputBindingLoad.class, address);
     }
 
     /**
@@ -112,13 +103,13 @@ public class VREventInputBindingLoad extends Struct<VREventInputBindingLoad> {
      * @param capacity the buffer capacity
      */
     public static VREventInputBindingLoad.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventInputBindingLoad.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -142,9 +133,9 @@ public class VREventInputBindingLoad extends Struct<VREventInputBindingLoad> {
         /**
          * Creates a new {@code VREventInputBindingLoad.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VREventInputBindingLoad#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VREventInputBindingLoad#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

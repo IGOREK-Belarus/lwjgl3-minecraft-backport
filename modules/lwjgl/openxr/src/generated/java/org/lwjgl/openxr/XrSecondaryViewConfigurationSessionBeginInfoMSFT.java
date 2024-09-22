@@ -32,7 +32,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTSecondaryViewConfiguration XR_MSFT_secondary_view_configuration} extension <b>must</b> be enabled prior to using {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTSecondaryViewConfiguration#XR_TYPE_SECONDARY_VIEW_CONFIGURATION_SESSION_BEGIN_INFO_MSFT TYPE_SECONDARY_VIEW_CONFIGURATION_SESSION_BEGIN_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code enabledViewConfigurationTypes} <b>must</b> be a pointer to an array of {@code viewConfigurationCount} valid {@code XrViewConfigurationType} values</li>
  * <li>The {@code viewConfigurationCount} parameter <b>must</b> be greater than 0</li>
  * </ul>
@@ -51,7 +51,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrViewConfigurationType const * {@link #enabledViewConfigurationTypes};
  * }</code></pre>
  */
-public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrSecondaryViewConfigurationSessionBeginInfoMSFT> implements NativeResource {
+public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -81,15 +81,6 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
         NEXT = layout.offsetof(1);
         VIEWCONFIGURATIONCOUNT = layout.offsetof(2);
         ENABLEDVIEWCONFIGURATIONTYPES = layout.offsetof(3);
-    }
-
-    protected XrSecondaryViewConfigurationSessionBeginInfoMSFT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSecondaryViewConfigurationSessionBeginInfoMSFT create(long address, @Nullable ByteBuffer container) {
-        return new XrSecondaryViewConfigurationSessionBeginInfoMSFT(address, container);
     }
 
     /**
@@ -156,29 +147,29 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
 
     /** Returns a new {@code XrSecondaryViewConfigurationSessionBeginInfoMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSecondaryViewConfigurationSessionBeginInfoMSFT malloc() {
-        return new XrSecondaryViewConfigurationSessionBeginInfoMSFT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSecondaryViewConfigurationSessionBeginInfoMSFT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSecondaryViewConfigurationSessionBeginInfoMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSecondaryViewConfigurationSessionBeginInfoMSFT calloc() {
-        return new XrSecondaryViewConfigurationSessionBeginInfoMSFT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSecondaryViewConfigurationSessionBeginInfoMSFT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSecondaryViewConfigurationSessionBeginInfoMSFT} instance allocated with {@link BufferUtils}. */
     public static XrSecondaryViewConfigurationSessionBeginInfoMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSecondaryViewConfigurationSessionBeginInfoMSFT(memAddress(container), container);
+        return wrap(XrSecondaryViewConfigurationSessionBeginInfoMSFT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSecondaryViewConfigurationSessionBeginInfoMSFT} instance for the specified memory address. */
     public static XrSecondaryViewConfigurationSessionBeginInfoMSFT create(long address) {
-        return new XrSecondaryViewConfigurationSessionBeginInfoMSFT(address, null);
+        return wrap(XrSecondaryViewConfigurationSessionBeginInfoMSFT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSecondaryViewConfigurationSessionBeginInfoMSFT createSafe(long address) {
-        return address == NULL ? null : new XrSecondaryViewConfigurationSessionBeginInfoMSFT(address, null);
+        return address == NULL ? null : wrap(XrSecondaryViewConfigurationSessionBeginInfoMSFT.class, address);
     }
 
     /**
@@ -187,7 +178,7 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
      * @param capacity the buffer capacity
      */
     public static XrSecondaryViewConfigurationSessionBeginInfoMSFT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -196,7 +187,7 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
      * @param capacity the buffer capacity
      */
     public static XrSecondaryViewConfigurationSessionBeginInfoMSFT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -206,7 +197,7 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
      */
     public static XrSecondaryViewConfigurationSessionBeginInfoMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -216,13 +207,13 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
      * @param capacity the buffer capacity
      */
     public static XrSecondaryViewConfigurationSessionBeginInfoMSFT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSecondaryViewConfigurationSessionBeginInfoMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -231,7 +222,7 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
      * @param stack the stack from which to allocate
      */
     public static XrSecondaryViewConfigurationSessionBeginInfoMSFT malloc(MemoryStack stack) {
-        return new XrSecondaryViewConfigurationSessionBeginInfoMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSecondaryViewConfigurationSessionBeginInfoMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -240,7 +231,7 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
      * @param stack the stack from which to allocate
      */
     public static XrSecondaryViewConfigurationSessionBeginInfoMSFT calloc(MemoryStack stack) {
-        return new XrSecondaryViewConfigurationSessionBeginInfoMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSecondaryViewConfigurationSessionBeginInfoMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -250,7 +241,7 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
      * @param capacity the buffer capacity
      */
     public static XrSecondaryViewConfigurationSessionBeginInfoMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -260,7 +251,7 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
      * @param capacity the buffer capacity
      */
     public static XrSecondaryViewConfigurationSessionBeginInfoMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -302,9 +293,9 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
         /**
          * Creates a new {@code XrSecondaryViewConfigurationSessionBeginInfoMSFT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -33,7 +33,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     void * SynthesizeWindowActivation;
  * }</code></pre>
  */
-public class JAWT extends Struct<JAWT> implements NativeResource {
+public class JAWT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -78,15 +78,6 @@ public class JAWT extends Struct<JAWT> implements NativeResource {
         CREATEEMBEDDEDFRAME = layout.offsetof(6);
         SETBOUNDS = layout.offsetof(7);
         SYNTHESIZEWINDOWACTIVATION = layout.offsetof(8);
-    }
-
-    protected JAWT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected JAWT create(long address, @Nullable ByteBuffer container) {
-        return new JAWT(address, container);
     }
 
     /**
@@ -149,29 +140,29 @@ public class JAWT extends Struct<JAWT> implements NativeResource {
 
     /** Returns a new {@code JAWT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static JAWT malloc() {
-        return new JAWT(nmemAllocChecked(SIZEOF), null);
+        return wrap(JAWT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code JAWT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static JAWT calloc() {
-        return new JAWT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(JAWT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code JAWT} instance allocated with {@link BufferUtils}. */
     public static JAWT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new JAWT(memAddress(container), container);
+        return wrap(JAWT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code JAWT} instance for the specified memory address. */
     public static JAWT create(long address) {
-        return new JAWT(address, null);
+        return wrap(JAWT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static JAWT createSafe(long address) {
-        return address == NULL ? null : new JAWT(address, null);
+        return address == NULL ? null : wrap(JAWT.class, address);
     }
 
     // -----------------------------------
@@ -192,7 +183,7 @@ public class JAWT extends Struct<JAWT> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static JAWT malloc(MemoryStack stack) {
-        return new JAWT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(JAWT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -201,7 +192,7 @@ public class JAWT extends Struct<JAWT> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static JAWT calloc(MemoryStack stack) {
-        return new JAWT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(JAWT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     // -----------------------------------

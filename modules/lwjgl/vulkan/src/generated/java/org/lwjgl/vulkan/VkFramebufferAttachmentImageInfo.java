@@ -23,12 +23,6 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>Images that <b>can</b> be used with the framebuffer when beginning a render pass, as specified by {@link VkRenderPassAttachmentBeginInfo}, <b>must</b> be created with parameters that are identical to those specified here.</p>
  * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If {@code viewFormatCount} is not 0, and the render pass is not being used with an external format resolve attachment, each element of {@code pViewFormats} <b>must</b> not be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}</li>
- * </ul>
- * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
@@ -59,7 +53,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkFormat const * {@link #pViewFormats};
  * }</code></pre>
  */
-public class VkFramebufferAttachmentImageInfo extends Struct<VkFramebufferAttachmentImageInfo> implements NativeResource {
+public class VkFramebufferAttachmentImageInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -106,15 +100,6 @@ public class VkFramebufferAttachmentImageInfo extends Struct<VkFramebufferAttach
         PVIEWFORMATS = layout.offsetof(8);
     }
 
-    protected VkFramebufferAttachmentImageInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkFramebufferAttachmentImageInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkFramebufferAttachmentImageInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkFramebufferAttachmentImageInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -128,7 +113,7 @@ public class VkFramebufferAttachmentImageInfo extends Struct<VkFramebufferAttach
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -215,29 +200,29 @@ public class VkFramebufferAttachmentImageInfo extends Struct<VkFramebufferAttach
 
     /** Returns a new {@code VkFramebufferAttachmentImageInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkFramebufferAttachmentImageInfo malloc() {
-        return new VkFramebufferAttachmentImageInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkFramebufferAttachmentImageInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkFramebufferAttachmentImageInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkFramebufferAttachmentImageInfo calloc() {
-        return new VkFramebufferAttachmentImageInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkFramebufferAttachmentImageInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkFramebufferAttachmentImageInfo} instance allocated with {@link BufferUtils}. */
     public static VkFramebufferAttachmentImageInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkFramebufferAttachmentImageInfo(memAddress(container), container);
+        return wrap(VkFramebufferAttachmentImageInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkFramebufferAttachmentImageInfo} instance for the specified memory address. */
     public static VkFramebufferAttachmentImageInfo create(long address) {
-        return new VkFramebufferAttachmentImageInfo(address, null);
+        return wrap(VkFramebufferAttachmentImageInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkFramebufferAttachmentImageInfo createSafe(long address) {
-        return address == NULL ? null : new VkFramebufferAttachmentImageInfo(address, null);
+        return address == NULL ? null : wrap(VkFramebufferAttachmentImageInfo.class, address);
     }
 
     /**
@@ -246,7 +231,7 @@ public class VkFramebufferAttachmentImageInfo extends Struct<VkFramebufferAttach
      * @param capacity the buffer capacity
      */
     public static VkFramebufferAttachmentImageInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -255,7 +240,7 @@ public class VkFramebufferAttachmentImageInfo extends Struct<VkFramebufferAttach
      * @param capacity the buffer capacity
      */
     public static VkFramebufferAttachmentImageInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -265,7 +250,7 @@ public class VkFramebufferAttachmentImageInfo extends Struct<VkFramebufferAttach
      */
     public static VkFramebufferAttachmentImageInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -275,13 +260,13 @@ public class VkFramebufferAttachmentImageInfo extends Struct<VkFramebufferAttach
      * @param capacity the buffer capacity
      */
     public static VkFramebufferAttachmentImageInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkFramebufferAttachmentImageInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -290,7 +275,7 @@ public class VkFramebufferAttachmentImageInfo extends Struct<VkFramebufferAttach
      * @param stack the stack from which to allocate
      */
     public static VkFramebufferAttachmentImageInfo malloc(MemoryStack stack) {
-        return new VkFramebufferAttachmentImageInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkFramebufferAttachmentImageInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -299,7 +284,7 @@ public class VkFramebufferAttachmentImageInfo extends Struct<VkFramebufferAttach
      * @param stack the stack from which to allocate
      */
     public static VkFramebufferAttachmentImageInfo calloc(MemoryStack stack) {
-        return new VkFramebufferAttachmentImageInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkFramebufferAttachmentImageInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -309,7 +294,7 @@ public class VkFramebufferAttachmentImageInfo extends Struct<VkFramebufferAttach
      * @param capacity the buffer capacity
      */
     public static VkFramebufferAttachmentImageInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -319,7 +304,7 @@ public class VkFramebufferAttachmentImageInfo extends Struct<VkFramebufferAttach
      * @param capacity the buffer capacity
      */
     public static VkFramebufferAttachmentImageInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -383,9 +368,9 @@ public class VkFramebufferAttachmentImageInfo extends Struct<VkFramebufferAttach
         /**
          * Creates a new {@code VkFramebufferAttachmentImageInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkFramebufferAttachmentImageInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkFramebufferAttachmentImageInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

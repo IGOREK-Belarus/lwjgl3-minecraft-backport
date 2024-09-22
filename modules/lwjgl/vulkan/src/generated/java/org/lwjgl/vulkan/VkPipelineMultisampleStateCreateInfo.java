@@ -20,15 +20,15 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>Each bit in the sample mask is associated with a unique <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-multisampling-coverage-mask">sample index</a> as defined for the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-multisampling-coverage-mask">coverage mask</a>. Each bit <code>b</code> for mask word <code>w</code> in the sample mask corresponds to sample index <code>i</code>, where <code>i = 32 × w + b</code>. {@code pSampleMask} has a length equal to <code>⌈ rasterizationSamples / 32 ⌉</code> words.</p>
+ * <p>Each bit in the sample mask is associated with a unique <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-multisampling-coverage-mask">sample index</a> as defined for the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-multisampling-coverage-mask">coverage mask</a>. Each bit <code>b</code> for mask word <code>w</code> in the sample mask corresponds to sample index <code>i</code>, where <code>i = 32 × w + b</code>. {@code pSampleMask} has a length equal to <code>⌈ rasterizationSamples / 32 ⌉</code> words.</p>
  * 
  * <p>If {@code pSampleMask} is {@code NULL}, it is treated as if the mask has all bits set to 1.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-sampleRateShading">{@code sampleRateShading}</a> feature is not enabled, {@code sampleShadingEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-alphaToOne">{@code alphaToOne}</a> feature is not enabled, {@code alphaToOneEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-sampleRateShading">sample rate shading</a> feature is not enabled, {@code sampleShadingEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-alphaToOne">alpha to one</a> feature is not enabled, {@code alphaToOneEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
  * <li>{@code minSampleShading} <b>must</b> be in the range <code>[0,1]</code></li>
  * <li>If the {@link NVFramebufferMixedSamples VK_NV_framebuffer_mixed_samples} extension is enabled, and if the subpass has any color attachments and {@code rasterizationSamples} is greater than the number of color samples, then {@code sampleShadingEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
  * </ul>
@@ -63,7 +63,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #alphaToOneEnable};
  * }</code></pre>
  */
-public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMultisampleStateCreateInfo> implements NativeResource {
+public class VkPipelineMultisampleStateCreateInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -110,15 +110,6 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
         ALPHATOONEENABLE = layout.offsetof(8);
     }
 
-    protected VkPipelineMultisampleStateCreateInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPipelineMultisampleStateCreateInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkPipelineMultisampleStateCreateInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkPipelineMultisampleStateCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -132,7 +123,7 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -141,10 +132,10 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
     /** reserved for future use. */
     @NativeType("VkPipelineMultisampleStateCreateFlags")
     public int flags() { return nflags(address()); }
-    /** a {@code VkSampleCountFlagBits} value specifying the number of samples used in rasterization. This value is ignored for the purposes of setting the number of samples used in rasterization if the pipeline is created with the {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT} dynamic state set, but if {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_SAMPLE_MASK_EXT DYNAMIC_STATE_SAMPLE_MASK_EXT} dynamic state is not set, it is still used to define the size of the {@code pSampleMask} array as described below. */
+    /** a {@code VkSampleCountFlagBits} value specifying the number of samples used in rasterization. */
     @NativeType("VkSampleCountFlagBits")
     public int rasterizationSamples() { return nrasterizationSamples(address()); }
-    /** <b>can</b> be used to enable <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-sampleshading">Sample Shading</a>. */
+    /** <b>can</b> be used to enable <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-sampleshading">Sample Shading</a>. */
     @NativeType("VkBool32")
     public boolean sampleShadingEnable() { return nsampleShadingEnable(address()) != 0; }
     /** specifies a minimum fraction of sample shading if {@code sampleShadingEnable} is set to {@link VK10#VK_TRUE TRUE}. */
@@ -152,15 +143,15 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
     /**
      * @param capacity the number of elements in the returned buffer
      *
-     * @return a pointer to an array of {@code VkSampleMask} values used in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-samplemask">sample mask test</a>.
+     * @return a pointer to an array of {@code VkSampleMask} values used in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-samplemask">sample mask test</a>.
      */
     @Nullable
     @NativeType("VkSampleMask const *")
     public IntBuffer pSampleMask(int capacity) { return npSampleMask(address(), capacity); }
-    /** controls whether a temporary coverage value is generated based on the alpha component of the fragment’s first color output as specified in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-covg">Multisample Coverage</a> section. */
+    /** controls whether a temporary coverage value is generated based on the alpha component of the fragment’s first color output as specified in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-covg">Multisample Coverage</a> section. */
     @NativeType("VkBool32")
     public boolean alphaToCoverageEnable() { return nalphaToCoverageEnable(address()) != 0; }
-    /** controls whether the alpha component of the fragment’s first color output is replaced with one as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-covg">Multisample Coverage</a>. */
+    /** controls whether the alpha component of the fragment’s first color output is replaced with one as described in <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-covg">Multisample Coverage</a>. */
     @NativeType("VkBool32")
     public boolean alphaToOneEnable() { return nalphaToOneEnable(address()) != 0; }
 
@@ -234,29 +225,29 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
 
     /** Returns a new {@code VkPipelineMultisampleStateCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPipelineMultisampleStateCreateInfo malloc() {
-        return new VkPipelineMultisampleStateCreateInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPipelineMultisampleStateCreateInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineMultisampleStateCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPipelineMultisampleStateCreateInfo calloc() {
-        return new VkPipelineMultisampleStateCreateInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPipelineMultisampleStateCreateInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineMultisampleStateCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VkPipelineMultisampleStateCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPipelineMultisampleStateCreateInfo(memAddress(container), container);
+        return wrap(VkPipelineMultisampleStateCreateInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPipelineMultisampleStateCreateInfo} instance for the specified memory address. */
     public static VkPipelineMultisampleStateCreateInfo create(long address) {
-        return new VkPipelineMultisampleStateCreateInfo(address, null);
+        return wrap(VkPipelineMultisampleStateCreateInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineMultisampleStateCreateInfo createSafe(long address) {
-        return address == NULL ? null : new VkPipelineMultisampleStateCreateInfo(address, null);
+        return address == NULL ? null : wrap(VkPipelineMultisampleStateCreateInfo.class, address);
     }
 
     /**
@@ -265,7 +256,7 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
      * @param capacity the buffer capacity
      */
     public static VkPipelineMultisampleStateCreateInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -274,7 +265,7 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
      * @param capacity the buffer capacity
      */
     public static VkPipelineMultisampleStateCreateInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -284,7 +275,7 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
      */
     public static VkPipelineMultisampleStateCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -294,13 +285,13 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
      * @param capacity the buffer capacity
      */
     public static VkPipelineMultisampleStateCreateInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineMultisampleStateCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -328,7 +319,7 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
      * @param stack the stack from which to allocate
      */
     public static VkPipelineMultisampleStateCreateInfo malloc(MemoryStack stack) {
-        return new VkPipelineMultisampleStateCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPipelineMultisampleStateCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -337,7 +328,7 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
      * @param stack the stack from which to allocate
      */
     public static VkPipelineMultisampleStateCreateInfo calloc(MemoryStack stack) {
-        return new VkPipelineMultisampleStateCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPipelineMultisampleStateCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -347,7 +338,7 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
      * @param capacity the buffer capacity
      */
     public static VkPipelineMultisampleStateCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -357,7 +348,7 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
      * @param capacity the buffer capacity
      */
     public static VkPipelineMultisampleStateCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -410,9 +401,9 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
         /**
          * Creates a new {@code VkPipelineMultisampleStateCreateInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPipelineMultisampleStateCreateInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPipelineMultisampleStateCreateInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

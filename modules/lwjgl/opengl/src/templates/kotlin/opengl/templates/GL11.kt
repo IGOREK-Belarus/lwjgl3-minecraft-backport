@@ -857,8 +857,8 @@ val GL11 = "GL11".nativeClassGL("GL11") {
 
     // Functions
 
-    reuse(GL11C, "Enable")
-    reuse(GL11C, "Disable")
+    GL11C reuse "Enable"
+    GL11C reuse "Disable"
 
     DeprecatedGL..void(
         "Accum",
@@ -910,7 +910,7 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         GLenum("mode", "the primitive type being defined", PRIMITIVE_TYPES)
     )
 
-    reuse(GL11C, "BindTexture")
+    GL11C reuse "BindTexture"
 
     DeprecatedGL..void(
         "Bitmap",
@@ -928,7 +928,7 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         Check("((w + 7) >> 3) * h")..RawPointer..nullable..GLubyte.const.p("data", "the buffer containing the bitmap data.")
     )
 
-    reuse(GL11C, "BlendFunc")
+    GL11C reuse "BlendFunc"
 
     DeprecatedGL..void(
         "CallList",
@@ -950,7 +950,7 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         void.const.p("lists", "an array of offsets. Each offset is added to the display list base to obtain the display list number.")
     )
 
-    reuse(GL11C, "Clear")
+    GL11C reuse "Clear"
 
     DeprecatedGL..void(
         "ClearAccum",
@@ -962,8 +962,8 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         GLfloat("alpha", "the value to which to clear the A values of the accumulation buffer")
     )
 
-    reuse(GL11C, "ClearColor")
-    reuse(GL11C, "ClearDepth")
+    GL11C reuse "ClearColor"
+    GL11C reuse "ClearDepth"
 
     DeprecatedGL..void(
         "ClearIndex",
@@ -976,7 +976,7 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         GLfloat("index", "the value to which to clear the color buffer in color index mode")
     )
 
-    reuse(GL11C, "ClearStencil")
+    GL11C reuse "ClearStencil"
 
     DeprecatedGL..void(
         "ClipPlane",
@@ -1051,7 +1051,7 @@ val GL11 = "GL11".nativeClassGL("GL11") {
     DeprecatedGL..void("Color4usv", "Pointer version of #Color4us().", Check(4)..GLushort.const.p("v", colorBuffer))
     DeprecatedGL..void("Color4uiv", "Pointer version of #Color4ui().", Check(4)..GLuint.const.p("v", colorBuffer))
 
-    reuse(GL11C, "ColorMask")
+    GL11C reuse "ColorMask"
 
     DeprecatedGL..void(
         "ColorMaterial",
@@ -1092,7 +1092,7 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         GLenum("type", "Indicates the type of values to be transfered", "#COLOR #STENCIL #DEPTH #DEPTH_STENCIL")
     )
 
-    reuse(GL11C, "CullFace")
+    GL11C reuse "CullFace"
 
     DeprecatedGL..void(
         "DeleteLists",
@@ -1105,9 +1105,9 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         GLsizei("range", "the number of display lists to be deleted")
     )
 
-    reuse(GL11C, "DepthFunc")
-    reuse(GL11C, "DepthMask")
-    reuse(GL11C, "DepthRange")
+    GL11C reuse "DepthFunc"
+    GL11C reuse "DepthMask"
+    GL11C reuse "DepthRange"
 
     DeprecatedGL..DependsOn("GL_NV_vertex_buffer_unified_memory")..void(
         "DisableClientState",
@@ -1127,9 +1127,9 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         )
     )
 
-    reuse(GL11C, "DrawArrays")
-    reuse(GL11C, "DrawBuffer")
-    reuse(GL11C, "DrawElements")
+    GL11C reuse "DrawArrays"
+    GL11C reuse "DrawBuffer"
+    GL11C reuse "DrawElements"
 
     DeprecatedGL..void(
         "DrawPixels",
@@ -1295,8 +1295,8 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         GLfloat.p("buffer", "an array of floating-point values into which feedback information will be placed")
     )
 
-    reuse(GL11C, "Finish")
-    reuse(GL11C, "Flush")
+    GL11C reuse "Finish"
+    GL11C reuse "Flush"
 
     DeprecatedGL..void(
         "Fogi",
@@ -1330,7 +1330,7 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         Check(1)..GLfloat.const.p("params", "the fog parameter buffer")
     )
 
-    reuse(GL11C, "FrontFace")
+    GL11C reuse "FrontFace"
 
     DeprecatedGL..GLuint(
         "GenLists",
@@ -1344,8 +1344,8 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         GLsizei("s", "the number of display lists to create")
     )
 
-    reuse(GL11C, "GenTextures")
-    reuse(GL11C, "DeleteTextures")
+    GL11C reuse "GenTextures"
+    GL11C reuse "DeleteTextures"
 
     DeprecatedGL..void(
         "GetClipPlane",
@@ -1358,11 +1358,11 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         Check(4)..GLdouble.p("equation", "a buffer in which to place the returned values")
     )
 
-    reuse(GL11C, "GetBooleanv")
-    reuse(GL11C, "GetFloatv")
-    reuse(GL11C, "GetIntegerv")
-    reuse(GL11C, "GetDoublev")
-    reuse(GL11C, "GetError")
+    GL11C reuse "GetBooleanv"
+    GL11C reuse "GetFloatv"
+    GL11C reuse "GetIntegerv"
+    GL11C reuse "GetDoublev"
+    GL11C reuse "GetError"
 
     DeprecatedGL..void(
         "GetLightiv",
@@ -1458,7 +1458,7 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         Check(32)..RawPointer..GLuint.p("data", "a buffer in which to place the returned data")
     )
 
-    reuse(GL11C, "GetPointerv")
+    GL11C reuse "GetPointerv"
 
     DeprecatedGL..void(
         "GetPolygonStipple",
@@ -1467,7 +1467,7 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         Check(128)..RawPointer..void.p("pattern", "a buffer in which to place the returned data")
     )
 
-    reuse(GL11C, "GetString")
+    GL11C reuse "GetString"
 
     DeprecatedGL..void(
         "GetTexEnviv",
@@ -1522,12 +1522,12 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         Check(4)..ReturnParam..GLdouble.p("data", "a scalar or buffer in which to place the returned data")
     )
 
-    reuse(GL11C, "GetTexImage")
-    reuse(GL11C, "GetTexLevelParameteriv")
-    reuse(GL11C, "GetTexLevelParameterfv")
-    reuse(GL11C, "GetTexParameteriv")
-    reuse(GL11C, "GetTexParameterfv")
-    reuse(GL11C, "Hint")
+    GL11C reuse "GetTexImage"
+    GL11C reuse "GetTexLevelParameteriv"
+    GL11C reuse "GetTexLevelParameterfv"
+    GL11C reuse "GetTexParameteriv"
+    GL11C reuse "GetTexParameterfv"
+    GL11C reuse "Hint"
 
     val index = "the value to which the current color index should be set"
 
@@ -1597,7 +1597,7 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         )..Unsafe..RawPointer..void.const.p("pointer", "the vertex array data")
     )
 
-    reuse(GL11C, "IsEnabled")
+    GL11C reuse "IsEnabled"
 
     DeprecatedGL..GLboolean(
         "IsList",
@@ -1606,7 +1606,7 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         GLuint("list", "the list index to query")
     )
 
-    reuse(GL11C, "IsTexture")
+    GL11C reuse "IsTexture"
 
     DeprecatedGL..void(
         "LightModeli",
@@ -1704,7 +1704,7 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         GLushort("pattern", "an unsigned short integer whose 16 bits define the stipple pattern")
     )
 
-    reuse(GL11C, "LineWidth")
+    GL11C reuse "LineWidth"
 
     DeprecatedGL..void(
         "ListBase",
@@ -1762,7 +1762,7 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         GLuint("name", "the name to load")
     )
 
-    reuse(GL11C, "LogicOp")
+    GL11C reuse "LogicOp"
 
     DeprecatedGL..void(
         "Map1f",
@@ -2059,8 +2059,8 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         RawPointer..GLuint.const.p("values", "the map values")
     )
 
-    reuse(GL11C, "PixelStorei")
-    reuse(GL11C, "PixelStoref")
+    GL11C reuse "PixelStorei"
+    GL11C reuse "PixelStoref"
 
     DeprecatedGL..void(
         "PixelTransferi",
@@ -2109,9 +2109,9 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         GLfloat("yfactor", "the z<sub>y</sub> factor")
     )
 
-    reuse(GL11C, "PointSize")
-    reuse(GL11C, "PolygonMode")
-    reuse(GL11C, "PolygonOffset")
+    GL11C reuse "PointSize"
+    GL11C reuse "PolygonMode"
+    GL11C reuse "PolygonOffset"
 
     DeprecatedGL..void(
         "PolygonStipple",
@@ -2277,8 +2277,8 @@ val GL11 = "GL11".nativeClassGL("GL11") {
     DeprecatedGL..void("RasterPos4fv", "Pointer version of #RasterPos4f().", Check(4)..GLfloat.const.p("coords", rasterBuffer))
     DeprecatedGL..void("RasterPos4dv", "Pointer version of #RasterPos4d().", Check(4)..GLdouble.const.p("coords", rasterBuffer))
 
-    reuse(GL11C, "ReadBuffer")
-    reuse(GL11C, "ReadPixels")
+    GL11C reuse "ReadBuffer"
+    GL11C reuse "ReadPixels"
 
     // Rect functions javadoc
     val rectX1 = "the x coordinate of the first corner vertex"
@@ -2398,7 +2398,7 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         GLdouble("z", "the z-axis scaling factor")
     )
 
-    reuse(GL11C, "Scissor")
+    GL11C reuse "Scissor"
 
     DeprecatedGL..void(
         "SelectBuffer",
@@ -2421,9 +2421,9 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         GLenum("mode", "the shade mode", "#SMOOTH #FLAT")
     )
 
-    reuse(GL11C, "StencilFunc")
-    reuse(GL11C, "StencilMask")
-    reuse(GL11C, "StencilOp")
+    GL11C reuse "StencilFunc"
+    GL11C reuse "StencilMask"
+    GL11C reuse "StencilOp"
 
     // TexCoord functions javadoc
     val texCoordS = "the s component of the current texture coordinates"
@@ -2638,18 +2638,18 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         Check(4)..GLdouble.const.p("params", "the parameter value")
     )
 
-    reuse(GL11C, "TexImage1D")
-    reuse(GL11C, "TexImage2D")
-    reuse(GL11C, "CopyTexImage1D")
-    reuse(GL11C, "CopyTexImage2D")
-    reuse(GL11C, "CopyTexSubImage1D")
-    reuse(GL11C, "CopyTexSubImage2D")
-    reuse(GL11C, "TexParameteri")
-    reuse(GL11C, "TexParameteriv")
-    reuse(GL11C, "TexParameterf")
-    reuse(GL11C, "TexParameterfv")
-    reuse(GL11C, "TexSubImage1D")
-    reuse(GL11C, "TexSubImage2D")
+    GL11C reuse "TexImage1D"
+    GL11C reuse "TexImage2D"
+    GL11C reuse "CopyTexImage1D"
+    GL11C reuse "CopyTexImage2D"
+    GL11C reuse "CopyTexSubImage1D"
+    GL11C reuse "CopyTexSubImage2D"
+    GL11C reuse "TexParameteri"
+    GL11C reuse "TexParameteriv"
+    GL11C reuse "TexParameterf"
+    GL11C reuse "TexParameterfv"
+    GL11C reuse "TexSubImage1D"
+    GL11C reuse "TexSubImage2D"
 
     DeprecatedGL..void(
         "Translatef",
@@ -2762,5 +2762,5 @@ val GL11 = "GL11".nativeClassGL("GL11") {
         )..Unsafe..RawPointer..void.const.p("pointer", "the vertex array data")
     )
 
-    reuse(GL11C, "Viewport")
+    GL11C reuse "Viewport"
 }

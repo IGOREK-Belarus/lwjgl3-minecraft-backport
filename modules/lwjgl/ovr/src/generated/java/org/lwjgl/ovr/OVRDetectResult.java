@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct ovrDetectResult")
-public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeResource {
+public class OVRDetectResult extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -53,15 +53,6 @@ public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeRe
 
         ISOCULUSSERVICERUNNING = layout.offsetof(0);
         ISOCULUSHMDCONNECTED = layout.offsetof(1);
-    }
-
-    protected OVRDetectResult(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected OVRDetectResult create(long address, @Nullable ByteBuffer container) {
-        return new OVRDetectResult(address, container);
     }
 
     /**
@@ -98,29 +89,29 @@ public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeRe
 
     /** Returns a new {@code OVRDetectResult} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static OVRDetectResult malloc() {
-        return new OVRDetectResult(nmemAllocChecked(SIZEOF), null);
+        return wrap(OVRDetectResult.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code OVRDetectResult} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static OVRDetectResult calloc() {
-        return new OVRDetectResult(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(OVRDetectResult.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code OVRDetectResult} instance allocated with {@link BufferUtils}. */
     public static OVRDetectResult create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new OVRDetectResult(memAddress(container), container);
+        return wrap(OVRDetectResult.class, memAddress(container), container);
     }
 
     /** Returns a new {@code OVRDetectResult} instance for the specified memory address. */
     public static OVRDetectResult create(long address) {
-        return new OVRDetectResult(address, null);
+        return wrap(OVRDetectResult.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static OVRDetectResult createSafe(long address) {
-        return address == NULL ? null : new OVRDetectResult(address, null);
+        return address == NULL ? null : wrap(OVRDetectResult.class, address);
     }
 
     /**
@@ -129,7 +120,7 @@ public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static OVRDetectResult.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -138,7 +129,7 @@ public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static OVRDetectResult.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -148,7 +139,7 @@ public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeRe
      */
     public static OVRDetectResult.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -158,13 +149,13 @@ public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static OVRDetectResult.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static OVRDetectResult.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -192,7 +183,7 @@ public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static OVRDetectResult malloc(MemoryStack stack) {
-        return new OVRDetectResult(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(OVRDetectResult.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -201,7 +192,7 @@ public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static OVRDetectResult calloc(MemoryStack stack) {
-        return new OVRDetectResult(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(OVRDetectResult.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -211,7 +202,7 @@ public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static OVRDetectResult.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -221,7 +212,7 @@ public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static OVRDetectResult.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -241,9 +232,9 @@ public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeRe
         /**
          * Creates a new {@code OVRDetectResult.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link OVRDetectResult#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link OVRDetectResult#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

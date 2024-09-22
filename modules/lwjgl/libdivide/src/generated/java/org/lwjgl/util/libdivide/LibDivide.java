@@ -11,7 +11,7 @@ import static org.lwjgl.system.MathUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Native bindings to <a href="https://libdivide.com/">libdivide</a>.
+ * Native bindings to <a target="_blank" href="https://libdivide.com/">libdivide</a>.
  * 
  * <p>libdivide allows you to replace expensive integer divides with comparatively cheap multiplication and bitshifts. Compilers usually do this, but
  * only when the divisor is known at compile time. libdivide allows you to take advantage of it at runtime. The result is that integer division can become
@@ -28,7 +28,7 @@ public class LibDivide {
     /** Library version. */
     public static final int
         LIBDIVIDE_VERSION_MAJOR = 5,
-        LIBDIVIDE_VERSION_MINOR = 1;
+        LIBDIVIDE_VERSION_MINOR = 0;
 
     /**
      * <h5>Enum values:</h5>

@@ -18,8 +18,6 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Parameters of {@code VmaAllocation} objects, that can be retrieved using function {@link Vma#vmaGetAllocationInfo GetAllocationInfo}.
  * 
- * <p>There is also an extended version of this structure that carries additional parameters: {@link VmaAllocationInfo2}.</p>
- * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
@@ -30,10 +28,9 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkDeviceSize {@link #size};
  *     void * {@link #pMappedData};
  *     void * {@link #pUserData};
- *     char const * {@link #pName};
  * }</code></pre>
  */
-public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements NativeResource {
+public class VmaAllocationInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -48,8 +45,7 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
         OFFSET,
         SIZE,
         PMAPPEDDATA,
-        PUSERDATA,
-        PNAME;
+        PUSERDATA;
 
     static {
         Layout layout = __struct(
@@ -57,7 +53,6 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
             __member(8),
             __member(8),
             __member(8),
-            __member(POINTER_SIZE),
             __member(POINTER_SIZE),
             __member(POINTER_SIZE)
         );
@@ -71,16 +66,6 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
         SIZE = layout.offsetof(3);
         PMAPPEDDATA = layout.offsetof(4);
         PUSERDATA = layout.offsetof(5);
-        PNAME = layout.offsetof(6);
-    }
-
-    protected VmaAllocationInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VmaAllocationInfo create(long address, @Nullable ByteBuffer container) {
-        return new VmaAllocationInfo(address, container);
     }
 
     /**
@@ -108,7 +93,7 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
      * 
      * <p>Same memory object can be shared by multiple allocations.</p>
      * 
-     * <p>It can change after the allocation is moved during defragmentation.</p>
+     * <p>It can change after call to {@link Vma#vmaDefragment Defragment} if this allocation is passed to the function.</p>
      */
     @NativeType("VkDeviceMemory")
     public long deviceMemory() { return ndeviceMemory(address()); }
@@ -119,7 +104,7 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
      * {@link Vma#vmaCreateImage CreateImage}, functions that operate on these resources refer to the beginning of the buffer or image, not entire device memory block. Functions like
      * {@link Vma#vmaMapMemory MapMemory}, {@link Vma#vmaBindBufferMemory BindBufferMemory} also refer to the beginning of the allocation and apply this offset automatically.</p>
      * 
-     * <p>It can change after the allocation is moved during defragmentation.</p>
+     * <p>It can change after call to {@link Vma#vmaDefragment Defragment} if this allocation is passed to the function.</p>
      */
     @NativeType("VkDeviceSize")
     public long offset() { return noffset(address()); }
@@ -141,7 +126,7 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
      * 
      * <p>If the allocation hasn't been mapped using {@link Vma#vmaMapMemory MapMemory} and hasn't been created with {@link Vma#VMA_ALLOCATION_CREATE_MAPPED_BIT ALLOCATION_CREATE_MAPPED_BIT} flag, this value is null.</p>
      * 
-     * <p>It can change after call to {@link Vma#vmaMapMemory MapMemory}, {@link Vma#vmaUnmapMemory UnmapMemory}. It can also change after the allocation is moved during defragmentation.</p>
+     * <p>It can change after call to {@link Vma#vmaMapMemory MapMemory}, {@link Vma#vmaUnmapMemory UnmapMemory}. It can also change after call to {@link Vma#vmaDefragment Defragment} if this allocation is passed to the function.</p>
      */
     @NativeType("void *")
     public long pMappedData() { return npMappedData(address()); }
@@ -152,56 +137,34 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
      */
     @NativeType("void *")
     public long pUserData() { return npUserData(address()); }
-    /**
-     * Custom allocation name that was set with {@link Vma#vmaSetAllocationName SetAllocationName}.
-     * 
-     * <p>It can change after call to {@code vmaSetAllocationName()} for this allocation.</p>
-     * 
-     * <p>Another way to set custom name is to pass it in {@link VmaAllocationCreateInfo}{@code ::pUserData} with additional flag
-     * {@link Vma#VMA_ALLOCATION_CREATE_USER_DATA_COPY_STRING_BIT ALLOCATION_CREATE_USER_DATA_COPY_STRING_BIT} set (DEPRECATED).</p>
-     */
-    @Nullable
-    @NativeType("char const *")
-    public ByteBuffer pName() { return npName(address()); }
-    /**
-     * Custom allocation name that was set with {@link Vma#vmaSetAllocationName SetAllocationName}.
-     * 
-     * <p>It can change after call to {@code vmaSetAllocationName()} for this allocation.</p>
-     * 
-     * <p>Another way to set custom name is to pass it in {@link VmaAllocationCreateInfo}{@code ::pUserData} with additional flag
-     * {@link Vma#VMA_ALLOCATION_CREATE_USER_DATA_COPY_STRING_BIT ALLOCATION_CREATE_USER_DATA_COPY_STRING_BIT} set (DEPRECATED).</p>
-     */
-    @Nullable
-    @NativeType("char const *")
-    public String pNameString() { return npNameString(address()); }
 
     // -----------------------------------
 
     /** Returns a new {@code VmaAllocationInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VmaAllocationInfo malloc() {
-        return new VmaAllocationInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VmaAllocationInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VmaAllocationInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VmaAllocationInfo calloc() {
-        return new VmaAllocationInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VmaAllocationInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VmaAllocationInfo} instance allocated with {@link BufferUtils}. */
     public static VmaAllocationInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VmaAllocationInfo(memAddress(container), container);
+        return wrap(VmaAllocationInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VmaAllocationInfo} instance for the specified memory address. */
     public static VmaAllocationInfo create(long address) {
-        return new VmaAllocationInfo(address, null);
+        return wrap(VmaAllocationInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VmaAllocationInfo createSafe(long address) {
-        return address == NULL ? null : new VmaAllocationInfo(address, null);
+        return address == NULL ? null : wrap(VmaAllocationInfo.class, address);
     }
 
     /**
@@ -210,7 +173,7 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
      * @param capacity the buffer capacity
      */
     public static VmaAllocationInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -219,7 +182,7 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
      * @param capacity the buffer capacity
      */
     public static VmaAllocationInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -229,7 +192,7 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
      */
     public static VmaAllocationInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -239,13 +202,13 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
      * @param capacity the buffer capacity
      */
     public static VmaAllocationInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VmaAllocationInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -273,7 +236,7 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
      * @param stack the stack from which to allocate
      */
     public static VmaAllocationInfo malloc(MemoryStack stack) {
-        return new VmaAllocationInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VmaAllocationInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -282,7 +245,7 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
      * @param stack the stack from which to allocate
      */
     public static VmaAllocationInfo calloc(MemoryStack stack) {
-        return new VmaAllocationInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VmaAllocationInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -292,7 +255,7 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
      * @param capacity the buffer capacity
      */
     public static VmaAllocationInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -302,7 +265,7 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
      * @param capacity the buffer capacity
      */
     public static VmaAllocationInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -319,10 +282,6 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
     public static long npMappedData(long struct) { return memGetAddress(struct + VmaAllocationInfo.PMAPPEDDATA); }
     /** Unsafe version of {@link #pUserData}. */
     public static long npUserData(long struct) { return memGetAddress(struct + VmaAllocationInfo.PUSERDATA); }
-    /** Unsafe version of {@link #pName}. */
-    @Nullable public static ByteBuffer npName(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + VmaAllocationInfo.PNAME)); }
-    /** Unsafe version of {@link #pNameString}. */
-    @Nullable public static String npNameString(long struct) { return memUTF8Safe(memGetAddress(struct + VmaAllocationInfo.PNAME)); }
 
     // -----------------------------------
 
@@ -334,9 +293,9 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
         /**
          * Creates a new {@code VmaAllocationInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VmaAllocationInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VmaAllocationInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -380,14 +339,6 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
         /** @return the value of the {@link VmaAllocationInfo#pUserData} field. */
         @NativeType("void *")
         public long pUserData() { return VmaAllocationInfo.npUserData(address()); }
-        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link VmaAllocationInfo#pName} field. */
-        @Nullable
-        @NativeType("char const *")
-        public ByteBuffer pName() { return VmaAllocationInfo.npName(address()); }
-        /** @return the null-terminated string pointed to by the {@link VmaAllocationInfo#pName} field. */
-        @Nullable
-        @NativeType("char const *")
-        public String pNameString() { return VmaAllocationInfo.npNameString(address()); }
 
     }
 

@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension <b>must</b> be enabled prior to using {@link XrSceneMeshesMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTSceneUnderstanding#XR_TYPE_SCENE_MESHES_MSFT TYPE_SCENE_MESHES_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>If {@code sceneMeshCount} is not 0, {@code sceneMeshes} <b>must</b> be a pointer to an array of {@code sceneMeshCount} {@link XrSceneMeshMSFT} structures</li>
  * </ul>
  * 
@@ -41,7 +41,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrSceneMeshMSFT XrSceneMeshMSFT} * {@link #sceneMeshes};
  * }</code></pre>
  */
-public class XrSceneMeshesMSFT extends Struct<XrSceneMeshesMSFT> implements NativeResource {
+public class XrSceneMeshesMSFT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -71,15 +71,6 @@ public class XrSceneMeshesMSFT extends Struct<XrSceneMeshesMSFT> implements Nati
         NEXT = layout.offsetof(1);
         SCENEMESHCOUNT = layout.offsetof(2);
         SCENEMESHES = layout.offsetof(3);
-    }
-
-    protected XrSceneMeshesMSFT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSceneMeshesMSFT create(long address, @Nullable ByteBuffer container) {
-        return new XrSceneMeshesMSFT(address, container);
     }
 
     /**
@@ -151,29 +142,29 @@ public class XrSceneMeshesMSFT extends Struct<XrSceneMeshesMSFT> implements Nati
 
     /** Returns a new {@code XrSceneMeshesMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSceneMeshesMSFT malloc() {
-        return new XrSceneMeshesMSFT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSceneMeshesMSFT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSceneMeshesMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSceneMeshesMSFT calloc() {
-        return new XrSceneMeshesMSFT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSceneMeshesMSFT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSceneMeshesMSFT} instance allocated with {@link BufferUtils}. */
     public static XrSceneMeshesMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSceneMeshesMSFT(memAddress(container), container);
+        return wrap(XrSceneMeshesMSFT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSceneMeshesMSFT} instance for the specified memory address. */
     public static XrSceneMeshesMSFT create(long address) {
-        return new XrSceneMeshesMSFT(address, null);
+        return wrap(XrSceneMeshesMSFT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSceneMeshesMSFT createSafe(long address) {
-        return address == NULL ? null : new XrSceneMeshesMSFT(address, null);
+        return address == NULL ? null : wrap(XrSceneMeshesMSFT.class, address);
     }
 
     /**
@@ -182,7 +173,7 @@ public class XrSceneMeshesMSFT extends Struct<XrSceneMeshesMSFT> implements Nati
      * @param capacity the buffer capacity
      */
     public static XrSceneMeshesMSFT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -191,7 +182,7 @@ public class XrSceneMeshesMSFT extends Struct<XrSceneMeshesMSFT> implements Nati
      * @param capacity the buffer capacity
      */
     public static XrSceneMeshesMSFT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -201,7 +192,7 @@ public class XrSceneMeshesMSFT extends Struct<XrSceneMeshesMSFT> implements Nati
      */
     public static XrSceneMeshesMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -211,13 +202,13 @@ public class XrSceneMeshesMSFT extends Struct<XrSceneMeshesMSFT> implements Nati
      * @param capacity the buffer capacity
      */
     public static XrSceneMeshesMSFT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSceneMeshesMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -226,7 +217,7 @@ public class XrSceneMeshesMSFT extends Struct<XrSceneMeshesMSFT> implements Nati
      * @param stack the stack from which to allocate
      */
     public static XrSceneMeshesMSFT malloc(MemoryStack stack) {
-        return new XrSceneMeshesMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSceneMeshesMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -235,7 +226,7 @@ public class XrSceneMeshesMSFT extends Struct<XrSceneMeshesMSFT> implements Nati
      * @param stack the stack from which to allocate
      */
     public static XrSceneMeshesMSFT calloc(MemoryStack stack) {
-        return new XrSceneMeshesMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSceneMeshesMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -245,7 +236,7 @@ public class XrSceneMeshesMSFT extends Struct<XrSceneMeshesMSFT> implements Nati
      * @param capacity the buffer capacity
      */
     public static XrSceneMeshesMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -255,7 +246,7 @@ public class XrSceneMeshesMSFT extends Struct<XrSceneMeshesMSFT> implements Nati
      * @param capacity the buffer capacity
      */
     public static XrSceneMeshesMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -288,9 +279,9 @@ public class XrSceneMeshesMSFT extends Struct<XrSceneMeshesMSFT> implements Nati
         /**
          * Creates a new {@code XrSceneMeshesMSFT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSceneMeshesMSFT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSceneMeshesMSFT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

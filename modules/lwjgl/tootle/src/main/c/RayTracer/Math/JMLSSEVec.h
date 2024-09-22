@@ -10,7 +10,7 @@
 #include <iostream>
 #include <math.h>
 
-#if defined(_LINUX) || defined(__clang__)
+#ifdef _LINUX
     class SSEVec4
 #else
     class __declspec(align(16)) SSEVec4
@@ -21,7 +21,7 @@ public:
     union
     {
         __m128 vec128;
-#if defined(_LINUX) || defined(__clang__)
+#ifdef _LINUX
         float f32[4];
 #endif
     };
@@ -42,7 +42,7 @@ public:
     inline operator const __m128() const { return vec128; };
 
     // indexing
-#if defined(_LINUX) || defined(__clang__)
+#ifdef _LINUX
     inline const float& operator[](int i) const { return f32[i]; };
     inline float& operator[](int i) { return f32[i]; };
 #else

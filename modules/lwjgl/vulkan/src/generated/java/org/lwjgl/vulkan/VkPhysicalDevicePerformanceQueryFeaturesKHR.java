@@ -38,7 +38,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #performanceCounterMultipleQueryPools};
  * }</code></pre>
  */
-public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysicalDevicePerformanceQueryFeaturesKHR> implements NativeResource {
+public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -70,15 +70,6 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
         PERFORMANCECOUNTERMULTIPLEQUERYPOOLS = layout.offsetof(3);
     }
 
-    protected VkPhysicalDevicePerformanceQueryFeaturesKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDevicePerformanceQueryFeaturesKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDevicePerformanceQueryFeaturesKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDevicePerformanceQueryFeaturesKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -92,7 +83,7 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -147,29 +138,29 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
 
     /** Returns a new {@code VkPhysicalDevicePerformanceQueryFeaturesKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDevicePerformanceQueryFeaturesKHR malloc() {
-        return new VkPhysicalDevicePerformanceQueryFeaturesKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDevicePerformanceQueryFeaturesKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDevicePerformanceQueryFeaturesKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDevicePerformanceQueryFeaturesKHR calloc() {
-        return new VkPhysicalDevicePerformanceQueryFeaturesKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDevicePerformanceQueryFeaturesKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDevicePerformanceQueryFeaturesKHR} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDevicePerformanceQueryFeaturesKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDevicePerformanceQueryFeaturesKHR(memAddress(container), container);
+        return wrap(VkPhysicalDevicePerformanceQueryFeaturesKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDevicePerformanceQueryFeaturesKHR} instance for the specified memory address. */
     public static VkPhysicalDevicePerformanceQueryFeaturesKHR create(long address) {
-        return new VkPhysicalDevicePerformanceQueryFeaturesKHR(address, null);
+        return wrap(VkPhysicalDevicePerformanceQueryFeaturesKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDevicePerformanceQueryFeaturesKHR createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDevicePerformanceQueryFeaturesKHR(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDevicePerformanceQueryFeaturesKHR.class, address);
     }
 
     /**
@@ -178,7 +169,7 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePerformanceQueryFeaturesKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -187,7 +178,7 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePerformanceQueryFeaturesKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -197,7 +188,7 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
      */
     public static VkPhysicalDevicePerformanceQueryFeaturesKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -207,13 +198,13 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePerformanceQueryFeaturesKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDevicePerformanceQueryFeaturesKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -222,7 +213,7 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDevicePerformanceQueryFeaturesKHR malloc(MemoryStack stack) {
-        return new VkPhysicalDevicePerformanceQueryFeaturesKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDevicePerformanceQueryFeaturesKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -231,7 +222,7 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDevicePerformanceQueryFeaturesKHR calloc(MemoryStack stack) {
-        return new VkPhysicalDevicePerformanceQueryFeaturesKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDevicePerformanceQueryFeaturesKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -241,7 +232,7 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePerformanceQueryFeaturesKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -251,7 +242,7 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePerformanceQueryFeaturesKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -284,9 +275,9 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
         /**
          * Creates a new {@code VkPhysicalDevicePerformanceQueryFeaturesKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDevicePerformanceQueryFeaturesKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDevicePerformanceQueryFeaturesKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

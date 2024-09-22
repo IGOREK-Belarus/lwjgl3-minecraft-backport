@@ -30,6 +30,6 @@ val KHR_image = "KHRImage".nativeClassEGL("KHR_image", postfix = KHR) {
         "NO_IMAGE_KHR"..0L
     )
 
-    reuse(KHR_image_base, "CreateImageKHR")
-    reuse(KHR_image_base, "DestroyImageKHR")
+    KHR_image_base reuse "CreateImageKHR"
+    KHR_image_base reuse "DestroyImageKHR"
 }

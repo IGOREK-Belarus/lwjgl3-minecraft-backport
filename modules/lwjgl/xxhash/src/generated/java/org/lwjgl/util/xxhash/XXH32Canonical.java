@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct XXH32_canonical_t")
-public class XXH32Canonical extends Struct<XXH32Canonical> implements NativeResource {
+public class XXH32Canonical extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -48,15 +48,6 @@ public class XXH32Canonical extends Struct<XXH32Canonical> implements NativeReso
         ALIGNOF = layout.getAlignment();
 
         DIGEST = layout.offsetof(0);
-    }
-
-    protected XXH32Canonical(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XXH32Canonical create(long address, @Nullable ByteBuffer container) {
-        return new XXH32Canonical(address, container);
     }
 
     /**
@@ -83,29 +74,29 @@ public class XXH32Canonical extends Struct<XXH32Canonical> implements NativeReso
 
     /** Returns a new {@code XXH32Canonical} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XXH32Canonical malloc() {
-        return new XXH32Canonical(nmemAllocChecked(SIZEOF), null);
+        return wrap(XXH32Canonical.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XXH32Canonical} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XXH32Canonical calloc() {
-        return new XXH32Canonical(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XXH32Canonical.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XXH32Canonical} instance allocated with {@link BufferUtils}. */
     public static XXH32Canonical create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XXH32Canonical(memAddress(container), container);
+        return wrap(XXH32Canonical.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XXH32Canonical} instance for the specified memory address. */
     public static XXH32Canonical create(long address) {
-        return new XXH32Canonical(address, null);
+        return wrap(XXH32Canonical.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XXH32Canonical createSafe(long address) {
-        return address == NULL ? null : new XXH32Canonical(address, null);
+        return address == NULL ? null : wrap(XXH32Canonical.class, address);
     }
 
     /**
@@ -114,7 +105,7 @@ public class XXH32Canonical extends Struct<XXH32Canonical> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static XXH32Canonical.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -123,7 +114,7 @@ public class XXH32Canonical extends Struct<XXH32Canonical> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static XXH32Canonical.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -133,7 +124,7 @@ public class XXH32Canonical extends Struct<XXH32Canonical> implements NativeReso
      */
     public static XXH32Canonical.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -143,13 +134,13 @@ public class XXH32Canonical extends Struct<XXH32Canonical> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static XXH32Canonical.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XXH32Canonical.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -177,7 +168,7 @@ public class XXH32Canonical extends Struct<XXH32Canonical> implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static XXH32Canonical malloc(MemoryStack stack) {
-        return new XXH32Canonical(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XXH32Canonical.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -186,7 +177,7 @@ public class XXH32Canonical extends Struct<XXH32Canonical> implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static XXH32Canonical calloc(MemoryStack stack) {
-        return new XXH32Canonical(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XXH32Canonical.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -196,7 +187,7 @@ public class XXH32Canonical extends Struct<XXH32Canonical> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static XXH32Canonical.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -206,7 +197,7 @@ public class XXH32Canonical extends Struct<XXH32Canonical> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static XXH32Canonical.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -228,9 +219,9 @@ public class XXH32Canonical extends Struct<XXH32Canonical> implements NativeReso
         /**
          * Creates a new {@code XXH32Canonical.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XXH32Canonical#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XXH32Canonical#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -36,7 +36,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBPassthrough XR_FB_passthrough} extension <b>must</b> be enabled prior to using {@link XrGeometryInstanceCreateInfoFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBPassthrough#XR_TYPE_GEOMETRY_INSTANCE_CREATE_INFO_FB TYPE_GEOMETRY_INSTANCE_CREATE_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code layer} <b>must</b> be a valid {@code XrPassthroughLayerFB} handle</li>
  * <li>{@code mesh} <b>must</b> be a valid {@code XrTriangleMeshFB} handle</li>
  * <li>{@code baseSpace} <b>must</b> be a valid {@code XrSpace} handle</li>
@@ -60,7 +60,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrVector3f XrVector3f} scale;
  * }</code></pre>
  */
-public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCreateInfoFB> implements NativeResource {
+public class XrGeometryInstanceCreateInfoFB extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -99,15 +99,6 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
         BASESPACE = layout.offsetof(4);
         POSE = layout.offsetof(5);
         SCALE = layout.offsetof(6);
-    }
-
-    protected XrGeometryInstanceCreateInfoFB(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrGeometryInstanceCreateInfoFB create(long address, @Nullable ByteBuffer container) {
-        return new XrGeometryInstanceCreateInfoFB(address, container);
     }
 
     /**
@@ -201,29 +192,29 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
 
     /** Returns a new {@code XrGeometryInstanceCreateInfoFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrGeometryInstanceCreateInfoFB malloc() {
-        return new XrGeometryInstanceCreateInfoFB(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrGeometryInstanceCreateInfoFB.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrGeometryInstanceCreateInfoFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrGeometryInstanceCreateInfoFB calloc() {
-        return new XrGeometryInstanceCreateInfoFB(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrGeometryInstanceCreateInfoFB.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrGeometryInstanceCreateInfoFB} instance allocated with {@link BufferUtils}. */
     public static XrGeometryInstanceCreateInfoFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrGeometryInstanceCreateInfoFB(memAddress(container), container);
+        return wrap(XrGeometryInstanceCreateInfoFB.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrGeometryInstanceCreateInfoFB} instance for the specified memory address. */
     public static XrGeometryInstanceCreateInfoFB create(long address) {
-        return new XrGeometryInstanceCreateInfoFB(address, null);
+        return wrap(XrGeometryInstanceCreateInfoFB.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrGeometryInstanceCreateInfoFB createSafe(long address) {
-        return address == NULL ? null : new XrGeometryInstanceCreateInfoFB(address, null);
+        return address == NULL ? null : wrap(XrGeometryInstanceCreateInfoFB.class, address);
     }
 
     /**
@@ -232,7 +223,7 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
      * @param capacity the buffer capacity
      */
     public static XrGeometryInstanceCreateInfoFB.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -241,7 +232,7 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
      * @param capacity the buffer capacity
      */
     public static XrGeometryInstanceCreateInfoFB.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -251,7 +242,7 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
      */
     public static XrGeometryInstanceCreateInfoFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -261,13 +252,13 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
      * @param capacity the buffer capacity
      */
     public static XrGeometryInstanceCreateInfoFB.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrGeometryInstanceCreateInfoFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -276,7 +267,7 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
      * @param stack the stack from which to allocate
      */
     public static XrGeometryInstanceCreateInfoFB malloc(MemoryStack stack) {
-        return new XrGeometryInstanceCreateInfoFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrGeometryInstanceCreateInfoFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -285,7 +276,7 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
      * @param stack the stack from which to allocate
      */
     public static XrGeometryInstanceCreateInfoFB calloc(MemoryStack stack) {
-        return new XrGeometryInstanceCreateInfoFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrGeometryInstanceCreateInfoFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -295,7 +286,7 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
      * @param capacity the buffer capacity
      */
     public static XrGeometryInstanceCreateInfoFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -305,7 +296,7 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
      * @param capacity the buffer capacity
      */
     public static XrGeometryInstanceCreateInfoFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -361,9 +352,9 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
         /**
          * Creates a new {@code XrGeometryInstanceCreateInfoFB.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrGeometryInstanceCreateInfoFB#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrGeometryInstanceCreateInfoFB#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

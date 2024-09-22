@@ -38,7 +38,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkSparseImageMemoryRequirements VkSparseImageMemoryRequirements} {@link #memoryRequirements};
  * }</code></pre>
  */
-public class VkSparseImageMemoryRequirements2 extends Struct<VkSparseImageMemoryRequirements2> implements NativeResource {
+public class VkSparseImageMemoryRequirements2 extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -67,15 +67,6 @@ public class VkSparseImageMemoryRequirements2 extends Struct<VkSparseImageMemory
         MEMORYREQUIREMENTS = layout.offsetof(2);
     }
 
-    protected VkSparseImageMemoryRequirements2(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkSparseImageMemoryRequirements2 create(long address, @Nullable ByteBuffer container) {
-        return new VkSparseImageMemoryRequirements2(address, container);
-    }
-
     /**
      * Creates a {@code VkSparseImageMemoryRequirements2} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -89,7 +80,7 @@ public class VkSparseImageMemoryRequirements2 extends Struct<VkSparseImageMemory
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -132,29 +123,29 @@ public class VkSparseImageMemoryRequirements2 extends Struct<VkSparseImageMemory
 
     /** Returns a new {@code VkSparseImageMemoryRequirements2} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSparseImageMemoryRequirements2 malloc() {
-        return new VkSparseImageMemoryRequirements2(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkSparseImageMemoryRequirements2.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkSparseImageMemoryRequirements2} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSparseImageMemoryRequirements2 calloc() {
-        return new VkSparseImageMemoryRequirements2(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkSparseImageMemoryRequirements2.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkSparseImageMemoryRequirements2} instance allocated with {@link BufferUtils}. */
     public static VkSparseImageMemoryRequirements2 create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkSparseImageMemoryRequirements2(memAddress(container), container);
+        return wrap(VkSparseImageMemoryRequirements2.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkSparseImageMemoryRequirements2} instance for the specified memory address. */
     public static VkSparseImageMemoryRequirements2 create(long address) {
-        return new VkSparseImageMemoryRequirements2(address, null);
+        return wrap(VkSparseImageMemoryRequirements2.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSparseImageMemoryRequirements2 createSafe(long address) {
-        return address == NULL ? null : new VkSparseImageMemoryRequirements2(address, null);
+        return address == NULL ? null : wrap(VkSparseImageMemoryRequirements2.class, address);
     }
 
     /**
@@ -163,7 +154,7 @@ public class VkSparseImageMemoryRequirements2 extends Struct<VkSparseImageMemory
      * @param capacity the buffer capacity
      */
     public static VkSparseImageMemoryRequirements2.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -172,7 +163,7 @@ public class VkSparseImageMemoryRequirements2 extends Struct<VkSparseImageMemory
      * @param capacity the buffer capacity
      */
     public static VkSparseImageMemoryRequirements2.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -182,7 +173,7 @@ public class VkSparseImageMemoryRequirements2 extends Struct<VkSparseImageMemory
      */
     public static VkSparseImageMemoryRequirements2.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -192,13 +183,13 @@ public class VkSparseImageMemoryRequirements2 extends Struct<VkSparseImageMemory
      * @param capacity the buffer capacity
      */
     public static VkSparseImageMemoryRequirements2.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSparseImageMemoryRequirements2.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -226,7 +217,7 @@ public class VkSparseImageMemoryRequirements2 extends Struct<VkSparseImageMemory
      * @param stack the stack from which to allocate
      */
     public static VkSparseImageMemoryRequirements2 malloc(MemoryStack stack) {
-        return new VkSparseImageMemoryRequirements2(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkSparseImageMemoryRequirements2.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -235,7 +226,7 @@ public class VkSparseImageMemoryRequirements2 extends Struct<VkSparseImageMemory
      * @param stack the stack from which to allocate
      */
     public static VkSparseImageMemoryRequirements2 calloc(MemoryStack stack) {
-        return new VkSparseImageMemoryRequirements2(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkSparseImageMemoryRequirements2.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -245,7 +236,7 @@ public class VkSparseImageMemoryRequirements2 extends Struct<VkSparseImageMemory
      * @param capacity the buffer capacity
      */
     public static VkSparseImageMemoryRequirements2.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -255,7 +246,7 @@ public class VkSparseImageMemoryRequirements2 extends Struct<VkSparseImageMemory
      * @param capacity the buffer capacity
      */
     public static VkSparseImageMemoryRequirements2.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -282,9 +273,9 @@ public class VkSparseImageMemoryRequirements2 extends Struct<VkSparseImageMemory
         /**
          * Creates a new {@code VkSparseImageMemoryRequirements2.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSparseImageMemoryRequirements2#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkSparseImageMemoryRequirements2#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

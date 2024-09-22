@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension <b>must</b> be enabled prior to using {@link XrSceneComponentsGetInfoMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTSceneUnderstanding#XR_TYPE_SCENE_COMPONENTS_GET_INFO_MSFT TYPE_SCENE_COMPONENTS_GET_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrSceneComponentParentFilterInfoMSFT}, {@link XrSceneMarkerTypeFilterMSFT}, {@link XrSceneObjectTypesFilterInfoMSFT}, {@link XrScenePlaneAlignmentFilterInfoMSFT}</li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrSceneComponentParentFilterInfoMSFT}, {@link XrSceneObjectTypesFilterInfoMSFT}, {@link XrScenePlaneAlignmentFilterInfoMSFT}</li>
  * <li>{@code componentType} <b>must</b> be a valid {@code XrSceneComponentTypeMSFT} value</li>
  * </ul>
  * 
@@ -40,7 +40,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrSceneComponentTypeMSFT {@link #componentType};
  * }</code></pre>
  */
-public class XrSceneComponentsGetInfoMSFT extends Struct<XrSceneComponentsGetInfoMSFT> implements NativeResource {
+public class XrSceneComponentsGetInfoMSFT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -67,15 +67,6 @@ public class XrSceneComponentsGetInfoMSFT extends Struct<XrSceneComponentsGetInf
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
         COMPONENTTYPE = layout.offsetof(2);
-    }
-
-    protected XrSceneComponentsGetInfoMSFT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSceneComponentsGetInfoMSFT create(long address, @Nullable ByteBuffer container) {
-        return new XrSceneComponentsGetInfoMSFT(address, container);
     }
 
     /**
@@ -109,8 +100,6 @@ public class XrSceneComponentsGetInfoMSFT extends Struct<XrSceneComponentsGetInf
     public XrSceneComponentsGetInfoMSFT next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
     /** Prepends the specified {@link XrSceneComponentParentFilterInfoMSFT} value to the {@code next} chain. */
     public XrSceneComponentsGetInfoMSFT next(XrSceneComponentParentFilterInfoMSFT value) { return this.next(value.next(this.next()).address()); }
-    /** Prepends the specified {@link XrSceneMarkerTypeFilterMSFT} value to the {@code next} chain. */
-    public XrSceneComponentsGetInfoMSFT next(XrSceneMarkerTypeFilterMSFT value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSceneObjectTypesFilterInfoMSFT} value to the {@code next} chain. */
     public XrSceneComponentsGetInfoMSFT next(XrSceneObjectTypesFilterInfoMSFT value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrScenePlaneAlignmentFilterInfoMSFT} value to the {@code next} chain. */
@@ -147,29 +136,29 @@ public class XrSceneComponentsGetInfoMSFT extends Struct<XrSceneComponentsGetInf
 
     /** Returns a new {@code XrSceneComponentsGetInfoMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSceneComponentsGetInfoMSFT malloc() {
-        return new XrSceneComponentsGetInfoMSFT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSceneComponentsGetInfoMSFT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSceneComponentsGetInfoMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSceneComponentsGetInfoMSFT calloc() {
-        return new XrSceneComponentsGetInfoMSFT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSceneComponentsGetInfoMSFT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSceneComponentsGetInfoMSFT} instance allocated with {@link BufferUtils}. */
     public static XrSceneComponentsGetInfoMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSceneComponentsGetInfoMSFT(memAddress(container), container);
+        return wrap(XrSceneComponentsGetInfoMSFT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSceneComponentsGetInfoMSFT} instance for the specified memory address. */
     public static XrSceneComponentsGetInfoMSFT create(long address) {
-        return new XrSceneComponentsGetInfoMSFT(address, null);
+        return wrap(XrSceneComponentsGetInfoMSFT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSceneComponentsGetInfoMSFT createSafe(long address) {
-        return address == NULL ? null : new XrSceneComponentsGetInfoMSFT(address, null);
+        return address == NULL ? null : wrap(XrSceneComponentsGetInfoMSFT.class, address);
     }
 
     /**
@@ -178,7 +167,7 @@ public class XrSceneComponentsGetInfoMSFT extends Struct<XrSceneComponentsGetInf
      * @param capacity the buffer capacity
      */
     public static XrSceneComponentsGetInfoMSFT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -187,7 +176,7 @@ public class XrSceneComponentsGetInfoMSFT extends Struct<XrSceneComponentsGetInf
      * @param capacity the buffer capacity
      */
     public static XrSceneComponentsGetInfoMSFT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -197,7 +186,7 @@ public class XrSceneComponentsGetInfoMSFT extends Struct<XrSceneComponentsGetInf
      */
     public static XrSceneComponentsGetInfoMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -207,13 +196,13 @@ public class XrSceneComponentsGetInfoMSFT extends Struct<XrSceneComponentsGetInf
      * @param capacity the buffer capacity
      */
     public static XrSceneComponentsGetInfoMSFT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSceneComponentsGetInfoMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -222,7 +211,7 @@ public class XrSceneComponentsGetInfoMSFT extends Struct<XrSceneComponentsGetInf
      * @param stack the stack from which to allocate
      */
     public static XrSceneComponentsGetInfoMSFT malloc(MemoryStack stack) {
-        return new XrSceneComponentsGetInfoMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSceneComponentsGetInfoMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -231,7 +220,7 @@ public class XrSceneComponentsGetInfoMSFT extends Struct<XrSceneComponentsGetInf
      * @param stack the stack from which to allocate
      */
     public static XrSceneComponentsGetInfoMSFT calloc(MemoryStack stack) {
-        return new XrSceneComponentsGetInfoMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSceneComponentsGetInfoMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -241,7 +230,7 @@ public class XrSceneComponentsGetInfoMSFT extends Struct<XrSceneComponentsGetInf
      * @param capacity the buffer capacity
      */
     public static XrSceneComponentsGetInfoMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -251,7 +240,7 @@ public class XrSceneComponentsGetInfoMSFT extends Struct<XrSceneComponentsGetInf
      * @param capacity the buffer capacity
      */
     public static XrSceneComponentsGetInfoMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -280,9 +269,9 @@ public class XrSceneComponentsGetInfoMSFT extends Struct<XrSceneComponentsGetInf
         /**
          * Creates a new {@code XrSceneComponentsGetInfoMSFT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSceneComponentsGetInfoMSFT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSceneComponentsGetInfoMSFT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -326,8 +315,6 @@ public class XrSceneComponentsGetInfoMSFT extends Struct<XrSceneComponentsGetInf
         public XrSceneComponentsGetInfoMSFT.Buffer next(@NativeType("void const *") long value) { XrSceneComponentsGetInfoMSFT.nnext(address(), value); return this; }
         /** Prepends the specified {@link XrSceneComponentParentFilterInfoMSFT} value to the {@code next} chain. */
         public XrSceneComponentsGetInfoMSFT.Buffer next(XrSceneComponentParentFilterInfoMSFT value) { return this.next(value.next(this.next()).address()); }
-        /** Prepends the specified {@link XrSceneMarkerTypeFilterMSFT} value to the {@code next} chain. */
-        public XrSceneComponentsGetInfoMSFT.Buffer next(XrSceneMarkerTypeFilterMSFT value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSceneObjectTypesFilterInfoMSFT} value to the {@code next} chain. */
         public XrSceneComponentsGetInfoMSFT.Buffer next(XrSceneObjectTypesFilterInfoMSFT value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrScenePlaneAlignmentFilterInfoMSFT} value to the {@code next} chain. */

@@ -36,10 +36,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link VALVEAnalogThreshold XR_VALVE_analog_threshold} extension <b>must</b> be enabled prior to using {@link XrInteractionProfileAnalogThresholdVALVE}</li>
  * <li>{@code type} <b>must</b> be {@link VALVEAnalogThreshold#XR_TYPE_INTERACTION_PROFILE_ANALOG_THRESHOLD_VALVE TYPE_INTERACTION_PROFILE_ANALOG_THRESHOLD_VALVE}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code action} <b>must</b> be a valid {@code XrAction} handle</li>
- * <li>If {@code onHaptic} is not {@code NULL}, {@code onHaptic} <b>must</b> be a pointer to a valid {@link XrHapticBaseHeader}-based structure. See also: {@link XrHapticAmplitudeEnvelopeVibrationFB}, {@link XrHapticPcmVibrationFB}, {@link XrHapticVibration}</li>
- * <li>If {@code offHaptic} is not {@code NULL}, {@code offHaptic} <b>must</b> be a pointer to a valid {@link XrHapticBaseHeader}-based structure. See also: {@link XrHapticAmplitudeEnvelopeVibrationFB}, {@link XrHapticPcmVibrationFB}, {@link XrHapticVibration}</li>
+ * <li>If {@code onHaptic} is not {@code NULL}, {@code onHaptic} <b>must</b> be a pointer to a valid {@link XrHapticBaseHeader}-based structure. See also: {@link XrHapticVibration}</li>
+ * <li>If {@code offHaptic} is not {@code NULL}, {@code offHaptic} <b>must</b> be a pointer to a valid {@link XrHapticBaseHeader}-based structure. See also: {@link XrHapticVibration}</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -60,7 +60,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrHapticBaseHeader XrHapticBaseHeader} const * {@link #offHaptic};
  * }</code></pre>
  */
-public class XrInteractionProfileAnalogThresholdVALVE extends Struct<XrInteractionProfileAnalogThresholdVALVE> implements NativeResource {
+public class XrInteractionProfileAnalogThresholdVALVE extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -102,15 +102,6 @@ public class XrInteractionProfileAnalogThresholdVALVE extends Struct<XrInteracti
         OFFTHRESHOLD = layout.offsetof(5);
         ONHAPTIC = layout.offsetof(6);
         OFFHAPTIC = layout.offsetof(7);
-    }
-
-    protected XrInteractionProfileAnalogThresholdVALVE(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrInteractionProfileAnalogThresholdVALVE create(long address, @Nullable ByteBuffer container) {
-        return new XrInteractionProfileAnalogThresholdVALVE(address, container);
     }
 
     /**
@@ -209,34 +200,34 @@ public class XrInteractionProfileAnalogThresholdVALVE extends Struct<XrInteracti
 
     /** Returns a new {@code XrInteractionProfileAnalogThresholdVALVE} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrInteractionProfileAnalogThresholdVALVE malloc() {
-        return new XrInteractionProfileAnalogThresholdVALVE(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrInteractionProfileAnalogThresholdVALVE.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrInteractionProfileAnalogThresholdVALVE} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrInteractionProfileAnalogThresholdVALVE calloc() {
-        return new XrInteractionProfileAnalogThresholdVALVE(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrInteractionProfileAnalogThresholdVALVE.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrInteractionProfileAnalogThresholdVALVE} instance allocated with {@link BufferUtils}. */
     public static XrInteractionProfileAnalogThresholdVALVE create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrInteractionProfileAnalogThresholdVALVE(memAddress(container), container);
+        return wrap(XrInteractionProfileAnalogThresholdVALVE.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrInteractionProfileAnalogThresholdVALVE} instance for the specified memory address. */
     public static XrInteractionProfileAnalogThresholdVALVE create(long address) {
-        return new XrInteractionProfileAnalogThresholdVALVE(address, null);
+        return wrap(XrInteractionProfileAnalogThresholdVALVE.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrInteractionProfileAnalogThresholdVALVE createSafe(long address) {
-        return address == NULL ? null : new XrInteractionProfileAnalogThresholdVALVE(address, null);
+        return address == NULL ? null : wrap(XrInteractionProfileAnalogThresholdVALVE.class, address);
     }
 
     /** Downcasts the specified {@code XrBindingModificationBaseHeaderKHR} instance to {@code XrInteractionProfileAnalogThresholdVALVE}. */
     public static XrInteractionProfileAnalogThresholdVALVE create(XrBindingModificationBaseHeaderKHR value) {
-        return new XrInteractionProfileAnalogThresholdVALVE(value.address(), __getContainer(value));
+        return wrap(XrInteractionProfileAnalogThresholdVALVE.class, value);
     }
 
     /**
@@ -245,7 +236,7 @@ public class XrInteractionProfileAnalogThresholdVALVE extends Struct<XrInteracti
      * @param capacity the buffer capacity
      */
     public static XrInteractionProfileAnalogThresholdVALVE.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -254,7 +245,7 @@ public class XrInteractionProfileAnalogThresholdVALVE extends Struct<XrInteracti
      * @param capacity the buffer capacity
      */
     public static XrInteractionProfileAnalogThresholdVALVE.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -264,7 +255,7 @@ public class XrInteractionProfileAnalogThresholdVALVE extends Struct<XrInteracti
      */
     public static XrInteractionProfileAnalogThresholdVALVE.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -274,18 +265,18 @@ public class XrInteractionProfileAnalogThresholdVALVE extends Struct<XrInteracti
      * @param capacity the buffer capacity
      */
     public static XrInteractionProfileAnalogThresholdVALVE.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrInteractionProfileAnalogThresholdVALVE.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /** Downcasts the specified {@code XrBindingModificationBaseHeaderKHR.Buffer} instance to {@code XrInteractionProfileAnalogThresholdVALVE.Buffer}. */
     public static XrInteractionProfileAnalogThresholdVALVE.Buffer create(XrBindingModificationBaseHeaderKHR.Buffer value) {
-        return new XrInteractionProfileAnalogThresholdVALVE.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+        return wrap(Buffer.class, value);
     }
 
     /**
@@ -294,7 +285,7 @@ public class XrInteractionProfileAnalogThresholdVALVE extends Struct<XrInteracti
      * @param stack the stack from which to allocate
      */
     public static XrInteractionProfileAnalogThresholdVALVE malloc(MemoryStack stack) {
-        return new XrInteractionProfileAnalogThresholdVALVE(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrInteractionProfileAnalogThresholdVALVE.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -303,7 +294,7 @@ public class XrInteractionProfileAnalogThresholdVALVE extends Struct<XrInteracti
      * @param stack the stack from which to allocate
      */
     public static XrInteractionProfileAnalogThresholdVALVE calloc(MemoryStack stack) {
-        return new XrInteractionProfileAnalogThresholdVALVE(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrInteractionProfileAnalogThresholdVALVE.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -313,7 +304,7 @@ public class XrInteractionProfileAnalogThresholdVALVE extends Struct<XrInteracti
      * @param capacity the buffer capacity
      */
     public static XrInteractionProfileAnalogThresholdVALVE.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -323,7 +314,7 @@ public class XrInteractionProfileAnalogThresholdVALVE extends Struct<XrInteracti
      * @param capacity the buffer capacity
      */
     public static XrInteractionProfileAnalogThresholdVALVE.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -381,9 +372,9 @@ public class XrInteractionProfileAnalogThresholdVALVE extends Struct<XrInteracti
         /**
          * Creates a new {@code XrInteractionProfileAnalogThresholdVALVE.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrInteractionProfileAnalogThresholdVALVE#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrInteractionProfileAnalogThresholdVALVE#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

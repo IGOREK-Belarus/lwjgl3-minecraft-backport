@@ -51,7 +51,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #maintenance4};
  * }</code></pre>
  */
-public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVulkan13Features> implements NativeResource {
+public class VkPhysicalDeviceVulkan13Features extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -122,15 +122,6 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
         MAINTENANCE4 = layout.offsetof(16);
     }
 
-    protected VkPhysicalDeviceVulkan13Features(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceVulkan13Features create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceVulkan13Features(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceVulkan13Features} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -144,13 +135,13 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether image accesses are tightly bounds-checked against the dimensions of the image view. <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-input-validation">Invalid texels</a> resulting from out of bounds image loads will be replaced as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-texel-replacement">Texel Replacement</a>, with either <code>(0,0,1)</code> or <code>(0,0,0)</code> values inserted for missing G, B, or A components based on the format. */
+    /** indicates whether image accesses are tightly bounds-checked against the dimensions of the image view. <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#textures-input-validation">Invalid texels</a> resulting from out of bounds image loads will be replaced as described in <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#textures-texel-replacement">Texel Replacement</a>, with either <code>(0,0,1)</code> or <code>(0,0,0)</code> values inserted for missing G, B, or A components based on the format. */
     @NativeType("VkBool32")
     public boolean robustImageAccess() { return nrobustImageAccess(address()) != 0; }
     /** indicates whether the implementation supports inline uniform block descriptors. If this feature is not enabled, {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK} <b>must</b> not be used. */
@@ -180,7 +171,7 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
      */
     @NativeType("VkBool32")
     public boolean pipelineCreationCacheControl() { return npipelineCreationCacheControl(address()) != 0; }
-    /** indicates whether the implementation supports private data. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#private-data">Private Data</a>. */
+    /** indicates whether the implementation supports private data. See <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#private-data">Private Data</a>. */
     @NativeType("VkBool32")
     public boolean privateData() { return nprivateData(address()) != 0; }
     /** indicates whether the implementation supports the SPIR-V {@code DemoteToHelperInvocationEXT} capability. */
@@ -192,7 +183,7 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
     /** indicates whether the implementation supports controlling shader subgroup sizes via the {@link VK13#VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT} flag and the {@link VkPipelineShaderStageRequiredSubgroupSizeCreateInfo} structure. */
     @NativeType("VkBool32")
     public boolean subgroupSizeControl() { return nsubgroupSizeControl(address()) != 0; }
-    /** indicates whether the implementation supports requiring full subgroups in compute , mesh, or task shaders via the {@link VK13#VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT} flag. */
+    /** indicates whether the implementation supports requiring full subgroups in compute shaders via the {@link VK13#VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT} flag. */
     @NativeType("VkBool32")
     public boolean computeFullSubgroups() { return ncomputeFullSubgroups(address()) != 0; }
     /** indicates whether the implementation supports the new set of synchronization commands introduced in {@link KHRSynchronization2 VK_KHR_synchronization2}. */
@@ -215,10 +206,10 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
      * <li>{@link VK13#VK_FORMAT_ASTC_10x8_SFLOAT_BLOCK FORMAT_ASTC_10x8_SFLOAT_BLOCK}</li>
      * <li>{@link VK13#VK_FORMAT_ASTC_10x10_SFLOAT_BLOCK FORMAT_ASTC_10x10_SFLOAT_BLOCK}</li>
      * <li>{@link VK13#VK_FORMAT_ASTC_12x10_SFLOAT_BLOCK FORMAT_ASTC_12x10_SFLOAT_BLOCK}</li>
-     * <li>{@link VK13#VK_FORMAT_ASTC_12x12_SFLOAT_BLOCK FORMAT_ASTC_12x12_SFLOAT_BLOCK}
-     * To query for additional properties, or if the feature is not enabled, {@link VK10#vkGetPhysicalDeviceFormatProperties GetPhysicalDeviceFormatProperties} and {@link VK10#vkGetPhysicalDeviceImageFormatProperties GetPhysicalDeviceImageFormatProperties} <b>can</b> be used to check for supported properties of individual formats as normal.
-     * </li>
+     * <li>{@link VK13#VK_FORMAT_ASTC_12x12_SFLOAT_BLOCK FORMAT_ASTC_12x12_SFLOAT_BLOCK}</li>
      * </ul>
+     * 
+     * <p>To query for additional properties, or if the feature is not enabled, {@link VK10#vkGetPhysicalDeviceFormatProperties GetPhysicalDeviceFormatProperties} and {@link VK10#vkGetPhysicalDeviceImageFormatProperties GetPhysicalDeviceImageFormatProperties} <b>can</b> be used to check for supported properties of individual formats as normal.</p>
      */
     @NativeType("VkBool32")
     public boolean textureCompressionASTC_HDR() { return ntextureCompressionASTC_HDR(address()) != 0; }
@@ -340,29 +331,29 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
 
     /** Returns a new {@code VkPhysicalDeviceVulkan13Features} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceVulkan13Features malloc() {
-        return new VkPhysicalDeviceVulkan13Features(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkan13Features.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceVulkan13Features} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceVulkan13Features calloc() {
-        return new VkPhysicalDeviceVulkan13Features(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkan13Features.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceVulkan13Features} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceVulkan13Features create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceVulkan13Features(memAddress(container), container);
+        return wrap(VkPhysicalDeviceVulkan13Features.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceVulkan13Features} instance for the specified memory address. */
     public static VkPhysicalDeviceVulkan13Features create(long address) {
-        return new VkPhysicalDeviceVulkan13Features(address, null);
+        return wrap(VkPhysicalDeviceVulkan13Features.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceVulkan13Features createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceVulkan13Features(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceVulkan13Features.class, address);
     }
 
     /**
@@ -371,7 +362,7 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan13Features.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -380,7 +371,7 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan13Features.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -390,7 +381,7 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
      */
     public static VkPhysicalDeviceVulkan13Features.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -400,13 +391,13 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan13Features.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceVulkan13Features.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -415,7 +406,7 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceVulkan13Features malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceVulkan13Features(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkan13Features.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -424,7 +415,7 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceVulkan13Features calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceVulkan13Features(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkan13Features.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -434,7 +425,7 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan13Features.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -444,7 +435,7 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan13Features.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -529,9 +520,9 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
         /**
          * Creates a new {@code VkPhysicalDeviceVulkan13Features.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceVulkan13Features#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceVulkan13Features#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

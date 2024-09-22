@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct statx_timestamp")
-public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeResource {
+public class StatxTimestamp extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -55,15 +55,6 @@ public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeReso
         TV_SEC = layout.offsetof(0);
         TV_NSEC = layout.offsetof(1);
         __RESERVED = layout.offsetof(2);
-    }
-
-    protected StatxTimestamp(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected StatxTimestamp create(long address, @Nullable ByteBuffer container) {
-        return new StatxTimestamp(address, container);
     }
 
     /**
@@ -118,29 +109,29 @@ public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeReso
 
     /** Returns a new {@code StatxTimestamp} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static StatxTimestamp malloc() {
-        return new StatxTimestamp(nmemAllocChecked(SIZEOF), null);
+        return wrap(StatxTimestamp.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code StatxTimestamp} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static StatxTimestamp calloc() {
-        return new StatxTimestamp(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(StatxTimestamp.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code StatxTimestamp} instance allocated with {@link BufferUtils}. */
     public static StatxTimestamp create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new StatxTimestamp(memAddress(container), container);
+        return wrap(StatxTimestamp.class, memAddress(container), container);
     }
 
     /** Returns a new {@code StatxTimestamp} instance for the specified memory address. */
     public static StatxTimestamp create(long address) {
-        return new StatxTimestamp(address, null);
+        return wrap(StatxTimestamp.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StatxTimestamp createSafe(long address) {
-        return address == NULL ? null : new StatxTimestamp(address, null);
+        return address == NULL ? null : wrap(StatxTimestamp.class, address);
     }
 
     /**
@@ -149,7 +140,7 @@ public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static StatxTimestamp.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -158,7 +149,7 @@ public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static StatxTimestamp.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -168,7 +159,7 @@ public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeReso
      */
     public static StatxTimestamp.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -178,13 +169,13 @@ public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static StatxTimestamp.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StatxTimestamp.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -193,7 +184,7 @@ public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static StatxTimestamp malloc(MemoryStack stack) {
-        return new StatxTimestamp(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(StatxTimestamp.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -202,7 +193,7 @@ public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static StatxTimestamp calloc(MemoryStack stack) {
-        return new StatxTimestamp(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(StatxTimestamp.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -212,7 +203,7 @@ public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static StatxTimestamp.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -222,7 +213,7 @@ public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static StatxTimestamp.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -249,9 +240,9 @@ public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeReso
         /**
          * Creates a new {@code StatxTimestamp.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link StatxTimestamp#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link StatxTimestamp#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

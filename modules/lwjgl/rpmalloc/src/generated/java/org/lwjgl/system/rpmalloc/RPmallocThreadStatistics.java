@@ -49,7 +49,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct rpmalloc_thread_statistics_t")
-public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> implements NativeResource {
+public class RPmallocThreadStatistics extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -85,15 +85,6 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
         GLOBAL_TO_THREAD = layout.offsetof(3);
         SPAN_USE = layout.offsetof(4);
         SIZE_USE = layout.offsetof(5);
-    }
-
-    protected RPmallocThreadStatistics(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected RPmallocThreadStatistics create(long address, @Nullable ByteBuffer container) {
-        return new RPmallocThreadStatistics(address, container);
     }
 
     /**
@@ -138,29 +129,29 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
 
     /** Returns a new {@code RPmallocThreadStatistics} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static RPmallocThreadStatistics malloc() {
-        return new RPmallocThreadStatistics(nmemAllocChecked(SIZEOF), null);
+        return wrap(RPmallocThreadStatistics.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code RPmallocThreadStatistics} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static RPmallocThreadStatistics calloc() {
-        return new RPmallocThreadStatistics(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(RPmallocThreadStatistics.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code RPmallocThreadStatistics} instance allocated with {@link BufferUtils}. */
     public static RPmallocThreadStatistics create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new RPmallocThreadStatistics(memAddress(container), container);
+        return wrap(RPmallocThreadStatistics.class, memAddress(container), container);
     }
 
     /** Returns a new {@code RPmallocThreadStatistics} instance for the specified memory address. */
     public static RPmallocThreadStatistics create(long address) {
-        return new RPmallocThreadStatistics(address, null);
+        return wrap(RPmallocThreadStatistics.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static RPmallocThreadStatistics createSafe(long address) {
-        return address == NULL ? null : new RPmallocThreadStatistics(address, null);
+        return address == NULL ? null : wrap(RPmallocThreadStatistics.class, address);
     }
 
     /**
@@ -169,7 +160,7 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
      * @param capacity the buffer capacity
      */
     public static RPmallocThreadStatistics.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -178,7 +169,7 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
      * @param capacity the buffer capacity
      */
     public static RPmallocThreadStatistics.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -188,7 +179,7 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
      */
     public static RPmallocThreadStatistics.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -198,13 +189,13 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
      * @param capacity the buffer capacity
      */
     public static RPmallocThreadStatistics.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static RPmallocThreadStatistics.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -232,7 +223,7 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
      * @param stack the stack from which to allocate
      */
     public static RPmallocThreadStatistics malloc(MemoryStack stack) {
-        return new RPmallocThreadStatistics(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(RPmallocThreadStatistics.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -241,7 +232,7 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
      * @param stack the stack from which to allocate
      */
     public static RPmallocThreadStatistics calloc(MemoryStack stack) {
-        return new RPmallocThreadStatistics(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(RPmallocThreadStatistics.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -251,7 +242,7 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
      * @param capacity the buffer capacity
      */
     public static RPmallocThreadStatistics.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -261,7 +252,7 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
      * @param capacity the buffer capacity
      */
     public static RPmallocThreadStatistics.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -297,9 +288,9 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
         /**
          * Creates a new {@code RPmallocThreadStatistics.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link RPmallocThreadStatistics#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link RPmallocThreadStatistics#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -369,7 +360,7 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
      * }</code></pre>
      */
     @NativeType("struct")
-    public static class span_use extends Struct<span_use> {
+    public static class span_use extends Struct {
     
         /** The struct size in bytes. */
         public static final int SIZEOF;
@@ -414,15 +405,6 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
             TO_RESERVED = layout.offsetof(6);
             FROM_RESERVED = layout.offsetof(7);
             MAP_CALLS = layout.offsetof(8);
-        }
-    
-        protected span_use(long address, @Nullable ByteBuffer container) {
-            super(address, container);
-        }
-    
-        @Override
-        protected span_use create(long address, @Nullable ByteBuffer container) {
-            return new span_use(address, container);
         }
     
         /**
@@ -470,13 +452,13 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
     
         /** Returns a new {@code span_use} instance for the specified memory address. */
         public static span_use create(long address) {
-            return new span_use(address, null);
+            return wrap(span_use.class, address);
         }
     
         /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
         @Nullable
         public static span_use createSafe(long address) {
-            return address == NULL ? null : new span_use(address, null);
+            return address == NULL ? null : wrap(span_use.class, address);
         }
     
         /**
@@ -486,13 +468,13 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
          * @param capacity the buffer capacity
          */
         public static span_use.Buffer create(long address, int capacity) {
-            return new Buffer(address, capacity);
+            return wrap(Buffer.class, address, capacity);
         }
     
         /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
         @Nullable
         public static span_use.Buffer createSafe(long address, int capacity) {
-            return address == NULL ? null : new Buffer(address, capacity);
+            return address == NULL ? null : wrap(Buffer.class, address, capacity);
         }
     
         // -----------------------------------
@@ -526,9 +508,9 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
             /**
              * Creates a new {@code span_use.Buffer} instance backed by the specified container.
              *
-             * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+             * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
              * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-             * by {@link span_use#SIZEOF}, and its mark will be undefined.</p>
+             * by {@link span_use#SIZEOF}, and its mark will be undefined.
              *
              * <p>The created buffer instance holds a strong reference to the container object.</p>
              */
@@ -602,7 +584,7 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
      * }</code></pre>
      */
     @NativeType("struct")
-    public static class size_use extends Struct<size_use> {
+    public static class size_use extends Struct {
     
         /** The struct size in bytes. */
         public static final int SIZEOF;
@@ -644,15 +626,6 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
             SPANS_FROM_CACHE = layout.offsetof(5);
             SPANS_FROM_RESERVED = layout.offsetof(6);
             MAP_CALLS = layout.offsetof(7);
-        }
-    
-        protected size_use(long address, @Nullable ByteBuffer container) {
-            super(address, container);
-        }
-    
-        @Override
-        protected size_use create(long address, @Nullable ByteBuffer container) {
-            return new size_use(address, container);
         }
     
         /**
@@ -697,13 +670,13 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
     
         /** Returns a new {@code size_use} instance for the specified memory address. */
         public static size_use create(long address) {
-            return new size_use(address, null);
+            return wrap(size_use.class, address);
         }
     
         /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
         @Nullable
         public static size_use createSafe(long address) {
-            return address == NULL ? null : new size_use(address, null);
+            return address == NULL ? null : wrap(size_use.class, address);
         }
     
         /**
@@ -713,13 +686,13 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
          * @param capacity the buffer capacity
          */
         public static size_use.Buffer create(long address, int capacity) {
-            return new Buffer(address, capacity);
+            return wrap(Buffer.class, address, capacity);
         }
     
         /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
         @Nullable
         public static size_use.Buffer createSafe(long address, int capacity) {
-            return address == NULL ? null : new Buffer(address, capacity);
+            return address == NULL ? null : wrap(Buffer.class, address, capacity);
         }
     
         // -----------------------------------
@@ -751,9 +724,9 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
             /**
              * Creates a new {@code size_use.Buffer} instance backed by the specified container.
              *
-             * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+             * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
              * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-             * by {@link size_use#SIZEOF}, and its mark will be undefined.</p>
+             * by {@link size_use#SIZEOF}, and its mark will be undefined.
              *
              * <p>The created buffer instance holds a strong reference to the container object.</p>
              */

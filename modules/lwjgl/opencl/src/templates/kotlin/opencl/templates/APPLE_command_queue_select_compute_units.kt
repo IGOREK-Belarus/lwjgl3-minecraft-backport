@@ -17,5 +17,5 @@ val APPLE_command_queue_select_compute_units = "APPLECommandQueueSelectComputeUn
     )
 
 
-    reuse(APPLE_command_queue_priority, "CreateCommandQueueWithPropertiesAPPLE")
+    APPLE_command_queue_priority reuse "CreateCommandQueueWithPropertiesAPPLE"
 }

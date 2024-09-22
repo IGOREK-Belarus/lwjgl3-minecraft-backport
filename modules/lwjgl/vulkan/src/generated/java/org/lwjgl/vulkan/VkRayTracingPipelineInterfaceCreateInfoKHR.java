@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>{@code maxPipelineRayPayloadSize} is calculated as the maximum number of bytes used by any block declared in the {@code RayPayloadKHR} or {@code IncomingRayPayloadKHR} storage classes. {@code maxPipelineRayHitAttributeSize} is calculated as the maximum number of bytes used by any block declared in the {@code HitAttributeKHR} storage class. As variables in these storage classes do not have explicit offsets, the size should be calculated as if each variable has a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-alignment-requirements">scalar alignment</a> equal to the largest scalar alignment of any of the block’s members.</p>
+ * <p>{@code maxPipelineRayPayloadSize} is calculated as the maximum number of bytes used by any block declared in the {@code RayPayloadKHR} or {@code IncomingRayPayloadKHR} storage classes. {@code maxPipelineRayHitAttributeSize} is calculated as the maximum number of bytes used by any block declared in the {@code HitAttributeKHR} storage class. As variables in these storage classes do not have explicit offsets, the size should be calculated as if each variable has a <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-alignment-requirements">scalar alignment</a> equal to the largest scalar alignment of any of the block’s members.</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
@@ -54,7 +54,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #maxPipelineRayHitAttributeSize};
  * }</code></pre>
  */
-public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTracingPipelineInterfaceCreateInfoKHR> implements NativeResource {
+public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -86,15 +86,6 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
         MAXPIPELINERAYHITATTRIBUTESIZE = layout.offsetof(3);
     }
 
-    protected VkRayTracingPipelineInterfaceCreateInfoKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkRayTracingPipelineInterfaceCreateInfoKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkRayTracingPipelineInterfaceCreateInfoKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkRayTracingPipelineInterfaceCreateInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -108,7 +99,7 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -163,29 +154,29 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
 
     /** Returns a new {@code VkRayTracingPipelineInterfaceCreateInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkRayTracingPipelineInterfaceCreateInfoKHR malloc() {
-        return new VkRayTracingPipelineInterfaceCreateInfoKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkRayTracingPipelineInterfaceCreateInfoKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkRayTracingPipelineInterfaceCreateInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkRayTracingPipelineInterfaceCreateInfoKHR calloc() {
-        return new VkRayTracingPipelineInterfaceCreateInfoKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkRayTracingPipelineInterfaceCreateInfoKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkRayTracingPipelineInterfaceCreateInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkRayTracingPipelineInterfaceCreateInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkRayTracingPipelineInterfaceCreateInfoKHR(memAddress(container), container);
+        return wrap(VkRayTracingPipelineInterfaceCreateInfoKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkRayTracingPipelineInterfaceCreateInfoKHR} instance for the specified memory address. */
     public static VkRayTracingPipelineInterfaceCreateInfoKHR create(long address) {
-        return new VkRayTracingPipelineInterfaceCreateInfoKHR(address, null);
+        return wrap(VkRayTracingPipelineInterfaceCreateInfoKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRayTracingPipelineInterfaceCreateInfoKHR createSafe(long address) {
-        return address == NULL ? null : new VkRayTracingPipelineInterfaceCreateInfoKHR(address, null);
+        return address == NULL ? null : wrap(VkRayTracingPipelineInterfaceCreateInfoKHR.class, address);
     }
 
     /**
@@ -194,7 +185,7 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
      * @param capacity the buffer capacity
      */
     public static VkRayTracingPipelineInterfaceCreateInfoKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -203,7 +194,7 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
      * @param capacity the buffer capacity
      */
     public static VkRayTracingPipelineInterfaceCreateInfoKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -213,7 +204,7 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
      */
     public static VkRayTracingPipelineInterfaceCreateInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -223,13 +214,13 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
      * @param capacity the buffer capacity
      */
     public static VkRayTracingPipelineInterfaceCreateInfoKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRayTracingPipelineInterfaceCreateInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -238,7 +229,7 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
      * @param stack the stack from which to allocate
      */
     public static VkRayTracingPipelineInterfaceCreateInfoKHR malloc(MemoryStack stack) {
-        return new VkRayTracingPipelineInterfaceCreateInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkRayTracingPipelineInterfaceCreateInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -247,7 +238,7 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
      * @param stack the stack from which to allocate
      */
     public static VkRayTracingPipelineInterfaceCreateInfoKHR calloc(MemoryStack stack) {
-        return new VkRayTracingPipelineInterfaceCreateInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkRayTracingPipelineInterfaceCreateInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -257,7 +248,7 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
      * @param capacity the buffer capacity
      */
     public static VkRayTracingPipelineInterfaceCreateInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -267,7 +258,7 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
      * @param capacity the buffer capacity
      */
     public static VkRayTracingPipelineInterfaceCreateInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -300,9 +291,9 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
         /**
          * Creates a new {@code VkRayTracingPipelineInterfaceCreateInfoKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkRayTracingPipelineInterfaceCreateInfoKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkRayTracingPipelineInterfaceCreateInfoKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

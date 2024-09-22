@@ -55,7 +55,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkConditionalRenderingFlagsEXT {@link #flags};
  * }</code></pre>
  */
-public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRenderingBeginInfoEXT> implements NativeResource {
+public class VkConditionalRenderingBeginInfoEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -90,15 +90,6 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
         FLAGS = layout.offsetof(4);
     }
 
-    protected VkConditionalRenderingBeginInfoEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkConditionalRenderingBeginInfoEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkConditionalRenderingBeginInfoEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkConditionalRenderingBeginInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -112,7 +103,7 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -174,29 +165,29 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
 
     /** Returns a new {@code VkConditionalRenderingBeginInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkConditionalRenderingBeginInfoEXT malloc() {
-        return new VkConditionalRenderingBeginInfoEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkConditionalRenderingBeginInfoEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkConditionalRenderingBeginInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkConditionalRenderingBeginInfoEXT calloc() {
-        return new VkConditionalRenderingBeginInfoEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkConditionalRenderingBeginInfoEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkConditionalRenderingBeginInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkConditionalRenderingBeginInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkConditionalRenderingBeginInfoEXT(memAddress(container), container);
+        return wrap(VkConditionalRenderingBeginInfoEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkConditionalRenderingBeginInfoEXT} instance for the specified memory address. */
     public static VkConditionalRenderingBeginInfoEXT create(long address) {
-        return new VkConditionalRenderingBeginInfoEXT(address, null);
+        return wrap(VkConditionalRenderingBeginInfoEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkConditionalRenderingBeginInfoEXT createSafe(long address) {
-        return address == NULL ? null : new VkConditionalRenderingBeginInfoEXT(address, null);
+        return address == NULL ? null : wrap(VkConditionalRenderingBeginInfoEXT.class, address);
     }
 
     /**
@@ -205,7 +196,7 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
      * @param capacity the buffer capacity
      */
     public static VkConditionalRenderingBeginInfoEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -214,7 +205,7 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
      * @param capacity the buffer capacity
      */
     public static VkConditionalRenderingBeginInfoEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -224,7 +215,7 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
      */
     public static VkConditionalRenderingBeginInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -234,13 +225,13 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
      * @param capacity the buffer capacity
      */
     public static VkConditionalRenderingBeginInfoEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkConditionalRenderingBeginInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -268,7 +259,7 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
      * @param stack the stack from which to allocate
      */
     public static VkConditionalRenderingBeginInfoEXT malloc(MemoryStack stack) {
-        return new VkConditionalRenderingBeginInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkConditionalRenderingBeginInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -277,7 +268,7 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
      * @param stack the stack from which to allocate
      */
     public static VkConditionalRenderingBeginInfoEXT calloc(MemoryStack stack) {
-        return new VkConditionalRenderingBeginInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkConditionalRenderingBeginInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -287,7 +278,7 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
      * @param capacity the buffer capacity
      */
     public static VkConditionalRenderingBeginInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -297,7 +288,7 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
      * @param capacity the buffer capacity
      */
     public static VkConditionalRenderingBeginInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -334,9 +325,9 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
         /**
          * Creates a new {@code VkConditionalRenderingBeginInfoEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkConditionalRenderingBeginInfoEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkConditionalRenderingBeginInfoEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

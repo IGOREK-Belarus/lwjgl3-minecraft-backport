@@ -31,10 +31,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code swapchain} <b>must</b> not be in the retired state</li>
- * <li>If {@code semaphore} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> be unsignaled</li>
- * <li>If {@code semaphore} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> not have any uncompleted signal or wait operations pending</li>
- * <li>If {@code fence} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code fence} <b>must</b> be unsignaled</li>
- * <li>If {@code fence} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code fence} <b>must</b> not be associated with any other queue command that has not yet completed execution on that queue</li>
+ * <li>If {@code semaphore} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} it <b>must</b> be unsignaled</li>
+ * <li>If {@code semaphore} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} it <b>must</b> not have any uncompleted signal or wait operations pending</li>
+ * <li>If {@code fence} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} it <b>must</b> be unsignaled and <b>must</b> not be associated with any other queue command that has not yet completed execution on that queue</li>
  * <li>{@code semaphore} and {@code fence} <b>must</b> not both be equal to {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
  * <li>{@code deviceMask} <b>must</b> be a valid device mask</li>
  * <li>{@code deviceMask} <b>must</b> not be zero</li>
@@ -49,7 +48,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code swapchain} <b>must</b> be a valid {@code VkSwapchainKHR} handle</li>
  * <li>If {@code semaphore} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code semaphore} <b>must</b> be a valid {@code VkSemaphore} handle</li>
  * <li>If {@code fence} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code fence} <b>must</b> be a valid {@code VkFence} handle</li>
- * <li>Each of {@code fence}, {@code semaphore}, and {@code swapchain} that are valid handles of non-ignored parameters <b>must</b> have been created, allocated, or retrieved from the same {@code VkDevice}</li>
+ * <li>Each of {@code fence}, {@code semaphore}, and {@code swapchain} that are valid handles of non-ignored parameters <b>must</b> have been created, allocated, or retrieved from the same {@code VkInstance}</li>
  * </ul>
  * 
  * <h5>Host Synchronization</h5>
@@ -77,7 +76,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #deviceMask};
  * }</code></pre>
  */
-public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR> implements NativeResource {
+public class VkAcquireNextImageInfoKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -118,15 +117,6 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
         DEVICEMASK = layout.offsetof(6);
     }
 
-    protected VkAcquireNextImageInfoKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkAcquireNextImageInfoKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkAcquireNextImageInfoKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkAcquireNextImageInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -140,7 +130,7 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -216,29 +206,29 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
 
     /** Returns a new {@code VkAcquireNextImageInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkAcquireNextImageInfoKHR malloc() {
-        return new VkAcquireNextImageInfoKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkAcquireNextImageInfoKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkAcquireNextImageInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkAcquireNextImageInfoKHR calloc() {
-        return new VkAcquireNextImageInfoKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkAcquireNextImageInfoKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkAcquireNextImageInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkAcquireNextImageInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkAcquireNextImageInfoKHR(memAddress(container), container);
+        return wrap(VkAcquireNextImageInfoKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkAcquireNextImageInfoKHR} instance for the specified memory address. */
     public static VkAcquireNextImageInfoKHR create(long address) {
-        return new VkAcquireNextImageInfoKHR(address, null);
+        return wrap(VkAcquireNextImageInfoKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAcquireNextImageInfoKHR createSafe(long address) {
-        return address == NULL ? null : new VkAcquireNextImageInfoKHR(address, null);
+        return address == NULL ? null : wrap(VkAcquireNextImageInfoKHR.class, address);
     }
 
     /**
@@ -247,7 +237,7 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
      * @param capacity the buffer capacity
      */
     public static VkAcquireNextImageInfoKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -256,7 +246,7 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
      * @param capacity the buffer capacity
      */
     public static VkAcquireNextImageInfoKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -266,7 +256,7 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
      */
     public static VkAcquireNextImageInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -276,13 +266,13 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
      * @param capacity the buffer capacity
      */
     public static VkAcquireNextImageInfoKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAcquireNextImageInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -310,7 +300,7 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
      * @param stack the stack from which to allocate
      */
     public static VkAcquireNextImageInfoKHR malloc(MemoryStack stack) {
-        return new VkAcquireNextImageInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkAcquireNextImageInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -319,7 +309,7 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
      * @param stack the stack from which to allocate
      */
     public static VkAcquireNextImageInfoKHR calloc(MemoryStack stack) {
-        return new VkAcquireNextImageInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkAcquireNextImageInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -329,7 +319,7 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
      * @param capacity the buffer capacity
      */
     public static VkAcquireNextImageInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -339,7 +329,7 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
      * @param capacity the buffer capacity
      */
     public static VkAcquireNextImageInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -384,9 +374,9 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
         /**
          * Creates a new {@code VkAcquireNextImageInfoKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkAcquireNextImageInfoKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkAcquireNextImageInfoKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

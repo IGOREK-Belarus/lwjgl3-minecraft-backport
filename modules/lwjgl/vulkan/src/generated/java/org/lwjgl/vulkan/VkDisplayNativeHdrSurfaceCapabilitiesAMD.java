@@ -33,7 +33,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #localDimmingSupport};
  * }</code></pre>
  */
-public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNativeHdrSurfaceCapabilitiesAMD> implements NativeResource {
+public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -62,15 +62,6 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
         LOCALDIMMINGSUPPORT = layout.offsetof(2);
     }
 
-    protected VkDisplayNativeHdrSurfaceCapabilitiesAMD(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkDisplayNativeHdrSurfaceCapabilitiesAMD create(long address, @Nullable ByteBuffer container) {
-        return new VkDisplayNativeHdrSurfaceCapabilitiesAMD(address, container);
-    }
-
     /**
      * Creates a {@code VkDisplayNativeHdrSurfaceCapabilitiesAMD} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -84,13 +75,13 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** specifies whether the surface supports local dimming. If this is {@link VK10#VK_TRUE TRUE}, {@link VkSwapchainDisplayNativeHdrCreateInfoAMD} <b>can</b> be used to explicitly enable or disable local dimming for the surface. Local dimming may also be overridden by {@link AMDDisplayNativeHdr#vkSetLocalDimmingAMD SetLocalDimmingAMD} during the lifetime of the swapchain. */
+    /** specifies whether the surface supports local dimming. If this is {@link VK10#VK_TRUE TRUE}, {@link VkSwapchainDisplayNativeHdrCreateInfoAMD} <b>can</b> be used to explicitly enable or disable local dimming for the surface. Local dimming may also be overriden by {@link AMDDisplayNativeHdr#vkSetLocalDimmingAMD SetLocalDimmingAMD} during the lifetime of the swapchain. */
     @NativeType("VkBool32")
     public boolean localDimmingSupport() { return nlocalDimmingSupport(address()) != 0; }
 
@@ -128,29 +119,29 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
 
     /** Returns a new {@code VkDisplayNativeHdrSurfaceCapabilitiesAMD} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDisplayNativeHdrSurfaceCapabilitiesAMD malloc() {
-        return new VkDisplayNativeHdrSurfaceCapabilitiesAMD(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkDisplayNativeHdrSurfaceCapabilitiesAMD.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkDisplayNativeHdrSurfaceCapabilitiesAMD} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDisplayNativeHdrSurfaceCapabilitiesAMD calloc() {
-        return new VkDisplayNativeHdrSurfaceCapabilitiesAMD(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkDisplayNativeHdrSurfaceCapabilitiesAMD.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkDisplayNativeHdrSurfaceCapabilitiesAMD} instance allocated with {@link BufferUtils}. */
     public static VkDisplayNativeHdrSurfaceCapabilitiesAMD create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkDisplayNativeHdrSurfaceCapabilitiesAMD(memAddress(container), container);
+        return wrap(VkDisplayNativeHdrSurfaceCapabilitiesAMD.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkDisplayNativeHdrSurfaceCapabilitiesAMD} instance for the specified memory address. */
     public static VkDisplayNativeHdrSurfaceCapabilitiesAMD create(long address) {
-        return new VkDisplayNativeHdrSurfaceCapabilitiesAMD(address, null);
+        return wrap(VkDisplayNativeHdrSurfaceCapabilitiesAMD.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDisplayNativeHdrSurfaceCapabilitiesAMD createSafe(long address) {
-        return address == NULL ? null : new VkDisplayNativeHdrSurfaceCapabilitiesAMD(address, null);
+        return address == NULL ? null : wrap(VkDisplayNativeHdrSurfaceCapabilitiesAMD.class, address);
     }
 
     /**
@@ -159,7 +150,7 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
      * @param capacity the buffer capacity
      */
     public static VkDisplayNativeHdrSurfaceCapabilitiesAMD.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -168,7 +159,7 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
      * @param capacity the buffer capacity
      */
     public static VkDisplayNativeHdrSurfaceCapabilitiesAMD.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -178,7 +169,7 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
      */
     public static VkDisplayNativeHdrSurfaceCapabilitiesAMD.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -188,13 +179,13 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
      * @param capacity the buffer capacity
      */
     public static VkDisplayNativeHdrSurfaceCapabilitiesAMD.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDisplayNativeHdrSurfaceCapabilitiesAMD.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -222,7 +213,7 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
      * @param stack the stack from which to allocate
      */
     public static VkDisplayNativeHdrSurfaceCapabilitiesAMD malloc(MemoryStack stack) {
-        return new VkDisplayNativeHdrSurfaceCapabilitiesAMD(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkDisplayNativeHdrSurfaceCapabilitiesAMD.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -231,7 +222,7 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
      * @param stack the stack from which to allocate
      */
     public static VkDisplayNativeHdrSurfaceCapabilitiesAMD calloc(MemoryStack stack) {
-        return new VkDisplayNativeHdrSurfaceCapabilitiesAMD(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkDisplayNativeHdrSurfaceCapabilitiesAMD.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -241,7 +232,7 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
      * @param capacity the buffer capacity
      */
     public static VkDisplayNativeHdrSurfaceCapabilitiesAMD.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -251,7 +242,7 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
      * @param capacity the buffer capacity
      */
     public static VkDisplayNativeHdrSurfaceCapabilitiesAMD.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -278,9 +269,9 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
         /**
          * Creates a new {@code VkDisplayNativeHdrSurfaceCapabilitiesAMD.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

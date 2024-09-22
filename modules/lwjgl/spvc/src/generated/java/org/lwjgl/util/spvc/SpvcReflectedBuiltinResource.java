@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct spvc_reflected_builtin_resource")
-public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinResource> implements NativeResource {
+public class SpvcReflectedBuiltinResource extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -53,15 +53,6 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
         BUILTIN = layout.offsetof(0);
         VALUE_TYPE_ID = layout.offsetof(1);
         RESOURCE = layout.offsetof(2);
-    }
-
-    protected SpvcReflectedBuiltinResource(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected SpvcReflectedBuiltinResource create(long address, @Nullable ByteBuffer container) {
-        return new SpvcReflectedBuiltinResource(address, container);
     }
 
     /**
@@ -141,29 +132,29 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
 
     /** Returns a new {@code SpvcReflectedBuiltinResource} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static SpvcReflectedBuiltinResource malloc() {
-        return new SpvcReflectedBuiltinResource(nmemAllocChecked(SIZEOF), null);
+        return wrap(SpvcReflectedBuiltinResource.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code SpvcReflectedBuiltinResource} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static SpvcReflectedBuiltinResource calloc() {
-        return new SpvcReflectedBuiltinResource(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(SpvcReflectedBuiltinResource.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code SpvcReflectedBuiltinResource} instance allocated with {@link BufferUtils}. */
     public static SpvcReflectedBuiltinResource create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new SpvcReflectedBuiltinResource(memAddress(container), container);
+        return wrap(SpvcReflectedBuiltinResource.class, memAddress(container), container);
     }
 
     /** Returns a new {@code SpvcReflectedBuiltinResource} instance for the specified memory address. */
     public static SpvcReflectedBuiltinResource create(long address) {
-        return new SpvcReflectedBuiltinResource(address, null);
+        return wrap(SpvcReflectedBuiltinResource.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static SpvcReflectedBuiltinResource createSafe(long address) {
-        return address == NULL ? null : new SpvcReflectedBuiltinResource(address, null);
+        return address == NULL ? null : wrap(SpvcReflectedBuiltinResource.class, address);
     }
 
     /**
@@ -172,7 +163,7 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
      * @param capacity the buffer capacity
      */
     public static SpvcReflectedBuiltinResource.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -181,7 +172,7 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
      * @param capacity the buffer capacity
      */
     public static SpvcReflectedBuiltinResource.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -191,7 +182,7 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
      */
     public static SpvcReflectedBuiltinResource.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -201,13 +192,13 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
      * @param capacity the buffer capacity
      */
     public static SpvcReflectedBuiltinResource.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static SpvcReflectedBuiltinResource.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -216,7 +207,7 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
      * @param stack the stack from which to allocate
      */
     public static SpvcReflectedBuiltinResource malloc(MemoryStack stack) {
-        return new SpvcReflectedBuiltinResource(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(SpvcReflectedBuiltinResource.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -225,7 +216,7 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
      * @param stack the stack from which to allocate
      */
     public static SpvcReflectedBuiltinResource calloc(MemoryStack stack) {
-        return new SpvcReflectedBuiltinResource(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(SpvcReflectedBuiltinResource.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -235,7 +226,7 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
      * @param capacity the buffer capacity
      */
     public static SpvcReflectedBuiltinResource.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -245,7 +236,7 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
      * @param capacity the buffer capacity
      */
     public static SpvcReflectedBuiltinResource.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -283,9 +274,9 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
         /**
          * Creates a new {@code SpvcReflectedBuiltinResource.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link SpvcReflectedBuiltinResource#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link SpvcReflectedBuiltinResource#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

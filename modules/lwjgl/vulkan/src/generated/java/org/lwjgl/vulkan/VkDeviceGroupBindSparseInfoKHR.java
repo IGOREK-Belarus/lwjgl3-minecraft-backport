@@ -30,15 +30,6 @@ import static org.lwjgl.system.MemoryStack.*;
  */
 public class VkDeviceGroupBindSparseInfoKHR extends VkDeviceGroupBindSparseInfo {
 
-    protected VkDeviceGroupBindSparseInfoKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkDeviceGroupBindSparseInfoKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkDeviceGroupBindSparseInfoKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkDeviceGroupBindSparseInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -97,29 +88,29 @@ public class VkDeviceGroupBindSparseInfoKHR extends VkDeviceGroupBindSparseInfo 
 
     /** Returns a new {@code VkDeviceGroupBindSparseInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDeviceGroupBindSparseInfoKHR malloc() {
-        return new VkDeviceGroupBindSparseInfoKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkDeviceGroupBindSparseInfoKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceGroupBindSparseInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDeviceGroupBindSparseInfoKHR calloc() {
-        return new VkDeviceGroupBindSparseInfoKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkDeviceGroupBindSparseInfoKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceGroupBindSparseInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkDeviceGroupBindSparseInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkDeviceGroupBindSparseInfoKHR(memAddress(container), container);
+        return wrap(VkDeviceGroupBindSparseInfoKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkDeviceGroupBindSparseInfoKHR} instance for the specified memory address. */
     public static VkDeviceGroupBindSparseInfoKHR create(long address) {
-        return new VkDeviceGroupBindSparseInfoKHR(address, null);
+        return wrap(VkDeviceGroupBindSparseInfoKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceGroupBindSparseInfoKHR createSafe(long address) {
-        return address == NULL ? null : new VkDeviceGroupBindSparseInfoKHR(address, null);
+        return address == NULL ? null : wrap(VkDeviceGroupBindSparseInfoKHR.class, address);
     }
 
     /**
@@ -128,7 +119,7 @@ public class VkDeviceGroupBindSparseInfoKHR extends VkDeviceGroupBindSparseInfo 
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupBindSparseInfoKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -137,7 +128,7 @@ public class VkDeviceGroupBindSparseInfoKHR extends VkDeviceGroupBindSparseInfo 
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupBindSparseInfoKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -147,7 +138,7 @@ public class VkDeviceGroupBindSparseInfoKHR extends VkDeviceGroupBindSparseInfo 
      */
     public static VkDeviceGroupBindSparseInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -157,13 +148,13 @@ public class VkDeviceGroupBindSparseInfoKHR extends VkDeviceGroupBindSparseInfo 
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupBindSparseInfoKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceGroupBindSparseInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -191,7 +182,7 @@ public class VkDeviceGroupBindSparseInfoKHR extends VkDeviceGroupBindSparseInfo 
      * @param stack the stack from which to allocate
      */
     public static VkDeviceGroupBindSparseInfoKHR malloc(MemoryStack stack) {
-        return new VkDeviceGroupBindSparseInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkDeviceGroupBindSparseInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -200,7 +191,7 @@ public class VkDeviceGroupBindSparseInfoKHR extends VkDeviceGroupBindSparseInfo 
      * @param stack the stack from which to allocate
      */
     public static VkDeviceGroupBindSparseInfoKHR calloc(MemoryStack stack) {
-        return new VkDeviceGroupBindSparseInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkDeviceGroupBindSparseInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -210,7 +201,7 @@ public class VkDeviceGroupBindSparseInfoKHR extends VkDeviceGroupBindSparseInfo 
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupBindSparseInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -220,7 +211,7 @@ public class VkDeviceGroupBindSparseInfoKHR extends VkDeviceGroupBindSparseInfo 
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupBindSparseInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -233,9 +224,9 @@ public class VkDeviceGroupBindSparseInfoKHR extends VkDeviceGroupBindSparseInfo 
         /**
          * Creates a new {@code VkDeviceGroupBindSparseInfoKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDeviceGroupBindSparseInfoKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkDeviceGroupBindSparseInfoKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

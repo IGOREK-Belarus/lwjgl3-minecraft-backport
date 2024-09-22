@@ -30,15 +30,6 @@ import static org.lwjgl.system.MemoryStack.*;
  */
 public class VkPhysicalDeviceShaderAtomicInt64FeaturesKHR extends VkPhysicalDeviceShaderAtomicInt64Features {
 
-    protected VkPhysicalDeviceShaderAtomicInt64FeaturesKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceShaderAtomicInt64FeaturesKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceShaderAtomicInt64FeaturesKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceShaderAtomicInt64FeaturesKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -97,29 +88,29 @@ public class VkPhysicalDeviceShaderAtomicInt64FeaturesKHR extends VkPhysicalDevi
 
     /** Returns a new {@code VkPhysicalDeviceShaderAtomicInt64FeaturesKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR malloc() {
-        return new VkPhysicalDeviceShaderAtomicInt64FeaturesKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceShaderAtomicInt64FeaturesKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR calloc() {
-        return new VkPhysicalDeviceShaderAtomicInt64FeaturesKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceShaderAtomicInt64FeaturesKHR} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceShaderAtomicInt64FeaturesKHR(memAddress(container), container);
+        return wrap(VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceShaderAtomicInt64FeaturesKHR} instance for the specified memory address. */
     public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR create(long address) {
-        return new VkPhysicalDeviceShaderAtomicInt64FeaturesKHR(address, null);
+        return wrap(VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceShaderAtomicInt64FeaturesKHR(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.class, address);
     }
 
     /**
@@ -128,7 +119,7 @@ public class VkPhysicalDeviceShaderAtomicInt64FeaturesKHR extends VkPhysicalDevi
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -137,7 +128,7 @@ public class VkPhysicalDeviceShaderAtomicInt64FeaturesKHR extends VkPhysicalDevi
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -147,7 +138,7 @@ public class VkPhysicalDeviceShaderAtomicInt64FeaturesKHR extends VkPhysicalDevi
      */
     public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -157,13 +148,13 @@ public class VkPhysicalDeviceShaderAtomicInt64FeaturesKHR extends VkPhysicalDevi
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -191,7 +182,7 @@ public class VkPhysicalDeviceShaderAtomicInt64FeaturesKHR extends VkPhysicalDevi
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceShaderAtomicInt64FeaturesKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -200,7 +191,7 @@ public class VkPhysicalDeviceShaderAtomicInt64FeaturesKHR extends VkPhysicalDevi
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceShaderAtomicInt64FeaturesKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -210,7 +201,7 @@ public class VkPhysicalDeviceShaderAtomicInt64FeaturesKHR extends VkPhysicalDevi
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -220,7 +211,7 @@ public class VkPhysicalDeviceShaderAtomicInt64FeaturesKHR extends VkPhysicalDevi
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -233,9 +224,9 @@ public class VkPhysicalDeviceShaderAtomicInt64FeaturesKHR extends VkPhysicalDevi
         /**
          * Creates a new {@code VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceShaderAtomicInt64FeaturesKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceShaderAtomicInt64FeaturesKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

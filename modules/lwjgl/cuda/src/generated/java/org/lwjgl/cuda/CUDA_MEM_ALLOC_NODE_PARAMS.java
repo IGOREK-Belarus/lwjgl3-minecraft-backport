@@ -17,18 +17,20 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
+ * Memory allocation node parameters.
+ * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct CUDA_MEM_ALLOC_NODE_PARAMS {
- *     {@link CUmemPoolProps CUmemPoolProps} poolProps;
- *     {@link CUmemAccessDesc CUmemAccessDesc} const * accessDescs;
- *     size_t accessDescCount;
- *     size_t bytesize;
- *     CUdeviceptr dptr;
+ *     {@link CUmemPoolProps CUmemPoolProps} {@link #poolProps};
+ *     {@link CUmemAccessDesc CUmemAccessDesc} const * {@link #accessDescs};
+ *     size_t {@link #accessDescCount};
+ *     size_t {@link #bytesize};
+ *     CUdeviceptr {@link #dptr};
  * }</code></pre>
  */
-public class CUDA_MEM_ALLOC_NODE_PARAMS extends Struct<CUDA_MEM_ALLOC_NODE_PARAMS> implements NativeResource {
+public class CUDA_MEM_ALLOC_NODE_PARAMS extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -63,15 +65,6 @@ public class CUDA_MEM_ALLOC_NODE_PARAMS extends Struct<CUDA_MEM_ALLOC_NODE_PARAM
         DPTR = layout.offsetof(4);
     }
 
-    protected CUDA_MEM_ALLOC_NODE_PARAMS(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CUDA_MEM_ALLOC_NODE_PARAMS create(long address, @Nullable ByteBuffer container) {
-        return new CUDA_MEM_ALLOC_NODE_PARAMS(address, container);
-    }
-
     /**
      * Creates a {@code CUDA_MEM_ALLOC_NODE_PARAMS} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -85,30 +78,33 @@ public class CUDA_MEM_ALLOC_NODE_PARAMS extends Struct<CUDA_MEM_ALLOC_NODE_PARAM
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return a {@link CUmemPoolProps} view of the {@code poolProps} field. */
+    /**
+     * in: location where the allocation should reside (specified in {@code location}). {@code handleTypes} must be {@link CU#CU_MEM_HANDLE_TYPE_NONE MEM_HANDLE_TYPE_NONE}. IPC is not
+     * supported.
+     */
     public CUmemPoolProps poolProps() { return npoolProps(address()); }
-    /** @return a {@link CUmemAccessDesc.Buffer} view of the struct array pointed to by the {@code accessDescs} field. */
+    /** in: array of memory access descriptors. Used to describe peer GPU access */
     @NativeType("CUmemAccessDesc const *")
     public CUmemAccessDesc.Buffer accessDescs() { return naccessDescs(address()); }
-    /** @return the value of the {@code accessDescCount} field. */
+    /** in: number of memory access descriptors.  Must not exceed the number of GPUs. */
     @NativeType("size_t")
     public long accessDescCount() { return naccessDescCount(address()); }
-    /** @return the value of the {@code bytesize} field. */
+    /** in: size in bytes of the requested allocation */
     @NativeType("size_t")
     public long bytesize() { return nbytesize(address()); }
-    /** @return the value of the {@code dptr} field. */
+    /** out: address of the allocation returned by CUDA */
     @NativeType("CUdeviceptr")
     public long dptr() { return ndptr(address()); }
 
-    /** Copies the specified {@link CUmemPoolProps} to the {@code poolProps} field. */
+    /** Copies the specified {@link CUmemPoolProps} to the {@link #poolProps} field. */
     public CUDA_MEM_ALLOC_NODE_PARAMS poolProps(CUmemPoolProps value) { npoolProps(address(), value); return this; }
-    /** Passes the {@code poolProps} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@link #poolProps} field to the specified {@link java.util.function.Consumer Consumer}. */
     public CUDA_MEM_ALLOC_NODE_PARAMS poolProps(java.util.function.Consumer<CUmemPoolProps> consumer) { consumer.accept(poolProps()); return this; }
-    /** Sets the address of the specified {@link CUmemAccessDesc.Buffer} to the {@code accessDescs} field. */
+    /** Sets the address of the specified {@link CUmemAccessDesc.Buffer} to the {@link #accessDescs} field. */
     public CUDA_MEM_ALLOC_NODE_PARAMS accessDescs(@NativeType("CUmemAccessDesc const *") CUmemAccessDesc.Buffer value) { naccessDescs(address(), value); return this; }
-    /** Sets the specified value to the {@code bytesize} field. */
+    /** Sets the specified value to the {@link #bytesize} field. */
     public CUDA_MEM_ALLOC_NODE_PARAMS bytesize(@NativeType("size_t") long value) { nbytesize(address(), value); return this; }
-    /** Sets the specified value to the {@code dptr} field. */
+    /** Sets the specified value to the {@link #dptr} field. */
     public CUDA_MEM_ALLOC_NODE_PARAMS dptr(@NativeType("CUdeviceptr") long value) { ndptr(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -142,29 +138,29 @@ public class CUDA_MEM_ALLOC_NODE_PARAMS extends Struct<CUDA_MEM_ALLOC_NODE_PARAM
 
     /** Returns a new {@code CUDA_MEM_ALLOC_NODE_PARAMS} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CUDA_MEM_ALLOC_NODE_PARAMS malloc() {
-        return new CUDA_MEM_ALLOC_NODE_PARAMS(nmemAllocChecked(SIZEOF), null);
+        return wrap(CUDA_MEM_ALLOC_NODE_PARAMS.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code CUDA_MEM_ALLOC_NODE_PARAMS} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CUDA_MEM_ALLOC_NODE_PARAMS calloc() {
-        return new CUDA_MEM_ALLOC_NODE_PARAMS(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(CUDA_MEM_ALLOC_NODE_PARAMS.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code CUDA_MEM_ALLOC_NODE_PARAMS} instance allocated with {@link BufferUtils}. */
     public static CUDA_MEM_ALLOC_NODE_PARAMS create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new CUDA_MEM_ALLOC_NODE_PARAMS(memAddress(container), container);
+        return wrap(CUDA_MEM_ALLOC_NODE_PARAMS.class, memAddress(container), container);
     }
 
     /** Returns a new {@code CUDA_MEM_ALLOC_NODE_PARAMS} instance for the specified memory address. */
     public static CUDA_MEM_ALLOC_NODE_PARAMS create(long address) {
-        return new CUDA_MEM_ALLOC_NODE_PARAMS(address, null);
+        return wrap(CUDA_MEM_ALLOC_NODE_PARAMS.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_MEM_ALLOC_NODE_PARAMS createSafe(long address) {
-        return address == NULL ? null : new CUDA_MEM_ALLOC_NODE_PARAMS(address, null);
+        return address == NULL ? null : wrap(CUDA_MEM_ALLOC_NODE_PARAMS.class, address);
     }
 
     /**
@@ -173,7 +169,7 @@ public class CUDA_MEM_ALLOC_NODE_PARAMS extends Struct<CUDA_MEM_ALLOC_NODE_PARAM
      * @param capacity the buffer capacity
      */
     public static CUDA_MEM_ALLOC_NODE_PARAMS.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -182,7 +178,7 @@ public class CUDA_MEM_ALLOC_NODE_PARAMS extends Struct<CUDA_MEM_ALLOC_NODE_PARAM
      * @param capacity the buffer capacity
      */
     public static CUDA_MEM_ALLOC_NODE_PARAMS.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -192,7 +188,7 @@ public class CUDA_MEM_ALLOC_NODE_PARAMS extends Struct<CUDA_MEM_ALLOC_NODE_PARAM
      */
     public static CUDA_MEM_ALLOC_NODE_PARAMS.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -202,13 +198,13 @@ public class CUDA_MEM_ALLOC_NODE_PARAMS extends Struct<CUDA_MEM_ALLOC_NODE_PARAM
      * @param capacity the buffer capacity
      */
     public static CUDA_MEM_ALLOC_NODE_PARAMS.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_MEM_ALLOC_NODE_PARAMS.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -217,7 +213,7 @@ public class CUDA_MEM_ALLOC_NODE_PARAMS extends Struct<CUDA_MEM_ALLOC_NODE_PARAM
      * @param stack the stack from which to allocate
      */
     public static CUDA_MEM_ALLOC_NODE_PARAMS malloc(MemoryStack stack) {
-        return new CUDA_MEM_ALLOC_NODE_PARAMS(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(CUDA_MEM_ALLOC_NODE_PARAMS.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -226,7 +222,7 @@ public class CUDA_MEM_ALLOC_NODE_PARAMS extends Struct<CUDA_MEM_ALLOC_NODE_PARAM
      * @param stack the stack from which to allocate
      */
     public static CUDA_MEM_ALLOC_NODE_PARAMS calloc(MemoryStack stack) {
-        return new CUDA_MEM_ALLOC_NODE_PARAMS(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(CUDA_MEM_ALLOC_NODE_PARAMS.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -236,7 +232,7 @@ public class CUDA_MEM_ALLOC_NODE_PARAMS extends Struct<CUDA_MEM_ALLOC_NODE_PARAM
      * @param capacity the buffer capacity
      */
     public static CUDA_MEM_ALLOC_NODE_PARAMS.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -246,7 +242,7 @@ public class CUDA_MEM_ALLOC_NODE_PARAMS extends Struct<CUDA_MEM_ALLOC_NODE_PARAM
      * @param capacity the buffer capacity
      */
     public static CUDA_MEM_ALLOC_NODE_PARAMS.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -292,9 +288,9 @@ public class CUDA_MEM_ALLOC_NODE_PARAMS extends Struct<CUDA_MEM_ALLOC_NODE_PARAM
         /**
          * Creates a new {@code CUDA_MEM_ALLOC_NODE_PARAMS.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CUDA_MEM_ALLOC_NODE_PARAMS#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CUDA_MEM_ALLOC_NODE_PARAMS#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -320,30 +316,30 @@ public class CUDA_MEM_ALLOC_NODE_PARAMS extends Struct<CUDA_MEM_ALLOC_NODE_PARAM
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link CUmemPoolProps} view of the {@code poolProps} field. */
+        /** @return a {@link CUmemPoolProps} view of the {@link CUDA_MEM_ALLOC_NODE_PARAMS#poolProps} field. */
         public CUmemPoolProps poolProps() { return CUDA_MEM_ALLOC_NODE_PARAMS.npoolProps(address()); }
-        /** @return a {@link CUmemAccessDesc.Buffer} view of the struct array pointed to by the {@code accessDescs} field. */
+        /** @return a {@link CUmemAccessDesc.Buffer} view of the struct array pointed to by the {@link CUDA_MEM_ALLOC_NODE_PARAMS#accessDescs} field. */
         @NativeType("CUmemAccessDesc const *")
         public CUmemAccessDesc.Buffer accessDescs() { return CUDA_MEM_ALLOC_NODE_PARAMS.naccessDescs(address()); }
-        /** @return the value of the {@code accessDescCount} field. */
+        /** @return the value of the {@link CUDA_MEM_ALLOC_NODE_PARAMS#accessDescCount} field. */
         @NativeType("size_t")
         public long accessDescCount() { return CUDA_MEM_ALLOC_NODE_PARAMS.naccessDescCount(address()); }
-        /** @return the value of the {@code bytesize} field. */
+        /** @return the value of the {@link CUDA_MEM_ALLOC_NODE_PARAMS#bytesize} field. */
         @NativeType("size_t")
         public long bytesize() { return CUDA_MEM_ALLOC_NODE_PARAMS.nbytesize(address()); }
-        /** @return the value of the {@code dptr} field. */
+        /** @return the value of the {@link CUDA_MEM_ALLOC_NODE_PARAMS#dptr} field. */
         @NativeType("CUdeviceptr")
         public long dptr() { return CUDA_MEM_ALLOC_NODE_PARAMS.ndptr(address()); }
 
-        /** Copies the specified {@link CUmemPoolProps} to the {@code poolProps} field. */
+        /** Copies the specified {@link CUmemPoolProps} to the {@link CUDA_MEM_ALLOC_NODE_PARAMS#poolProps} field. */
         public CUDA_MEM_ALLOC_NODE_PARAMS.Buffer poolProps(CUmemPoolProps value) { CUDA_MEM_ALLOC_NODE_PARAMS.npoolProps(address(), value); return this; }
-        /** Passes the {@code poolProps} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@link CUDA_MEM_ALLOC_NODE_PARAMS#poolProps} field to the specified {@link java.util.function.Consumer Consumer}. */
         public CUDA_MEM_ALLOC_NODE_PARAMS.Buffer poolProps(java.util.function.Consumer<CUmemPoolProps> consumer) { consumer.accept(poolProps()); return this; }
-        /** Sets the address of the specified {@link CUmemAccessDesc.Buffer} to the {@code accessDescs} field. */
+        /** Sets the address of the specified {@link CUmemAccessDesc.Buffer} to the {@link CUDA_MEM_ALLOC_NODE_PARAMS#accessDescs} field. */
         public CUDA_MEM_ALLOC_NODE_PARAMS.Buffer accessDescs(@NativeType("CUmemAccessDesc const *") CUmemAccessDesc.Buffer value) { CUDA_MEM_ALLOC_NODE_PARAMS.naccessDescs(address(), value); return this; }
-        /** Sets the specified value to the {@code bytesize} field. */
+        /** Sets the specified value to the {@link CUDA_MEM_ALLOC_NODE_PARAMS#bytesize} field. */
         public CUDA_MEM_ALLOC_NODE_PARAMS.Buffer bytesize(@NativeType("size_t") long value) { CUDA_MEM_ALLOC_NODE_PARAMS.nbytesize(address(), value); return this; }
-        /** Sets the specified value to the {@code dptr} field. */
+        /** Sets the specified value to the {@link CUDA_MEM_ALLOC_NODE_PARAMS#dptr} field. */
         public CUDA_MEM_ALLOC_NODE_PARAMS.Buffer dptr(@NativeType("CUdeviceptr") long value) { CUDA_MEM_ALLOC_NODE_PARAMS.ndptr(address(), value); return this; }
 
     }

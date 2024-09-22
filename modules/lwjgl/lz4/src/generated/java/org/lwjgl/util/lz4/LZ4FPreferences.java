@@ -32,7 +32,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct LZ4F_preferences_t")
-public class LZ4FPreferences extends Struct<LZ4FPreferences> implements NativeResource {
+public class LZ4FPreferences extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -65,15 +65,6 @@ public class LZ4FPreferences extends Struct<LZ4FPreferences> implements NativeRe
         AUTOFLUSH = layout.offsetof(2);
         FAVORDECSPEED = layout.offsetof(3);
         RESERVED = layout.offsetof(4);
-    }
-
-    protected LZ4FPreferences(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected LZ4FPreferences create(long address, @Nullable ByteBuffer container) {
-        return new LZ4FPreferences(address, container);
     }
 
     /**
@@ -155,29 +146,29 @@ public class LZ4FPreferences extends Struct<LZ4FPreferences> implements NativeRe
 
     /** Returns a new {@code LZ4FPreferences} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static LZ4FPreferences malloc() {
-        return new LZ4FPreferences(nmemAllocChecked(SIZEOF), null);
+        return wrap(LZ4FPreferences.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code LZ4FPreferences} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static LZ4FPreferences calloc() {
-        return new LZ4FPreferences(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(LZ4FPreferences.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code LZ4FPreferences} instance allocated with {@link BufferUtils}. */
     public static LZ4FPreferences create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new LZ4FPreferences(memAddress(container), container);
+        return wrap(LZ4FPreferences.class, memAddress(container), container);
     }
 
     /** Returns a new {@code LZ4FPreferences} instance for the specified memory address. */
     public static LZ4FPreferences create(long address) {
-        return new LZ4FPreferences(address, null);
+        return wrap(LZ4FPreferences.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static LZ4FPreferences createSafe(long address) {
-        return address == NULL ? null : new LZ4FPreferences(address, null);
+        return address == NULL ? null : wrap(LZ4FPreferences.class, address);
     }
 
     /**
@@ -186,7 +177,7 @@ public class LZ4FPreferences extends Struct<LZ4FPreferences> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static LZ4FPreferences.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -195,7 +186,7 @@ public class LZ4FPreferences extends Struct<LZ4FPreferences> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static LZ4FPreferences.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -205,7 +196,7 @@ public class LZ4FPreferences extends Struct<LZ4FPreferences> implements NativeRe
      */
     public static LZ4FPreferences.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -215,13 +206,13 @@ public class LZ4FPreferences extends Struct<LZ4FPreferences> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static LZ4FPreferences.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static LZ4FPreferences.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -249,7 +240,7 @@ public class LZ4FPreferences extends Struct<LZ4FPreferences> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static LZ4FPreferences malloc(MemoryStack stack) {
-        return new LZ4FPreferences(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(LZ4FPreferences.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -258,7 +249,7 @@ public class LZ4FPreferences extends Struct<LZ4FPreferences> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static LZ4FPreferences calloc(MemoryStack stack) {
-        return new LZ4FPreferences(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(LZ4FPreferences.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -268,7 +259,7 @@ public class LZ4FPreferences extends Struct<LZ4FPreferences> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static LZ4FPreferences.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -278,7 +269,7 @@ public class LZ4FPreferences extends Struct<LZ4FPreferences> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static LZ4FPreferences.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -326,9 +317,9 @@ public class LZ4FPreferences extends Struct<LZ4FPreferences> implements NativeRe
         /**
          * Creates a new {@code LZ4FPreferences.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link LZ4FPreferences#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link LZ4FPreferences#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

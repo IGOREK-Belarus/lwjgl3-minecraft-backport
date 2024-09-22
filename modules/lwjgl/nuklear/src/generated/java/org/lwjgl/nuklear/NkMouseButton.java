@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct nk_mouse_button")
-public class NkMouseButton extends Struct<NkMouseButton> {
+public class NkMouseButton extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -51,15 +51,6 @@ public class NkMouseButton extends Struct<NkMouseButton> {
         DOWN = layout.offsetof(0);
         CLICKED = layout.offsetof(1);
         CLICKED_POS = layout.offsetof(2);
-    }
-
-    protected NkMouseButton(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected NkMouseButton create(long address, @Nullable ByteBuffer container) {
-        return new NkMouseButton(address, container);
     }
 
     /**
@@ -89,13 +80,13 @@ public class NkMouseButton extends Struct<NkMouseButton> {
 
     /** Returns a new {@code NkMouseButton} instance for the specified memory address. */
     public static NkMouseButton create(long address) {
-        return new NkMouseButton(address, null);
+        return wrap(NkMouseButton.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkMouseButton createSafe(long address) {
-        return address == NULL ? null : new NkMouseButton(address, null);
+        return address == NULL ? null : wrap(NkMouseButton.class, address);
     }
 
     /**
@@ -105,13 +96,13 @@ public class NkMouseButton extends Struct<NkMouseButton> {
      * @param capacity the buffer capacity
      */
     public static NkMouseButton.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkMouseButton.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -133,9 +124,9 @@ public class NkMouseButton extends Struct<NkMouseButton> {
         /**
          * Creates a new {@code NkMouseButton.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkMouseButton#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link NkMouseButton#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

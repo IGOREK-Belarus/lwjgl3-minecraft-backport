@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTSceneUnderstandingSerialization XR_MSFT_scene_understanding_serialization} extension <b>must</b> be enabled prior to using {@link XrSceneDeserializeInfoMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTSceneUnderstandingSerialization#XR_TYPE_SCENE_DESERIALIZE_INFO_MSFT TYPE_SCENE_DESERIALIZE_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>If {@code fragmentCount} is not 0, {@code fragments} <b>must</b> be a pointer to an array of {@code fragmentCount} valid {@link XrDeserializeSceneFragmentMSFT} structures</li>
  * </ul>
  * 
@@ -45,7 +45,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrDeserializeSceneFragmentMSFT XrDeserializeSceneFragmentMSFT} const * {@link #fragments};
  * }</code></pre>
  */
-public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSFT> implements NativeResource {
+public class XrSceneDeserializeInfoMSFT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -75,15 +75,6 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
         NEXT = layout.offsetof(1);
         FRAGMENTCOUNT = layout.offsetof(2);
         FRAGMENTS = layout.offsetof(3);
-    }
-
-    protected XrSceneDeserializeInfoMSFT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSceneDeserializeInfoMSFT create(long address, @Nullable ByteBuffer container) {
-        return new XrSceneDeserializeInfoMSFT(address, container);
     }
 
     /**
@@ -155,29 +146,29 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
 
     /** Returns a new {@code XrSceneDeserializeInfoMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSceneDeserializeInfoMSFT malloc() {
-        return new XrSceneDeserializeInfoMSFT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSceneDeserializeInfoMSFT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSceneDeserializeInfoMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSceneDeserializeInfoMSFT calloc() {
-        return new XrSceneDeserializeInfoMSFT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSceneDeserializeInfoMSFT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSceneDeserializeInfoMSFT} instance allocated with {@link BufferUtils}. */
     public static XrSceneDeserializeInfoMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSceneDeserializeInfoMSFT(memAddress(container), container);
+        return wrap(XrSceneDeserializeInfoMSFT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSceneDeserializeInfoMSFT} instance for the specified memory address. */
     public static XrSceneDeserializeInfoMSFT create(long address) {
-        return new XrSceneDeserializeInfoMSFT(address, null);
+        return wrap(XrSceneDeserializeInfoMSFT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSceneDeserializeInfoMSFT createSafe(long address) {
-        return address == NULL ? null : new XrSceneDeserializeInfoMSFT(address, null);
+        return address == NULL ? null : wrap(XrSceneDeserializeInfoMSFT.class, address);
     }
 
     /**
@@ -186,7 +177,7 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
      * @param capacity the buffer capacity
      */
     public static XrSceneDeserializeInfoMSFT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -195,7 +186,7 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
      * @param capacity the buffer capacity
      */
     public static XrSceneDeserializeInfoMSFT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -205,7 +196,7 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
      */
     public static XrSceneDeserializeInfoMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -215,13 +206,13 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
      * @param capacity the buffer capacity
      */
     public static XrSceneDeserializeInfoMSFT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSceneDeserializeInfoMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -230,7 +221,7 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
      * @param stack the stack from which to allocate
      */
     public static XrSceneDeserializeInfoMSFT malloc(MemoryStack stack) {
-        return new XrSceneDeserializeInfoMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSceneDeserializeInfoMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -239,7 +230,7 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
      * @param stack the stack from which to allocate
      */
     public static XrSceneDeserializeInfoMSFT calloc(MemoryStack stack) {
-        return new XrSceneDeserializeInfoMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSceneDeserializeInfoMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -249,7 +240,7 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
      * @param capacity the buffer capacity
      */
     public static XrSceneDeserializeInfoMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -259,7 +250,7 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
      * @param capacity the buffer capacity
      */
     public static XrSceneDeserializeInfoMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -292,9 +283,9 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
         /**
          * Creates a new {@code XrSceneDeserializeInfoMSFT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSceneDeserializeInfoMSFT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSceneDeserializeInfoMSFT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

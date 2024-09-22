@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrPosef XrPosef} {@link #pose};
  * }</code></pre>
  */
-public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocationMSFT> implements NativeResource {
+public class XrSceneComponentLocationMSFT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -61,15 +61,6 @@ public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocatio
 
         FLAGS = layout.offsetof(0);
         POSE = layout.offsetof(1);
-    }
-
-    protected XrSceneComponentLocationMSFT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSceneComponentLocationMSFT create(long address, @Nullable ByteBuffer container) {
-        return new XrSceneComponentLocationMSFT(address, container);
     }
 
     /**
@@ -125,29 +116,29 @@ public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocatio
 
     /** Returns a new {@code XrSceneComponentLocationMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSceneComponentLocationMSFT malloc() {
-        return new XrSceneComponentLocationMSFT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSceneComponentLocationMSFT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSceneComponentLocationMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSceneComponentLocationMSFT calloc() {
-        return new XrSceneComponentLocationMSFT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSceneComponentLocationMSFT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSceneComponentLocationMSFT} instance allocated with {@link BufferUtils}. */
     public static XrSceneComponentLocationMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSceneComponentLocationMSFT(memAddress(container), container);
+        return wrap(XrSceneComponentLocationMSFT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSceneComponentLocationMSFT} instance for the specified memory address. */
     public static XrSceneComponentLocationMSFT create(long address) {
-        return new XrSceneComponentLocationMSFT(address, null);
+        return wrap(XrSceneComponentLocationMSFT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSceneComponentLocationMSFT createSafe(long address) {
-        return address == NULL ? null : new XrSceneComponentLocationMSFT(address, null);
+        return address == NULL ? null : wrap(XrSceneComponentLocationMSFT.class, address);
     }
 
     /**
@@ -156,7 +147,7 @@ public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocatio
      * @param capacity the buffer capacity
      */
     public static XrSceneComponentLocationMSFT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -165,7 +156,7 @@ public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocatio
      * @param capacity the buffer capacity
      */
     public static XrSceneComponentLocationMSFT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -175,7 +166,7 @@ public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocatio
      */
     public static XrSceneComponentLocationMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -185,13 +176,13 @@ public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocatio
      * @param capacity the buffer capacity
      */
     public static XrSceneComponentLocationMSFT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSceneComponentLocationMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -200,7 +191,7 @@ public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocatio
      * @param stack the stack from which to allocate
      */
     public static XrSceneComponentLocationMSFT malloc(MemoryStack stack) {
-        return new XrSceneComponentLocationMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSceneComponentLocationMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -209,7 +200,7 @@ public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocatio
      * @param stack the stack from which to allocate
      */
     public static XrSceneComponentLocationMSFT calloc(MemoryStack stack) {
-        return new XrSceneComponentLocationMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSceneComponentLocationMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -219,7 +210,7 @@ public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocatio
      * @param capacity the buffer capacity
      */
     public static XrSceneComponentLocationMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -229,7 +220,7 @@ public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocatio
      * @param capacity the buffer capacity
      */
     public static XrSceneComponentLocationMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -254,9 +245,9 @@ public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocatio
         /**
          * Creates a new {@code XrSceneComponentLocationMSFT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSceneComponentLocationMSFT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSceneComponentLocationMSFT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

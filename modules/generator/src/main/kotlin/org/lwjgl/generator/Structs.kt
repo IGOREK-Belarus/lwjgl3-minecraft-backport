@@ -32,9 +32,6 @@ private val BUFFER_KEYWORDS = setOf(
     "apply", "get", "parallelStream", "put", "stream"
 )
 
-private val LINE_END_PATTERN = "\n(?!$)".toRegex()
-private val MEMBER_NAME_PATTERN = Regex("\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*")
-
 open class StructMember(
     val nativeType: DataType,
     val name: String,
@@ -182,84 +179,35 @@ class Struct(
             .toHashSet()
     }
 
-    /* Output parameter or function result by value */
-    private var usageOutput = false
-    /* Input parameter */
-    private var usageInput = false
-    /* Function result by reference */
-    private var usageResultPointer = false
-
-    private var static: String? = null
-    private var pack: String? = null
-    // TODO: add alignas support to non-struct members if necessary
-    private var alignas: String? = null
-
-    private val customMethods = ArrayList<String>()
-    private val customMethodsBuffer = ArrayList<String>()
-
-    internal val members = ArrayList<StructMember>()
-
-    internal fun init(setup: (Struct.() -> Unit)? = null): StructType {
-        if (setup != null) {
-            this.setup()
-        }
-        if (setup != null || nativeLayout) {
-            Generator.register(this)
-        }
-        return nativeType
-    }
-
-    internal fun copy(className: String, nativeName: String = className, virtual: Boolean = this.virtual): Struct {
-        val copy = Struct(
-            module,
-            className,
-            nativeSubPath,
-            nativeName,
-            union,
-            virtual,
-            mutable,
-            alias,
-            parentStruct,
-            nativeLayout,
-            generateBuffer
-        )
-
-        copy.documentation = documentation
-
-        copy.static = static
-        copy.alignas = alignas
-        copy.pack = pack
-
-        //copy.usageInput = usageInput
-        //copy.usageOutput = usageOutput
-        //copy.usageResultPointer = usageResultPointer
-
-        copy.customMethods.addAll(customMethods)
-        copy.customMethodsBuffer.addAll(customMethodsBuffer)
-
-        copy.members.addAll(members)
-
-        return copy
-    }
-
     val nativeType get() = StructType(this)
 
-    fun setUsageOutput() {
+    /* Output parameter or function result by value */
+    private var usageOutput = false
+
+    fun hasUsageOutput() {
         usageOutput = true
     }
 
-    fun setUsageInput() {
+    /* Input parameter */
+    private var usageInput = false
+
+    fun hasUsageInput() {
         usageInput = true
     }
 
-    fun setUsageResultPointer() {
+    /* Function result by reference */
+    private var usageResultPointer = false
+
+    fun hasUsageResultPointer() {
         usageResultPointer = true
     }
 
+    private var static: String? = null
     fun static(expression: String) {
         static = expression
     }
 
+    private var pack: String? = null
     fun pack(expression: String) {
         pack = expression
     }
@@ -267,12 +215,19 @@ class Struct(
         pack = alignment.toString()
     }
 
+    // TODO: add alignas support to non-struct members if necessary
+    private var alignas: String? = null
     fun alignas(expression: String) {
         alignas = expression
     }
     fun alignas(alignment: Int) {
         alignas = alignment.toString()
     }
+
+    private val customMethods = ArrayList<String>()
+    private val customMethodsBuffer = ArrayList<String>()
+
+    internal val members = ArrayList<StructMember>()
 
     private val visibleMembers
         get() = members.asSequence().filter { it !is StructMemberPadding }
@@ -319,8 +274,7 @@ class Struct(
         .let {
             "0x${it.substring(0, 2)}_${it.substring(2, 4)}_${it.substring(4, 6)}_${it.substring(6, 8)}"
         }
-    private fun String.cast(cast: String) = if (cast.isEmpty()) this else "$cast($this)"
-    fun StructMember.bitfield(bitfield: Int, bitmask: Int, cast: String): StructMember {
+    fun StructMember.bitfield(bitfield: Int, bitmask: Int): StructMember {
         if (bits != bitmask.countOneBits()) {
             this.error("The number of bits set in the specified bitmask (${bitmask.countOneBits()}) does not match the struct member bits ($bits)")
         }
@@ -330,14 +284,14 @@ class Struct(
 
         val shift = bitmask.countTrailingZeroBits()
         if (shift == 0) {
-            this.getter("nbitfield$bitfield(struct) & $mask".cast(cast))
-            this.setter("nbitfield$bitfield(struct, ${"(nbitfield$bitfield(struct) & $maskInv) | (value & $mask)".cast(cast)})")
+            this.getter("nbitfield$bitfield(struct) & $mask")
+            this.setter("nbitfield$bitfield(struct, (nbitfield$bitfield(struct) & $maskInv) | (value & $mask))")
         } else if (bits + shift == Int.SIZE_BITS) {
-            this.getter("nbitfield$bitfield(struct) >>> $shift".cast(cast))
-            this.setter("nbitfield$bitfield(struct, ${"(value << $shift) | (nbitfield$bitfield(struct) & $maskInv)".cast(cast)})")
+            this.getter("nbitfield$bitfield(struct) >>> $shift")
+            this.setter("nbitfield$bitfield(struct, (value << $shift) | (nbitfield$bitfield(struct) & $maskInv))")
         } else {
-            this.getter("(nbitfield$bitfield(struct) & $mask) >>> $shift".cast(cast))
-            this.setter("nbitfield$bitfield(struct, ${"((value << $shift) & $mask) | (nbitfield$bitfield(struct) & $maskInv)".cast(cast)})")
+            this.getter("(nbitfield$bitfield(struct) & $mask) >>> $shift")
+            this.setter("nbitfield$bitfield(struct, ((value << $shift) & $mask) | (nbitfield$bitfield(struct) & $maskInv))")
         }
 
         return this
@@ -349,13 +303,34 @@ class Struct(
         this@Struct.members.remove(this)
 
         val nativeType = if (isNestedStructDefinition) {
-            (this.nativeType as StructType)
-                .definition.copy(
-                    className = this.name,
-                    nativeName = ANONYMOUS,
-                    virtual = true
-                )
-                .nativeType
+            val definition = (this.nativeType as StructType).definition
+
+            val copy = Struct(
+                this@Struct.module,
+                this.name,
+                this@Struct.nativeSubPath,
+                ANONYMOUS,
+                this@Struct.union,
+                true,
+                this@Struct.mutable,
+                this@Struct.alias,
+                this@Struct.parentStruct,
+                this@Struct.nativeLayout,
+                this@Struct.generateBuffer
+            )
+
+            copy.documentation = definition.documentation
+            copy.customMethods.addAll(definition.customMethods)
+            copy.customMethodsBuffer.addAll(definition.customMethodsBuffer)
+            copy.members.addAll(definition.members)
+            copy.usageInput = definition.usageInput
+            copy.usageOutput = definition.usageOutput
+            copy.usageResultPointer = definition.usageResultPointer
+            copy.static = definition.static
+            copy.alignas = definition.alignas
+            copy.pack = definition.pack
+
+            copy.nativeType
         } else
             this.nativeType
 
@@ -389,10 +364,10 @@ class Struct(
         parentStruct: StructType? = null,
         nativeLayout: Boolean = false,
         skipBuffer: Boolean = false,
-        setup: Struct.() -> Unit
+        init: Struct.() -> Unit
     ): StructMember {
         val struct = Struct(module, ANONYMOUS, nativeSubPath, ANONYMOUS, false, true, mutable, alias?.definition, parentStruct?.definition, nativeLayout, !skipBuffer)
-        struct.setup()
+        struct.init()
         return StructType(struct).invoke(ANONYMOUS, "")
     }
 
@@ -403,10 +378,10 @@ class Struct(
         parentStruct: StructType? = null,
         nativeLayout: Boolean = false,
         skipBuffer: Boolean = false,
-        setup: Struct.() -> Unit
+        init: Struct.() -> Unit
     ): StructMember {
         val struct = Struct(module, ANONYMOUS, nativeSubPath, ANONYMOUS, true, true, mutable, alias?.definition, parentStruct?.definition, nativeLayout, !skipBuffer)
-        struct.setup()
+        struct.init()
         return StructType(struct).invoke(ANONYMOUS, "")
     }
 
@@ -556,7 +531,7 @@ $indent}"""
                         } else
                             validate(m, "$t$t")
                     )
-                } else if (!m.has(nullable)) {
+                } else if (!m.has(nullable) && m.nativeType !is StructType) {
                     validations.add(validate(m, "$t$t"))
                 }
             }
@@ -581,12 +556,10 @@ $indent}"""
         }
 
     private fun StructMember.getCheckExpression() = if (this.has<Check>())
-        this.get<Check>().expression
-            .replace(MEMBER_NAME_PATTERN) { result ->
-                val expression = result.value
-                // if expression is the name of another member, convert to auto-size expression
-                members.singleOrNull { it.name == expression }?.autoSize ?: expression
-            }
+        this.get<Check>().expression.let { expression ->
+            // if expression is the name of another member, convert to auto-size expression
+            members.singleOrNull { it.name == expression }?.autoSize ?: expression
+        }
     else
         null
 
@@ -770,12 +743,6 @@ $indentation}"""
             }
 
             val typeMapping = (ref.nativeType as PrimitiveType).mapping
-            val cast = if (typeMapping.bytes == 1)
-                "(byte)"
-            else if (typeMapping.bytes == 2)
-                "(short)"
-            else
-                ""
 
             val bitsTotal = typeMapping.bytes * 8
             var bitsConsumed = 0
@@ -783,16 +750,15 @@ $indentation}"""
             var i = m
             while (bitsConsumed < bitsTotal && i < members.size) {
                 val member = members[i]
-                if (bitsTotal < member.bits) {
-                    member.error("width of bit-field (${member.bits} bits) exceeds the width of its type (${bitsTotal} bits)")
-                }
                 if (member.bits == -1 || (member.nativeType as PrimitiveType).mapping !== typeMapping || (bitsTotal - bitsConsumed) < member.bits) {
                     break
                 }
 
-                val getter = member.getter
-                member.bitfield(bitfieldIndex, ((-1 ushr (32 - bitsTotal)) ushr (bitsTotal - member.bits)) shl bitsConsumed, cast)
-                if (getter != null) {
+                if (member.getter == null) {
+                    member.bitfield(bitfieldIndex, (-1 ushr (bitsTotal - member.bits)) shl bitsConsumed)
+                } else {
+                    val getter = member.getter
+                    member.bitfield(bitfieldIndex, (-1 ushr (bitsTotal - member.bits)) shl bitsConsumed)
                     val newGetter = member.getter
                     check(getter == newGetter) { "$getter - $newGetter" }
                 }
@@ -810,7 +776,7 @@ $indentation}"""
         if (mallocable) {
             members.forEach {
                 if (it.nativeType is PointerType<*> && it.nativeType.elementType is StructType)
-                    it.nativeType.elementType.definition.setUsageInput()
+                    it.nativeType.elementType.definition.hasUsageInput()
             }
         }
 
@@ -873,8 +839,7 @@ $indentation}"""
             if (mallocable || members.any { m ->
                     m.nativeType.let {
                         (it.mapping === PointerMapping.DATA_POINTER && it is PointerType<*> && (it.elementType !is StructType || m is StructMemberArray)) ||
-                        (m is StructMemberArray && ((m.arrayType.elementType.isPointer && m.arrayType.elementType !is StructType) || m.arrayType.elementType.mapping === PrimitiveMapping.CLONG)) ||
-                        it.mapping === PointerMapping.DATA_CLONG
+                        (m is StructMemberArray && m.arrayType.elementType.isPointer && m.arrayType.elementType !is StructType)
                     }
                 })
                 println("import org.lwjgl.*;")
@@ -908,7 +873,7 @@ $indentation}"""
             println("@NativeType(\"$nativeNameQualified\")")
         }
         print("${access.modifier}${if (nested) "static " else ""}class $className extends ")
-        print(alias?.className ?: "Struct<$className>${if (mallocable) " implements NativeResource" else ""}")
+        print(alias?.className ?: "Struct${if (mallocable) " implements NativeResource" else ""}")
         println(" {")
 
         if (alias == null) {
@@ -1023,15 +988,6 @@ $indentation}"""
         printCustomMethods(customMethods, static = true)
 
         print("""
-    protected $className(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected $className create(long address, @Nullable ByteBuffer container) {
-        return new $className(address, container);
-    }
-
     /**
      * Creates a {@code $className} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -1094,18 +1050,18 @@ $indentation}"""
             print("""
     /** Returns a new {@code $className} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static $className malloc() {
-        return new $className(nmemAllocChecked(SIZEOF), null);
+        return wrap($className.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code $className} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static $className calloc() {
-        return new $className(nmemCallocChecked(1, SIZEOF), null);
+        return wrap($className.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code $className} instance allocated with {@link BufferUtils}. */
     public static $className create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new $className(memAddress(container), container);
+        return wrap($className.class, memAddress(container), container);
     }
 """)
         }
@@ -1113,13 +1069,13 @@ $indentation}"""
         print("""
     /** Returns a new {@code $className} instance for the specified memory address. */
     public static $className create(long address) {
-        return new $className(address, null);
+        return wrap($className.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static $className createSafe(long address) {
-        return address == NULL ? null : new $className(address, null);
+        return address == NULL ? null : wrap($className.class, address);
     }
 """)
         val subtypes = Generator.structChildren[module]?.get(this@Struct.nativeName)
@@ -1127,7 +1083,7 @@ $indentation}"""
             print("""
     /** Upcasts the specified {@code ${it.className}} instance to {@code $className}. */
     public static $className create(${it.className} value) {
-        return new $className(value.address(), __getContainer(value));
+        return wrap($className.class, value);
     }
 """)
         }
@@ -1136,7 +1092,7 @@ $indentation}"""
             print("""
     /** Downcasts the specified {@code ${parentStruct.className}} instance to {@code $className}. */
     public static $className create(${parentStruct.className} value) {
-        return new $className(value.address(), __getContainer(value));
+        return wrap($className.class, value);
     }
 """)
         }
@@ -1150,7 +1106,7 @@ $indentation}"""
      * @param $BUFFER_CAPACITY_PARAM the buffer capacity
      */
     public static $className.Buffer malloc(int $BUFFER_CAPACITY_PARAM) {
-        return new Buffer(nmemAllocChecked(__checkMalloc($BUFFER_CAPACITY_PARAM, SIZEOF)), $BUFFER_CAPACITY_PARAM);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc($BUFFER_CAPACITY_PARAM, SIZEOF)), $BUFFER_CAPACITY_PARAM);
     }
 
     /**
@@ -1159,7 +1115,7 @@ $indentation}"""
      * @param $BUFFER_CAPACITY_PARAM the buffer capacity
      */
     public static $className.Buffer calloc(int $BUFFER_CAPACITY_PARAM) {
-        return new Buffer(nmemCallocChecked($BUFFER_CAPACITY_PARAM, SIZEOF), $BUFFER_CAPACITY_PARAM);
+        return wrap(Buffer.class, nmemCallocChecked($BUFFER_CAPACITY_PARAM, SIZEOF), $BUFFER_CAPACITY_PARAM);
     }
 
     /**
@@ -1169,7 +1125,7 @@ $indentation}"""
      */
     public static $className.Buffer create(int $BUFFER_CAPACITY_PARAM) {
         ByteBuffer container = __create($BUFFER_CAPACITY_PARAM, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, $BUFFER_CAPACITY_PARAM, $BUFFER_CAPACITY_PARAM);
+        return wrap(Buffer.class, memAddress(container), $BUFFER_CAPACITY_PARAM, container);
     }
 """)
             }
@@ -1182,20 +1138,20 @@ $indentation}"""
      * @param $BUFFER_CAPACITY_PARAM the buffer capacity
      */
     public static $className.Buffer create(long address, int $BUFFER_CAPACITY_PARAM) {
-        return new Buffer(address, $BUFFER_CAPACITY_PARAM);
+        return wrap(Buffer.class, address, $BUFFER_CAPACITY_PARAM);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static $className.Buffer createSafe(long address, int $BUFFER_CAPACITY_PARAM) {
-        return address == NULL ? null : new Buffer(address, $BUFFER_CAPACITY_PARAM);
+        return address == NULL ? null : wrap(Buffer.class, address, $BUFFER_CAPACITY_PARAM);
     }
 """)
             subtypes?.forEach {
                 print("""
     /** Upcasts the specified {@code ${it.className}.Buffer} instance to {@code $className.Buffer}. */
     public static $className.Buffer create(${it.className}.Buffer value) {
-        return new $className.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+        return wrap(Buffer.class, value);
     }
 """)
             }
@@ -1204,7 +1160,7 @@ $indentation}"""
                 print("""
     /** Downcasts the specified {@code ${parentStruct.className}.Buffer} instance to {@code $className.Buffer}. */
     public static $className.Buffer create(${parentStruct.className}.Buffer value) {
-        return new $className.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+        return wrap(Buffer.class, value);
     }
 """)
             }
@@ -1243,7 +1199,7 @@ $indentation}"""
      * @param stack the stack from which to allocate
      */
     public static $className malloc(MemoryStack stack) {
-        return new $className(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap($className.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -1252,7 +1208,7 @@ $indentation}"""
      * @param stack the stack from which to allocate
      */
     public static $className calloc(MemoryStack stack) {
-        return new $className(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap($className.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 """)
             if (generateBuffer) {
@@ -1264,7 +1220,7 @@ $indentation}"""
      * @param $BUFFER_CAPACITY_PARAM the buffer capacity
      */
     public static $className.Buffer malloc(int $BUFFER_CAPACITY_PARAM, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, $BUFFER_CAPACITY_PARAM * SIZEOF), $BUFFER_CAPACITY_PARAM);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, $BUFFER_CAPACITY_PARAM * SIZEOF), $BUFFER_CAPACITY_PARAM);
     }
 
     /**
@@ -1274,7 +1230,7 @@ $indentation}"""
      * @param $BUFFER_CAPACITY_PARAM the buffer capacity
      */
     public static $className.Buffer calloc(int $BUFFER_CAPACITY_PARAM, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, $BUFFER_CAPACITY_PARAM, SIZEOF), $BUFFER_CAPACITY_PARAM);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, $BUFFER_CAPACITY_PARAM, SIZEOF), $BUFFER_CAPACITY_PARAM);
     }
 """)
             }
@@ -1332,9 +1288,9 @@ ${validations.joinToString("\n")}
         /**
          * Creates a new {@code $className.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link $className#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link $className#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */""")
@@ -1400,7 +1356,7 @@ ${validations.joinToString("\n")}
                     PrintWriter(writer).use {
                         it.generateJava(nested = true, level = level + 1)
                     }
-                    println(writer.toString().replace(LINE_END_PATTERN, "\n    "))
+                    println(writer.toString().replace("\n(?!$)".toRegex(), "\n    "))
                 }
             }
 
@@ -1642,7 +1598,7 @@ ${validations.joinToString("\n")}
     private val StructMember.pointerValue get() = if (!Module.CHECKS || has(nullable)) "value" else "check(value)"
     private val StructMember.isNullable
         get() = has(nullable) ||
-                getReferenceMember<AutoSizeMember>(name)?.get<AutoSizeMember>()?.optional == true ||
+                getReferenceMember<AutoSizeMember>(name)?.get<AutoSizeMember>()?.optional ?: false ||
                 (this is StructMemberArray && this.validSize < this.size)
     private val StructMember.addressValue get() = if (isNullable) "memAddressSafe(value)" else "value.address()"
     private val StructMember.memAddressValue get() = if (isNullable) "memAddressSafe(value)" else "memAddress(value)"
@@ -1739,7 +1695,7 @@ ${validations.joinToString("\n")}
                                 if (it.has<AutoSizeMember>())
                                     "$t/** Sets the specified value to the {@code ${it.name}} field of the specified {@code struct}. */"
                                 else
-                                    "$t/** Unsafe version of {@link #$setter(${if (it.nativeType.mapping.isPseudoBoolean()) "boolean" else javaType}) $setter}. */"
+                                    "$t/** Unsafe version of {@link #$setter(${if (it.nativeType.mapping == PrimitiveMapping.BOOLEAN4) "boolean" else javaType}) $setter}. */"
                             )
                         if (it.setter != null) {
                             println("${t}public static void n$setter(long $STRUCT, $javaType value) { ${it.setter}; }")
@@ -1831,7 +1787,7 @@ ${validations.joinToString("\n")}
                         val javaType = it.nativeType.nativeMethodType
 
                         if (it.public)
-                            println("$t/** Unsafe version of {@link #$setter(int, ${it.nativeType.javaMethodType}) $setter}. */")
+                            println("$t/** Unsafe version of {@link #$setter(int, $javaType) $setter}. */")
                         println("${t}public static void n$setter(long $STRUCT, int index, $javaType value) {")
                         println("$t$t${getBufferMethod("put", it, javaType)}$STRUCT + $field + check(index, ${it.size}) * ${mapping.bytesExpression}, value);")
                         println("$t}")
@@ -1946,12 +1902,7 @@ ${validations.joinToString("\n")}
                 if (it !is StructMemberArray && !it.nativeType.isPointerData) {
                     printSetterJavadoc(accessMode, it, indent, "Sets the specified value to the #member field.", setter)
                     if (overrides) println("$indent@Override")
-                    println("${indent}public $returnType $setter(${it.annotate(it.nativeType.javaMethodType)} value) { $n$setter($ADDRESS, ${if (it.nativeType.mapping.isPseudoBoolean()) 
-                        "value ? 1 : 0".let { expr ->
-                            if (it.nativeType.mapping == PrimitiveMapping.BOOLEAN2) "(short)($expr)" else expr
-                        }
-                    else "value"
-                    }); return this; }")
+                    println("${indent}public $returnType $setter(${it.annotate(it.nativeType.javaMethodType)} value) { $n$setter($ADDRESS, value${if (it.nativeType.mapping === PrimitiveMapping.BOOLEAN4) " ? 1 : 0" else ""}); return this; }")
                 }
 
                 // Alternative setters
@@ -2000,9 +1951,7 @@ ${validations.joinToString("\n")}
                         println("${indent}public $returnType $setter(${it.annotate(bufferType)} value) { $n$setter($ADDRESS, value); return this; }")
                         printSetterJavadoc(accessMode, it, indent, "Sets the specified value at the specified index of the #member field.", setter)
                         if (overrides) println("$indent@Override")
-                        println("${indent}public $returnType $setter(int index, ${it.annotate(it.nativeType.javaMethodType, it.nativeType)} value) { $n$setter($ADDRESS, index, ${
-                            if (it.nativeType.isPointerData) "memAddressSafe(value)" else "value"
-                        }); return this; }")
+                        println("${indent}public $returnType $setter(int index, ${it.annotate(it.nativeType.javaMethodType, it.nativeType)} value) { $n$setter($ADDRESS, index, value); return this; }")
                     }
                 } else if (it.nativeType is CharSequenceType) {
                     printSetterJavadoc(accessMode, it, indent, "Sets the address of the specified encoded string to the #member field.", setter)
@@ -2255,7 +2204,7 @@ ${validations.joinToString("\n")}
                     }
                     printGetterJavadoc(accessMode, it, indent, "@return the value of the #member field.", getter, member)
                     generateGetterAnnotations(indent, it, returnType)
-                    println("${indent}public $returnType $getter() { return $n$getter($ADDRESS)${if (it.nativeType.mapping.isPseudoBoolean()) " != 0" else ""}; }")
+                    println("${indent}public $returnType $getter() { return $n$getter($ADDRESS)${if (it.nativeType.mapping === PrimitiveMapping.BOOLEAN4) " != 0" else ""}; }")
                 }
 
                 // Alternative getters
@@ -2500,12 +2449,17 @@ fun struct(
     parentStruct: StructType? = null,
     nativeLayout: Boolean = false,
     skipBuffer: Boolean = false,
-    setup: (Struct.() -> Unit)? = null
-): StructType =
-    Struct(
-        module, className, nativeSubPath, nativeName, false,
-        virtual, mutable, alias?.definition, parentStruct?.definition, nativeLayout, !skipBuffer
-    ).init(setup)
+    init: (Struct.() -> Unit)? = null
+): StructType {
+    val struct = Struct(module, className, nativeSubPath, nativeName, false, virtual, mutable, alias?.definition, parentStruct?.definition, nativeLayout, !skipBuffer)
+    if (init != null) {
+        struct.init()
+    }
+    if (init != null || nativeLayout) {
+        Generator.register(struct)
+    }
+    return struct.nativeType
+}
 
 fun union(
     module: Module,
@@ -2518,9 +2472,12 @@ fun union(
     parentStruct: StructType? = null,
     nativeLayout: Boolean = false,
     skipBuffer: Boolean = false,
-    setup: (Struct.() -> Unit)? = null
-): StructType =
-    Struct(
-        module, className, nativeSubPath, nativeName, true,
-        virtual, mutable, alias?.definition, parentStruct?.definition, nativeLayout, !skipBuffer
-    ).init(setup)
+    init: (Struct.() -> Unit)? = null
+): StructType {
+    val struct = Struct(module, className, nativeSubPath, nativeName, true, virtual, mutable, alias?.definition, parentStruct?.definition, nativeLayout, !skipBuffer)
+    if (init != null) {
+        struct.init()
+        Generator.register(struct)
+    }
+    return struct.nativeType
+}

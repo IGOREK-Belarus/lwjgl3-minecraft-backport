@@ -40,7 +40,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     unsigned int {@link #state};
  * }</code></pre>
  */
-public class XCrossingEvent extends Struct<XCrossingEvent> implements NativeResource {
+public class XCrossingEvent extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -109,15 +109,6 @@ public class XCrossingEvent extends Struct<XCrossingEvent> implements NativeReso
         SAME_SCREEN = layout.offsetof(14);
         FOCUS = layout.offsetof(15);
         STATE = layout.offsetof(16);
-    }
-
-    protected XCrossingEvent(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XCrossingEvent create(long address, @Nullable ByteBuffer container) {
-        return new XCrossingEvent(address, container);
     }
 
     /**
@@ -268,29 +259,29 @@ public class XCrossingEvent extends Struct<XCrossingEvent> implements NativeReso
 
     /** Returns a new {@code XCrossingEvent} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XCrossingEvent malloc() {
-        return new XCrossingEvent(nmemAllocChecked(SIZEOF), null);
+        return wrap(XCrossingEvent.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XCrossingEvent} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XCrossingEvent calloc() {
-        return new XCrossingEvent(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XCrossingEvent.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XCrossingEvent} instance allocated with {@link BufferUtils}. */
     public static XCrossingEvent create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XCrossingEvent(memAddress(container), container);
+        return wrap(XCrossingEvent.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XCrossingEvent} instance for the specified memory address. */
     public static XCrossingEvent create(long address) {
-        return new XCrossingEvent(address, null);
+        return wrap(XCrossingEvent.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XCrossingEvent createSafe(long address) {
-        return address == NULL ? null : new XCrossingEvent(address, null);
+        return address == NULL ? null : wrap(XCrossingEvent.class, address);
     }
 
     /**
@@ -299,7 +290,7 @@ public class XCrossingEvent extends Struct<XCrossingEvent> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static XCrossingEvent.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -308,7 +299,7 @@ public class XCrossingEvent extends Struct<XCrossingEvent> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static XCrossingEvent.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -318,7 +309,7 @@ public class XCrossingEvent extends Struct<XCrossingEvent> implements NativeReso
      */
     public static XCrossingEvent.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -328,13 +319,13 @@ public class XCrossingEvent extends Struct<XCrossingEvent> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static XCrossingEvent.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XCrossingEvent.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -362,7 +353,7 @@ public class XCrossingEvent extends Struct<XCrossingEvent> implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static XCrossingEvent malloc(MemoryStack stack) {
-        return new XCrossingEvent(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XCrossingEvent.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -371,7 +362,7 @@ public class XCrossingEvent extends Struct<XCrossingEvent> implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static XCrossingEvent calloc(MemoryStack stack) {
-        return new XCrossingEvent(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XCrossingEvent.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -381,7 +372,7 @@ public class XCrossingEvent extends Struct<XCrossingEvent> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static XCrossingEvent.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -391,7 +382,7 @@ public class XCrossingEvent extends Struct<XCrossingEvent> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static XCrossingEvent.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -485,9 +476,9 @@ public class XCrossingEvent extends Struct<XCrossingEvent> implements NativeReso
         /**
          * Creates a new {@code XCrossingEvent.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XCrossingEvent#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XCrossingEvent#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -60,7 +60,7 @@ val GLX_AMD_gpu_association = "GLXAMDGPUAssociation".nativeClassGLX("GLX_AMD_gpu
         "Creates an associated context.",
 
         unsigned_int("id", ""),
-        nullable..GLXContext("share_list", "")
+        GLXContext("share_list", "")
     )
 
     GLXContext(
@@ -68,7 +68,7 @@ val GLX_AMD_gpu_association = "GLXAMDGPUAssociation".nativeClassGLX("GLX_AMD_gpu
         "Creates an associated context and requests a specific GL version.",
 
         unsigned_int("id", ""),
-        nullable..GLXContext("share_list", ""),
+        GLXContext("share_context", ""),
         NullTerminated..int.const.p("attribList", "")
     )
 
@@ -88,7 +88,7 @@ val GLX_AMD_gpu_association = "GLXAMDGPUAssociation".nativeClassGLX("GLX_AMD_gpu
 
     GLXContext(
         "GetCurrentAssociatedContextAMD",
-        "Queries the current associated context.",
+        "Queries the crrent associated context.",
         void()
     )
 
@@ -96,8 +96,8 @@ val GLX_AMD_gpu_association = "GLXAMDGPUAssociation".nativeClassGLX("GLX_AMD_gpu
         "GetGPUIDsAMD",
         "Queries the IDs for available GPUs.",
 
-        AutoSize("ids")..unsigned_int("maxCount", ""),
-        nullable..unsigned_int.p("ids", "")
+        unsigned_int("maxCount", ""),
+        unsigned_int("ids", "")
     )
 
     int(

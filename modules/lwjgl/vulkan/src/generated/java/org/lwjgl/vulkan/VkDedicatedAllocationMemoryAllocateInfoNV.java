@@ -49,7 +49,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBuffer {@link #buffer};
  * }</code></pre>
  */
-public class VkDedicatedAllocationMemoryAllocateInfoNV extends Struct<VkDedicatedAllocationMemoryAllocateInfoNV> implements NativeResource {
+public class VkDedicatedAllocationMemoryAllocateInfoNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -81,15 +81,6 @@ public class VkDedicatedAllocationMemoryAllocateInfoNV extends Struct<VkDedicate
         BUFFER = layout.offsetof(3);
     }
 
-    protected VkDedicatedAllocationMemoryAllocateInfoNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkDedicatedAllocationMemoryAllocateInfoNV create(long address, @Nullable ByteBuffer container) {
-        return new VkDedicatedAllocationMemoryAllocateInfoNV(address, container);
-    }
-
     /**
      * Creates a {@code VkDedicatedAllocationMemoryAllocateInfoNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -103,7 +94,7 @@ public class VkDedicatedAllocationMemoryAllocateInfoNV extends Struct<VkDedicate
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -158,29 +149,29 @@ public class VkDedicatedAllocationMemoryAllocateInfoNV extends Struct<VkDedicate
 
     /** Returns a new {@code VkDedicatedAllocationMemoryAllocateInfoNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDedicatedAllocationMemoryAllocateInfoNV malloc() {
-        return new VkDedicatedAllocationMemoryAllocateInfoNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkDedicatedAllocationMemoryAllocateInfoNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkDedicatedAllocationMemoryAllocateInfoNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDedicatedAllocationMemoryAllocateInfoNV calloc() {
-        return new VkDedicatedAllocationMemoryAllocateInfoNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkDedicatedAllocationMemoryAllocateInfoNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkDedicatedAllocationMemoryAllocateInfoNV} instance allocated with {@link BufferUtils}. */
     public static VkDedicatedAllocationMemoryAllocateInfoNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkDedicatedAllocationMemoryAllocateInfoNV(memAddress(container), container);
+        return wrap(VkDedicatedAllocationMemoryAllocateInfoNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkDedicatedAllocationMemoryAllocateInfoNV} instance for the specified memory address. */
     public static VkDedicatedAllocationMemoryAllocateInfoNV create(long address) {
-        return new VkDedicatedAllocationMemoryAllocateInfoNV(address, null);
+        return wrap(VkDedicatedAllocationMemoryAllocateInfoNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDedicatedAllocationMemoryAllocateInfoNV createSafe(long address) {
-        return address == NULL ? null : new VkDedicatedAllocationMemoryAllocateInfoNV(address, null);
+        return address == NULL ? null : wrap(VkDedicatedAllocationMemoryAllocateInfoNV.class, address);
     }
 
     /**
@@ -189,7 +180,7 @@ public class VkDedicatedAllocationMemoryAllocateInfoNV extends Struct<VkDedicate
      * @param capacity the buffer capacity
      */
     public static VkDedicatedAllocationMemoryAllocateInfoNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -198,7 +189,7 @@ public class VkDedicatedAllocationMemoryAllocateInfoNV extends Struct<VkDedicate
      * @param capacity the buffer capacity
      */
     public static VkDedicatedAllocationMemoryAllocateInfoNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -208,7 +199,7 @@ public class VkDedicatedAllocationMemoryAllocateInfoNV extends Struct<VkDedicate
      */
     public static VkDedicatedAllocationMemoryAllocateInfoNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -218,13 +209,13 @@ public class VkDedicatedAllocationMemoryAllocateInfoNV extends Struct<VkDedicate
      * @param capacity the buffer capacity
      */
     public static VkDedicatedAllocationMemoryAllocateInfoNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDedicatedAllocationMemoryAllocateInfoNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -252,7 +243,7 @@ public class VkDedicatedAllocationMemoryAllocateInfoNV extends Struct<VkDedicate
      * @param stack the stack from which to allocate
      */
     public static VkDedicatedAllocationMemoryAllocateInfoNV malloc(MemoryStack stack) {
-        return new VkDedicatedAllocationMemoryAllocateInfoNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkDedicatedAllocationMemoryAllocateInfoNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -261,7 +252,7 @@ public class VkDedicatedAllocationMemoryAllocateInfoNV extends Struct<VkDedicate
      * @param stack the stack from which to allocate
      */
     public static VkDedicatedAllocationMemoryAllocateInfoNV calloc(MemoryStack stack) {
-        return new VkDedicatedAllocationMemoryAllocateInfoNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkDedicatedAllocationMemoryAllocateInfoNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -271,7 +262,7 @@ public class VkDedicatedAllocationMemoryAllocateInfoNV extends Struct<VkDedicate
      * @param capacity the buffer capacity
      */
     public static VkDedicatedAllocationMemoryAllocateInfoNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -281,7 +272,7 @@ public class VkDedicatedAllocationMemoryAllocateInfoNV extends Struct<VkDedicate
      * @param capacity the buffer capacity
      */
     public static VkDedicatedAllocationMemoryAllocateInfoNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -314,9 +305,9 @@ public class VkDedicatedAllocationMemoryAllocateInfoNV extends Struct<VkDedicate
         /**
          * Creates a new {@code VkDedicatedAllocationMemoryAllocateInfoNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDedicatedAllocationMemoryAllocateInfoNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkDedicatedAllocationMemoryAllocateInfoNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

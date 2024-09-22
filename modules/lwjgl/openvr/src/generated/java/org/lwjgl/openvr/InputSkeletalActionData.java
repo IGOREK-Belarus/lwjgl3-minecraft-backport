@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct InputSkeletalActionData_t")
-public class InputSkeletalActionData extends Struct<InputSkeletalActionData> implements NativeResource {
+public class InputSkeletalActionData extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -49,15 +49,6 @@ public class InputSkeletalActionData extends Struct<InputSkeletalActionData> imp
 
         BACTIVE = layout.offsetof(0);
         ACTIVEORIGIN = layout.offsetof(1);
-    }
-
-    protected InputSkeletalActionData(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected InputSkeletalActionData create(long address, @Nullable ByteBuffer container) {
-        return new InputSkeletalActionData(address, container);
     }
 
     /**
@@ -84,29 +75,29 @@ public class InputSkeletalActionData extends Struct<InputSkeletalActionData> imp
 
     /** Returns a new {@code InputSkeletalActionData} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static InputSkeletalActionData malloc() {
-        return new InputSkeletalActionData(nmemAllocChecked(SIZEOF), null);
+        return wrap(InputSkeletalActionData.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code InputSkeletalActionData} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static InputSkeletalActionData calloc() {
-        return new InputSkeletalActionData(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(InputSkeletalActionData.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code InputSkeletalActionData} instance allocated with {@link BufferUtils}. */
     public static InputSkeletalActionData create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new InputSkeletalActionData(memAddress(container), container);
+        return wrap(InputSkeletalActionData.class, memAddress(container), container);
     }
 
     /** Returns a new {@code InputSkeletalActionData} instance for the specified memory address. */
     public static InputSkeletalActionData create(long address) {
-        return new InputSkeletalActionData(address, null);
+        return wrap(InputSkeletalActionData.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static InputSkeletalActionData createSafe(long address) {
-        return address == NULL ? null : new InputSkeletalActionData(address, null);
+        return address == NULL ? null : wrap(InputSkeletalActionData.class, address);
     }
 
     /**
@@ -115,7 +106,7 @@ public class InputSkeletalActionData extends Struct<InputSkeletalActionData> imp
      * @param capacity the buffer capacity
      */
     public static InputSkeletalActionData.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -124,7 +115,7 @@ public class InputSkeletalActionData extends Struct<InputSkeletalActionData> imp
      * @param capacity the buffer capacity
      */
     public static InputSkeletalActionData.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -134,7 +125,7 @@ public class InputSkeletalActionData extends Struct<InputSkeletalActionData> imp
      */
     public static InputSkeletalActionData.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -144,13 +135,13 @@ public class InputSkeletalActionData extends Struct<InputSkeletalActionData> imp
      * @param capacity the buffer capacity
      */
     public static InputSkeletalActionData.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static InputSkeletalActionData.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -178,7 +169,7 @@ public class InputSkeletalActionData extends Struct<InputSkeletalActionData> imp
      * @param stack the stack from which to allocate
      */
     public static InputSkeletalActionData malloc(MemoryStack stack) {
-        return new InputSkeletalActionData(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(InputSkeletalActionData.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -187,7 +178,7 @@ public class InputSkeletalActionData extends Struct<InputSkeletalActionData> imp
      * @param stack the stack from which to allocate
      */
     public static InputSkeletalActionData calloc(MemoryStack stack) {
-        return new InputSkeletalActionData(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(InputSkeletalActionData.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -197,7 +188,7 @@ public class InputSkeletalActionData extends Struct<InputSkeletalActionData> imp
      * @param capacity the buffer capacity
      */
     public static InputSkeletalActionData.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -207,7 +198,7 @@ public class InputSkeletalActionData extends Struct<InputSkeletalActionData> imp
      * @param capacity the buffer capacity
      */
     public static InputSkeletalActionData.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -227,9 +218,9 @@ public class InputSkeletalActionData extends Struct<InputSkeletalActionData> imp
         /**
          * Creates a new {@code InputSkeletalActionData.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link InputSkeletalActionData#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link InputSkeletalActionData#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_COMPOSITION_LAYER_QUAD TYPE_COMPOSITION_LAYER_QUAD}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code layerFlags} <b>must</b> be 0 or a valid combination of {@code XrCompositionLayerFlagBits} values</li>
  * <li>{@code space} <b>must</b> be a valid {@code XrSpace} handle</li>
  * <li>{@code eyeVisibility} <b>must</b> be a valid {@code XrEyeVisibility} value</li>
@@ -52,7 +52,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrExtent2Df XrExtent2Df} {@link #size};
  * }</code></pre>
  */
-public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> implements NativeResource {
+public class XrCompositionLayerQuad extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -96,15 +96,6 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
         SIZE = layout.offsetof(7);
     }
 
-    protected XrCompositionLayerQuad(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrCompositionLayerQuad create(long address, @Nullable ByteBuffer container) {
-        return new XrCompositionLayerQuad(address, container);
-    }
-
     /**
      * Creates a {@code XrCompositionLayerQuad} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -133,7 +124,7 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
     /** the {@code XrEyeVisibility} for this layer. */
     @NativeType("XrEyeVisibility")
     public int eyeVisibility() { return neyeVisibility(address()); }
-    /** the image layer {@link XrSwapchainSubImage} to use. The swapchain <b>must</b> have been created with a {@link XrSwapchainCreateInfo}{@code ::faceCount} of 1. */
+    /** the image layer {@link XrSwapchainSubImage} to use. */
     public XrSwapchainSubImage subImage() { return nsubImage(address()); }
     /** an {@link XrPosef} defining the position and orientation of the quad in the reference frame of the {@code space}. */
     public XrPosef pose() { return npose(address()); }
@@ -204,34 +195,34 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
 
     /** Returns a new {@code XrCompositionLayerQuad} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrCompositionLayerQuad malloc() {
-        return new XrCompositionLayerQuad(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrCompositionLayerQuad.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrCompositionLayerQuad} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrCompositionLayerQuad calloc() {
-        return new XrCompositionLayerQuad(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrCompositionLayerQuad.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrCompositionLayerQuad} instance allocated with {@link BufferUtils}. */
     public static XrCompositionLayerQuad create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrCompositionLayerQuad(memAddress(container), container);
+        return wrap(XrCompositionLayerQuad.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrCompositionLayerQuad} instance for the specified memory address. */
     public static XrCompositionLayerQuad create(long address) {
-        return new XrCompositionLayerQuad(address, null);
+        return wrap(XrCompositionLayerQuad.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrCompositionLayerQuad createSafe(long address) {
-        return address == NULL ? null : new XrCompositionLayerQuad(address, null);
+        return address == NULL ? null : wrap(XrCompositionLayerQuad.class, address);
     }
 
     /** Downcasts the specified {@code XrCompositionLayerBaseHeader} instance to {@code XrCompositionLayerQuad}. */
     public static XrCompositionLayerQuad create(XrCompositionLayerBaseHeader value) {
-        return new XrCompositionLayerQuad(value.address(), __getContainer(value));
+        return wrap(XrCompositionLayerQuad.class, value);
     }
 
     /**
@@ -240,7 +231,7 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerQuad.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -249,7 +240,7 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerQuad.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -259,7 +250,7 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
      */
     public static XrCompositionLayerQuad.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -269,18 +260,18 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerQuad.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrCompositionLayerQuad.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /** Downcasts the specified {@code XrCompositionLayerBaseHeader.Buffer} instance to {@code XrCompositionLayerQuad.Buffer}. */
     public static XrCompositionLayerQuad.Buffer create(XrCompositionLayerBaseHeader.Buffer value) {
-        return new XrCompositionLayerQuad.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+        return wrap(Buffer.class, value);
     }
 
     /**
@@ -289,7 +280,7 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
      * @param stack the stack from which to allocate
      */
     public static XrCompositionLayerQuad malloc(MemoryStack stack) {
-        return new XrCompositionLayerQuad(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrCompositionLayerQuad.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -298,7 +289,7 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
      * @param stack the stack from which to allocate
      */
     public static XrCompositionLayerQuad calloc(MemoryStack stack) {
-        return new XrCompositionLayerQuad(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrCompositionLayerQuad.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -308,7 +299,7 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerQuad.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -318,7 +309,7 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerQuad.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -377,9 +368,9 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
         /**
          * Creates a new {@code XrCompositionLayerQuad.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrCompositionLayerQuad#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrCompositionLayerQuad#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -23,7 +23,6 @@ import static org.lwjgl.nuklear.Nuklear.NK_BUTTON_MAX;
  * struct nk_mouse {
  *     {@link NkMouseButton struct nk_mouse_button} buttons[NK_BUTTON_MAX];
  *     {@link NkVec2 struct nk_vec2} pos;
- *     {@link NkVec2 struct nk_vec2} down_pos;
  *     {@link NkVec2 struct nk_vec2} prev;
  *     {@link NkVec2 struct nk_vec2} delta;
  *     {@link NkVec2 struct nk_vec2} scroll_delta;
@@ -33,7 +32,7 @@ import static org.lwjgl.nuklear.Nuklear.NK_BUTTON_MAX;
  * }</code></pre>
  */
 @NativeType("struct nk_mouse")
-public class NkMouse extends Struct<NkMouse> {
+public class NkMouse extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -45,7 +44,6 @@ public class NkMouse extends Struct<NkMouse> {
     public static final int
         BUTTONS,
         POS,
-        DOWN_POS,
         PREV,
         DELTA,
         SCROLL_DELTA,
@@ -60,7 +58,6 @@ public class NkMouse extends Struct<NkMouse> {
             __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
             __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
             __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
-            __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
             __member(1),
             __member(1),
             __member(1)
@@ -71,22 +68,12 @@ public class NkMouse extends Struct<NkMouse> {
 
         BUTTONS = layout.offsetof(0);
         POS = layout.offsetof(1);
-        DOWN_POS = layout.offsetof(2);
-        PREV = layout.offsetof(3);
-        DELTA = layout.offsetof(4);
-        SCROLL_DELTA = layout.offsetof(5);
-        GRAB = layout.offsetof(6);
-        GRABBED = layout.offsetof(7);
-        UNGRAB = layout.offsetof(8);
-    }
-
-    protected NkMouse(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected NkMouse create(long address, @Nullable ByteBuffer container) {
-        return new NkMouse(address, container);
+        PREV = layout.offsetof(2);
+        DELTA = layout.offsetof(3);
+        SCROLL_DELTA = layout.offsetof(4);
+        GRAB = layout.offsetof(5);
+        GRABBED = layout.offsetof(6);
+        UNGRAB = layout.offsetof(7);
     }
 
     /**
@@ -111,9 +98,6 @@ public class NkMouse extends Struct<NkMouse> {
     /** @return a {@link NkVec2} view of the {@code pos} field. */
     @NativeType("struct nk_vec2")
     public NkVec2 pos() { return npos(address()); }
-    /** @return a {@link NkVec2} view of the {@code down_pos} field. */
-    @NativeType("struct nk_vec2")
-    public NkVec2 down_pos() { return ndown_pos(address()); }
     /** @return a {@link NkVec2} view of the {@code prev} field. */
     @NativeType("struct nk_vec2")
     public NkVec2 prev() { return nprev(address()); }
@@ -137,13 +121,13 @@ public class NkMouse extends Struct<NkMouse> {
 
     /** Returns a new {@code NkMouse} instance for the specified memory address. */
     public static NkMouse create(long address) {
-        return new NkMouse(address, null);
+        return wrap(NkMouse.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkMouse createSafe(long address) {
-        return address == NULL ? null : new NkMouse(address, null);
+        return address == NULL ? null : wrap(NkMouse.class, address);
     }
 
     /**
@@ -153,13 +137,13 @@ public class NkMouse extends Struct<NkMouse> {
      * @param capacity the buffer capacity
      */
     public static NkMouse.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkMouse.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -172,8 +156,6 @@ public class NkMouse extends Struct<NkMouse> {
     }
     /** Unsafe version of {@link #pos}. */
     public static NkVec2 npos(long struct) { return NkVec2.create(struct + NkMouse.POS); }
-    /** Unsafe version of {@link #down_pos}. */
-    public static NkVec2 ndown_pos(long struct) { return NkVec2.create(struct + NkMouse.DOWN_POS); }
     /** Unsafe version of {@link #prev}. */
     public static NkVec2 nprev(long struct) { return NkVec2.create(struct + NkMouse.PREV); }
     /** Unsafe version of {@link #delta}. */
@@ -197,9 +179,9 @@ public class NkMouse extends Struct<NkMouse> {
         /**
          * Creates a new {@code NkMouse.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkMouse#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link NkMouse#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -234,9 +216,6 @@ public class NkMouse extends Struct<NkMouse> {
         /** @return a {@link NkVec2} view of the {@code pos} field. */
         @NativeType("struct nk_vec2")
         public NkVec2 pos() { return NkMouse.npos(address()); }
-        /** @return a {@link NkVec2} view of the {@code down_pos} field. */
-        @NativeType("struct nk_vec2")
-        public NkVec2 down_pos() { return NkMouse.ndown_pos(address()); }
         /** @return a {@link NkVec2} view of the {@code prev} field. */
         @NativeType("struct nk_vec2")
         public NkVec2 prev() { return NkMouse.nprev(address()); }

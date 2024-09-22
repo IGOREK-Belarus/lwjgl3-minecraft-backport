@@ -16,15 +16,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
+ * Specifies a memory location.
+ * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct CUmemLocation {
- *     CUmemLocationType type;
- *     int id;
+ *     CUmemLocationType {@link #type};
+ *     int {@link #id};
  * }</code></pre>
  */
-public class CUmemLocation extends Struct<CUmemLocation> implements NativeResource {
+public class CUmemLocation extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -50,15 +52,6 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
         ID = layout.offsetof(1);
     }
 
-    protected CUmemLocation(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CUmemLocation create(long address, @Nullable ByteBuffer container) {
-        return new CUmemLocation(address, container);
-    }
-
     /**
      * Creates a {@code CUmemLocation} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -72,15 +65,15 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return the value of the {@code type} field. */
+    /** specifies the location type, which modifies the meaning of id */
     @NativeType("CUmemLocationType")
     public int type() { return ntype(address()); }
-    /** @return the value of the {@code id} field. */
+    /** identifier for a given this location's {@code CUmemLocationType} */
     public int id() { return nid(address()); }
 
-    /** Sets the specified value to the {@code type} field. */
+    /** Sets the specified value to the {@link #type} field. */
     public CUmemLocation type(@NativeType("CUmemLocationType") int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@code id} field. */
+    /** Sets the specified value to the {@link #id} field. */
     public CUmemLocation id(int value) { nid(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -110,29 +103,29 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
 
     /** Returns a new {@code CUmemLocation} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CUmemLocation malloc() {
-        return new CUmemLocation(nmemAllocChecked(SIZEOF), null);
+        return wrap(CUmemLocation.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code CUmemLocation} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CUmemLocation calloc() {
-        return new CUmemLocation(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(CUmemLocation.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code CUmemLocation} instance allocated with {@link BufferUtils}. */
     public static CUmemLocation create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new CUmemLocation(memAddress(container), container);
+        return wrap(CUmemLocation.class, memAddress(container), container);
     }
 
     /** Returns a new {@code CUmemLocation} instance for the specified memory address. */
     public static CUmemLocation create(long address) {
-        return new CUmemLocation(address, null);
+        return wrap(CUmemLocation.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUmemLocation createSafe(long address) {
-        return address == NULL ? null : new CUmemLocation(address, null);
+        return address == NULL ? null : wrap(CUmemLocation.class, address);
     }
 
     /**
@@ -141,7 +134,7 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static CUmemLocation.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -150,7 +143,7 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static CUmemLocation.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -160,7 +153,7 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
      */
     public static CUmemLocation.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -170,13 +163,13 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static CUmemLocation.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUmemLocation.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -185,7 +178,7 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
      * @param stack the stack from which to allocate
      */
     public static CUmemLocation malloc(MemoryStack stack) {
-        return new CUmemLocation(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(CUmemLocation.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -194,7 +187,7 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
      * @param stack the stack from which to allocate
      */
     public static CUmemLocation calloc(MemoryStack stack) {
-        return new CUmemLocation(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(CUmemLocation.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -204,7 +197,7 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static CUmemLocation.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -214,7 +207,7 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static CUmemLocation.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -239,9 +232,9 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
         /**
          * Creates a new {@code CUmemLocation.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CUmemLocation#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CUmemLocation#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -267,15 +260,15 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@code type} field. */
+        /** @return the value of the {@link CUmemLocation#type} field. */
         @NativeType("CUmemLocationType")
         public int type() { return CUmemLocation.ntype(address()); }
-        /** @return the value of the {@code id} field. */
+        /** @return the value of the {@link CUmemLocation#id} field. */
         public int id() { return CUmemLocation.nid(address()); }
 
-        /** Sets the specified value to the {@code type} field. */
+        /** Sets the specified value to the {@link CUmemLocation#type} field. */
         public CUmemLocation.Buffer type(@NativeType("CUmemLocationType") int value) { CUmemLocation.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@code id} field. */
+        /** Sets the specified value to the {@link CUmemLocation#id} field. */
         public CUmemLocation.Buffer id(int value) { CUmemLocation.nid(address(), value); return this; }
 
     }

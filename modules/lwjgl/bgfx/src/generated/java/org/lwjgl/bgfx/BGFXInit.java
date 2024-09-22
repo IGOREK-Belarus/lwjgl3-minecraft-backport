@@ -36,7 +36,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct bgfx_init_t")
-public class BGFXInit extends Struct<BGFXInit> implements NativeResource {
+public class BGFXInit extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -89,15 +89,6 @@ public class BGFXInit extends Struct<BGFXInit> implements NativeResource {
         ALLOCATOR = layout.offsetof(10);
     }
 
-    protected BGFXInit(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected BGFXInit create(long address, @Nullable ByteBuffer container) {
-        return new BGFXInit(address, container);
-    }
-
     /**
      * Creates a {@code BGFXInit} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -111,13 +102,13 @@ public class BGFXInit extends Struct<BGFXInit> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** select rendering backend. When set to {@link BGFX#BGFX_RENDERER_TYPE_COUNT RENDERER_TYPE_COUNT} a default rendering backend will be selected appropriate to the platform. One of:<br><table><tr><td>{@link BGFX#BGFX_RENDERER_TYPE_NOOP RENDERER_TYPE_NOOP}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_AGC RENDERER_TYPE_AGC}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_DIRECT3D11 RENDERER_TYPE_DIRECT3D11}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_DIRECT3D12 RENDERER_TYPE_DIRECT3D12}</td></tr><tr><td>{@link BGFX#BGFX_RENDERER_TYPE_GNM RENDERER_TYPE_GNM}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_METAL RENDERER_TYPE_METAL}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_NVN RENDERER_TYPE_NVN}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_OPENGLES RENDERER_TYPE_OPENGLES}</td></tr><tr><td>{@link BGFX#BGFX_RENDERER_TYPE_OPENGL RENDERER_TYPE_OPENGL}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_VULKAN RENDERER_TYPE_VULKAN}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_COUNT RENDERER_TYPE_COUNT}</td></tr></table> */
+    /** select rendering backend. When set to {@link BGFX#BGFX_RENDERER_TYPE_COUNT RENDERER_TYPE_COUNT} a default rendering backend will be selected appropriate to the platform. One of:<br><table><tr><td>{@link BGFX#BGFX_RENDERER_TYPE_NOOP RENDERER_TYPE_NOOP}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_AGC RENDERER_TYPE_AGC}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_DIRECT3D9 RENDERER_TYPE_DIRECT3D9}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_DIRECT3D11 RENDERER_TYPE_DIRECT3D11}</td></tr><tr><td>{@link BGFX#BGFX_RENDERER_TYPE_DIRECT3D12 RENDERER_TYPE_DIRECT3D12}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_GNM RENDERER_TYPE_GNM}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_METAL RENDERER_TYPE_METAL}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_NVN RENDERER_TYPE_NVN}</td></tr><tr><td>{@link BGFX#BGFX_RENDERER_TYPE_OPENGLES RENDERER_TYPE_OPENGLES}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_OPENGL RENDERER_TYPE_OPENGL}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_VULKAN RENDERER_TYPE_VULKAN}</td><td>{@link BGFX#BGFX_RENDERER_TYPE_COUNT RENDERER_TYPE_COUNT}</td></tr></table> */
     @NativeType("bgfx_renderer_type_t")
     public int type() { return ntype(address()); }
-    /** vendor PCI id. If set to {@link BGFX#BGFX_PCI_ID_NONE PCI_ID_NONE} it will select the first device. One of:<br><table><tr><td>{@link BGFX#BGFX_PCI_ID_NONE PCI_ID_NONE}</td><td>{@link BGFX#BGFX_PCI_ID_SOFTWARE_RASTERIZER PCI_ID_SOFTWARE_RASTERIZER}</td><td>{@link BGFX#BGFX_PCI_ID_AMD PCI_ID_AMD}</td><td>{@link BGFX#BGFX_PCI_ID_APPLE PCI_ID_APPLE}</td><td>{@link BGFX#BGFX_PCI_ID_INTEL PCI_ID_INTEL}</td></tr><tr><td>{@link BGFX#BGFX_PCI_ID_NVIDIA PCI_ID_NVIDIA}</td><td>{@link BGFX#BGFX_PCI_ID_MICROSOFT PCI_ID_MICROSOFT}</td><td>{@link BGFX#BGFX_PCI_ID_ARM PCI_ID_ARM}</td></tr></table> */
+    /** vendor PCI id. If set to {@link BGFX#BGFX_PCI_ID_NONE PCI_ID_NONE} it will select the first device. One of:<br><table><tr><td>{@link BGFX#BGFX_PCI_ID_NONE PCI_ID_NONE}</td><td>{@link BGFX#BGFX_PCI_ID_SOFTWARE_RASTERIZER PCI_ID_SOFTWARE_RASTERIZER}</td><td>{@link BGFX#BGFX_PCI_ID_AMD PCI_ID_AMD}</td><td>{@link BGFX#BGFX_PCI_ID_APPLE PCI_ID_APPLE}</td><td>{@link BGFX#BGFX_PCI_ID_INTEL PCI_ID_INTEL}</td></tr><tr><td>{@link BGFX#BGFX_PCI_ID_NVIDIA PCI_ID_NVIDIA}</td><td>{@link BGFX#BGFX_PCI_ID_MICROSOFT PCI_ID_MICROSOFT}</td></tr></table> */
     @NativeType("uint16_t")
     public short vendorId() { return nvendorId(address()); }
-    /** device ID. If set to 0 it will select first device, or device with matching ID. */
+    /** device id. If set to 0 it will select first device, or device with matching id. */
     @NativeType("uint16_t")
     public short deviceId() { return ndeviceId(address()); }
     /** capabilities initialization mask (default: {@code UINT64_MAX}) */
@@ -221,29 +212,29 @@ public class BGFXInit extends Struct<BGFXInit> implements NativeResource {
 
     /** Returns a new {@code BGFXInit} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static BGFXInit malloc() {
-        return new BGFXInit(nmemAllocChecked(SIZEOF), null);
+        return wrap(BGFXInit.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code BGFXInit} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static BGFXInit calloc() {
-        return new BGFXInit(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(BGFXInit.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code BGFXInit} instance allocated with {@link BufferUtils}. */
     public static BGFXInit create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new BGFXInit(memAddress(container), container);
+        return wrap(BGFXInit.class, memAddress(container), container);
     }
 
     /** Returns a new {@code BGFXInit} instance for the specified memory address. */
     public static BGFXInit create(long address) {
-        return new BGFXInit(address, null);
+        return wrap(BGFXInit.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXInit createSafe(long address) {
-        return address == NULL ? null : new BGFXInit(address, null);
+        return address == NULL ? null : wrap(BGFXInit.class, address);
     }
 
     // -----------------------------------
@@ -264,7 +255,7 @@ public class BGFXInit extends Struct<BGFXInit> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static BGFXInit malloc(MemoryStack stack) {
-        return new BGFXInit(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(BGFXInit.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -273,7 +264,7 @@ public class BGFXInit extends Struct<BGFXInit> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static BGFXInit calloc(MemoryStack stack) {
-        return new BGFXInit(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(BGFXInit.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     // -----------------------------------

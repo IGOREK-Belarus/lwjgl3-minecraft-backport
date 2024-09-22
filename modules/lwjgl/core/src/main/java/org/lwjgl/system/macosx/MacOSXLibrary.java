@@ -18,7 +18,7 @@ public abstract class MacOSXLibrary extends SharedLibrary.Default {
     public static MacOSXLibrary getWithIdentifier(String bundleID) {
         apiLog("Loading library: " + bundleID);
         MacOSXLibraryBundle lib = MacOSXLibraryBundle.getWithIdentifier(bundleID);
-        apiLogMore("Success");
+        apiLog("\tSuccess");
         return lib;
     }
 

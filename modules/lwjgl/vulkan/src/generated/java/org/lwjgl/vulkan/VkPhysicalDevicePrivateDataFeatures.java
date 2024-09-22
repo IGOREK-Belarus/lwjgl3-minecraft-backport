@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #privateData};
  * }</code></pre>
  */
-public class VkPhysicalDevicePrivateDataFeatures extends Struct<VkPhysicalDevicePrivateDataFeatures> implements NativeResource {
+public class VkPhysicalDevicePrivateDataFeatures extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,15 +66,6 @@ public class VkPhysicalDevicePrivateDataFeatures extends Struct<VkPhysicalDevice
         PRIVATEDATA = layout.offsetof(2);
     }
 
-    protected VkPhysicalDevicePrivateDataFeatures(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDevicePrivateDataFeatures create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDevicePrivateDataFeatures(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDevicePrivateDataFeatures} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -88,13 +79,13 @@ public class VkPhysicalDevicePrivateDataFeatures extends Struct<VkPhysicalDevice
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports private data. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#private-data">Private Data</a>. */
+    /** indicates whether the implementation supports private data. See <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#private-data">Private Data</a>. */
     @NativeType("VkBool32")
     public boolean privateData() { return nprivateData(address()) != 0; }
 
@@ -136,29 +127,29 @@ public class VkPhysicalDevicePrivateDataFeatures extends Struct<VkPhysicalDevice
 
     /** Returns a new {@code VkPhysicalDevicePrivateDataFeatures} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDevicePrivateDataFeatures malloc() {
-        return new VkPhysicalDevicePrivateDataFeatures(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDevicePrivateDataFeatures.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDevicePrivateDataFeatures} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDevicePrivateDataFeatures calloc() {
-        return new VkPhysicalDevicePrivateDataFeatures(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDevicePrivateDataFeatures.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDevicePrivateDataFeatures} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDevicePrivateDataFeatures create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDevicePrivateDataFeatures(memAddress(container), container);
+        return wrap(VkPhysicalDevicePrivateDataFeatures.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDevicePrivateDataFeatures} instance for the specified memory address. */
     public static VkPhysicalDevicePrivateDataFeatures create(long address) {
-        return new VkPhysicalDevicePrivateDataFeatures(address, null);
+        return wrap(VkPhysicalDevicePrivateDataFeatures.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDevicePrivateDataFeatures createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDevicePrivateDataFeatures(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDevicePrivateDataFeatures.class, address);
     }
 
     /**
@@ -167,7 +158,7 @@ public class VkPhysicalDevicePrivateDataFeatures extends Struct<VkPhysicalDevice
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePrivateDataFeatures.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -176,7 +167,7 @@ public class VkPhysicalDevicePrivateDataFeatures extends Struct<VkPhysicalDevice
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePrivateDataFeatures.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -186,7 +177,7 @@ public class VkPhysicalDevicePrivateDataFeatures extends Struct<VkPhysicalDevice
      */
     public static VkPhysicalDevicePrivateDataFeatures.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -196,13 +187,13 @@ public class VkPhysicalDevicePrivateDataFeatures extends Struct<VkPhysicalDevice
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePrivateDataFeatures.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDevicePrivateDataFeatures.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -211,7 +202,7 @@ public class VkPhysicalDevicePrivateDataFeatures extends Struct<VkPhysicalDevice
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDevicePrivateDataFeatures malloc(MemoryStack stack) {
-        return new VkPhysicalDevicePrivateDataFeatures(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDevicePrivateDataFeatures.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -220,7 +211,7 @@ public class VkPhysicalDevicePrivateDataFeatures extends Struct<VkPhysicalDevice
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDevicePrivateDataFeatures calloc(MemoryStack stack) {
-        return new VkPhysicalDevicePrivateDataFeatures(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDevicePrivateDataFeatures.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -230,7 +221,7 @@ public class VkPhysicalDevicePrivateDataFeatures extends Struct<VkPhysicalDevice
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePrivateDataFeatures.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -240,7 +231,7 @@ public class VkPhysicalDevicePrivateDataFeatures extends Struct<VkPhysicalDevice
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePrivateDataFeatures.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -269,9 +260,9 @@ public class VkPhysicalDevicePrivateDataFeatures extends Struct<VkPhysicalDevice
         /**
          * Creates a new {@code VkPhysicalDevicePrivateDataFeatures.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDevicePrivateDataFeatures#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDevicePrivateDataFeatures#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

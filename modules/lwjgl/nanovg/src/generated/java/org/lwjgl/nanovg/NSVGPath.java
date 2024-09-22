@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct NSVGpath")
-public class NSVGPath extends Struct<NSVGPath> {
+public class NSVGPath extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -60,15 +60,6 @@ public class NSVGPath extends Struct<NSVGPath> {
         CLOSED = layout.offsetof(2);
         BOUNDS = layout.offsetof(3);
         NEXT = layout.offsetof(4);
-    }
-
-    protected NSVGPath(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected NSVGPath create(long address, @Nullable ByteBuffer container) {
-        return new NSVGPath(address, container);
     }
 
     /**
@@ -105,13 +96,13 @@ public class NSVGPath extends Struct<NSVGPath> {
 
     /** Returns a new {@code NSVGPath} instance for the specified memory address. */
     public static NSVGPath create(long address) {
-        return new NSVGPath(address, null);
+        return wrap(NSVGPath.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NSVGPath createSafe(long address) {
-        return address == NULL ? null : new NSVGPath(address, null);
+        return address == NULL ? null : wrap(NSVGPath.class, address);
     }
 
     /**
@@ -121,19 +112,19 @@ public class NSVGPath extends Struct<NSVGPath> {
      * @param capacity the buffer capacity
      */
     public static NSVGPath.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NSVGPath.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #pts() pts}. */
-    public static FloatBuffer npts(long struct) { return memFloatBuffer(memGetAddress(struct + NSVGPath.PTS), (nnpts(struct) << 1)); }
+    public static FloatBuffer npts(long struct) { return memFloatBuffer(memGetAddress(struct + NSVGPath.PTS), nnpts(struct)); }
     /** Unsafe version of {@link #npts}. */
     public static int nnpts(long struct) { return UNSAFE.getInt(null, struct + NSVGPath.NPTS); }
     /** Unsafe version of {@link #closed}. */
@@ -157,9 +148,9 @@ public class NSVGPath extends Struct<NSVGPath> {
         /**
          * Creates a new {@code NSVGPath.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NSVGPath#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link NSVGPath#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

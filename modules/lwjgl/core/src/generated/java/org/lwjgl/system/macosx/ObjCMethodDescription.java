@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct objc_method_description")
-public class ObjCMethodDescription extends Struct<ObjCMethodDescription> implements NativeResource {
+public class ObjCMethodDescription extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -51,15 +51,6 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
 
         NAME = layout.offsetof(0);
         TYPES = layout.offsetof(1);
-    }
-
-    protected ObjCMethodDescription(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected ObjCMethodDescription create(long address, @Nullable ByteBuffer container) {
-        return new ObjCMethodDescription(address, container);
     }
 
     /**
@@ -89,29 +80,29 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
 
     /** Returns a new {@code ObjCMethodDescription} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static ObjCMethodDescription malloc() {
-        return new ObjCMethodDescription(nmemAllocChecked(SIZEOF), null);
+        return wrap(ObjCMethodDescription.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code ObjCMethodDescription} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static ObjCMethodDescription calloc() {
-        return new ObjCMethodDescription(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(ObjCMethodDescription.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code ObjCMethodDescription} instance allocated with {@link BufferUtils}. */
     public static ObjCMethodDescription create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new ObjCMethodDescription(memAddress(container), container);
+        return wrap(ObjCMethodDescription.class, memAddress(container), container);
     }
 
     /** Returns a new {@code ObjCMethodDescription} instance for the specified memory address. */
     public static ObjCMethodDescription create(long address) {
-        return new ObjCMethodDescription(address, null);
+        return wrap(ObjCMethodDescription.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static ObjCMethodDescription createSafe(long address) {
-        return address == NULL ? null : new ObjCMethodDescription(address, null);
+        return address == NULL ? null : wrap(ObjCMethodDescription.class, address);
     }
 
     /**
@@ -120,7 +111,7 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
      * @param capacity the buffer capacity
      */
     public static ObjCMethodDescription.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -129,7 +120,7 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
      * @param capacity the buffer capacity
      */
     public static ObjCMethodDescription.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -139,7 +130,7 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
      */
     public static ObjCMethodDescription.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -149,13 +140,13 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
      * @param capacity the buffer capacity
      */
     public static ObjCMethodDescription.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static ObjCMethodDescription.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -183,7 +174,7 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
      * @param stack the stack from which to allocate
      */
     public static ObjCMethodDescription malloc(MemoryStack stack) {
-        return new ObjCMethodDescription(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(ObjCMethodDescription.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -192,7 +183,7 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
      * @param stack the stack from which to allocate
      */
     public static ObjCMethodDescription calloc(MemoryStack stack) {
-        return new ObjCMethodDescription(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(ObjCMethodDescription.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -202,7 +193,7 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
      * @param capacity the buffer capacity
      */
     public static ObjCMethodDescription.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -212,7 +203,7 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
      * @param capacity the buffer capacity
      */
     public static ObjCMethodDescription.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -234,9 +225,9 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
         /**
          * Creates a new {@code ObjCMethodDescription.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link ObjCMethodDescription#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link ObjCMethodDescription#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct Texture_t")
-public class Texture extends Struct<Texture> implements NativeResource {
+public class Texture extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -56,15 +56,6 @@ public class Texture extends Struct<Texture> implements NativeResource {
         ECOLORSPACE = layout.offsetof(2);
     }
 
-    protected Texture(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected Texture create(long address, @Nullable ByteBuffer container) {
-        return new Texture(address, container);
-    }
-
     /**
      * Creates a {@code Texture} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -81,7 +72,7 @@ public class Texture extends Struct<Texture> implements NativeResource {
     /** @return the value of the {@code handle} field. */
     @NativeType("void *")
     public long handle() { return nhandle(address()); }
-    /** one of:<br><table><tr><td>{@link VR#ETextureType_TextureType_Invalid}</td><td>{@link VR#ETextureType_TextureType_DirectX}</td></tr><tr><td>{@link VR#ETextureType_TextureType_OpenGL}</td><td>{@link VR#ETextureType_TextureType_Vulkan}</td></tr><tr><td>{@link VR#ETextureType_TextureType_IOSurface}</td><td>{@link VR#ETextureType_TextureType_DirectX12}</td></tr><tr><td>{@link VR#ETextureType_TextureType_DXGISharedHandle}</td><td>{@link VR#ETextureType_TextureType_Metal}</td></tr><tr><td>{@link VR#ETextureType_TextureType_Reserved}</td></tr></table> */
+    /** one of:<br><table><tr><td>{@link VR#ETextureType_TextureType_Invalid}</td><td>{@link VR#ETextureType_TextureType_DirectX}</td></tr><tr><td>{@link VR#ETextureType_TextureType_OpenGL}</td><td>{@link VR#ETextureType_TextureType_Vulkan}</td></tr><tr><td>{@link VR#ETextureType_TextureType_IOSurface}</td><td>{@link VR#ETextureType_TextureType_DirectX12}</td></tr><tr><td>{@link VR#ETextureType_TextureType_DXGISharedHandle}</td><td>{@link VR#ETextureType_TextureType_Metal}</td></tr></table> */
     @NativeType("ETextureType")
     public int eType() { return neType(address()); }
     /** one of:<br><table><tr><td>{@link VR#EColorSpace_ColorSpace_Auto}</td><td>{@link VR#EColorSpace_ColorSpace_Gamma}</td></tr><tr><td>{@link VR#EColorSpace_ColorSpace_Linear}</td></tr></table> */
@@ -124,29 +115,29 @@ public class Texture extends Struct<Texture> implements NativeResource {
 
     /** Returns a new {@code Texture} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static Texture malloc() {
-        return new Texture(nmemAllocChecked(SIZEOF), null);
+        return wrap(Texture.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code Texture} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static Texture calloc() {
-        return new Texture(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(Texture.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code Texture} instance allocated with {@link BufferUtils}. */
     public static Texture create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new Texture(memAddress(container), container);
+        return wrap(Texture.class, memAddress(container), container);
     }
 
     /** Returns a new {@code Texture} instance for the specified memory address. */
     public static Texture create(long address) {
-        return new Texture(address, null);
+        return wrap(Texture.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static Texture createSafe(long address) {
-        return address == NULL ? null : new Texture(address, null);
+        return address == NULL ? null : wrap(Texture.class, address);
     }
 
     /**
@@ -155,7 +146,7 @@ public class Texture extends Struct<Texture> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static Texture.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -164,7 +155,7 @@ public class Texture extends Struct<Texture> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static Texture.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -174,7 +165,7 @@ public class Texture extends Struct<Texture> implements NativeResource {
      */
     public static Texture.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -184,13 +175,13 @@ public class Texture extends Struct<Texture> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static Texture.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static Texture.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -218,7 +209,7 @@ public class Texture extends Struct<Texture> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static Texture malloc(MemoryStack stack) {
-        return new Texture(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(Texture.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -227,7 +218,7 @@ public class Texture extends Struct<Texture> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static Texture calloc(MemoryStack stack) {
-        return new Texture(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(Texture.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -237,7 +228,7 @@ public class Texture extends Struct<Texture> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static Texture.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -247,7 +238,7 @@ public class Texture extends Struct<Texture> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static Texture.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -285,9 +276,9 @@ public class Texture extends Struct<Texture> implements NativeResource {
         /**
          * Creates a new {@code Texture.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link Texture#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link Texture#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

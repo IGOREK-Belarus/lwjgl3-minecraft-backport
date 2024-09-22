@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If the {@link VkPhysicalDeviceMultiDrawPropertiesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
+ * <p>If the {@code VkPhysicalDeviceMultiDrawPropertiesPropertiesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #maxMultiDrawCount};
  * }</code></pre>
  */
-public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDeviceMultiDrawPropertiesEXT> implements NativeResource {
+public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -64,15 +64,6 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
         STYPE = layout.offsetof(0);
         PNEXT = layout.offsetof(1);
         MAXMULTIDRAWCOUNT = layout.offsetof(2);
-    }
-
-    protected VkPhysicalDeviceMultiDrawPropertiesEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceMultiDrawPropertiesEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceMultiDrawPropertiesEXT(address, container);
     }
 
     /**
@@ -132,29 +123,29 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
 
     /** Returns a new {@code VkPhysicalDeviceMultiDrawPropertiesEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceMultiDrawPropertiesEXT malloc() {
-        return new VkPhysicalDeviceMultiDrawPropertiesEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceMultiDrawPropertiesEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceMultiDrawPropertiesEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceMultiDrawPropertiesEXT calloc() {
-        return new VkPhysicalDeviceMultiDrawPropertiesEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceMultiDrawPropertiesEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceMultiDrawPropertiesEXT} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceMultiDrawPropertiesEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceMultiDrawPropertiesEXT(memAddress(container), container);
+        return wrap(VkPhysicalDeviceMultiDrawPropertiesEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceMultiDrawPropertiesEXT} instance for the specified memory address. */
     public static VkPhysicalDeviceMultiDrawPropertiesEXT create(long address) {
-        return new VkPhysicalDeviceMultiDrawPropertiesEXT(address, null);
+        return wrap(VkPhysicalDeviceMultiDrawPropertiesEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceMultiDrawPropertiesEXT createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceMultiDrawPropertiesEXT(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceMultiDrawPropertiesEXT.class, address);
     }
 
     /**
@@ -163,7 +154,7 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMultiDrawPropertiesEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -172,7 +163,7 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMultiDrawPropertiesEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -182,7 +173,7 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
      */
     public static VkPhysicalDeviceMultiDrawPropertiesEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -192,13 +183,13 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMultiDrawPropertiesEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceMultiDrawPropertiesEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -207,7 +198,7 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceMultiDrawPropertiesEXT malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceMultiDrawPropertiesEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceMultiDrawPropertiesEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -216,7 +207,7 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceMultiDrawPropertiesEXT calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceMultiDrawPropertiesEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceMultiDrawPropertiesEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -226,7 +217,7 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMultiDrawPropertiesEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -236,7 +227,7 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMultiDrawPropertiesEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -263,9 +254,9 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
         /**
          * Creates a new {@code VkPhysicalDeviceMultiDrawPropertiesEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceMultiDrawPropertiesEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceMultiDrawPropertiesEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

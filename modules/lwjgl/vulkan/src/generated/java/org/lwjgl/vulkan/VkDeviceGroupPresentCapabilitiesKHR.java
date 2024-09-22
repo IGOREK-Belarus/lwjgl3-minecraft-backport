@@ -50,7 +50,7 @@ import static org.lwjgl.vulkan.VK10.*;
  *     VkDeviceGroupPresentModeFlagsKHR {@link #modes};
  * }</code></pre>
  */
-public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPresentCapabilitiesKHR> implements NativeResource {
+public class VkDeviceGroupPresentCapabilitiesKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -82,15 +82,6 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
         MODES = layout.offsetof(3);
     }
 
-    protected VkDeviceGroupPresentCapabilitiesKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkDeviceGroupPresentCapabilitiesKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkDeviceGroupPresentCapabilitiesKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkDeviceGroupPresentCapabilitiesKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -104,7 +95,7 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -154,29 +145,29 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
 
     /** Returns a new {@code VkDeviceGroupPresentCapabilitiesKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDeviceGroupPresentCapabilitiesKHR malloc() {
-        return new VkDeviceGroupPresentCapabilitiesKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkDeviceGroupPresentCapabilitiesKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceGroupPresentCapabilitiesKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDeviceGroupPresentCapabilitiesKHR calloc() {
-        return new VkDeviceGroupPresentCapabilitiesKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkDeviceGroupPresentCapabilitiesKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceGroupPresentCapabilitiesKHR} instance allocated with {@link BufferUtils}. */
     public static VkDeviceGroupPresentCapabilitiesKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkDeviceGroupPresentCapabilitiesKHR(memAddress(container), container);
+        return wrap(VkDeviceGroupPresentCapabilitiesKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkDeviceGroupPresentCapabilitiesKHR} instance for the specified memory address. */
     public static VkDeviceGroupPresentCapabilitiesKHR create(long address) {
-        return new VkDeviceGroupPresentCapabilitiesKHR(address, null);
+        return wrap(VkDeviceGroupPresentCapabilitiesKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceGroupPresentCapabilitiesKHR createSafe(long address) {
-        return address == NULL ? null : new VkDeviceGroupPresentCapabilitiesKHR(address, null);
+        return address == NULL ? null : wrap(VkDeviceGroupPresentCapabilitiesKHR.class, address);
     }
 
     /**
@@ -185,7 +176,7 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupPresentCapabilitiesKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -194,7 +185,7 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupPresentCapabilitiesKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -204,7 +195,7 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
      */
     public static VkDeviceGroupPresentCapabilitiesKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -214,13 +205,13 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupPresentCapabilitiesKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceGroupPresentCapabilitiesKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -248,7 +239,7 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
      * @param stack the stack from which to allocate
      */
     public static VkDeviceGroupPresentCapabilitiesKHR malloc(MemoryStack stack) {
-        return new VkDeviceGroupPresentCapabilitiesKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkDeviceGroupPresentCapabilitiesKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -257,7 +248,7 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
      * @param stack the stack from which to allocate
      */
     public static VkDeviceGroupPresentCapabilitiesKHR calloc(MemoryStack stack) {
-        return new VkDeviceGroupPresentCapabilitiesKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkDeviceGroupPresentCapabilitiesKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -267,7 +258,7 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupPresentCapabilitiesKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -277,7 +268,7 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupPresentCapabilitiesKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -310,9 +301,9 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
         /**
          * Creates a new {@code VkDeviceGroupPresentCapabilitiesKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDeviceGroupPresentCapabilitiesKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkDeviceGroupPresentCapabilitiesKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

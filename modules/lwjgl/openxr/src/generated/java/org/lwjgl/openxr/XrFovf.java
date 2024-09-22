@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link XrCompositionLayerProjectionView}, {@link XrEnvironmentDepthImageViewMETA}, {@link XrExternalCameraIntrinsicsOCULUS}, {@link XrFrustumf}, {@link XrSceneFrustumBoundMSFT}, {@link XrView}, {@link XrViewConfigurationViewFovEPIC}</p>
+ * <p>{@link XrCompositionLayerProjectionView}, {@link XrSceneFrustumBoundMSFT}, {@link XrView}, {@link XrViewConfigurationViewFovEPIC}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -40,7 +40,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float {@link #angleDown};
  * }</code></pre>
  */
-public class XrFovf extends Struct<XrFovf> implements NativeResource {
+public class XrFovf extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -70,15 +70,6 @@ public class XrFovf extends Struct<XrFovf> implements NativeResource {
         ANGLERIGHT = layout.offsetof(1);
         ANGLEUP = layout.offsetof(2);
         ANGLEDOWN = layout.offsetof(3);
-    }
-
-    protected XrFovf(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrFovf create(long address, @Nullable ByteBuffer container) {
-        return new XrFovf(address, container);
     }
 
     /**
@@ -143,29 +134,29 @@ public class XrFovf extends Struct<XrFovf> implements NativeResource {
 
     /** Returns a new {@code XrFovf} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrFovf malloc() {
-        return new XrFovf(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrFovf.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrFovf} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrFovf calloc() {
-        return new XrFovf(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrFovf.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrFovf} instance allocated with {@link BufferUtils}. */
     public static XrFovf create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrFovf(memAddress(container), container);
+        return wrap(XrFovf.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrFovf} instance for the specified memory address. */
     public static XrFovf create(long address) {
-        return new XrFovf(address, null);
+        return wrap(XrFovf.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrFovf createSafe(long address) {
-        return address == NULL ? null : new XrFovf(address, null);
+        return address == NULL ? null : wrap(XrFovf.class, address);
     }
 
     /**
@@ -174,7 +165,7 @@ public class XrFovf extends Struct<XrFovf> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrFovf.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -183,7 +174,7 @@ public class XrFovf extends Struct<XrFovf> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrFovf.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -193,7 +184,7 @@ public class XrFovf extends Struct<XrFovf> implements NativeResource {
      */
     public static XrFovf.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -203,13 +194,13 @@ public class XrFovf extends Struct<XrFovf> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrFovf.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrFovf.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -218,7 +209,7 @@ public class XrFovf extends Struct<XrFovf> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrFovf malloc(MemoryStack stack) {
-        return new XrFovf(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrFovf.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -227,7 +218,7 @@ public class XrFovf extends Struct<XrFovf> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrFovf calloc(MemoryStack stack) {
-        return new XrFovf(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrFovf.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -237,7 +228,7 @@ public class XrFovf extends Struct<XrFovf> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrFovf.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -247,7 +238,7 @@ public class XrFovf extends Struct<XrFovf> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrFovf.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -280,9 +271,9 @@ public class XrFovf extends Struct<XrFovf> implements NativeResource {
         /**
          * Creates a new {@code XrFovf.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrFovf#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrFovf#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

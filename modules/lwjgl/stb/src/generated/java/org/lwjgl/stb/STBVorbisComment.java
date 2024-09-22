@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct stb_vorbis_comment")
-public class STBVorbisComment extends Struct<STBVorbisComment> implements NativeResource {
+public class STBVorbisComment extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -53,15 +53,6 @@ public class STBVorbisComment extends Struct<STBVorbisComment> implements Native
         VENDOR = layout.offsetof(0);
         COMMENT_LIST_LENGTH = layout.offsetof(1);
         COMMENT_LIST = layout.offsetof(2);
-    }
-
-    protected STBVorbisComment(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected STBVorbisComment create(long address, @Nullable ByteBuffer container) {
-        return new STBVorbisComment(address, container);
     }
 
     /**
@@ -93,29 +84,29 @@ public class STBVorbisComment extends Struct<STBVorbisComment> implements Native
 
     /** Returns a new {@code STBVorbisComment} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static STBVorbisComment malloc() {
-        return new STBVorbisComment(nmemAllocChecked(SIZEOF), null);
+        return wrap(STBVorbisComment.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code STBVorbisComment} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static STBVorbisComment calloc() {
-        return new STBVorbisComment(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(STBVorbisComment.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code STBVorbisComment} instance allocated with {@link BufferUtils}. */
     public static STBVorbisComment create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new STBVorbisComment(memAddress(container), container);
+        return wrap(STBVorbisComment.class, memAddress(container), container);
     }
 
     /** Returns a new {@code STBVorbisComment} instance for the specified memory address. */
     public static STBVorbisComment create(long address) {
-        return new STBVorbisComment(address, null);
+        return wrap(STBVorbisComment.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static STBVorbisComment createSafe(long address) {
-        return address == NULL ? null : new STBVorbisComment(address, null);
+        return address == NULL ? null : wrap(STBVorbisComment.class, address);
     }
 
     /**
@@ -124,7 +115,7 @@ public class STBVorbisComment extends Struct<STBVorbisComment> implements Native
      * @param capacity the buffer capacity
      */
     public static STBVorbisComment.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -133,7 +124,7 @@ public class STBVorbisComment extends Struct<STBVorbisComment> implements Native
      * @param capacity the buffer capacity
      */
     public static STBVorbisComment.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -143,7 +134,7 @@ public class STBVorbisComment extends Struct<STBVorbisComment> implements Native
      */
     public static STBVorbisComment.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -153,13 +144,13 @@ public class STBVorbisComment extends Struct<STBVorbisComment> implements Native
      * @param capacity the buffer capacity
      */
     public static STBVorbisComment.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static STBVorbisComment.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -168,7 +159,7 @@ public class STBVorbisComment extends Struct<STBVorbisComment> implements Native
      * @param stack the stack from which to allocate
      */
     public static STBVorbisComment malloc(MemoryStack stack) {
-        return new STBVorbisComment(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(STBVorbisComment.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -177,7 +168,7 @@ public class STBVorbisComment extends Struct<STBVorbisComment> implements Native
      * @param stack the stack from which to allocate
      */
     public static STBVorbisComment calloc(MemoryStack stack) {
-        return new STBVorbisComment(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(STBVorbisComment.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -187,7 +178,7 @@ public class STBVorbisComment extends Struct<STBVorbisComment> implements Native
      * @param capacity the buffer capacity
      */
     public static STBVorbisComment.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -197,7 +188,7 @@ public class STBVorbisComment extends Struct<STBVorbisComment> implements Native
      * @param capacity the buffer capacity
      */
     public static STBVorbisComment.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -221,9 +212,9 @@ public class STBVorbisComment extends Struct<STBVorbisComment> implements Native
         /**
          * Creates a new {@code STBVorbisComment.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link STBVorbisComment#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link STBVorbisComment#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

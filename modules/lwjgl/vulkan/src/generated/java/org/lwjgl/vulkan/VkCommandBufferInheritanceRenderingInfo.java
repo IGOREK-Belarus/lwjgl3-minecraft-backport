@@ -23,23 +23,24 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If the {@code pNext} chain of {@link VkCommandBufferInheritanceInfo} includes a {@link VkCommandBufferInheritanceRenderingInfo} structure, then that structure controls parameters of dynamic render pass instances that the {@code VkCommandBuffer} <b>can</b> be executed within. If {@link VkCommandBufferInheritanceInfo}{@code ::renderPass} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, or {@link VK10#VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT} is not specified in {@link VkCommandBufferBeginInfo}{@code ::flags}, parameters of this structure are ignored.</p>
  * 
- * <p>If {@code colorAttachmentCount} is 0 and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-variableMultisampleRate">{@code variableMultisampleRate}</a> feature is enabled, {@code rasterizationSamples} is ignored.</p>
+ * <p>If {@code colorAttachmentCount} is 0 and the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-variableMultisampleRate">{@code variableMultisampleRate}</a> feature is enabled, {@code rasterizationSamples} is ignored.</p>
  * 
- * <p>If {@code depthAttachmentFormat}, {@code stencilAttachmentFormat}, or any element of {@code pColorAttachmentFormats} is {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it indicates that the corresponding attachment is unused within the render pass and writes to those attachments are discarded.</p>
+ * <p>If {@code depthAttachmentFormat}, {@code stencilAttachmentFormat}, or any element of {@code pColorAttachmentFormats} is {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it indicates that the corresponding attachment is unused within the render pass.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
  * <li>If {@code colorAttachmentCount} is not 0, {@code rasterizationSamples} <b>must</b> be a valid {@code VkSampleCountFlagBits} value</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-variableMultisampleRate">{@code variableMultisampleRate}</a> feature is not enabled, {@code rasterizationSamples} <b>must</b> be a valid {@code VkSampleCountFlagBits} value</li>
- * <li>If {@code depthAttachmentFormat} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it <b>must</b> be a format that includes a depth component</li>
- * <li>If {@code depthAttachmentFormat} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it <b>must</b> be a format with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> that include {@link VK10#VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT}</li>
- * <li>If any element of {@code pColorAttachmentFormats} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it <b>must</b> be a format with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> that include {@link VK10#VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT FORMAT_FEATURE_COLOR_ATTACHMENT_BIT} , or {@link NVLinearColorAttachment#VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV} if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-linearColorAttachment">{@code linearColorAttachment}</a> feature is enabled</li>
+ * <li>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-variableMultisampleRate">{@code variableMultisampleRate}</a> feature is not enabled, {@code rasterizationSamples} <b>must</b> be a valid {@code VkSampleCountFlagBits} value</li>
+ * <li>If any element of {@code pColorAttachmentFormats} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it <b>must</b> be a format with <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> that include {@link VK10#VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT FORMAT_FEATURE_COLOR_ATTACHMENT_BIT}</li>
+ * <li>If {@code depthAttachmentFormat} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it <b>must</b> be a format that includes a depth aspect</li>
+ * <li>If {@code depthAttachmentFormat} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it <b>must</b> be a format with <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> that include {@link VK10#VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT}</li>
+ * <li>When rendering to a <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#glossary">Linear Color attachment</a>, if any element of {@code pColorAttachmentFormats} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it <b>must</b> be a format with <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> that include {@link NVLinearColorAttachment#VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV}</li>
  * <li>If {@code stencilAttachmentFormat} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it <b>must</b> be a format that includes a stencil aspect</li>
- * <li>If {@code stencilAttachmentFormat} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it <b>must</b> be a format with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> that include {@link VK10#VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT}</li>
+ * <li>If {@code stencilAttachmentFormat} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it <b>must</b> be a format with <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> that include {@link VK10#VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT}</li>
  * <li>If {@code depthAttachmentFormat} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} and {@code stencilAttachmentFormat} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, {@code depthAttachmentFormat} <b>must</b> equal {@code stencilAttachmentFormat}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview">{@code multiview}</a> feature is not enabled, {@code viewMask} <b>must</b> be 0</li>
- * <li>The index of the most significant bit in {@code viewMask} <b>must</b> be less than <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxMultiviewViewCount">{@code maxMultiviewViewCount}</a></li>
+ * <li>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview">{@code multiview}</a> feature is not enabled, {@code viewMask} <b>must</b> be 0</li>
+ * <li>The index of the most significant bit in {@code viewMask} <b>must</b> be less than <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxMultiviewViewCount">{@code maxMultiviewViewCount}</a></li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -68,7 +69,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkSampleCountFlagBits {@link #rasterizationSamples};
  * }</code></pre>
  */
-public class VkCommandBufferInheritanceRenderingInfo extends Struct<VkCommandBufferInheritanceRenderingInfo> implements NativeResource {
+public class VkCommandBufferInheritanceRenderingInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -115,15 +116,6 @@ public class VkCommandBufferInheritanceRenderingInfo extends Struct<VkCommandBuf
         RASTERIZATIONSAMPLES = layout.offsetof(8);
     }
 
-    protected VkCommandBufferInheritanceRenderingInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkCommandBufferInheritanceRenderingInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkCommandBufferInheritanceRenderingInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkCommandBufferInheritanceRenderingInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -137,7 +129,7 @@ public class VkCommandBufferInheritanceRenderingInfo extends Struct<VkCommandBuf
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure */
@@ -224,29 +216,29 @@ public class VkCommandBufferInheritanceRenderingInfo extends Struct<VkCommandBuf
 
     /** Returns a new {@code VkCommandBufferInheritanceRenderingInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkCommandBufferInheritanceRenderingInfo malloc() {
-        return new VkCommandBufferInheritanceRenderingInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkCommandBufferInheritanceRenderingInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkCommandBufferInheritanceRenderingInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkCommandBufferInheritanceRenderingInfo calloc() {
-        return new VkCommandBufferInheritanceRenderingInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkCommandBufferInheritanceRenderingInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkCommandBufferInheritanceRenderingInfo} instance allocated with {@link BufferUtils}. */
     public static VkCommandBufferInheritanceRenderingInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkCommandBufferInheritanceRenderingInfo(memAddress(container), container);
+        return wrap(VkCommandBufferInheritanceRenderingInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkCommandBufferInheritanceRenderingInfo} instance for the specified memory address. */
     public static VkCommandBufferInheritanceRenderingInfo create(long address) {
-        return new VkCommandBufferInheritanceRenderingInfo(address, null);
+        return wrap(VkCommandBufferInheritanceRenderingInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCommandBufferInheritanceRenderingInfo createSafe(long address) {
-        return address == NULL ? null : new VkCommandBufferInheritanceRenderingInfo(address, null);
+        return address == NULL ? null : wrap(VkCommandBufferInheritanceRenderingInfo.class, address);
     }
 
     /**
@@ -255,7 +247,7 @@ public class VkCommandBufferInheritanceRenderingInfo extends Struct<VkCommandBuf
      * @param capacity the buffer capacity
      */
     public static VkCommandBufferInheritanceRenderingInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -264,7 +256,7 @@ public class VkCommandBufferInheritanceRenderingInfo extends Struct<VkCommandBuf
      * @param capacity the buffer capacity
      */
     public static VkCommandBufferInheritanceRenderingInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -274,7 +266,7 @@ public class VkCommandBufferInheritanceRenderingInfo extends Struct<VkCommandBuf
      */
     public static VkCommandBufferInheritanceRenderingInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -284,13 +276,13 @@ public class VkCommandBufferInheritanceRenderingInfo extends Struct<VkCommandBuf
      * @param capacity the buffer capacity
      */
     public static VkCommandBufferInheritanceRenderingInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCommandBufferInheritanceRenderingInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -299,7 +291,7 @@ public class VkCommandBufferInheritanceRenderingInfo extends Struct<VkCommandBuf
      * @param stack the stack from which to allocate
      */
     public static VkCommandBufferInheritanceRenderingInfo malloc(MemoryStack stack) {
-        return new VkCommandBufferInheritanceRenderingInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkCommandBufferInheritanceRenderingInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -308,7 +300,7 @@ public class VkCommandBufferInheritanceRenderingInfo extends Struct<VkCommandBuf
      * @param stack the stack from which to allocate
      */
     public static VkCommandBufferInheritanceRenderingInfo calloc(MemoryStack stack) {
-        return new VkCommandBufferInheritanceRenderingInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkCommandBufferInheritanceRenderingInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -318,7 +310,7 @@ public class VkCommandBufferInheritanceRenderingInfo extends Struct<VkCommandBuf
      * @param capacity the buffer capacity
      */
     public static VkCommandBufferInheritanceRenderingInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -328,7 +320,7 @@ public class VkCommandBufferInheritanceRenderingInfo extends Struct<VkCommandBuf
      * @param capacity the buffer capacity
      */
     public static VkCommandBufferInheritanceRenderingInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -392,9 +384,9 @@ public class VkCommandBufferInheritanceRenderingInfo extends Struct<VkCommandBuf
         /**
          * Creates a new {@code VkCommandBufferInheritanceRenderingInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkCommandBufferInheritanceRenderingInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkCommandBufferInheritanceRenderingInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

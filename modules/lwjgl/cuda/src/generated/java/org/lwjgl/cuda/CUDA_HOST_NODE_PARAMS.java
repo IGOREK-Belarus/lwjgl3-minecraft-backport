@@ -17,15 +17,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
+ * Host node parameters.
+ * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct CUDA_HOST_NODE_PARAMS {
  *     void (*{@link CUhostFnI fn}) (void *userData);
- *     void * userData;
+ *     void * {@link #userData};
  * }</code></pre>
  */
-public class CUDA_HOST_NODE_PARAMS extends Struct<CUDA_HOST_NODE_PARAMS> implements NativeResource {
+public class CUDA_HOST_NODE_PARAMS extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -51,15 +53,6 @@ public class CUDA_HOST_NODE_PARAMS extends Struct<CUDA_HOST_NODE_PARAMS> impleme
         USERDATA = layout.offsetof(1);
     }
 
-    protected CUDA_HOST_NODE_PARAMS(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CUDA_HOST_NODE_PARAMS create(long address, @Nullable ByteBuffer container) {
-        return new CUDA_HOST_NODE_PARAMS(address, container);
-    }
-
     /**
      * Creates a {@code CUDA_HOST_NODE_PARAMS} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -73,16 +66,16 @@ public class CUDA_HOST_NODE_PARAMS extends Struct<CUDA_HOST_NODE_PARAMS> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return the value of the {@code fn} field. */
+    /** The function to call when the node executes */
     @NativeType("void (*) (void *)")
     public CUhostFn fn() { return nfn(address()); }
-    /** @return the value of the {@code userData} field. */
+    /** Argument to pass to the function */
     @NativeType("void *")
     public long userData() { return nuserData(address()); }
 
-    /** Sets the specified value to the {@code fn} field. */
+    /** Sets the specified value to the {@link #fn} field. */
     public CUDA_HOST_NODE_PARAMS fn(@NativeType("void (*) (void *)") CUhostFnI value) { nfn(address(), value); return this; }
-    /** Sets the specified value to the {@code userData} field. */
+    /** Sets the specified value to the {@link #userData} field. */
     public CUDA_HOST_NODE_PARAMS userData(@NativeType("void *") long value) { nuserData(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -112,29 +105,29 @@ public class CUDA_HOST_NODE_PARAMS extends Struct<CUDA_HOST_NODE_PARAMS> impleme
 
     /** Returns a new {@code CUDA_HOST_NODE_PARAMS} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CUDA_HOST_NODE_PARAMS malloc() {
-        return new CUDA_HOST_NODE_PARAMS(nmemAllocChecked(SIZEOF), null);
+        return wrap(CUDA_HOST_NODE_PARAMS.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code CUDA_HOST_NODE_PARAMS} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CUDA_HOST_NODE_PARAMS calloc() {
-        return new CUDA_HOST_NODE_PARAMS(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(CUDA_HOST_NODE_PARAMS.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code CUDA_HOST_NODE_PARAMS} instance allocated with {@link BufferUtils}. */
     public static CUDA_HOST_NODE_PARAMS create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new CUDA_HOST_NODE_PARAMS(memAddress(container), container);
+        return wrap(CUDA_HOST_NODE_PARAMS.class, memAddress(container), container);
     }
 
     /** Returns a new {@code CUDA_HOST_NODE_PARAMS} instance for the specified memory address. */
     public static CUDA_HOST_NODE_PARAMS create(long address) {
-        return new CUDA_HOST_NODE_PARAMS(address, null);
+        return wrap(CUDA_HOST_NODE_PARAMS.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_HOST_NODE_PARAMS createSafe(long address) {
-        return address == NULL ? null : new CUDA_HOST_NODE_PARAMS(address, null);
+        return address == NULL ? null : wrap(CUDA_HOST_NODE_PARAMS.class, address);
     }
 
     /**
@@ -143,7 +136,7 @@ public class CUDA_HOST_NODE_PARAMS extends Struct<CUDA_HOST_NODE_PARAMS> impleme
      * @param capacity the buffer capacity
      */
     public static CUDA_HOST_NODE_PARAMS.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -152,7 +145,7 @@ public class CUDA_HOST_NODE_PARAMS extends Struct<CUDA_HOST_NODE_PARAMS> impleme
      * @param capacity the buffer capacity
      */
     public static CUDA_HOST_NODE_PARAMS.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -162,7 +155,7 @@ public class CUDA_HOST_NODE_PARAMS extends Struct<CUDA_HOST_NODE_PARAMS> impleme
      */
     public static CUDA_HOST_NODE_PARAMS.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -172,13 +165,13 @@ public class CUDA_HOST_NODE_PARAMS extends Struct<CUDA_HOST_NODE_PARAMS> impleme
      * @param capacity the buffer capacity
      */
     public static CUDA_HOST_NODE_PARAMS.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_HOST_NODE_PARAMS.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -206,7 +199,7 @@ public class CUDA_HOST_NODE_PARAMS extends Struct<CUDA_HOST_NODE_PARAMS> impleme
      * @param stack the stack from which to allocate
      */
     public static CUDA_HOST_NODE_PARAMS malloc(MemoryStack stack) {
-        return new CUDA_HOST_NODE_PARAMS(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(CUDA_HOST_NODE_PARAMS.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -215,7 +208,7 @@ public class CUDA_HOST_NODE_PARAMS extends Struct<CUDA_HOST_NODE_PARAMS> impleme
      * @param stack the stack from which to allocate
      */
     public static CUDA_HOST_NODE_PARAMS calloc(MemoryStack stack) {
-        return new CUDA_HOST_NODE_PARAMS(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(CUDA_HOST_NODE_PARAMS.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -225,7 +218,7 @@ public class CUDA_HOST_NODE_PARAMS extends Struct<CUDA_HOST_NODE_PARAMS> impleme
      * @param capacity the buffer capacity
      */
     public static CUDA_HOST_NODE_PARAMS.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -235,7 +228,7 @@ public class CUDA_HOST_NODE_PARAMS extends Struct<CUDA_HOST_NODE_PARAMS> impleme
      * @param capacity the buffer capacity
      */
     public static CUDA_HOST_NODE_PARAMS.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -269,9 +262,9 @@ public class CUDA_HOST_NODE_PARAMS extends Struct<CUDA_HOST_NODE_PARAMS> impleme
         /**
          * Creates a new {@code CUDA_HOST_NODE_PARAMS.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CUDA_HOST_NODE_PARAMS#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CUDA_HOST_NODE_PARAMS#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -297,16 +290,16 @@ public class CUDA_HOST_NODE_PARAMS extends Struct<CUDA_HOST_NODE_PARAMS> impleme
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@code fn} field. */
+        /** @return the value of the {@link CUDA_HOST_NODE_PARAMS#fn} field. */
         @NativeType("void (*) (void *)")
         public CUhostFn fn() { return CUDA_HOST_NODE_PARAMS.nfn(address()); }
-        /** @return the value of the {@code userData} field. */
+        /** @return the value of the {@link CUDA_HOST_NODE_PARAMS#userData} field. */
         @NativeType("void *")
         public long userData() { return CUDA_HOST_NODE_PARAMS.nuserData(address()); }
 
-        /** Sets the specified value to the {@code fn} field. */
+        /** Sets the specified value to the {@link CUDA_HOST_NODE_PARAMS#fn} field. */
         public CUDA_HOST_NODE_PARAMS.Buffer fn(@NativeType("void (*) (void *)") CUhostFnI value) { CUDA_HOST_NODE_PARAMS.nfn(address(), value); return this; }
-        /** Sets the specified value to the {@code userData} field. */
+        /** Sets the specified value to the {@link CUDA_HOST_NODE_PARAMS#userData} field. */
         public CUDA_HOST_NODE_PARAMS.Buffer userData(@NativeType("void *") long value) { CUDA_HOST_NODE_PARAMS.nuserData(address(), value); return this; }
 
     }

@@ -241,7 +241,7 @@ JNIEXPORT void JNICALL Java_org_lwjgl_opengles_GLES20_nglBufferSubData__IJJJ(JNI
 JNIEXPORT jint JNICALL Java_org_lwjgl_opengles_GLES20_glCheckFramebufferStatus(JNIEnv *__env, jclass clazz, jint target) {
     glCheckFramebufferStatusPROC glCheckFramebufferStatus = (glCheckFramebufferStatusPROC)tlsGetFunction(14);
     UNUSED_PARAM(clazz)
-    return glCheckFramebufferStatus(target);
+    return (jint)glCheckFramebufferStatus(target);
 }
 
 JNIEXPORT void JNICALL Java_org_lwjgl_opengles_GLES20_glClear(JNIEnv *__env, jclass clazz, jint mask) {
@@ -309,13 +309,13 @@ JNIEXPORT void JNICALL Java_org_lwjgl_opengles_GLES20_glCopyTexSubImage2D(JNIEnv
 JNIEXPORT jint JNICALL Java_org_lwjgl_opengles_GLES20_glCreateProgram(JNIEnv *__env, jclass clazz) {
     glCreateProgramPROC glCreateProgram = (glCreateProgramPROC)tlsGetFunction(25);
     UNUSED_PARAM(clazz)
-    return glCreateProgram();
+    return (jint)glCreateProgram();
 }
 
 JNIEXPORT jint JNICALL Java_org_lwjgl_opengles_GLES20_glCreateShader(JNIEnv *__env, jclass clazz, jint type) {
     glCreateShaderPROC glCreateShader = (glCreateShaderPROC)tlsGetFunction(26);
     UNUSED_PARAM(clazz)
-    return glCreateShader(type);
+    return (jint)glCreateShader(type);
 }
 
 JNIEXPORT void JNICALL Java_org_lwjgl_opengles_GLES20_glCullFace(JNIEnv *__env, jclass clazz, jint mode) {
@@ -521,7 +521,7 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_opengles_GLES20_nglGetAttribLocation(JNIEn
     glGetAttribLocationPROC glGetAttribLocation = (glGetAttribLocationPROC)tlsGetFunction(57);
     uintptr_t name = (uintptr_t)nameAddress;
     UNUSED_PARAM(clazz)
-    return glGetAttribLocation(program, name);
+    return (jint)glGetAttribLocation(program, name);
 }
 
 JNIEXPORT void JNICALL Java_org_lwjgl_opengles_GLES20_nglGetBooleanv(JNIEnv *__env, jclass clazz, jint pname, jlong dataAddress) {
@@ -541,7 +541,7 @@ JNIEXPORT void JNICALL Java_org_lwjgl_opengles_GLES20_nglGetBufferParameteriv__I
 JNIEXPORT jint JNICALL Java_org_lwjgl_opengles_GLES20_glGetError(JNIEnv *__env, jclass clazz) {
     glGetErrorPROC glGetError = (glGetErrorPROC)tlsGetFunction(60);
     UNUSED_PARAM(clazz)
-    return glGetError();
+    return (jint)glGetError();
 }
 
 JNIEXPORT void JNICALL Java_org_lwjgl_opengles_GLES20_nglGetFloatv__IJ(JNIEnv *__env, jclass clazz, jint pname, jlong dataAddress) {
@@ -656,7 +656,7 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_opengles_GLES20_nglGetUniformLocation(JNIE
     glGetUniformLocationPROC glGetUniformLocation = (glGetUniformLocationPROC)tlsGetFunction(76);
     uintptr_t name = (uintptr_t)nameAddress;
     UNUSED_PARAM(clazz)
-    return glGetUniformLocation(program, name);
+    return (jint)glGetUniformLocation(program, name);
 }
 
 JNIEXPORT void JNICALL Java_org_lwjgl_opengles_GLES20_nglGetVertexAttribfv__IIJ(JNIEnv *__env, jclass clazz, jint index, jint pname, jlong paramsAddress) {
@@ -689,43 +689,43 @@ JNIEXPORT void JNICALL Java_org_lwjgl_opengles_GLES20_glHint(JNIEnv *__env, jcla
 JNIEXPORT jboolean JNICALL Java_org_lwjgl_opengles_GLES20_glIsBuffer(JNIEnv *__env, jclass clazz, jint buffer) {
     glIsBufferPROC glIsBuffer = (glIsBufferPROC)tlsGetFunction(81);
     UNUSED_PARAM(clazz)
-    return glIsBuffer(buffer);
+    return (jboolean)glIsBuffer(buffer);
 }
 
 JNIEXPORT jboolean JNICALL Java_org_lwjgl_opengles_GLES20_glIsEnabled(JNIEnv *__env, jclass clazz, jint cap) {
     glIsEnabledPROC glIsEnabled = (glIsEnabledPROC)tlsGetFunction(82);
     UNUSED_PARAM(clazz)
-    return glIsEnabled(cap);
+    return (jboolean)glIsEnabled(cap);
 }
 
 JNIEXPORT jboolean JNICALL Java_org_lwjgl_opengles_GLES20_glIsFramebuffer(JNIEnv *__env, jclass clazz, jint framebuffer) {
     glIsFramebufferPROC glIsFramebuffer = (glIsFramebufferPROC)tlsGetFunction(83);
     UNUSED_PARAM(clazz)
-    return glIsFramebuffer(framebuffer);
+    return (jboolean)glIsFramebuffer(framebuffer);
 }
 
 JNIEXPORT jboolean JNICALL Java_org_lwjgl_opengles_GLES20_glIsProgram(JNIEnv *__env, jclass clazz, jint program) {
     glIsProgramPROC glIsProgram = (glIsProgramPROC)tlsGetFunction(84);
     UNUSED_PARAM(clazz)
-    return glIsProgram(program);
+    return (jboolean)glIsProgram(program);
 }
 
 JNIEXPORT jboolean JNICALL Java_org_lwjgl_opengles_GLES20_glIsRenderbuffer(JNIEnv *__env, jclass clazz, jint renderbuffer) {
     glIsRenderbufferPROC glIsRenderbuffer = (glIsRenderbufferPROC)tlsGetFunction(85);
     UNUSED_PARAM(clazz)
-    return glIsRenderbuffer(renderbuffer);
+    return (jboolean)glIsRenderbuffer(renderbuffer);
 }
 
 JNIEXPORT jboolean JNICALL Java_org_lwjgl_opengles_GLES20_glIsShader(JNIEnv *__env, jclass clazz, jint shader) {
     glIsShaderPROC glIsShader = (glIsShaderPROC)tlsGetFunction(86);
     UNUSED_PARAM(clazz)
-    return glIsShader(shader);
+    return (jboolean)glIsShader(shader);
 }
 
 JNIEXPORT jboolean JNICALL Java_org_lwjgl_opengles_GLES20_glIsTexture(JNIEnv *__env, jclass clazz, jint texture) {
     glIsTexturePROC glIsTexture = (glIsTexturePROC)tlsGetFunction(87);
     UNUSED_PARAM(clazz)
-    return glIsTexture(texture);
+    return (jboolean)glIsTexture(texture);
 }
 
 JNIEXPORT void JNICALL Java_org_lwjgl_opengles_GLES20_glLineWidth(JNIEnv *__env, jclass clazz, jfloat width) {

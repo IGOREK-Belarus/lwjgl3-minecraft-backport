@@ -25,16 +25,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>{@code imageView} <b>must</b> not be a 2D array image view created from a 3D image</li>
- * <li>If {@code imageView} is a 2D view created from a 3D image, then {@code descriptorType} <b>must</b> be {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE}, {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE DESCRIPTOR_TYPE_SAMPLED_IMAGE}, or {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER}</li>
- * <li>If {@code imageView} is a 2D view created from a 3D image, then the image <b>must</b> have been created with {@link EXTImage2dViewOf3d#VK_IMAGE_CREATE_2D_VIEW_COMPATIBLE_BIT_EXT IMAGE_CREATE_2D_VIEW_COMPATIBLE_BIT_EXT} set</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-image2DViewOf3D">{@code image2DViewOf3D}</a> feature is not enabled or {@code descriptorType} is not {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE} then {@code imageView} <b>must</b> not be a 2D view created from a 3D image</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-sampler2DViewOf3D">{@code sampler2DViewOf3D}</a> feature is not enabled or {@code descriptorType} is not {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE DESCRIPTOR_TYPE_SAMPLED_IMAGE} or {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER} then {@code imageView} <b>must</b> not be a 2D view created from a 3D image</li>
+ * <li>{@code imageView} <b>must</b> not be 2D or 2D array image view created from a 3D image</li>
  * <li>If {@code imageView} is created from a depth/stencil image, the {@code aspectMask} used to create the {@code imageView} <b>must</b> include either {@link VK10#VK_IMAGE_ASPECT_DEPTH_BIT IMAGE_ASPECT_DEPTH_BIT} or {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT} but not both</li>
- * <li>If {@code imageLayout} is {@link VK10#VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL}, then the {@code aspectMask} used to create {@code imageView} <b>must</b> not include either {@link VK10#VK_IMAGE_ASPECT_DEPTH_BIT IMAGE_ASPECT_DEPTH_BIT} or {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT}</li>
- * <li>If {@code imageLayout} is {@link VK11#VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL}, {@link VK11#VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL}, {@link VK10#VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL} or {@link VK10#VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL}, then the {@code aspectMask} used to create {@code imageView} <b>must</b> not include {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT}</li>
- * <li>{@code imageLayout} <b>must</b> match the actual {@code VkImageLayout} of each subresource accessible from {@code imageView} at the time this descriptor is accessed as defined by the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-layouts-matching-rule">image layout matching rules</a></li>
- * <li>If {@code sampler} is used and the {@code VkFormat} of the image is a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar format</a>, the image <b>must</b> have been created with {@link VK10#VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT IMAGE_CREATE_MUTABLE_FORMAT_BIT}, and the {@code aspectMask} of the {@code imageView} <b>must</b> be a valid <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-planes-image-aspect">multi-planar aspect mask</a> bit</li>
+ * <li>{@code imageLayout} <b>must</b> match the actual {@code VkImageLayout} of each subresource accessible from {@code imageView} at the time this descriptor is accessed as defined by the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-layouts-matching-rule">image layout matching rules</a></li>
+ * <li>If {@code sampler} is used and the {@code VkFormat} of the image is a <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar format</a>, the image <b>must</b> have been created with {@link VK10#VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT IMAGE_CREATE_MUTABLE_FORMAT_BIT}, and the {@code aspectMask} of the {@code imageView} <b>must</b> be {@link VK11#VK_IMAGE_ASPECT_PLANE_0_BIT IMAGE_ASPECT_PLANE_0_BIT}, {@link VK11#VK_IMAGE_ASPECT_PLANE_1_BIT IMAGE_ASPECT_PLANE_1_BIT} or (for three-plane formats only) {@link VK11#VK_IMAGE_ASPECT_PLANE_2_BIT IMAGE_ASPECT_PLANE_2_BIT}</li>
  * <li>If the {@link KHRPortabilitySubset VK_KHR_portability_subset} extension is enabled, and {@link VkPhysicalDevicePortabilitySubsetFeaturesKHR}{@code ::mutableComparisonSamplers} is {@link VK10#VK_FALSE FALSE}, then {@code sampler} <b>must</b> have been created with {@link VkSamplerCreateInfo}{@code ::compareEnable} set to {@link VK10#VK_FALSE FALSE}</li>
  * </ul>
  * 
@@ -46,7 +40,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkDescriptorDataEXT}, {@link VkWriteDescriptorSet}</p>
+ * <p>{@link VkWriteDescriptorSet}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -57,7 +51,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkImageLayout {@link #imageLayout};
  * }</code></pre>
  */
-public class VkDescriptorImageInfo extends Struct<VkDescriptorImageInfo> implements NativeResource {
+public class VkDescriptorImageInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -84,15 +78,6 @@ public class VkDescriptorImageInfo extends Struct<VkDescriptorImageInfo> impleme
         SAMPLER = layout.offsetof(0);
         IMAGEVIEW = layout.offsetof(1);
         IMAGELAYOUT = layout.offsetof(2);
-    }
-
-    protected VkDescriptorImageInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkDescriptorImageInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkDescriptorImageInfo(address, container);
     }
 
     /**
@@ -154,29 +139,29 @@ public class VkDescriptorImageInfo extends Struct<VkDescriptorImageInfo> impleme
 
     /** Returns a new {@code VkDescriptorImageInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDescriptorImageInfo malloc() {
-        return new VkDescriptorImageInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkDescriptorImageInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkDescriptorImageInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDescriptorImageInfo calloc() {
-        return new VkDescriptorImageInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkDescriptorImageInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkDescriptorImageInfo} instance allocated with {@link BufferUtils}. */
     public static VkDescriptorImageInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkDescriptorImageInfo(memAddress(container), container);
+        return wrap(VkDescriptorImageInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkDescriptorImageInfo} instance for the specified memory address. */
     public static VkDescriptorImageInfo create(long address) {
-        return new VkDescriptorImageInfo(address, null);
+        return wrap(VkDescriptorImageInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorImageInfo createSafe(long address) {
-        return address == NULL ? null : new VkDescriptorImageInfo(address, null);
+        return address == NULL ? null : wrap(VkDescriptorImageInfo.class, address);
     }
 
     /**
@@ -185,7 +170,7 @@ public class VkDescriptorImageInfo extends Struct<VkDescriptorImageInfo> impleme
      * @param capacity the buffer capacity
      */
     public static VkDescriptorImageInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -194,7 +179,7 @@ public class VkDescriptorImageInfo extends Struct<VkDescriptorImageInfo> impleme
      * @param capacity the buffer capacity
      */
     public static VkDescriptorImageInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -204,7 +189,7 @@ public class VkDescriptorImageInfo extends Struct<VkDescriptorImageInfo> impleme
      */
     public static VkDescriptorImageInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -214,13 +199,13 @@ public class VkDescriptorImageInfo extends Struct<VkDescriptorImageInfo> impleme
      * @param capacity the buffer capacity
      */
     public static VkDescriptorImageInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorImageInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -248,7 +233,7 @@ public class VkDescriptorImageInfo extends Struct<VkDescriptorImageInfo> impleme
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorImageInfo malloc(MemoryStack stack) {
-        return new VkDescriptorImageInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkDescriptorImageInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -257,7 +242,7 @@ public class VkDescriptorImageInfo extends Struct<VkDescriptorImageInfo> impleme
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorImageInfo calloc(MemoryStack stack) {
-        return new VkDescriptorImageInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkDescriptorImageInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -267,7 +252,7 @@ public class VkDescriptorImageInfo extends Struct<VkDescriptorImageInfo> impleme
      * @param capacity the buffer capacity
      */
     public static VkDescriptorImageInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -277,7 +262,7 @@ public class VkDescriptorImageInfo extends Struct<VkDescriptorImageInfo> impleme
      * @param capacity the buffer capacity
      */
     public static VkDescriptorImageInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -306,9 +291,9 @@ public class VkDescriptorImageInfo extends Struct<VkDescriptorImageInfo> impleme
         /**
          * Creates a new {@code VkDescriptorImageInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDescriptorImageInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkDescriptorImageInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -34,7 +34,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_EVENT_DATA_INSTANCE_LOSS_PENDING TYPE_EVENT_DATA_INSTANCE_LOSS_PENDING}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -50,7 +50,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrTime lossTime;
  * }</code></pre>
  */
-public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLossPending> implements NativeResource {
+public class XrEventDataInstanceLossPending extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -77,15 +77,6 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
         LOSSTIME = layout.offsetof(2);
-    }
-
-    protected XrEventDataInstanceLossPending(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrEventDataInstanceLossPending create(long address, @Nullable ByteBuffer container) {
-        return new XrEventDataInstanceLossPending(address, container);
     }
 
     /**
@@ -117,14 +108,18 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
     public XrEventDataInstanceLossPending type$Default() { return type(XR10.XR_TYPE_EVENT_DATA_INSTANCE_LOSS_PENDING); }
     /** Sets the specified value to the {@code next} field. */
     public XrEventDataInstanceLossPending next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
+    /** Sets the specified value to the {@code lossTime} field. */
+    public XrEventDataInstanceLossPending lossTime(@NativeType("XrTime") long value) { nlossTime(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrEventDataInstanceLossPending set(
         int type,
-        long next
+        long next,
+        long lossTime
     ) {
         type(type);
         next(next);
+        lossTime(lossTime);
 
         return this;
     }
@@ -145,34 +140,34 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
 
     /** Returns a new {@code XrEventDataInstanceLossPending} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrEventDataInstanceLossPending malloc() {
-        return new XrEventDataInstanceLossPending(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrEventDataInstanceLossPending.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrEventDataInstanceLossPending} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrEventDataInstanceLossPending calloc() {
-        return new XrEventDataInstanceLossPending(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrEventDataInstanceLossPending.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrEventDataInstanceLossPending} instance allocated with {@link BufferUtils}. */
     public static XrEventDataInstanceLossPending create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrEventDataInstanceLossPending(memAddress(container), container);
+        return wrap(XrEventDataInstanceLossPending.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrEventDataInstanceLossPending} instance for the specified memory address. */
     public static XrEventDataInstanceLossPending create(long address) {
-        return new XrEventDataInstanceLossPending(address, null);
+        return wrap(XrEventDataInstanceLossPending.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrEventDataInstanceLossPending createSafe(long address) {
-        return address == NULL ? null : new XrEventDataInstanceLossPending(address, null);
+        return address == NULL ? null : wrap(XrEventDataInstanceLossPending.class, address);
     }
 
     /** Downcasts the specified {@code XrEventDataBaseHeader} instance to {@code XrEventDataInstanceLossPending}. */
     public static XrEventDataInstanceLossPending create(XrEventDataBaseHeader value) {
-        return new XrEventDataInstanceLossPending(value.address(), __getContainer(value));
+        return wrap(XrEventDataInstanceLossPending.class, value);
     }
 
     /**
@@ -181,7 +176,7 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
      * @param capacity the buffer capacity
      */
     public static XrEventDataInstanceLossPending.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -190,7 +185,7 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
      * @param capacity the buffer capacity
      */
     public static XrEventDataInstanceLossPending.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -200,7 +195,7 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
      */
     public static XrEventDataInstanceLossPending.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -210,18 +205,18 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
      * @param capacity the buffer capacity
      */
     public static XrEventDataInstanceLossPending.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrEventDataInstanceLossPending.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /** Downcasts the specified {@code XrEventDataBaseHeader.Buffer} instance to {@code XrEventDataInstanceLossPending.Buffer}. */
     public static XrEventDataInstanceLossPending.Buffer create(XrEventDataBaseHeader.Buffer value) {
-        return new XrEventDataInstanceLossPending.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+        return wrap(Buffer.class, value);
     }
 
     /**
@@ -230,7 +225,7 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
      * @param stack the stack from which to allocate
      */
     public static XrEventDataInstanceLossPending malloc(MemoryStack stack) {
-        return new XrEventDataInstanceLossPending(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrEventDataInstanceLossPending.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -239,7 +234,7 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
      * @param stack the stack from which to allocate
      */
     public static XrEventDataInstanceLossPending calloc(MemoryStack stack) {
-        return new XrEventDataInstanceLossPending(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrEventDataInstanceLossPending.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -249,7 +244,7 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
      * @param capacity the buffer capacity
      */
     public static XrEventDataInstanceLossPending.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -259,7 +254,7 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
      * @param capacity the buffer capacity
      */
     public static XrEventDataInstanceLossPending.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -275,6 +270,8 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
     public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataInstanceLossPending.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataInstanceLossPending.NEXT, value); }
+    /** Unsafe version of {@link #lossTime(long) lossTime}. */
+    public static void nlossTime(long struct, long value) { UNSAFE.putLong(null, struct + XrEventDataInstanceLossPending.LOSSTIME, value); }
 
     // -----------------------------------
 
@@ -286,9 +283,9 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
         /**
          * Creates a new {@code XrEventDataInstanceLossPending.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrEventDataInstanceLossPending#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrEventDataInstanceLossPending#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -330,6 +327,8 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
         public XrEventDataInstanceLossPending.Buffer type$Default() { return type(XR10.XR_TYPE_EVENT_DATA_INSTANCE_LOSS_PENDING); }
         /** Sets the specified value to the {@code next} field. */
         public XrEventDataInstanceLossPending.Buffer next(@NativeType("void const *") long value) { XrEventDataInstanceLossPending.nnext(address(), value); return this; }
+        /** Sets the specified value to the {@code lossTime} field. */
+        public XrEventDataInstanceLossPending.Buffer lossTime(@NativeType("XrTime") long value) { XrEventDataInstanceLossPending.nlossTime(address(), value); return this; }
 
     }
 

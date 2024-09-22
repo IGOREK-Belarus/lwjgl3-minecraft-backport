@@ -21,8 +21,6 @@ import static org.lwjgl.system.MemoryStack.*;
  * <p>After compilation, it is possible to query whether or not this location was used. If {@code vecsize} is nonzero, it must be greater than or equal to
  * the {@code vecsize} declared in the shader, or behavior is undefined.</p>
  * 
- * <p>Deprecated; use {@code spvc_msl_shader_interface_var_2}.</p>
- * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
@@ -34,7 +32,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct spvc_msl_shader_input")
-public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements NativeResource {
+public class SpvcMslShaderInput extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -64,15 +62,6 @@ public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements Na
         FORMAT = layout.offsetof(1);
         BUILTIN = layout.offsetof(2);
         VECSIZE = layout.offsetof(3);
-    }
-
-    protected SpvcMslShaderInput(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected SpvcMslShaderInput create(long address, @Nullable ByteBuffer container) {
-        return new SpvcMslShaderInput(address, container);
     }
 
     /**
@@ -141,29 +130,29 @@ public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements Na
 
     /** Returns a new {@code SpvcMslShaderInput} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static SpvcMslShaderInput malloc() {
-        return new SpvcMslShaderInput(nmemAllocChecked(SIZEOF), null);
+        return wrap(SpvcMslShaderInput.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code SpvcMslShaderInput} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static SpvcMslShaderInput calloc() {
-        return new SpvcMslShaderInput(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(SpvcMslShaderInput.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code SpvcMslShaderInput} instance allocated with {@link BufferUtils}. */
     public static SpvcMslShaderInput create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new SpvcMslShaderInput(memAddress(container), container);
+        return wrap(SpvcMslShaderInput.class, memAddress(container), container);
     }
 
     /** Returns a new {@code SpvcMslShaderInput} instance for the specified memory address. */
     public static SpvcMslShaderInput create(long address) {
-        return new SpvcMslShaderInput(address, null);
+        return wrap(SpvcMslShaderInput.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static SpvcMslShaderInput createSafe(long address) {
-        return address == NULL ? null : new SpvcMslShaderInput(address, null);
+        return address == NULL ? null : wrap(SpvcMslShaderInput.class, address);
     }
 
     /**
@@ -172,7 +161,7 @@ public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements Na
      * @param capacity the buffer capacity
      */
     public static SpvcMslShaderInput.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -181,7 +170,7 @@ public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements Na
      * @param capacity the buffer capacity
      */
     public static SpvcMslShaderInput.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -191,7 +180,7 @@ public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements Na
      */
     public static SpvcMslShaderInput.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -201,13 +190,13 @@ public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements Na
      * @param capacity the buffer capacity
      */
     public static SpvcMslShaderInput.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static SpvcMslShaderInput.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -216,7 +205,7 @@ public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements Na
      * @param stack the stack from which to allocate
      */
     public static SpvcMslShaderInput malloc(MemoryStack stack) {
-        return new SpvcMslShaderInput(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(SpvcMslShaderInput.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -225,7 +214,7 @@ public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements Na
      * @param stack the stack from which to allocate
      */
     public static SpvcMslShaderInput calloc(MemoryStack stack) {
-        return new SpvcMslShaderInput(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(SpvcMslShaderInput.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -235,7 +224,7 @@ public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements Na
      * @param capacity the buffer capacity
      */
     public static SpvcMslShaderInput.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -245,7 +234,7 @@ public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements Na
      * @param capacity the buffer capacity
      */
     public static SpvcMslShaderInput.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -278,9 +267,9 @@ public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements Na
         /**
          * Creates a new {@code SpvcMslShaderInput.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link SpvcMslShaderInput#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link SpvcMslShaderInput#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

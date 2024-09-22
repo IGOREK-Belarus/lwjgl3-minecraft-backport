@@ -15,150 +15,50 @@ val LLVMObject = "LLVMObject".nativeClass(
 ) {
     documentation = ""
 
-    EnumConstant(
-        "{@code LLVMBinaryType}",
+    LLVMObjectFileRef(
+        "CreateObjectFile",
+        "ObjectFile creation",
 
-        "BinaryTypeArchive".enum("", "0"),
-        "BinaryTypeMachOUniversalBinary".enum,
-        "BinaryTypeCOFFImportFile".enum,
-        "BinaryTypeIR".enum,
-        "BinaryTypeWinRes".enum,
-        "BinaryTypeCOFF".enum,
-        "BinaryTypeELF32L".enum,
-        "BinaryTypeELF32B".enum,
-        "BinaryTypeELF64L".enum,
-        "BinaryTypeELF64B".enum,
-        "BinaryTypeMachO32L".enum,
-        "BinaryTypeMachO32B".enum,
-        "BinaryTypeMachO64L".enum,
-        "BinaryTypeMachO64B".enum,
-        "BinaryTypeWasm".enum,
-        "BinaryTypeOffload".enum
+        LLVMMemoryBufferRef("MemBuf", "")
     )
 
-    IgnoreMissing..LLVMBinaryRef(
-        "CreateBinary",
-        """
-        Create a binary file from the given memory buffer.
+    void(
+        "DisposeObjectFile",
+        "",
 
-        The exact type of the binary file will be inferred automatically, and the appropriate implementation selected. The context may be #NULL except if the
-        resulting file is an LLVM IR file.
-
-        The memory buffer is not consumed by this function. It is the responsibilty of the caller to free it with #DisposeMemoryBuffer().
-
-        If #NULL is returned, the {@code ErrorMessage} parameter is populated with the error's description. It is then the caller's responsibility to free this
-        message by calling #DisposeMessage().
-        """,
-
-        LLVMMemoryBufferRef("MemBuf", ""),
-        nullable..LLVMContextRef("Context", ""),
-        Check(1)..charUTF8.p.p("ErrorMessage", "")
+        LLVMObjectFileRef("ObjectFile", "")
     )
 
-    IgnoreMissing..void(
-        "DisposeBinary",
-        """
-        Dispose of a binary file.
+    LLVMSectionIteratorRef(
+        "GetSections",
+        "ObjectFile Section iterators",
 
-        The binary file does not own its backing buffer. It is the responsibilty of the caller to free it with #DisposeMemoryBuffer().
-        """,
-
-        LLVMBinaryRef("BR", "")
+        LLVMObjectFileRef("ObjectFile", "")
     )
 
-    IgnoreMissing..LLVMMemoryBufferRef(
-        "BinaryCopyMemoryBuffer",
-        """
-        Retrieves a copy of the memory buffer associated with this object file.
-
-        The returned buffer is merely a shallow copy and does not own the actual backing buffer of the binary. Nevertheless, it is the responsibility of the
-        caller to free it with #DisposeMemoryBuffer().
-        """,
-
-        LLVMBinaryRef("BR", "")
-    )
-
-    IgnoreMissing..LLVMBinaryType(
-        "BinaryGetType",
-        "Retrieve the specific type of a binary.",
-
-        LLVMBinaryRef("BR", "")
-    )
-
-    IgnoreMissing..LLVMBinaryRef(
-        "MachOUniversalBinaryCopyObjectForArch",
-        """
-        For a Mach-O universal binary file, retrieves the object file corresponding to the given architecture if it is present as a slice.
-
-        If #NULL is returned, the {@code ErrorMessage} parameter is populated with the error's description. It is then the caller's responsibility to free this
-        message by calling #DisposeMessage().
-
-        It is the responsiblity of the caller to free the returned object file by calling #DisposeBinary().
-        """,
-
-        LLVMBinaryRef("BR", ""),
-        charUTF8.const.p("Arch", ""),
-        AutoSize("Arch")..size_t("ArchLen", ""),
-        Check(1)..charUTF8.p.p("ErrorMessage", "")
-    )
-
-    IgnoreMissing..LLVMSectionIteratorRef(
-        "ObjectFileCopySectionIterator",
-        """
-        Retrieve a copy of the section iterator for this object file.
-
-        If there are no sections, the result is #NULL.
-
-        The returned iterator is merely a shallow copy. Nevertheless, it is the responsibility of the caller to free it with #DisposeSectionIterator().
-        """,
-
-        LLVMBinaryRef("BR", "")
-    )
-
-    IgnoreMissing..LLVMBool(
-        "ObjectFileIsSectionIteratorAtEnd",
-        "Returns whether the given section iterator is at the end.",
-
-        LLVMBinaryRef("BR", ""),
-        LLVMSectionIteratorRef("SI", "")
-    )
-
-    IgnoreMissing..LLVMSymbolIteratorRef(
-        "ObjectFileCopySymbolIterator",
-        """
-        Retrieve a copy of the symbol iterator for this object file.
-
-        If there are no symbols, the result is #NULL.
-
-        The returned iterator is merely a shallow copy. Nevertheless, it is the responsibility of the caller to free it with #DisposeSymbolIterator().
-        """,
-
-        LLVMBinaryRef("BR", "")
-    )
-
-    IgnoreMissing..LLVMBool(
-        "ObjectFileIsSymbolIteratorAtEnd",
-        "Returns whether the given symbol iterator is at the end.",
-
-        LLVMBinaryRef("BR", ""),
-        LLVMSymbolIteratorRef("SI", "")
-    )
-
-    IgnoreMissing..void(
+    void(
         "DisposeSectionIterator",
         "",
 
         LLVMSectionIteratorRef("SI", "")
     )
 
-    IgnoreMissing..void(
+    LLVMBool(
+        "IsSectionIteratorAtEnd",
+        "",
+
+        LLVMObjectFileRef("ObjectFile", ""),
+        LLVMSectionIteratorRef("SI", "")
+    )
+
+    void(
         "MoveToNextSection",
         "",
 
         LLVMSectionIteratorRef("SI", "")
     )
 
-    IgnoreMissing..void(
+    void(
         "MoveToContainingSection",
         "",
 
@@ -166,49 +66,64 @@ val LLVMObject = "LLVMObject".nativeClass(
         LLVMSymbolIteratorRef("Sym", "")
     )
 
-    IgnoreMissing..void(
+    LLVMSymbolIteratorRef(
+        "GetSymbols",
+        "ObjectFile Symbol iterators",
+
+        LLVMObjectFileRef("ObjectFile", "")
+    )
+
+    void(
         "DisposeSymbolIterator",
         "",
 
         LLVMSymbolIteratorRef("SI", "")
     )
 
-    IgnoreMissing..void(
+    LLVMBool(
+        "IsSymbolIteratorAtEnd",
+        "",
+
+        LLVMObjectFileRef("ObjectFile", ""),
+        LLVMSymbolIteratorRef("SI", "")
+    )
+
+    void(
         "MoveToNextSymbol",
         "",
 
         LLVMSymbolIteratorRef("SI", "")
     )
 
-    IgnoreMissing..charUTF8.const.p(
+    charUTF8.const.p(
         "GetSectionName",
-        "",
+        "SectionRef accessors",
 
         LLVMSectionIteratorRef("SI", "")
     )
 
-    IgnoreMissing..uint64_t(
+    uint64_t(
         "GetSectionSize",
         "",
 
         LLVMSectionIteratorRef("SI", "")
     )
 
-    IgnoreMissing..charUTF8.const.p(
+    charUTF8.const.p(
         "GetSectionContents",
         "",
 
         LLVMSectionIteratorRef("SI", "")
     )
 
-    IgnoreMissing..uint64_t(
+    uint64_t(
         "GetSectionAddress",
         "",
 
         LLVMSectionIteratorRef("SI", "")
     )
 
-    IgnoreMissing..LLVMBool(
+    LLVMBool(
         "GetSectionContainsSymbol",
         "",
 
@@ -216,21 +131,21 @@ val LLVMObject = "LLVMObject".nativeClass(
         LLVMSymbolIteratorRef("Sym", "")
     )
 
-    IgnoreMissing..LLVMRelocationIteratorRef(
+    LLVMRelocationIteratorRef(
         "GetRelocations",
-        "",
+        "Section Relocation iterators",
 
         LLVMSectionIteratorRef("Section", "")
     )
 
-    IgnoreMissing..void(
+    void(
         "DisposeRelocationIterator",
         "",
 
         LLVMRelocationIteratorRef("RI", "")
     )
 
-    IgnoreMissing..LLVMBool(
+    LLVMBool(
         "IsRelocationIteratorAtEnd",
         "",
 
@@ -238,110 +153,66 @@ val LLVMObject = "LLVMObject".nativeClass(
         LLVMRelocationIteratorRef("RI", "")
     )
 
-    IgnoreMissing..void(
+    void(
         "MoveToNextRelocation",
         "",
 
         LLVMRelocationIteratorRef("RI", "")
     )
 
-    IgnoreMissing..charUTF8.const.p(
+    charUTF8.const.p(
         "GetSymbolName",
-        "",
+        "SymbolRef accessors",
 
         LLVMSymbolIteratorRef("SI", "")
     )
 
-    IgnoreMissing..uint64_t(
+    uint64_t(
         "GetSymbolAddress",
         "",
 
         LLVMSymbolIteratorRef("SI", "")
     )
 
-    IgnoreMissing..uint64_t(
+    uint64_t(
         "GetSymbolSize",
         "",
 
         LLVMSymbolIteratorRef("SI", "")
     )
 
-    IgnoreMissing..uint64_t(
+    uint64_t(
         "GetRelocationOffset",
-        "",
+        "RelocationRef accessors",
 
         LLVMRelocationIteratorRef("RI", "")
     )
 
-    IgnoreMissing..LLVMSymbolIteratorRef(
+    LLVMSymbolIteratorRef(
         "GetRelocationSymbol",
         "",
 
         LLVMRelocationIteratorRef("RI", "")
     )
 
-    IgnoreMissing..uint64_t(
+    uint64_t(
         "GetRelocationType",
         "",
 
         LLVMRelocationIteratorRef("RI", "")
     )
 
-    IgnoreMissing..charUTF8.const.p(
+    charUTF8.const.p(
         "GetRelocationTypeName",
-        "",
+        "Caller takes ownership of returned string.",
 
         LLVMRelocationIteratorRef("RI", "")
     )
 
-    IgnoreMissing..charUTF8.const.p(
+    charUTF8.const.p(
         "GetRelocationValueString",
-        "",
+        "Caller takes ownership of returned string.",
 
         LLVMRelocationIteratorRef("RI", "")
-    )
-
-    LLVMObjectFileRef(
-        "CreateObjectFile",
-        "Deprecated: use #CreateBinary() instead.",
-
-        LLVMMemoryBufferRef("MemBuf", "")
-    )
-
-    void(
-        "DisposeObjectFile",
-        "Deprecated: use #DisposeBinary() instead.",
-
-        LLVMObjectFileRef("ObjectFile", "")
-    )
-
-    LLVMSectionIteratorRef(
-        "GetSections",
-        "Deprecated: Use #ObjectFileCopySectionIterator() instead.",
-
-        LLVMObjectFileRef("ObjectFile", "")
-    )
-
-    LLVMBool(
-        "IsSectionIteratorAtEnd",
-        "Deprecated: Use #ObjectFileIsSectionIteratorAtEnd() instead.",
-
-        LLVMObjectFileRef("ObjectFile", ""),
-        LLVMSectionIteratorRef("SI", "")
-    )
-
-    LLVMSymbolIteratorRef(
-        "GetSymbols",
-        "Deprecated: Use #ObjectFileCopySymbolIterator() instead.",
-
-        LLVMObjectFileRef("ObjectFile", "")
-    )
-
-    LLVMBool(
-        "IsSymbolIteratorAtEnd",
-        "Deprecated: Use #ObjectFileIsSymbolIteratorAtEnd() instead.",
-
-        LLVMObjectFileRef("ObjectFile", ""),
-        LLVMSymbolIteratorRef("SI", "")
     )
 }

@@ -30,7 +30,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code vertexStride} <b>must</b> be a multiple of the size in bytes of the smallest component of {@code vertexFormat}</li>
  * <li>{@code vertexStride} <b>must</b> be less than or equal to <code>2<sup>32</sup>-1</code></li>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-buffer-view-format-features">format features</a> of {@code vertexFormat} <b>must</b> contain {@link KHRAccelerationStructure#VK_FORMAT_FEATURE_ACCELERATION_STRUCTURE_VERTEX_BUFFER_BIT_KHR FORMAT_FEATURE_ACCELERATION_STRUCTURE_VERTEX_BUFFER_BIT_KHR}</li>
+ * <li>{@code vertexFormat} <b>must</b> support the {@link KHRAccelerationStructure#VK_FORMAT_FEATURE_ACCELERATION_STRUCTURE_VERTEX_BUFFER_BIT_KHR FORMAT_FEATURE_ACCELERATION_STRUCTURE_VERTEX_BUFFER_BIT_KHR} in {@link VkFormatProperties}{@code ::bufferFeatures} as returned by {@link VK11#vkGetPhysicalDeviceFormatProperties2 GetPhysicalDeviceFormatProperties2}</li>
  * <li>{@code indexType} <b>must</b> be {@link VK10#VK_INDEX_TYPE_UINT16 INDEX_TYPE_UINT16}, {@link VK10#VK_INDEX_TYPE_UINT32 INDEX_TYPE_UINT32}, or {@link KHRAccelerationStructure#VK_INDEX_TYPE_NONE_KHR INDEX_TYPE_NONE_KHR}</li>
  * </ul>
  * 
@@ -38,7 +38,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRAccelerationStructure#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkAccelerationStructureGeometryMotionTrianglesDataNV}, {@link VkAccelerationStructureTrianglesDisplacementMicromapNV}, or {@link VkAccelerationStructureTrianglesOpacityMicromapEXT}</li>
+ * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkAccelerationStructureGeometryMotionTrianglesDataNV}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code vertexFormat} <b>must</b> be a valid {@code VkFormat} value</li>
  * <li>{@code indexType} <b>must</b> be a valid {@code VkIndexType} value</li>
@@ -63,7 +63,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkDeviceOrHostAddressConstKHR VkDeviceOrHostAddressConstKHR} {@link #transformData};
  * }</code></pre>
  */
-public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAccelerationStructureGeometryTrianglesDataKHR> implements NativeResource {
+public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -110,15 +110,6 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAc
         TRANSFORMDATA = layout.offsetof(8);
     }
 
-    protected VkAccelerationStructureGeometryTrianglesDataKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkAccelerationStructureGeometryTrianglesDataKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkAccelerationStructureGeometryTrianglesDataKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkAccelerationStructureGeometryTrianglesDataKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -132,7 +123,7 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAc
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -146,7 +137,7 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAc
     /** the stride in bytes between each vertex. */
     @NativeType("VkDeviceSize")
     public long vertexStride() { return nvertexStride(address()); }
-    /** the number of vertices in {@code vertexData} minus one. */
+    /** the highest index of a vertex that will be addressed by a build command using this structure. */
     @NativeType("uint32_t")
     public int maxVertex() { return nmaxVertex(address()); }
     /** the {@code VkIndexType} of each index element. */
@@ -165,10 +156,6 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAc
     public VkAccelerationStructureGeometryTrianglesDataKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Prepends the specified {@link VkAccelerationStructureGeometryMotionTrianglesDataNV} value to the {@code pNext} chain. */
     public VkAccelerationStructureGeometryTrianglesDataKHR pNext(VkAccelerationStructureGeometryMotionTrianglesDataNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkAccelerationStructureTrianglesDisplacementMicromapNV} value to the {@code pNext} chain. */
-    public VkAccelerationStructureGeometryTrianglesDataKHR pNext(VkAccelerationStructureTrianglesDisplacementMicromapNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkAccelerationStructureTrianglesOpacityMicromapEXT} value to the {@code pNext} chain. */
-    public VkAccelerationStructureGeometryTrianglesDataKHR pNext(VkAccelerationStructureTrianglesOpacityMicromapEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #vertexFormat} field. */
     public VkAccelerationStructureGeometryTrianglesDataKHR vertexFormat(@NativeType("VkFormat") int value) { nvertexFormat(address(), value); return this; }
     /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@link #vertexData} field. */
@@ -231,29 +218,29 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAc
 
     /** Returns a new {@code VkAccelerationStructureGeometryTrianglesDataKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureGeometryTrianglesDataKHR malloc() {
-        return new VkAccelerationStructureGeometryTrianglesDataKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkAccelerationStructureGeometryTrianglesDataKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkAccelerationStructureGeometryTrianglesDataKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureGeometryTrianglesDataKHR calloc() {
-        return new VkAccelerationStructureGeometryTrianglesDataKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkAccelerationStructureGeometryTrianglesDataKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkAccelerationStructureGeometryTrianglesDataKHR} instance allocated with {@link BufferUtils}. */
     public static VkAccelerationStructureGeometryTrianglesDataKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkAccelerationStructureGeometryTrianglesDataKHR(memAddress(container), container);
+        return wrap(VkAccelerationStructureGeometryTrianglesDataKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkAccelerationStructureGeometryTrianglesDataKHR} instance for the specified memory address. */
     public static VkAccelerationStructureGeometryTrianglesDataKHR create(long address) {
-        return new VkAccelerationStructureGeometryTrianglesDataKHR(address, null);
+        return wrap(VkAccelerationStructureGeometryTrianglesDataKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureGeometryTrianglesDataKHR createSafe(long address) {
-        return address == NULL ? null : new VkAccelerationStructureGeometryTrianglesDataKHR(address, null);
+        return address == NULL ? null : wrap(VkAccelerationStructureGeometryTrianglesDataKHR.class, address);
     }
 
     /**
@@ -262,7 +249,7 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAc
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureGeometryTrianglesDataKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -271,7 +258,7 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAc
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureGeometryTrianglesDataKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -281,7 +268,7 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAc
      */
     public static VkAccelerationStructureGeometryTrianglesDataKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -291,13 +278,13 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAc
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureGeometryTrianglesDataKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureGeometryTrianglesDataKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -306,7 +293,7 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAc
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureGeometryTrianglesDataKHR malloc(MemoryStack stack) {
-        return new VkAccelerationStructureGeometryTrianglesDataKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkAccelerationStructureGeometryTrianglesDataKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -315,7 +302,7 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAc
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureGeometryTrianglesDataKHR calloc(MemoryStack stack) {
-        return new VkAccelerationStructureGeometryTrianglesDataKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkAccelerationStructureGeometryTrianglesDataKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -325,7 +312,7 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAc
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureGeometryTrianglesDataKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -335,7 +322,7 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAc
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureGeometryTrianglesDataKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -388,9 +375,9 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAc
         /**
          * Creates a new {@code VkAccelerationStructureGeometryTrianglesDataKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkAccelerationStructureGeometryTrianglesDataKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkAccelerationStructureGeometryTrianglesDataKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -449,10 +436,6 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct<VkAc
         public VkAccelerationStructureGeometryTrianglesDataKHR.Buffer pNext(@NativeType("void const *") long value) { VkAccelerationStructureGeometryTrianglesDataKHR.npNext(address(), value); return this; }
         /** Prepends the specified {@link VkAccelerationStructureGeometryMotionTrianglesDataNV} value to the {@code pNext} chain. */
         public VkAccelerationStructureGeometryTrianglesDataKHR.Buffer pNext(VkAccelerationStructureGeometryMotionTrianglesDataNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkAccelerationStructureTrianglesDisplacementMicromapNV} value to the {@code pNext} chain. */
-        public VkAccelerationStructureGeometryTrianglesDataKHR.Buffer pNext(VkAccelerationStructureTrianglesDisplacementMicromapNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkAccelerationStructureTrianglesOpacityMicromapEXT} value to the {@code pNext} chain. */
-        public VkAccelerationStructureGeometryTrianglesDataKHR.Buffer pNext(VkAccelerationStructureTrianglesOpacityMicromapEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkAccelerationStructureGeometryTrianglesDataKHR#vertexFormat} field. */
         public VkAccelerationStructureGeometryTrianglesDataKHR.Buffer vertexFormat(@NativeType("VkFormat") int value) { VkAccelerationStructureGeometryTrianglesDataKHR.nvertexFormat(address(), value); return this; }
         /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@link VkAccelerationStructureGeometryTrianglesDataKHR#vertexData} field. */

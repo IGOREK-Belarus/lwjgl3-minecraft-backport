@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_SESSION_CREATE_INFO TYPE_SESSION_CREATE_INFO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrGraphicsBindingEGLMNDX}, {@link XrGraphicsBindingOpenGLWaylandKHR}, {@link XrGraphicsBindingOpenGLWin32KHR}, {@link XrGraphicsBindingOpenGLXcbKHR}, {@link XrGraphicsBindingOpenGLXlibKHR}, {@link XrGraphicsBindingVulkanKHR}, {@link XrHolographicWindowAttachmentMSFT}, {@link XrSessionCreateInfoOverlayEXTX}</li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrGraphicsBindingEGLMNDX}, {@link XrGraphicsBindingOpenGLWaylandKHR}, {@link XrGraphicsBindingOpenGLWin32KHR}, {@link XrGraphicsBindingOpenGLXcbKHR}, {@link XrGraphicsBindingOpenGLXlibKHR}, {@link XrGraphicsBindingVulkanKHR}, {@link XrHolographicWindowAttachmentMSFT}, {@link XrSessionCreateInfoOverlayEXTX}</li>
  * <li>{@code createFlags} <b>must</b> be 0</li>
  * </ul>
  * 
@@ -47,7 +47,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrSystemId {@link #systemId};
  * }</code></pre>
  */
-public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements NativeResource {
+public class XrSessionCreateInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -77,15 +77,6 @@ public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements 
         NEXT = layout.offsetof(1);
         CREATEFLAGS = layout.offsetof(2);
         SYSTEMID = layout.offsetof(3);
-    }
-
-    protected XrSessionCreateInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSessionCreateInfo create(long address, @Nullable ByteBuffer container) {
-        return new XrSessionCreateInfo(address, container);
     }
 
     /**
@@ -174,29 +165,29 @@ public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements 
 
     /** Returns a new {@code XrSessionCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSessionCreateInfo malloc() {
-        return new XrSessionCreateInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSessionCreateInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSessionCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSessionCreateInfo calloc() {
-        return new XrSessionCreateInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSessionCreateInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSessionCreateInfo} instance allocated with {@link BufferUtils}. */
     public static XrSessionCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSessionCreateInfo(memAddress(container), container);
+        return wrap(XrSessionCreateInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSessionCreateInfo} instance for the specified memory address. */
     public static XrSessionCreateInfo create(long address) {
-        return new XrSessionCreateInfo(address, null);
+        return wrap(XrSessionCreateInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSessionCreateInfo createSafe(long address) {
-        return address == NULL ? null : new XrSessionCreateInfo(address, null);
+        return address == NULL ? null : wrap(XrSessionCreateInfo.class, address);
     }
 
     /**
@@ -205,7 +196,7 @@ public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements 
      * @param capacity the buffer capacity
      */
     public static XrSessionCreateInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -214,7 +205,7 @@ public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements 
      * @param capacity the buffer capacity
      */
     public static XrSessionCreateInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -224,7 +215,7 @@ public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements 
      */
     public static XrSessionCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -234,13 +225,13 @@ public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements 
      * @param capacity the buffer capacity
      */
     public static XrSessionCreateInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSessionCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -249,7 +240,7 @@ public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements 
      * @param stack the stack from which to allocate
      */
     public static XrSessionCreateInfo malloc(MemoryStack stack) {
-        return new XrSessionCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSessionCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -258,7 +249,7 @@ public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements 
      * @param stack the stack from which to allocate
      */
     public static XrSessionCreateInfo calloc(MemoryStack stack) {
-        return new XrSessionCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSessionCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -268,7 +259,7 @@ public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements 
      * @param capacity the buffer capacity
      */
     public static XrSessionCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -278,7 +269,7 @@ public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements 
      * @param capacity the buffer capacity
      */
     public static XrSessionCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -311,9 +302,9 @@ public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements 
         /**
          * Creates a new {@code XrSessionCreateInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSessionCreateInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSessionCreateInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -98,7 +98,7 @@ import static org.lwjgl.vulkan.VK10.*;
  *     VkSampleCountFlags {@link #framebufferIntegerColorSampleCounts};
  * }</code></pre>
  */
-public class VkPhysicalDeviceVulkan12Properties extends Struct<VkPhysicalDeviceVulkan12Properties> implements NativeResource {
+public class VkPhysicalDeviceVulkan12Properties extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -280,15 +280,6 @@ public class VkPhysicalDeviceVulkan12Properties extends Struct<VkPhysicalDeviceV
         FRAMEBUFFERINTEGERCOLORSAMPLECOUNTS = layout.offsetof(53);
     }
 
-    protected VkPhysicalDeviceVulkan12Properties(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceVulkan12Properties create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceVulkan12Properties(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceVulkan12Properties} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -302,7 +293,7 @@ public class VkPhysicalDeviceVulkan12Properties extends Struct<VkPhysicalDeviceV
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -323,7 +314,7 @@ public class VkPhysicalDeviceVulkan12Properties extends Struct<VkPhysicalDeviceV
     /** an array of {@link VK10#VK_MAX_DRIVER_INFO_SIZE MAX_DRIVER_INFO_SIZE} {@code char} containing a null-terminated UTF-8 string with additional information about the driver. */
     @NativeType("char[VK_MAX_DRIVER_INFO_SIZE]")
     public String driverInfoString() { return ndriverInfoString(address()); }
-    /** the latest version of the Vulkan conformance test that the implementor has successfully tested this driver against prior to release (see {@link VkConformanceVersion}). */
+    /** the version of the Vulkan conformance test this driver is conformant against (see {@link VkConformanceVersion}). */
     public VkConformanceVersion conformanceVersion() { return nconformanceVersion(address()); }
     /** a {@code VkShaderFloatControlsIndependence} value indicating whether, and how, denorm behavior can be set independently for different bit widths. */
     @NativeType("VkShaderFloatControlsIndependence")
@@ -379,25 +370,25 @@ public class VkPhysicalDeviceVulkan12Properties extends Struct<VkPhysicalDeviceV
     /** the maximum number of descriptors (summed over all descriptor types) that <b>can</b> be created across all pools that are created with the {@link VK12#VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT} bit set. Pool creation <b>may</b> fail when this limit is exceeded, or when the space this limit represents is unable to satisfy a pool creation due to fragmentation. */
     @NativeType("uint32_t")
     public int maxUpdateAfterBindDescriptorsInAllPools() { return nmaxUpdateAfterBindDescriptorsInAllPools(address()); }
-    /** a boolean value indicating whether uniform buffer descriptors natively support non-uniform indexing. If this is {@link VK10#VK_FALSE FALSE}, then a single dynamic instance of an instruction that non-uniformly indexes an array of uniform buffers <b>may</b> execute multiple times in order to access all the descriptors. */
+    /** a boolean value indicating whether uniform buffer descriptors natively support nonuniform indexing. If this is {@link VK10#VK_FALSE FALSE}, then a single dynamic instance of an instruction that nonuniformly indexes an array of uniform buffers <b>may</b> execute multiple times in order to access all the descriptors. */
     @NativeType("VkBool32")
     public boolean shaderUniformBufferArrayNonUniformIndexingNative() { return nshaderUniformBufferArrayNonUniformIndexingNative(address()) != 0; }
-    /** a boolean value indicating whether sampler and image descriptors natively support non-uniform indexing. If this is {@link VK10#VK_FALSE FALSE}, then a single dynamic instance of an instruction that non-uniformly indexes an array of samplers or images <b>may</b> execute multiple times in order to access all the descriptors. */
+    /** a boolean value indicating whether sampler and image descriptors natively support nonuniform indexing. If this is {@link VK10#VK_FALSE FALSE}, then a single dynamic instance of an instruction that nonuniformly indexes an array of samplers or images <b>may</b> execute multiple times in order to access all the descriptors. */
     @NativeType("VkBool32")
     public boolean shaderSampledImageArrayNonUniformIndexingNative() { return nshaderSampledImageArrayNonUniformIndexingNative(address()) != 0; }
-    /** a boolean value indicating whether storage buffer descriptors natively support non-uniform indexing. If this is {@link VK10#VK_FALSE FALSE}, then a single dynamic instance of an instruction that non-uniformly indexes an array of storage buffers <b>may</b> execute multiple times in order to access all the descriptors. */
+    /** a boolean value indicating whether storage buffer descriptors natively support nonuniform indexing. If this is {@link VK10#VK_FALSE FALSE}, then a single dynamic instance of an instruction that nonuniformly indexes an array of storage buffers <b>may</b> execute multiple times in order to access all the descriptors. */
     @NativeType("VkBool32")
     public boolean shaderStorageBufferArrayNonUniformIndexingNative() { return nshaderStorageBufferArrayNonUniformIndexingNative(address()) != 0; }
-    /** a boolean value indicating whether storage image descriptors natively support non-uniform indexing. If this is {@link VK10#VK_FALSE FALSE}, then a single dynamic instance of an instruction that non-uniformly indexes an array of storage images <b>may</b> execute multiple times in order to access all the descriptors. */
+    /** a boolean value indicating whether storage image descriptors natively support nonuniform indexing. If this is {@link VK10#VK_FALSE FALSE}, then a single dynamic instance of an instruction that nonuniformly indexes an array of storage images <b>may</b> execute multiple times in order to access all the descriptors. */
     @NativeType("VkBool32")
     public boolean shaderStorageImageArrayNonUniformIndexingNative() { return nshaderStorageImageArrayNonUniformIndexingNative(address()) != 0; }
-    /** a boolean value indicating whether input attachment descriptors natively support non-uniform indexing. If this is {@link VK10#VK_FALSE FALSE}, then a single dynamic instance of an instruction that non-uniformly indexes an array of input attachments <b>may</b> execute multiple times in order to access all the descriptors. */
+    /** a boolean value indicating whether input attachment descriptors natively support nonuniform indexing. If this is {@link VK10#VK_FALSE FALSE}, then a single dynamic instance of an instruction that nonuniformly indexes an array of input attachments <b>may</b> execute multiple times in order to access all the descriptors. */
     @NativeType("VkBool32")
     public boolean shaderInputAttachmentArrayNonUniformIndexingNative() { return nshaderInputAttachmentArrayNonUniformIndexingNative(address()) != 0; }
-    /** a boolean value indicating whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> <b>can</b> be enabled on a device simultaneously with {@code descriptorBindingUniformBufferUpdateAfterBind}, {@code descriptorBindingStorageBufferUpdateAfterBind}, {@code descriptorBindingUniformTexelBufferUpdateAfterBind}, and/or {@code descriptorBindingStorageTexelBufferUpdateAfterBind}. If this is {@link VK10#VK_FALSE FALSE}, then either {@code robustBufferAccess} <b>must</b> be disabled or all of these update-after-bind features <b>must</b> be disabled. */
+    /** a boolean value indicating whether <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> <b>can</b> be enabled in a device simultaneously with {@code descriptorBindingUniformBufferUpdateAfterBind}, {@code descriptorBindingStorageBufferUpdateAfterBind}, {@code descriptorBindingUniformTexelBufferUpdateAfterBind}, and/or {@code descriptorBindingStorageTexelBufferUpdateAfterBind}. If this is {@link VK10#VK_FALSE FALSE}, then either {@code robustBufferAccess} <b>must</b> be disabled or all of these update-after-bind features <b>must</b> be disabled. */
     @NativeType("VkBool32")
     public boolean robustBufferAccessUpdateAfterBind() { return nrobustBufferAccessUpdateAfterBind(address()) != 0; }
-    /** a boolean value indicating whether implicit LOD calculations for image operations have well-defined results when the image and/or sampler objects used for the instruction are not uniform within a quad. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-derivative-image-operations">Derivative Image Operations</a>. */
+    /** a boolean value indicating whether implicit level of detail calculations for image operations have well-defined results when the image and/or sampler objects used for the instruction are not uniform within a quad. See <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#textures-derivative-image-operations">Derivative Image Operations</a>. */
     @NativeType("VkBool32")
     public boolean quadDivergentImplicitLod() { return nquadDivergentImplicitLod(address()) != 0; }
     /** similar to {@code maxPerStageDescriptorSamplers} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
@@ -504,29 +495,29 @@ public class VkPhysicalDeviceVulkan12Properties extends Struct<VkPhysicalDeviceV
 
     /** Returns a new {@code VkPhysicalDeviceVulkan12Properties} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceVulkan12Properties malloc() {
-        return new VkPhysicalDeviceVulkan12Properties(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkan12Properties.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceVulkan12Properties} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceVulkan12Properties calloc() {
-        return new VkPhysicalDeviceVulkan12Properties(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkan12Properties.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceVulkan12Properties} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceVulkan12Properties create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceVulkan12Properties(memAddress(container), container);
+        return wrap(VkPhysicalDeviceVulkan12Properties.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceVulkan12Properties} instance for the specified memory address. */
     public static VkPhysicalDeviceVulkan12Properties create(long address) {
-        return new VkPhysicalDeviceVulkan12Properties(address, null);
+        return wrap(VkPhysicalDeviceVulkan12Properties.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceVulkan12Properties createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceVulkan12Properties(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceVulkan12Properties.class, address);
     }
 
     /**
@@ -535,7 +526,7 @@ public class VkPhysicalDeviceVulkan12Properties extends Struct<VkPhysicalDeviceV
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan12Properties.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -544,7 +535,7 @@ public class VkPhysicalDeviceVulkan12Properties extends Struct<VkPhysicalDeviceV
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan12Properties.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -554,7 +545,7 @@ public class VkPhysicalDeviceVulkan12Properties extends Struct<VkPhysicalDeviceV
      */
     public static VkPhysicalDeviceVulkan12Properties.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -564,13 +555,13 @@ public class VkPhysicalDeviceVulkan12Properties extends Struct<VkPhysicalDeviceV
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan12Properties.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceVulkan12Properties.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -579,7 +570,7 @@ public class VkPhysicalDeviceVulkan12Properties extends Struct<VkPhysicalDeviceV
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceVulkan12Properties malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceVulkan12Properties(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkan12Properties.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -588,7 +579,7 @@ public class VkPhysicalDeviceVulkan12Properties extends Struct<VkPhysicalDeviceV
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceVulkan12Properties calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceVulkan12Properties(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkan12Properties.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -598,7 +589,7 @@ public class VkPhysicalDeviceVulkan12Properties extends Struct<VkPhysicalDeviceV
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan12Properties.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -608,7 +599,7 @@ public class VkPhysicalDeviceVulkan12Properties extends Struct<VkPhysicalDeviceV
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan12Properties.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -741,9 +732,9 @@ public class VkPhysicalDeviceVulkan12Properties extends Struct<VkPhysicalDeviceV
         /**
          * Creates a new {@code VkPhysicalDeviceVulkan12Properties.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceVulkan12Properties#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceVulkan12Properties#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

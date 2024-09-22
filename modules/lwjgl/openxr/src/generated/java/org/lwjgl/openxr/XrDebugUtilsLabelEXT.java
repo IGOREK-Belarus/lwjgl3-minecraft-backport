@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link EXTDebugUtils XR_EXT_debug_utils} extension <b>must</b> be enabled prior to using {@link XrDebugUtilsLabelEXT}</li>
  * <li>{@code type} <b>must</b> be {@link EXTDebugUtils#XR_TYPE_DEBUG_UTILS_LABEL_EXT TYPE_DEBUG_UTILS_LABEL_EXT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code labelName} <b>must</b> be a null-terminated UTF-8 string</li>
  * </ul>
  * 
@@ -41,7 +41,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     char const * {@link #labelName};
  * }</code></pre>
  */
-public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implements NativeResource {
+public class XrDebugUtilsLabelEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -68,15 +68,6 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
         LABELNAME = layout.offsetof(2);
-    }
-
-    protected XrDebugUtilsLabelEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrDebugUtilsLabelEXT create(long address, @Nullable ByteBuffer container) {
-        return new XrDebugUtilsLabelEXT(address, container);
     }
 
     /**
@@ -143,29 +134,29 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
 
     /** Returns a new {@code XrDebugUtilsLabelEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrDebugUtilsLabelEXT malloc() {
-        return new XrDebugUtilsLabelEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrDebugUtilsLabelEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrDebugUtilsLabelEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrDebugUtilsLabelEXT calloc() {
-        return new XrDebugUtilsLabelEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrDebugUtilsLabelEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrDebugUtilsLabelEXT} instance allocated with {@link BufferUtils}. */
     public static XrDebugUtilsLabelEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrDebugUtilsLabelEXT(memAddress(container), container);
+        return wrap(XrDebugUtilsLabelEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrDebugUtilsLabelEXT} instance for the specified memory address. */
     public static XrDebugUtilsLabelEXT create(long address) {
-        return new XrDebugUtilsLabelEXT(address, null);
+        return wrap(XrDebugUtilsLabelEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrDebugUtilsLabelEXT createSafe(long address) {
-        return address == NULL ? null : new XrDebugUtilsLabelEXT(address, null);
+        return address == NULL ? null : wrap(XrDebugUtilsLabelEXT.class, address);
     }
 
     /**
@@ -174,7 +165,7 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
      * @param capacity the buffer capacity
      */
     public static XrDebugUtilsLabelEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -183,7 +174,7 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
      * @param capacity the buffer capacity
      */
     public static XrDebugUtilsLabelEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -193,7 +184,7 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
      */
     public static XrDebugUtilsLabelEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -203,13 +194,13 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
      * @param capacity the buffer capacity
      */
     public static XrDebugUtilsLabelEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrDebugUtilsLabelEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -218,7 +209,7 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
      * @param stack the stack from which to allocate
      */
     public static XrDebugUtilsLabelEXT malloc(MemoryStack stack) {
-        return new XrDebugUtilsLabelEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrDebugUtilsLabelEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -227,7 +218,7 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
      * @param stack the stack from which to allocate
      */
     public static XrDebugUtilsLabelEXT calloc(MemoryStack stack) {
-        return new XrDebugUtilsLabelEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrDebugUtilsLabelEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -237,7 +228,7 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
      * @param capacity the buffer capacity
      */
     public static XrDebugUtilsLabelEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -247,7 +238,7 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
      * @param capacity the buffer capacity
      */
     public static XrDebugUtilsLabelEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -290,9 +281,9 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
         /**
          * Creates a new {@code XrDebugUtilsLabelEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrDebugUtilsLabelEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrDebugUtilsLabelEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

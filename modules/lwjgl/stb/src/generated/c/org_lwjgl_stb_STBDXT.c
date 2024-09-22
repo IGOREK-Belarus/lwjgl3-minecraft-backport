@@ -7,7 +7,6 @@
 DISABLE_WARNINGS()
 #define STB_DXT_IMPLEMENTATION
 #define STB_DXT_STATIC
-#include <string.h>
 #include "stb_dxt.h"
 ENABLE_WARNINGS()
 

@@ -16,16 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Specify HDR metadata.
- * 
- * <h5>Description</h5>
- * 
- * <p>If any of the above values are unknown, they <b>can</b> be set to 0.</p>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>The meta-data provided here is intended to be used as defined in the SMPTE 2086, CTA 861.3 and CIE 15:2004 specifications. The validity and use of this data is outside the scope of Vulkan.</p>
- * </div>
+ * Specify Hdr metadata.
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -33,6 +24,11 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code sType} <b>must</b> be {@link EXTHdrMetadata#VK_STRUCTURE_TYPE_HDR_METADATA_EXT STRUCTURE_TYPE_HDR_METADATA_EXT}</li>
  * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
  * </ul>
+ * 
+ * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
+ * 
+ * <p>The validity and use of this data is outside the scope of Vulkan.</p>
+ * </div>
  * 
  * <h5>See Also</h5>
  * 
@@ -54,7 +50,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float {@link #maxFrameAverageLightLevel};
  * }</code></pre>
  */
-public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements NativeResource {
+public class VkHdrMetadataEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -104,15 +100,6 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
         MAXFRAMEAVERAGELIGHTLEVEL = layout.offsetof(9);
     }
 
-    protected VkHdrMetadataEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkHdrMetadataEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkHdrMetadataEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkHdrMetadataEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -126,27 +113,27 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@link VkXYColorEXT} structure specifying the red primary of the display used to optimize the content */
+    /** a {@link VkXYColorEXT} structure specifying the reference monitor’s red primary in chromaticity coordinates */
     public VkXYColorEXT displayPrimaryRed() { return ndisplayPrimaryRed(address()); }
-    /** a {@link VkXYColorEXT} structure specifying the green primary of the display used to optimize the content */
+    /** a {@link VkXYColorEXT} structure specifying the reference monitor’s green primary in chromaticity coordinates */
     public VkXYColorEXT displayPrimaryGreen() { return ndisplayPrimaryGreen(address()); }
-    /** a {@link VkXYColorEXT} structure specifying the blue primary of the display used to optimize the content */
+    /** a {@link VkXYColorEXT} structure specifying the reference monitor’s blue primary in chromaticity coordinates */
     public VkXYColorEXT displayPrimaryBlue() { return ndisplayPrimaryBlue(address()); }
-    /** a {@link VkXYColorEXT} structure specifying the white-point of the display used to optimize the content */
+    /** a {@link VkXYColorEXT} structure specifying the reference monitor’s white-point in chromaticity coordinates */
     public VkXYColorEXT whitePoint() { return nwhitePoint(address()); }
-    /** the maximum luminance of the display used to optimize the content in nits */
+    /** the maximum luminance of the reference monitor in nits */
     public float maxLuminance() { return nmaxLuminance(address()); }
-    /** the minimum luminance of the display used to optimize the content in nits */
+    /** the minimum luminance of the reference monitor in nits */
     public float minLuminance() { return nminLuminance(address()); }
-    /** the value in nits of the desired luminance for the brightest pixels in the displayed image. */
+    /** content’s maximum luminance in nits */
     public float maxContentLightLevel() { return nmaxContentLightLevel(address()); }
-    /** the value in nits of the average luminance of the frame which has the brightest average luminance anywhere in the content. */
+    /** the maximum frame average light level in nits */
     public float maxFrameAverageLightLevel() { return nmaxFrameAverageLightLevel(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
@@ -223,29 +210,29 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
 
     /** Returns a new {@code VkHdrMetadataEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkHdrMetadataEXT malloc() {
-        return new VkHdrMetadataEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkHdrMetadataEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkHdrMetadataEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkHdrMetadataEXT calloc() {
-        return new VkHdrMetadataEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkHdrMetadataEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkHdrMetadataEXT} instance allocated with {@link BufferUtils}. */
     public static VkHdrMetadataEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkHdrMetadataEXT(memAddress(container), container);
+        return wrap(VkHdrMetadataEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkHdrMetadataEXT} instance for the specified memory address. */
     public static VkHdrMetadataEXT create(long address) {
-        return new VkHdrMetadataEXT(address, null);
+        return wrap(VkHdrMetadataEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkHdrMetadataEXT createSafe(long address) {
-        return address == NULL ? null : new VkHdrMetadataEXT(address, null);
+        return address == NULL ? null : wrap(VkHdrMetadataEXT.class, address);
     }
 
     /**
@@ -254,7 +241,7 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
      * @param capacity the buffer capacity
      */
     public static VkHdrMetadataEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -263,7 +250,7 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
      * @param capacity the buffer capacity
      */
     public static VkHdrMetadataEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -273,7 +260,7 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
      */
     public static VkHdrMetadataEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -283,13 +270,13 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
      * @param capacity the buffer capacity
      */
     public static VkHdrMetadataEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkHdrMetadataEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -317,7 +304,7 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
      * @param stack the stack from which to allocate
      */
     public static VkHdrMetadataEXT malloc(MemoryStack stack) {
-        return new VkHdrMetadataEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkHdrMetadataEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -326,7 +313,7 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
      * @param stack the stack from which to allocate
      */
     public static VkHdrMetadataEXT calloc(MemoryStack stack) {
-        return new VkHdrMetadataEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkHdrMetadataEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -336,7 +323,7 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
      * @param capacity the buffer capacity
      */
     public static VkHdrMetadataEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -346,7 +333,7 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
      * @param capacity the buffer capacity
      */
     public static VkHdrMetadataEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -403,9 +390,9 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
         /**
          * Creates a new {@code VkHdrMetadataEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkHdrMetadataEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkHdrMetadataEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

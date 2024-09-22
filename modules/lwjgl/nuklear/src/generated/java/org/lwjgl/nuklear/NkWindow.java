@@ -13,8 +13,6 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-import static org.lwjgl.nuklear.Nuklear.*;
-
 /**
  * <h3>Layout</h3>
  * 
@@ -22,7 +20,7 @@ import static org.lwjgl.nuklear.Nuklear.*;
  * struct nk_window {
  *     unsigned int seq;
  *     nk_hash name;
- *     char name_string[NK_WINDOW_MAX_NAME];
+ *     char name_string[64];
  *     nk_flags flags;
  *     {@link NkRect struct nk_rect} bounds;
  *     {@link NkScroll struct nk_scroll} scrollbar;
@@ -33,7 +31,6 @@ import static org.lwjgl.nuklear.Nuklear.*;
  *     {@link NkPopupState struct nk_popup_state} popup;
  *     {@link NkEditState struct nk_edit_state} edit;
  *     unsigned int scrolled;
- *     nk_bool widgets_disabled;
  *     struct nk_table * tables;
  *     unsigned int table_count;
  *     {@link NkWindow struct nk_window} * next;
@@ -42,7 +39,7 @@ import static org.lwjgl.nuklear.Nuklear.*;
  * }</code></pre>
  */
 @NativeType("struct nk_window")
-public class NkWindow extends Struct<NkWindow> {
+public class NkWindow extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -65,7 +62,6 @@ public class NkWindow extends Struct<NkWindow> {
         POPUP,
         EDIT,
         SCROLLED,
-        WIDGETS_DISABLED,
         TABLES,
         TABLE_COUNT,
         NEXT,
@@ -76,7 +72,7 @@ public class NkWindow extends Struct<NkWindow> {
         Layout layout = __struct(
             __member(4),
             __member(4),
-            __array(1, NK_WINDOW_MAX_NAME),
+            __array(1, 64),
             __member(4),
             __member(NkRect.SIZEOF, NkRect.ALIGNOF),
             __member(NkScroll.SIZEOF, NkScroll.ALIGNOF),
@@ -87,7 +83,6 @@ public class NkWindow extends Struct<NkWindow> {
             __member(NkPopupState.SIZEOF, NkPopupState.ALIGNOF),
             __member(NkEditState.SIZEOF, NkEditState.ALIGNOF),
             __member(4),
-            __member(1),
             __member(POINTER_SIZE),
             __member(4),
             __member(POINTER_SIZE),
@@ -111,21 +106,11 @@ public class NkWindow extends Struct<NkWindow> {
         POPUP = layout.offsetof(10);
         EDIT = layout.offsetof(11);
         SCROLLED = layout.offsetof(12);
-        WIDGETS_DISABLED = layout.offsetof(13);
-        TABLES = layout.offsetof(14);
-        TABLE_COUNT = layout.offsetof(15);
-        NEXT = layout.offsetof(16);
-        PREV = layout.offsetof(17);
-        PARENT = layout.offsetof(18);
-    }
-
-    protected NkWindow(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected NkWindow create(long address, @Nullable ByteBuffer container) {
-        return new NkWindow(address, container);
+        TABLES = layout.offsetof(13);
+        TABLE_COUNT = layout.offsetof(14);
+        NEXT = layout.offsetof(15);
+        PREV = layout.offsetof(16);
+        PARENT = layout.offsetof(17);
     }
 
     /**
@@ -148,10 +133,10 @@ public class NkWindow extends Struct<NkWindow> {
     @NativeType("nk_hash")
     public int name() { return nname(address()); }
     /** @return a {@link ByteBuffer} view of the {@code name_string} field. */
-    @NativeType("char[NK_WINDOW_MAX_NAME]")
+    @NativeType("char[64]")
     public ByteBuffer name_string() { return nname_string(address()); }
     /** @return the null-terminated string stored in the {@code name_string} field. */
-    @NativeType("char[NK_WINDOW_MAX_NAME]")
+    @NativeType("char[64]")
     public String name_stringString() { return nname_stringString(address()); }
     /** @return the value of the {@code flags} field. */
     @NativeType("nk_flags")
@@ -182,9 +167,6 @@ public class NkWindow extends Struct<NkWindow> {
     /** @return the value of the {@code scrolled} field. */
     @NativeType("unsigned int")
     public int scrolled() { return nscrolled(address()); }
-    /** @return the value of the {@code widgets_disabled} field. */
-    @NativeType("nk_bool")
-    public boolean widgets_disabled() { return nwidgets_disabled(address()); }
     /** @return the value of the {@code tables} field. */
     @NativeType("struct nk_table *")
     public long tables() { return ntables(address()); }
@@ -205,13 +187,13 @@ public class NkWindow extends Struct<NkWindow> {
 
     /** Returns a new {@code NkWindow} instance for the specified memory address. */
     public static NkWindow create(long address) {
-        return new NkWindow(address, null);
+        return wrap(NkWindow.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkWindow createSafe(long address) {
-        return address == NULL ? null : new NkWindow(address, null);
+        return address == NULL ? null : wrap(NkWindow.class, address);
     }
 
     /**
@@ -221,13 +203,13 @@ public class NkWindow extends Struct<NkWindow> {
      * @param capacity the buffer capacity
      */
     public static NkWindow.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkWindow.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -237,7 +219,7 @@ public class NkWindow extends Struct<NkWindow> {
     /** Unsafe version of {@link #name}. */
     public static int nname(long struct) { return UNSAFE.getInt(null, struct + NkWindow.NAME); }
     /** Unsafe version of {@link #name_string}. */
-    public static ByteBuffer nname_string(long struct) { return memByteBuffer(struct + NkWindow.NAME_STRING, NK_WINDOW_MAX_NAME); }
+    public static ByteBuffer nname_string(long struct) { return memByteBuffer(struct + NkWindow.NAME_STRING, 64); }
     /** Unsafe version of {@link #name_stringString}. */
     public static String nname_stringString(long struct) { return memUTF8(struct + NkWindow.NAME_STRING); }
     /** Unsafe version of {@link #flags}. */
@@ -260,8 +242,6 @@ public class NkWindow extends Struct<NkWindow> {
     public static NkEditState nedit(long struct) { return NkEditState.create(struct + NkWindow.EDIT); }
     /** Unsafe version of {@link #scrolled}. */
     public static int nscrolled(long struct) { return UNSAFE.getInt(null, struct + NkWindow.SCROLLED); }
-    /** Unsafe version of {@link #widgets_disabled}. */
-    public static boolean nwidgets_disabled(long struct) { return UNSAFE.getByte(null, struct + NkWindow.WIDGETS_DISABLED) != 0; }
     /** Unsafe version of {@link #tables}. */
     public static long ntables(long struct) { return memGetAddress(struct + NkWindow.TABLES); }
     /** Unsafe version of {@link #table_count}. */
@@ -283,9 +263,9 @@ public class NkWindow extends Struct<NkWindow> {
         /**
          * Creates a new {@code NkWindow.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkWindow#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link NkWindow#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -318,10 +298,10 @@ public class NkWindow extends Struct<NkWindow> {
         @NativeType("nk_hash")
         public int name() { return NkWindow.nname(address()); }
         /** @return a {@link ByteBuffer} view of the {@code name_string} field. */
-        @NativeType("char[NK_WINDOW_MAX_NAME]")
+        @NativeType("char[64]")
         public ByteBuffer name_string() { return NkWindow.nname_string(address()); }
         /** @return the null-terminated string stored in the {@code name_string} field. */
-        @NativeType("char[NK_WINDOW_MAX_NAME]")
+        @NativeType("char[64]")
         public String name_stringString() { return NkWindow.nname_stringString(address()); }
         /** @return the value of the {@code flags} field. */
         @NativeType("nk_flags")
@@ -352,9 +332,6 @@ public class NkWindow extends Struct<NkWindow> {
         /** @return the value of the {@code scrolled} field. */
         @NativeType("unsigned int")
         public int scrolled() { return NkWindow.nscrolled(address()); }
-        /** @return the value of the {@code widgets_disabled} field. */
-        @NativeType("nk_bool")
-        public boolean widgets_disabled() { return NkWindow.nwidgets_disabled(address()); }
         /** @return the value of the {@code tables} field. */
         @NativeType("struct nk_table *")
         public long tables() { return NkWindow.ntables(address()); }

@@ -24,7 +24,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link NVXBinaryImport#VK_STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX}</li>
  * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>If {@code dataSize} is not 0, {@code pData} <b>must</b> be a valid pointer to an array of {@code dataSize} bytes</li>
+ * <li>{@code pData} <b>must</b> be a valid pointer to an array of {@code dataSize} bytes</li>
+ * <li>{@code dataSize} <b>must</b> be greater than 0</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -41,7 +42,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     void const * pData;
  * }</code></pre>
  */
-public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> implements NativeResource {
+public class VkCuModuleCreateInfoNVX extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -73,15 +74,6 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
         PDATA = layout.offsetof(3);
     }
 
-    protected VkCuModuleCreateInfoNVX(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkCuModuleCreateInfoNVX create(long address, @Nullable ByteBuffer container) {
-        return new VkCuModuleCreateInfoNVX(address, container);
-    }
-
     /**
      * Creates a {@code VkCuModuleCreateInfoNVX} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -105,7 +97,6 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
     @NativeType("size_t")
     public long dataSize() { return ndataSize(address()); }
     /** @return a {@link ByteBuffer} view of the data pointed to by the {@code pData} field. */
-    @Nullable
     @NativeType("void const *")
     public ByteBuffer pData() { return npData(address()); }
 
@@ -116,13 +107,13 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
     /** Sets the specified value to the {@code pNext} field. */
     public VkCuModuleCreateInfoNVX pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Sets the address of the specified {@link ByteBuffer} to the {@code pData} field. */
-    public VkCuModuleCreateInfoNVX pData(@Nullable @NativeType("void const *") ByteBuffer value) { npData(address(), value); return this; }
+    public VkCuModuleCreateInfoNVX pData(@NativeType("void const *") ByteBuffer value) { npData(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkCuModuleCreateInfoNVX set(
         int sType,
         long pNext,
-        @Nullable ByteBuffer pData
+        ByteBuffer pData
     ) {
         sType(sType);
         pNext(pNext);
@@ -147,29 +138,29 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
 
     /** Returns a new {@code VkCuModuleCreateInfoNVX} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkCuModuleCreateInfoNVX malloc() {
-        return new VkCuModuleCreateInfoNVX(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkCuModuleCreateInfoNVX.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkCuModuleCreateInfoNVX} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkCuModuleCreateInfoNVX calloc() {
-        return new VkCuModuleCreateInfoNVX(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkCuModuleCreateInfoNVX.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkCuModuleCreateInfoNVX} instance allocated with {@link BufferUtils}. */
     public static VkCuModuleCreateInfoNVX create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkCuModuleCreateInfoNVX(memAddress(container), container);
+        return wrap(VkCuModuleCreateInfoNVX.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkCuModuleCreateInfoNVX} instance for the specified memory address. */
     public static VkCuModuleCreateInfoNVX create(long address) {
-        return new VkCuModuleCreateInfoNVX(address, null);
+        return wrap(VkCuModuleCreateInfoNVX.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCuModuleCreateInfoNVX createSafe(long address) {
-        return address == NULL ? null : new VkCuModuleCreateInfoNVX(address, null);
+        return address == NULL ? null : wrap(VkCuModuleCreateInfoNVX.class, address);
     }
 
     /**
@@ -178,7 +169,7 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
      * @param capacity the buffer capacity
      */
     public static VkCuModuleCreateInfoNVX.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -187,7 +178,7 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
      * @param capacity the buffer capacity
      */
     public static VkCuModuleCreateInfoNVX.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -197,7 +188,7 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
      */
     public static VkCuModuleCreateInfoNVX.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -207,13 +198,13 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
      * @param capacity the buffer capacity
      */
     public static VkCuModuleCreateInfoNVX.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCuModuleCreateInfoNVX.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -222,7 +213,7 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
      * @param stack the stack from which to allocate
      */
     public static VkCuModuleCreateInfoNVX malloc(MemoryStack stack) {
-        return new VkCuModuleCreateInfoNVX(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkCuModuleCreateInfoNVX.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -231,7 +222,7 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
      * @param stack the stack from which to allocate
      */
     public static VkCuModuleCreateInfoNVX calloc(MemoryStack stack) {
-        return new VkCuModuleCreateInfoNVX(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkCuModuleCreateInfoNVX.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -241,7 +232,7 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
      * @param capacity the buffer capacity
      */
     public static VkCuModuleCreateInfoNVX.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -251,7 +242,7 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
      * @param capacity the buffer capacity
      */
     public static VkCuModuleCreateInfoNVX.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -263,7 +254,7 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
     /** Unsafe version of {@link #dataSize}. */
     public static long ndataSize(long struct) { return memGetAddress(struct + VkCuModuleCreateInfoNVX.DATASIZE); }
     /** Unsafe version of {@link #pData() pData}. */
-    @Nullable public static ByteBuffer npData(long struct) { return memByteBufferSafe(memGetAddress(struct + VkCuModuleCreateInfoNVX.PDATA), (int)ndataSize(struct)); }
+    public static ByteBuffer npData(long struct) { return memByteBuffer(memGetAddress(struct + VkCuModuleCreateInfoNVX.PDATA), (int)ndataSize(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
     public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCuModuleCreateInfoNVX.STYPE, value); }
@@ -272,7 +263,7 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
     /** Sets the specified value to the {@code dataSize} field of the specified {@code struct}. */
     public static void ndataSize(long struct, long value) { memPutAddress(struct + VkCuModuleCreateInfoNVX.DATASIZE, value); }
     /** Unsafe version of {@link #pData(ByteBuffer) pData}. */
-    public static void npData(long struct, @Nullable ByteBuffer value) { memPutAddress(struct + VkCuModuleCreateInfoNVX.PDATA, memAddressSafe(value)); ndataSize(struct, value == null ? 0 : value.remaining()); }
+    public static void npData(long struct, ByteBuffer value) { memPutAddress(struct + VkCuModuleCreateInfoNVX.PDATA, memAddress(value)); ndataSize(struct, value.remaining()); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -280,9 +271,7 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
      * @param struct the struct to validate
      */
     public static void validate(long struct) {
-        if (ndataSize(struct) != 0) {
-            check(memGetAddress(struct + VkCuModuleCreateInfoNVX.PDATA));
-        }
+        check(memGetAddress(struct + VkCuModuleCreateInfoNVX.PDATA));
     }
 
     // -----------------------------------
@@ -295,9 +284,9 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
         /**
          * Creates a new {@code VkCuModuleCreateInfoNVX.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkCuModuleCreateInfoNVX#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkCuModuleCreateInfoNVX#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -333,7 +322,6 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
         @NativeType("size_t")
         public long dataSize() { return VkCuModuleCreateInfoNVX.ndataSize(address()); }
         /** @return a {@link ByteBuffer} view of the data pointed to by the {@code pData} field. */
-        @Nullable
         @NativeType("void const *")
         public ByteBuffer pData() { return VkCuModuleCreateInfoNVX.npData(address()); }
 
@@ -344,7 +332,7 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
         /** Sets the specified value to the {@code pNext} field. */
         public VkCuModuleCreateInfoNVX.Buffer pNext(@NativeType("void const *") long value) { VkCuModuleCreateInfoNVX.npNext(address(), value); return this; }
         /** Sets the address of the specified {@link ByteBuffer} to the {@code pData} field. */
-        public VkCuModuleCreateInfoNVX.Buffer pData(@Nullable @NativeType("void const *") ByteBuffer value) { VkCuModuleCreateInfoNVX.npData(address(), value); return this; }
+        public VkCuModuleCreateInfoNVX.Buffer pData(@NativeType("void const *") ByteBuffer value) { VkCuModuleCreateInfoNVX.npData(address(), value); return this; }
 
     }
 

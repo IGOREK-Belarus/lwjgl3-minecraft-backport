@@ -12,6 +12,7 @@ import java.nio.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
 
+import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
@@ -26,7 +27,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_EVENT_DATA_SESSION_STATE_CHANGED TYPE_EVENT_DATA_SESSION_STATE_CHANGED}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code session} <b>must</b> be a valid {@code XrSession} handle</li>
+ * <li>{@code state} <b>must</b> be a valid {@code XrSessionState} value</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -44,7 +47,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrTime {@link #time};
  * }</code></pre>
  */
-public class XrEventDataSessionStateChanged extends Struct<XrEventDataSessionStateChanged> implements NativeResource {
+public class XrEventDataSessionStateChanged extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -77,15 +80,6 @@ public class XrEventDataSessionStateChanged extends Struct<XrEventDataSessionSta
         SESSION = layout.offsetof(2);
         STATE = layout.offsetof(3);
         TIME = layout.offsetof(4);
-    }
-
-    protected XrEventDataSessionStateChanged(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrEventDataSessionStateChanged create(long address, @Nullable ByteBuffer container) {
-        return new XrEventDataSessionStateChanged(address, container);
     }
 
     /**
@@ -123,14 +117,26 @@ public class XrEventDataSessionStateChanged extends Struct<XrEventDataSessionSta
     public XrEventDataSessionStateChanged type$Default() { return type(XR10.XR_TYPE_EVENT_DATA_SESSION_STATE_CHANGED); }
     /** Sets the specified value to the {@link #next} field. */
     public XrEventDataSessionStateChanged next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
+    /** Sets the specified value to the {@link #session} field. */
+    public XrEventDataSessionStateChanged session(XrSession value) { nsession(address(), value); return this; }
+    /** Sets the specified value to the {@link #state} field. */
+    public XrEventDataSessionStateChanged state(@NativeType("XrSessionState") int value) { nstate(address(), value); return this; }
+    /** Sets the specified value to the {@link #time} field. */
+    public XrEventDataSessionStateChanged time(@NativeType("XrTime") long value) { ntime(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrEventDataSessionStateChanged set(
         int type,
-        long next
+        long next,
+        XrSession session,
+        int state,
+        long time
     ) {
         type(type);
         next(next);
+        session(session);
+        state(state);
+        time(time);
 
         return this;
     }
@@ -151,34 +157,34 @@ public class XrEventDataSessionStateChanged extends Struct<XrEventDataSessionSta
 
     /** Returns a new {@code XrEventDataSessionStateChanged} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrEventDataSessionStateChanged malloc() {
-        return new XrEventDataSessionStateChanged(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrEventDataSessionStateChanged.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrEventDataSessionStateChanged} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrEventDataSessionStateChanged calloc() {
-        return new XrEventDataSessionStateChanged(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrEventDataSessionStateChanged.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrEventDataSessionStateChanged} instance allocated with {@link BufferUtils}. */
     public static XrEventDataSessionStateChanged create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrEventDataSessionStateChanged(memAddress(container), container);
+        return wrap(XrEventDataSessionStateChanged.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrEventDataSessionStateChanged} instance for the specified memory address. */
     public static XrEventDataSessionStateChanged create(long address) {
-        return new XrEventDataSessionStateChanged(address, null);
+        return wrap(XrEventDataSessionStateChanged.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrEventDataSessionStateChanged createSafe(long address) {
-        return address == NULL ? null : new XrEventDataSessionStateChanged(address, null);
+        return address == NULL ? null : wrap(XrEventDataSessionStateChanged.class, address);
     }
 
     /** Downcasts the specified {@code XrEventDataBaseHeader} instance to {@code XrEventDataSessionStateChanged}. */
     public static XrEventDataSessionStateChanged create(XrEventDataBaseHeader value) {
-        return new XrEventDataSessionStateChanged(value.address(), __getContainer(value));
+        return wrap(XrEventDataSessionStateChanged.class, value);
     }
 
     /**
@@ -187,7 +193,7 @@ public class XrEventDataSessionStateChanged extends Struct<XrEventDataSessionSta
      * @param capacity the buffer capacity
      */
     public static XrEventDataSessionStateChanged.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -196,7 +202,7 @@ public class XrEventDataSessionStateChanged extends Struct<XrEventDataSessionSta
      * @param capacity the buffer capacity
      */
     public static XrEventDataSessionStateChanged.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -206,7 +212,7 @@ public class XrEventDataSessionStateChanged extends Struct<XrEventDataSessionSta
      */
     public static XrEventDataSessionStateChanged.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -216,18 +222,18 @@ public class XrEventDataSessionStateChanged extends Struct<XrEventDataSessionSta
      * @param capacity the buffer capacity
      */
     public static XrEventDataSessionStateChanged.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrEventDataSessionStateChanged.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /** Downcasts the specified {@code XrEventDataBaseHeader.Buffer} instance to {@code XrEventDataSessionStateChanged.Buffer}. */
     public static XrEventDataSessionStateChanged.Buffer create(XrEventDataBaseHeader.Buffer value) {
-        return new XrEventDataSessionStateChanged.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+        return wrap(Buffer.class, value);
     }
 
     /**
@@ -236,7 +242,7 @@ public class XrEventDataSessionStateChanged extends Struct<XrEventDataSessionSta
      * @param stack the stack from which to allocate
      */
     public static XrEventDataSessionStateChanged malloc(MemoryStack stack) {
-        return new XrEventDataSessionStateChanged(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrEventDataSessionStateChanged.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -245,7 +251,7 @@ public class XrEventDataSessionStateChanged extends Struct<XrEventDataSessionSta
      * @param stack the stack from which to allocate
      */
     public static XrEventDataSessionStateChanged calloc(MemoryStack stack) {
-        return new XrEventDataSessionStateChanged(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrEventDataSessionStateChanged.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -255,7 +261,7 @@ public class XrEventDataSessionStateChanged extends Struct<XrEventDataSessionSta
      * @param capacity the buffer capacity
      */
     public static XrEventDataSessionStateChanged.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -265,7 +271,7 @@ public class XrEventDataSessionStateChanged extends Struct<XrEventDataSessionSta
      * @param capacity the buffer capacity
      */
     public static XrEventDataSessionStateChanged.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -285,6 +291,21 @@ public class XrEventDataSessionStateChanged extends Struct<XrEventDataSessionSta
     public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataSessionStateChanged.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataSessionStateChanged.NEXT, value); }
+    /** Unsafe version of {@link #session(XrSession) session}. */
+    public static void nsession(long struct, XrSession value) { memPutAddress(struct + XrEventDataSessionStateChanged.SESSION, value.address()); }
+    /** Unsafe version of {@link #state(int) state}. */
+    public static void nstate(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataSessionStateChanged.STATE, value); }
+    /** Unsafe version of {@link #time(long) time}. */
+    public static void ntime(long struct, long value) { UNSAFE.putLong(null, struct + XrEventDataSessionStateChanged.TIME, value); }
+
+    /**
+     * Validates pointer members that should not be {@code NULL}.
+     *
+     * @param struct the struct to validate
+     */
+    public static void validate(long struct) {
+        check(memGetAddress(struct + XrEventDataSessionStateChanged.SESSION));
+    }
 
     // -----------------------------------
 
@@ -296,9 +317,9 @@ public class XrEventDataSessionStateChanged extends Struct<XrEventDataSessionSta
         /**
          * Creates a new {@code XrEventDataSessionStateChanged.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrEventDataSessionStateChanged#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrEventDataSessionStateChanged#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -346,6 +367,12 @@ public class XrEventDataSessionStateChanged extends Struct<XrEventDataSessionSta
         public XrEventDataSessionStateChanged.Buffer type$Default() { return type(XR10.XR_TYPE_EVENT_DATA_SESSION_STATE_CHANGED); }
         /** Sets the specified value to the {@link XrEventDataSessionStateChanged#next} field. */
         public XrEventDataSessionStateChanged.Buffer next(@NativeType("void const *") long value) { XrEventDataSessionStateChanged.nnext(address(), value); return this; }
+        /** Sets the specified value to the {@link XrEventDataSessionStateChanged#session} field. */
+        public XrEventDataSessionStateChanged.Buffer session(XrSession value) { XrEventDataSessionStateChanged.nsession(address(), value); return this; }
+        /** Sets the specified value to the {@link XrEventDataSessionStateChanged#state} field. */
+        public XrEventDataSessionStateChanged.Buffer state(@NativeType("XrSessionState") int value) { XrEventDataSessionStateChanged.nstate(address(), value); return this; }
+        /** Sets the specified value to the {@link XrEventDataSessionStateChanged#time} field. */
+        public XrEventDataSessionStateChanged.Buffer time(@NativeType("XrTime") long value) { XrEventDataSessionStateChanged.ntime(address(), value); return this; }
 
     }
 

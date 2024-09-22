@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     unsigned long value_mask;
  * }</code></pre>
  */
-public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> implements NativeResource {
+public class XConfigureRequestEvent extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -97,15 +97,6 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
         ABOVE = layout.offsetof(11);
         DETAIL = layout.offsetof(12);
         VALUE_MASK = layout.offsetof(13);
-    }
-
-    protected XConfigureRequestEvent(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XConfigureRequestEvent create(long address, @Nullable ByteBuffer container) {
-        return new XConfigureRequestEvent(address, container);
     }
 
     /**
@@ -237,29 +228,29 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
 
     /** Returns a new {@code XConfigureRequestEvent} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XConfigureRequestEvent malloc() {
-        return new XConfigureRequestEvent(nmemAllocChecked(SIZEOF), null);
+        return wrap(XConfigureRequestEvent.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XConfigureRequestEvent} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XConfigureRequestEvent calloc() {
-        return new XConfigureRequestEvent(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XConfigureRequestEvent.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XConfigureRequestEvent} instance allocated with {@link BufferUtils}. */
     public static XConfigureRequestEvent create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XConfigureRequestEvent(memAddress(container), container);
+        return wrap(XConfigureRequestEvent.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XConfigureRequestEvent} instance for the specified memory address. */
     public static XConfigureRequestEvent create(long address) {
-        return new XConfigureRequestEvent(address, null);
+        return wrap(XConfigureRequestEvent.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XConfigureRequestEvent createSafe(long address) {
-        return address == NULL ? null : new XConfigureRequestEvent(address, null);
+        return address == NULL ? null : wrap(XConfigureRequestEvent.class, address);
     }
 
     /**
@@ -268,7 +259,7 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
      * @param capacity the buffer capacity
      */
     public static XConfigureRequestEvent.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -277,7 +268,7 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
      * @param capacity the buffer capacity
      */
     public static XConfigureRequestEvent.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -287,7 +278,7 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
      */
     public static XConfigureRequestEvent.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -297,13 +288,13 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
      * @param capacity the buffer capacity
      */
     public static XConfigureRequestEvent.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XConfigureRequestEvent.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -331,7 +322,7 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
      * @param stack the stack from which to allocate
      */
     public static XConfigureRequestEvent malloc(MemoryStack stack) {
-        return new XConfigureRequestEvent(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XConfigureRequestEvent.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -340,7 +331,7 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
      * @param stack the stack from which to allocate
      */
     public static XConfigureRequestEvent calloc(MemoryStack stack) {
-        return new XConfigureRequestEvent(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XConfigureRequestEvent.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -350,7 +341,7 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
      * @param capacity the buffer capacity
      */
     public static XConfigureRequestEvent.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -360,7 +351,7 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
      * @param capacity the buffer capacity
      */
     public static XConfigureRequestEvent.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -442,9 +433,9 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
         /**
          * Creates a new {@code XConfigureRequestEvent.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XConfigureRequestEvent#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XConfigureRequestEvent#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

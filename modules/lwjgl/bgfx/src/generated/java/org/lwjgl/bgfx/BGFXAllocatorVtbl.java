@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct bgfx_allocator_vtbl_t")
-public class BGFXAllocatorVtbl extends Struct<BGFXAllocatorVtbl> implements NativeResource {
+public class BGFXAllocatorVtbl extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -48,15 +48,6 @@ public class BGFXAllocatorVtbl extends Struct<BGFXAllocatorVtbl> implements Nati
         ALIGNOF = layout.getAlignment();
 
         REALLOC = layout.offsetof(0);
-    }
-
-    protected BGFXAllocatorVtbl(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected BGFXAllocatorVtbl create(long address, @Nullable ByteBuffer container) {
-        return new BGFXAllocatorVtbl(address, container);
     }
 
     /**
@@ -95,29 +86,29 @@ public class BGFXAllocatorVtbl extends Struct<BGFXAllocatorVtbl> implements Nati
 
     /** Returns a new {@code BGFXAllocatorVtbl} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static BGFXAllocatorVtbl malloc() {
-        return new BGFXAllocatorVtbl(nmemAllocChecked(SIZEOF), null);
+        return wrap(BGFXAllocatorVtbl.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code BGFXAllocatorVtbl} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static BGFXAllocatorVtbl calloc() {
-        return new BGFXAllocatorVtbl(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(BGFXAllocatorVtbl.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code BGFXAllocatorVtbl} instance allocated with {@link BufferUtils}. */
     public static BGFXAllocatorVtbl create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new BGFXAllocatorVtbl(memAddress(container), container);
+        return wrap(BGFXAllocatorVtbl.class, memAddress(container), container);
     }
 
     /** Returns a new {@code BGFXAllocatorVtbl} instance for the specified memory address. */
     public static BGFXAllocatorVtbl create(long address) {
-        return new BGFXAllocatorVtbl(address, null);
+        return wrap(BGFXAllocatorVtbl.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXAllocatorVtbl createSafe(long address) {
-        return address == NULL ? null : new BGFXAllocatorVtbl(address, null);
+        return address == NULL ? null : wrap(BGFXAllocatorVtbl.class, address);
     }
 
     /**
@@ -126,7 +117,7 @@ public class BGFXAllocatorVtbl extends Struct<BGFXAllocatorVtbl> implements Nati
      * @param capacity the buffer capacity
      */
     public static BGFXAllocatorVtbl.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -135,7 +126,7 @@ public class BGFXAllocatorVtbl extends Struct<BGFXAllocatorVtbl> implements Nati
      * @param capacity the buffer capacity
      */
     public static BGFXAllocatorVtbl.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -145,7 +136,7 @@ public class BGFXAllocatorVtbl extends Struct<BGFXAllocatorVtbl> implements Nati
      */
     public static BGFXAllocatorVtbl.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -155,13 +146,13 @@ public class BGFXAllocatorVtbl extends Struct<BGFXAllocatorVtbl> implements Nati
      * @param capacity the buffer capacity
      */
     public static BGFXAllocatorVtbl.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXAllocatorVtbl.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -189,7 +180,7 @@ public class BGFXAllocatorVtbl extends Struct<BGFXAllocatorVtbl> implements Nati
      * @param stack the stack from which to allocate
      */
     public static BGFXAllocatorVtbl malloc(MemoryStack stack) {
-        return new BGFXAllocatorVtbl(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(BGFXAllocatorVtbl.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -198,7 +189,7 @@ public class BGFXAllocatorVtbl extends Struct<BGFXAllocatorVtbl> implements Nati
      * @param stack the stack from which to allocate
      */
     public static BGFXAllocatorVtbl calloc(MemoryStack stack) {
-        return new BGFXAllocatorVtbl(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(BGFXAllocatorVtbl.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -208,7 +199,7 @@ public class BGFXAllocatorVtbl extends Struct<BGFXAllocatorVtbl> implements Nati
      * @param capacity the buffer capacity
      */
     public static BGFXAllocatorVtbl.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -218,7 +209,7 @@ public class BGFXAllocatorVtbl extends Struct<BGFXAllocatorVtbl> implements Nati
      * @param capacity the buffer capacity
      */
     public static BGFXAllocatorVtbl.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -248,9 +239,9 @@ public class BGFXAllocatorVtbl extends Struct<BGFXAllocatorVtbl> implements Nati
         /**
          * Creates a new {@code BGFXAllocatorVtbl.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link BGFXAllocatorVtbl#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link BGFXAllocatorVtbl#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

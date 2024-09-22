@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkDebugUtilsMessengerCallbackDataEXT}, {@link VkDebugUtilsMessengerCreateInfoEXT}</p>
+ * <p>{@link VkDebugUtilsMessengerCreateInfoEXT}</p>
  */
 public abstract class VkDebugUtilsMessengerCallbackEXT extends Callback implements VkDebugUtilsMessengerCallbackEXTI {
 

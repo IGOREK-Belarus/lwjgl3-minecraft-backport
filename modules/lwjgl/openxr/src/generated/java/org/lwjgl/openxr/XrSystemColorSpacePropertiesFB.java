@@ -23,7 +23,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBColorSpace XR_FB_color_space} extension <b>must</b> be enabled prior to using {@link XrSystemColorSpacePropertiesFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBColorSpace#XR_TYPE_SYSTEM_COLOR_SPACE_PROPERTIES_FB TYPE_SYSTEM_COLOR_SPACE_PROPERTIES_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code colorSpace} <b>must</b> be a valid {@code XrColorSpaceFB} value</li>
  * </ul>
  * 
  * <h3>Layout</h3>
@@ -35,7 +36,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrColorSpaceFB {@link #colorSpace};
  * }</code></pre>
  */
-public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePropertiesFB> implements NativeResource {
+public class XrSystemColorSpacePropertiesFB extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -62,15 +63,6 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
         COLORSPACE = layout.offsetof(2);
-    }
-
-    protected XrSystemColorSpacePropertiesFB(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSystemColorSpacePropertiesFB create(long address, @Nullable ByteBuffer container) {
-        return new XrSystemColorSpacePropertiesFB(address, container);
     }
 
     /**
@@ -102,14 +94,18 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
     public XrSystemColorSpacePropertiesFB type$Default() { return type(FBColorSpace.XR_TYPE_SYSTEM_COLOR_SPACE_PROPERTIES_FB); }
     /** Sets the specified value to the {@link #next} field. */
     public XrSystemColorSpacePropertiesFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
+    /** Sets the specified value to the {@link #colorSpace} field. */
+    public XrSystemColorSpacePropertiesFB colorSpace(@NativeType("XrColorSpaceFB") int value) { ncolorSpace(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrSystemColorSpacePropertiesFB set(
         int type,
-        long next
+        long next,
+        int colorSpace
     ) {
         type(type);
         next(next);
+        colorSpace(colorSpace);
 
         return this;
     }
@@ -130,29 +126,29 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
 
     /** Returns a new {@code XrSystemColorSpacePropertiesFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSystemColorSpacePropertiesFB malloc() {
-        return new XrSystemColorSpacePropertiesFB(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSystemColorSpacePropertiesFB.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSystemColorSpacePropertiesFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSystemColorSpacePropertiesFB calloc() {
-        return new XrSystemColorSpacePropertiesFB(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSystemColorSpacePropertiesFB.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSystemColorSpacePropertiesFB} instance allocated with {@link BufferUtils}. */
     public static XrSystemColorSpacePropertiesFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSystemColorSpacePropertiesFB(memAddress(container), container);
+        return wrap(XrSystemColorSpacePropertiesFB.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSystemColorSpacePropertiesFB} instance for the specified memory address. */
     public static XrSystemColorSpacePropertiesFB create(long address) {
-        return new XrSystemColorSpacePropertiesFB(address, null);
+        return wrap(XrSystemColorSpacePropertiesFB.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSystemColorSpacePropertiesFB createSafe(long address) {
-        return address == NULL ? null : new XrSystemColorSpacePropertiesFB(address, null);
+        return address == NULL ? null : wrap(XrSystemColorSpacePropertiesFB.class, address);
     }
 
     /**
@@ -161,7 +157,7 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
      * @param capacity the buffer capacity
      */
     public static XrSystemColorSpacePropertiesFB.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -170,7 +166,7 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
      * @param capacity the buffer capacity
      */
     public static XrSystemColorSpacePropertiesFB.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -180,7 +176,7 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
      */
     public static XrSystemColorSpacePropertiesFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -190,13 +186,13 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
      * @param capacity the buffer capacity
      */
     public static XrSystemColorSpacePropertiesFB.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSystemColorSpacePropertiesFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -205,7 +201,7 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
      * @param stack the stack from which to allocate
      */
     public static XrSystemColorSpacePropertiesFB malloc(MemoryStack stack) {
-        return new XrSystemColorSpacePropertiesFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSystemColorSpacePropertiesFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -214,7 +210,7 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
      * @param stack the stack from which to allocate
      */
     public static XrSystemColorSpacePropertiesFB calloc(MemoryStack stack) {
-        return new XrSystemColorSpacePropertiesFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSystemColorSpacePropertiesFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -224,7 +220,7 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
      * @param capacity the buffer capacity
      */
     public static XrSystemColorSpacePropertiesFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -234,7 +230,7 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
      * @param capacity the buffer capacity
      */
     public static XrSystemColorSpacePropertiesFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -250,6 +246,8 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
     public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemColorSpacePropertiesFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemColorSpacePropertiesFB.NEXT, value); }
+    /** Unsafe version of {@link #colorSpace(int) colorSpace}. */
+    public static void ncolorSpace(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemColorSpacePropertiesFB.COLORSPACE, value); }
 
     // -----------------------------------
 
@@ -261,9 +259,9 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
         /**
          * Creates a new {@code XrSystemColorSpacePropertiesFB.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSystemColorSpacePropertiesFB#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSystemColorSpacePropertiesFB#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -305,6 +303,8 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
         public XrSystemColorSpacePropertiesFB.Buffer type$Default() { return type(FBColorSpace.XR_TYPE_SYSTEM_COLOR_SPACE_PROPERTIES_FB); }
         /** Sets the specified value to the {@link XrSystemColorSpacePropertiesFB#next} field. */
         public XrSystemColorSpacePropertiesFB.Buffer next(@NativeType("void *") long value) { XrSystemColorSpacePropertiesFB.nnext(address(), value); return this; }
+        /** Sets the specified value to the {@link XrSystemColorSpacePropertiesFB#colorSpace} field. */
+        public XrSystemColorSpacePropertiesFB.Buffer colorSpace(@NativeType("XrColorSpaceFB") int value) { XrSystemColorSpacePropertiesFB.ncolorSpace(address(), value); return this; }
 
     }
 

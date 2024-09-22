@@ -103,16 +103,6 @@ val LLVMDebugInfo = "LLVMDebugInfo".nativeClass(
         "DWARFSourceLanguageFortran08".enum("New in DWARF v5:"),
         "DWARFSourceLanguageRenderScript".enum("New in DWARF v5:"),
         "DWARFSourceLanguageBLISS".enum("New in DWARF v5:"),
-        "DWARFSourceLanguageKotlin".enum,
-        "DWARFSourceLanguageZig".enum,
-        "DWARFSourceLanguageCrystal".enum,
-        "DWARFSourceLanguageC_plus_plus_17".enum,
-        "DWARFSourceLanguageC_plus_plus_20".enum,
-        "DWARFSourceLanguageC17".enum,
-        "DWARFSourceLanguageFortran18".enum,
-        "DWARFSourceLanguageAda2005".enum,
-        "DWARFSourceLanguageAda2012".enum,
-        "DWARFSourceLanguageMojo".enum,
         "DWARFSourceLanguageMips_Assembler".enum("Vendor extensions:"),
         "DWARFSourceLanguageGOOGLE_RenderScript".enum("Vendor extensions:"),
         "DWARFSourceLanguageBORLAND_Delphi".enum("Vendor extensions:")
@@ -167,8 +157,7 @@ val LLVMDebugInfo = "LLVMDebugInfo".nativeClass(
         "DICommonBlockMetadataKind".enum,
         "DIStringTypeMetadataKind".enum,
         "DIGenericSubrangeMetadataKind".enum,
-        "DIArgListMetadataKind".enum,
-        "DIAssignIDMetadataKind".enum
+        "DIArgListMetadataKind".enum
     )
 
     EnumConstant(
@@ -221,7 +210,8 @@ val LLVMDebugInfo = "LLVMDebugInfo".nativeClass(
     LLVMDIBuilderRef(
         "CreateDIBuilder",
         """
-        Construct a builder for a module and collect unresolved nodes attached to the module in order to resolve cycles during a call to #DIBuilderFinalize().
+        Construct a builder for a module and collect unresolved nodes attached to the module in order to resolve cycles during a call to {@code
+        LLVMDIBuilderFinalize}.
         """,
 
         LLVMModuleRef("M", "")
@@ -232,7 +222,7 @@ val LLVMDebugInfo = "LLVMDebugInfo".nativeClass(
         """
         Deallocates the {@code DIBuilder} and everything it owns.
 
-        ${note("""You must call #DIBuilderFinalize() before this""")}
+        ${note("""You must call {@code #DIBuilderFinalize()} before this""")}
         """,
 
         LLVMDIBuilderRef("Builder", "")
@@ -243,18 +233,6 @@ val LLVMDebugInfo = "LLVMDebugInfo".nativeClass(
         "Construct any deferred debug info descriptors.",
 
         LLVMDIBuilderRef("Builder", "")
-    )
-
-    IgnoreMissing..void(
-        "DIBuilderFinalizeSubprogram",
-        """
-        Finalize a specific subprogram.
-
-        No new variables may be added to this subprogram afterwards.
-        """,
-
-        LLVMDIBuilderRef("Builder", ""),
-        LLVMMetadataRef("Subprogram", "")
     )
 
     LLVMMetadataRef(
@@ -386,9 +364,7 @@ val LLVMDebugInfo = "LLVMDebugInfo".nativeClass(
         LLVMMetadataRef("Scope", "the scope this module is imported into"),
         LLVMMetadataRef("ImportedEntity", "previous imported entity to alias"),
         LLVMMetadataRef("File", "file where the declaration is located"),
-        unsigned_int("Line", "line number of the declaration"),
-        nullable..LLVMMetadataRef.p("Elements", "renamed elements"),
-        AutoSize("Elements")..unsigned("NumElements", "number of renamed elements")
+        unsigned_int("Line", "line number of the declaration")
     )
 
     LLVMMetadataRef(
@@ -399,14 +375,12 @@ val LLVMDebugInfo = "LLVMDebugInfo".nativeClass(
         LLVMMetadataRef("Scope", "the scope this module is imported into"),
         LLVMMetadataRef("M", "the module being imported here"),
         LLVMMetadataRef("File", "file where the declaration is located"),
-        unsigned_int("Line", "line number of the declaration"),
-        nullable..LLVMMetadataRef.p("Elements", "renamed elements"),
-        AutoSize("Elements")..unsigned("NumElements", "number of renamed elements")
+        unsigned_int("Line", "line number of the declaration")
     )
 
     LLVMMetadataRef(
         "DIBuilderCreateImportedDeclaration",
-        "Create a descriptor for an imported function, type, or variable. Suitable for e.g. FORTRAN-style USE declarations.",
+        "Create a descriptor for an imported function, type, or variable.  Suitable for e.g. FORTRAN-style USE declarations.",
 
         LLVMDIBuilderRef("Builder", "the DIBuilder"),
         LLVMMetadataRef("Scope", "the scope this module is imported into"),
@@ -414,9 +388,7 @@ val LLVMDebugInfo = "LLVMDebugInfo".nativeClass(
         LLVMMetadataRef("File", "file where the declaration is located"),
         unsigned_int("Line", "line number of the declaration"),
         charUTF8.const.p("Name", "a name that uniquely identifies this imported declaration"),
-        AutoSize("Name")..size_t("NameLen", "the length of the C string passed to {@code Name}"),
-        nullable..LLVMMetadataRef.p("Elements", "renamed elements"),
-        AutoSize("Elements")..unsigned("NumElements", "number of renamed elements")
+        AutoSize("Name")..size_t("NameLen", "the length of the C string passed to {@code Name}")
     )
 
     LLVMMetadataRef(
@@ -997,7 +969,7 @@ val LLVMDebugInfo = "LLVMDebugInfo".nativeClass(
         "Create a new descriptor for the specified variable which has a complex address expression for its address.",
 
         LLVMDIBuilderRef("Builder", "the DIBuilder"),
-        uint64_t.p("Addr", "an array of complex address operations"),
+        int64_t.p("Addr", "an array of complex address operations"),
         AutoSize("Addr")..size_t("Length", "length of the address operation array")
     )
 
@@ -1006,7 +978,7 @@ val LLVMDebugInfo = "LLVMDebugInfo".nativeClass(
         "Create a new descriptor for the specified variable that does not have an address, but does have a constant value.",
 
         LLVMDIBuilderRef("Builder", "the DIBuilder"),
-        uint64_t("Value", "the constant value")
+        int64_t("Value", "the constant value")
     )
 
     LLVMMetadataRef(
@@ -1026,15 +998,6 @@ val LLVMDebugInfo = "LLVMDebugInfo".nativeClass(
         LLVMMetadataRef("Expr", "the location of the global relative to the attached GlobalVariable"),
         LLVMMetadataRef("Decl", "reference to the corresponding declaration. variables."),
         uint32_t("AlignInBits", "variable alignment(or 0 if no alignment attr was specified)")
-    )
-
-    IgnoreMissing..uint16_t(
-        "GetDINodeTag",
-        "Get the {@code dwarf::Tag} of a {@code DINode}",
-
-        LLVMMetadataRef("MD", ""),
-
-        since = "17"
     )
 
     IgnoreMissing..LLVMMetadataRef(

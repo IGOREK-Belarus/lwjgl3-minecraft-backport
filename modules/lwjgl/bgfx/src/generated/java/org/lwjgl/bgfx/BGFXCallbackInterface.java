@@ -31,7 +31,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct bgfx_callback_interface_t")
-public class BGFXCallbackInterface extends Struct<BGFXCallbackInterface> implements NativeResource {
+public class BGFXCallbackInterface extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -52,15 +52,6 @@ public class BGFXCallbackInterface extends Struct<BGFXCallbackInterface> impleme
         ALIGNOF = layout.getAlignment();
 
         VTBL = layout.offsetof(0);
-    }
-
-    protected BGFXCallbackInterface(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected BGFXCallbackInterface create(long address, @Nullable ByteBuffer container) {
-        return new BGFXCallbackInterface(address, container);
     }
 
     /**
@@ -99,29 +90,29 @@ public class BGFXCallbackInterface extends Struct<BGFXCallbackInterface> impleme
 
     /** Returns a new {@code BGFXCallbackInterface} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static BGFXCallbackInterface malloc() {
-        return new BGFXCallbackInterface(nmemAllocChecked(SIZEOF), null);
+        return wrap(BGFXCallbackInterface.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code BGFXCallbackInterface} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static BGFXCallbackInterface calloc() {
-        return new BGFXCallbackInterface(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(BGFXCallbackInterface.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code BGFXCallbackInterface} instance allocated with {@link BufferUtils}. */
     public static BGFXCallbackInterface create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new BGFXCallbackInterface(memAddress(container), container);
+        return wrap(BGFXCallbackInterface.class, memAddress(container), container);
     }
 
     /** Returns a new {@code BGFXCallbackInterface} instance for the specified memory address. */
     public static BGFXCallbackInterface create(long address) {
-        return new BGFXCallbackInterface(address, null);
+        return wrap(BGFXCallbackInterface.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXCallbackInterface createSafe(long address) {
-        return address == NULL ? null : new BGFXCallbackInterface(address, null);
+        return address == NULL ? null : wrap(BGFXCallbackInterface.class, address);
     }
 
     // -----------------------------------
@@ -142,7 +133,7 @@ public class BGFXCallbackInterface extends Struct<BGFXCallbackInterface> impleme
      * @param stack the stack from which to allocate
      */
     public static BGFXCallbackInterface malloc(MemoryStack stack) {
-        return new BGFXCallbackInterface(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(BGFXCallbackInterface.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -151,7 +142,7 @@ public class BGFXCallbackInterface extends Struct<BGFXCallbackInterface> impleme
      * @param stack the stack from which to allocate
      */
     public static BGFXCallbackInterface calloc(MemoryStack stack) {
-        return new BGFXCallbackInterface(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(BGFXCallbackInterface.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     // -----------------------------------

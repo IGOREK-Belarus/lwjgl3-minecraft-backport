@@ -11,7 +11,6 @@ import java.nio.file.*;
 import java.util.function.*;
 
 import static org.lwjgl.system.APIUtil.*;
-import static org.lwjgl.system.Checks.*;
 
 /**
  * Handles loading of native resources in LWJGL. [INTERNAL USE ONLY]
@@ -69,13 +68,8 @@ public final class LibraryResource {
 
     @SuppressWarnings("try")
     private static Path load(Class<?> context, String module, String name, boolean bundledWithLWJGL, boolean printError) {
-        if (DEBUG) {
-            DEBUG_STREAM.print(
-                "[LWJGL] Loading library resource: " + name +
-                "\n\tModule: " + module +
-                "\n"
-            );
-        }
+        apiLog("Loading library resource: " + name);
+        apiLog("\tModule: " + module);
 
         // METHOD 1: absolute path
         Path path = Paths.get(name);
@@ -86,7 +80,7 @@ public final class LibraryResource {
                 }
                 throw new IllegalStateException("Failed to locate library resource: " + name);
             }
-            apiLogMore("Success");
+            apiLog("\tSuccess");
             return path;
         }
 
@@ -102,14 +96,14 @@ public final class LibraryResource {
             try {
                 String regular = Library.getRegularFilePath(resourceURL);
                 if (regular != null) {
-                    apiLogMore("Loaded from classpath: " + regular);
+                    apiLog("\tLoaded from classpath: " + regular);
                     return Paths.get(regular);
                 }
 
                 // Always use the SLL if the resource is found in the classpath,
                 // so that newer versions can be detected.
                 if (debugLoader) {
-                    apiLogMore("Using SharedLibraryLoader...");
+                    apiLog("\tUsing SharedLibraryLoader...");
                 }
                 // Extract from classpath and try org.lwjgl.librarypath
                 try (FileChannel ignored = SharedLibraryLoader.load(name, name, resourceURL, null)) {
@@ -153,11 +147,11 @@ public final class LibraryResource {
     private static Path load(String module, String name, boolean bundledWithLWJGL, String property, String paths) {
         Path resource = Library.findFile(paths, module, name, bundledWithLWJGL);
         if (resource == null) {
-            apiLogMore(name + " not found in " + property + "=" + paths);
+            apiLog(String.format("\t%s not found in %s=%s", name, property, paths));
             return null;
         }
 
-        apiLogMore("Loaded from " + property + ": " + resource);
+        apiLog(String.format("\tLoaded from %s: %s", property, resource));
         return resource;
     }
 

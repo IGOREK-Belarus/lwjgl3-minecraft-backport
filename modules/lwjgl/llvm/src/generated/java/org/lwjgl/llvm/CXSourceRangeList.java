@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     {@link CXSourceRange CXSourceRange} * {@link #ranges};
  * }</code></pre>
  */
-public class CXSourceRangeList extends Struct<CXSourceRangeList> {
+public class CXSourceRangeList extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -48,15 +48,6 @@ public class CXSourceRangeList extends Struct<CXSourceRangeList> {
 
         COUNT = layout.offsetof(0);
         RANGES = layout.offsetof(1);
-    }
-
-    protected CXSourceRangeList(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CXSourceRangeList create(long address, @Nullable ByteBuffer container) {
-        return new CXSourceRangeList(address, container);
     }
 
     /**
@@ -83,13 +74,13 @@ public class CXSourceRangeList extends Struct<CXSourceRangeList> {
 
     /** Returns a new {@code CXSourceRangeList} instance for the specified memory address. */
     public static CXSourceRangeList create(long address) {
-        return new CXSourceRangeList(address, null);
+        return wrap(CXSourceRangeList.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CXSourceRangeList createSafe(long address) {
-        return address == NULL ? null : new CXSourceRangeList(address, null);
+        return address == NULL ? null : wrap(CXSourceRangeList.class, address);
     }
 
     /**
@@ -99,13 +90,13 @@ public class CXSourceRangeList extends Struct<CXSourceRangeList> {
      * @param capacity the buffer capacity
      */
     public static CXSourceRangeList.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CXSourceRangeList.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -125,9 +116,9 @@ public class CXSourceRangeList extends Struct<CXSourceRangeList> {
         /**
          * Creates a new {@code CXSourceRangeList.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CXSourceRangeList#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CXSourceRangeList#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -59,12 +59,9 @@ val deployment = when {
 println("${deployment.type.name} BUILD")
 
 enum class Platforms(val classifier: String) {
-    FREEBSD("freebsd"),
     LINUX("linux"),
     LINUX_ARM64("linux-arm64"),
     LINUX_ARM32("linux-arm32"),
-    LINUX_PPC64LE("linux-ppc64le"),
-    LINUX_RISCV64("linux-riscv64"),
     MACOS("macos"),
     MACOS_ARM64("macos-arm64"),
     WINDOWS("windows"),
@@ -91,8 +88,7 @@ enum class Artifacts(
     BGFX(
         "lwjgl-bgfx", "LWJGL - bgfx bindings",
         "A cross-platform, graphics API agnostic rendering library. It provides a high performance, low level abstraction for common platform graphics APIs like OpenGL, Direct3D and Apple Metal.",
-        Platforms.FREEBSD,
-        Platforms.LINUX, Platforms.LINUX_ARM64, Platforms.LINUX_ARM32, Platforms.LINUX_PPC64LE, Platforms.LINUX_RISCV64,
+        Platforms.LINUX, Platforms.LINUX_ARM64, Platforms.LINUX_ARM32,
         Platforms.MACOS, Platforms.MACOS_ARM64,
         Platforms.WINDOWS, Platforms.WINDOWS_X86
     ),
@@ -104,28 +100,9 @@ enum class Artifacts(
         "lwjgl-egl", "LWJGL - EGL bindings",
         "An interface between Khronos rendering APIs such as OpenGL ES or OpenVG and the underlying native platform window system."
     ),
-    FMOD(
-        "lwjgl-fmod", "LWJGL - FMOD bindings",
-        "An end-to-end solution for adding sound and music to any game."
-    ),
-    FREETYPE(
-        "lwjgl-freetype", "LWJGL - FreeType bindings",
-        "A freely available software library to render fonts.",
-        *Platforms.ALL
-    ),
     GLFW(
         "lwjgl-glfw", "LWJGL - GLFW bindings",
         "A multi-platform library for OpenGL, OpenGL ES and Vulkan development on the desktop. It provides a simple API for creating windows, contexts and surfaces, receiving input and events.",
-        *Platforms.ALL
-    ),
-    HARFBUZZ(
-        "lwjgl-harfbuzz", "LWJGL - HarfBuzz bindings",
-        "A text shaping library that allows programs to convert a sequence of Unicode input into properly formatted and positioned glyph output — for any writing system and language.",
-        *Platforms.ALL
-    ),
-    HWLOC(
-        "lwjgl-hwloc", "LWJGL - hwloc bindings",
-        "A portable abstraction of the hierarchical topology of modern architectures, including NUMA memory nodes, sockets, shared caches, cores and simultaneous multithreading.",
         *Platforms.ALL
     ),
     JAWT(
@@ -136,14 +113,6 @@ enum class Artifacts(
         "lwjgl-jemalloc", "LWJGL - jemalloc bindings",
         "A general purpose malloc implementation that emphasizes fragmentation avoidance and scalable concurrency support.",
         *Platforms.ALL
-    ),
-    KTX(
-        "lwjgl-ktx", "LWJGL - KTX (Khronos Texture) bindings",
-        "A lightweight container for textures for OpenGL®, Vulkan® and other GPU APIs.",
-        Platforms.FREEBSD,
-        Platforms.LINUX, Platforms.LINUX_ARM64, Platforms.LINUX_ARM32, Platforms.LINUX_PPC64LE, Platforms.LINUX_RISCV64,
-        Platforms.MACOS, Platforms.MACOS_ARM64,
-        Platforms.WINDOWS, Platforms.WINDOWS_ARM64
     ),
     LIBDIVIDE(
         "lwjgl-libdivide", "LWJGL - libdivide bindings",
@@ -168,7 +137,6 @@ enum class Artifacts(
     MEOW(
         "lwjgl-meow", "LWJGL - Meow hash bindings",
         "An extremely fast non-cryptographic hash.",
-        Platforms.FREEBSD,
         Platforms.LINUX, Platforms.LINUX_ARM64,
         Platforms.MACOS, Platforms.MACOS_ARM64,
         Platforms.WINDOWS, Platforms.WINDOWS_X86, Platforms.WINDOWS_ARM64
@@ -178,11 +146,6 @@ enum class Artifacts(
         "A library that provides algorithms to help optimize meshes.",
         *Platforms.ALL
     ),
-    MSDFGEN(
-        "lwjgl-msdfgen", "LWJGL - msdfgen bindings",
-        "Multi-channel signed distance field generator.",
-        *Platforms.ALL
-    ),
     NANOVG(
         "lwjgl-nanovg", "LWJGL - NanoVG & NanoSVG bindings",
         "A small antialiased vector graphics rendering library for OpenGL. Also includes NanoSVG, a simple SVG parser.",
@@ -190,7 +153,7 @@ enum class Artifacts(
     ),
     NFD(
         "lwjgl-nfd", "LWJGL - Native File Dialog bindings",
-        "A small C library that portably invokes native file open, folder select and file save dialogs.",
+        "A tiny, neat C library that portably invokes native file open and save dialogs.",
         *Platforms.ALL
     ),
     NUKLEAR(
@@ -224,13 +187,12 @@ enum class Artifacts(
     OPENVR(
         "lwjgl-openvr", "LWJGL - OpenVR bindings",
         "An API and runtime that allows access to VR hardware from multiple vendors without requiring that applications have specific knowledge of the hardware they are targeting.",
-        Platforms.LINUX, Platforms.LINUX_ARM64, Platforms.MACOS, Platforms.WINDOWS, Platforms.WINDOWS_X86
+        Platforms.LINUX, Platforms.MACOS, Platforms.WINDOWS, Platforms.WINDOWS_X86
     ),
     OPENXR(
         "lwjgl-openxr", "LWJGL - OpenXR bindings",
         "A royalty-free, open standard that provides high-performance access to Augmented Reality (AR) and Virtual Reality (VR)—collectively known as XR—platforms and devices.",
-        Platforms.FREEBSD,
-        Platforms.LINUX, Platforms.LINUX_ARM64, Platforms.LINUX_ARM32, Platforms.LINUX_PPC64LE, Platforms.LINUX_RISCV64,
+        Platforms.LINUX, Platforms.LINUX_ARM64, Platforms.LINUX_ARM32,
         Platforms.WINDOWS, Platforms.WINDOWS_X86, Platforms.WINDOWS_ARM64
     ),
     OPUS(
@@ -251,8 +213,7 @@ enum class Artifacts(
     REMOTERY(
         "lwjgl-remotery", "LWJGL - Remotery bindings",
         "A realtime CPU/GPU profiler hosted in a single C file with a viewer that runs in a web browser.",
-        Platforms.FREEBSD,
-        Platforms.LINUX, Platforms.LINUX_ARM64, Platforms.LINUX_ARM32, Platforms.LINUX_PPC64LE, Platforms.LINUX_RISCV64,
+        Platforms.LINUX, Platforms.LINUX_ARM64, Platforms.LINUX_ARM32,
         Platforms.MACOS, Platforms.MACOS_ARM64,
         Platforms.WINDOWS, Platforms.WINDOWS_X86
     ),
@@ -274,7 +235,7 @@ enum class Artifacts(
     SSE(
         "lwjgl-sse", "LWJGL - SSE bindings",
         "Simple SSE intrinsics.",
-        Platforms.FREEBSD, Platforms.LINUX, Platforms.MACOS, Platforms.WINDOWS, Platforms.WINDOWS_X86
+        Platforms.LINUX, Platforms.MACOS, Platforms.WINDOWS, Platforms.WINDOWS_X86
     ),
     STB(
         "lwjgl-stb", "LWJGL - stb bindings",
@@ -294,7 +255,7 @@ enum class Artifacts(
     TOOTLE(
         "lwjgl-tootle", "LWJGL - AMD Tootle bindings",
         "A 3D triangle mesh optimization library that improves on existing mesh preprocessing techniques.",
-        Platforms.FREEBSD, Platforms.LINUX, Platforms.MACOS, Platforms.WINDOWS, Platforms.WINDOWS_X86
+        Platforms.LINUX, Platforms.MACOS, Platforms.WINDOWS, Platforms.WINDOWS_X86
     ),
     VMA(
         "lwjgl-vma", "LWJGL - Vulkan Memory Allocator bindings",
@@ -399,7 +360,7 @@ publishing {
 
             licenses {
                 license {
-                    name.set("BSD-3-Clause")
+                    name.set("BSD")
                     url.set("https://www.lwjgl.org/license")
                     distribution.set("repo")
                 }

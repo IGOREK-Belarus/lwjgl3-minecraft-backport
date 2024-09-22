@@ -213,30 +213,12 @@ abstract class GeneratorTarget(
 
     abstract fun PrintWriter.generateJava()
 
-    open fun processDocumentation(documentation: String, forcePackage: Boolean = false): String {
-        processSeeLinks("", "", forcePackage)
-        return processDocumentation(documentation, "", "", forcePackage)
-    }
+    open fun processDocumentation(documentation: String, forcePackage: Boolean = false): String = processDocumentation(documentation, "", "", forcePackage)
 
     open fun getFieldLink(field: String): String? = null
     open fun getMethodLink(method: String): String? = null
 
-    protected fun processSeeLinks(prefixConstant: String, prefixMethod: String, forcePackage: Boolean = false) {
-        val see = this.see
-        if (see != null) {
-            for (i in see.indices) {
-                see[i] = processDocumentation(see[i], prefixConstant, prefixMethod, forcePackage, false)
-            }
-        }
-    }
-
-    protected fun processDocumentation(
-        documentation: String,
-        prefixConstant: String,
-        prefixMethod: String,
-        forcePackage: Boolean = false,
-        javadocLinkWrap: Boolean = true
-    ) = documentation.replace(LINKS) { match ->
+    protected fun processDocumentation(documentation: String, prefixConstant: String, prefixMethod: String, forcePackage: Boolean = false) = documentation.replace(LINKS) { match ->
         /*
         # - normal link, apply prefix
         ## - custom link, do not transform
@@ -287,50 +269,51 @@ abstract class GeneratorTarget(
                         else
                             prefix = ""
                     }
-                    linkType.create(this.className, prefix, className, classElement, if (this is NativeClass) this.postfix else "", !javadocLinkWrap)
+                    linkType.create(this.className, prefix, className, classElement, if (this is NativeClass) this.postfix else "", custom = false)
                 } else if (hashes == 2 && className.isEmpty() && linkType === LinkType.FIELD)
-                    classElement
+                    "{@link $classElement}"
                 else
                     throw IllegalStateException("Unsupported link syntax: ${match.value} in ${this.className}")
             }.let {
-                val link = if (javadocLinkWrap) "{@link $it}" else it
                 if (linkMethod[0] == '@')
-                    "see $link"
+                    "see $it"
                 else
-                    link
+                    it
             }
         }
     }
 
     private enum class LinkType {
         FIELD {
-            override fun create(sourceName: String, sourcePrefix: String, className: String?, classElement: String, postfix: String, skipAlias: Boolean): String {
+            override fun create(sourceName: String, sourcePrefix: String, className: String?, classElement: String, postfix: String, custom: Boolean): String {
                 val source = if (className == null || className == sourceName) "" else className
+                val prefix = if (custom) "" else sourcePrefix
 
-                return "$source#$sourcePrefix$classElement${if (skipAlias || sourcePrefix.isEmpty()) "" else " $classElement"}"
+                return "{@link $source#$prefix$classElement${if (custom || prefix.isEmpty()) "" else " $classElement"}}"
             }
         },
         METHOD {
-            override fun create(sourceName: String, sourcePrefix: String, className: String?, classElement: String, postfix: String, skipAlias: Boolean): String {
+            override fun create(sourceName: String, sourcePrefix: String, className: String?, classElement: String, postfix: String, custom: Boolean): String {
                 val source = if (className == null || className == sourceName) "" else className
+                val prefix = if (custom) "" else sourcePrefix
 
                 val parentheses = classElement.indexOf('(')
                 check(parentheses != -1) {
-                    "Invalid method link: $this#$sourcePrefix$classElement"
+                    "Invalid method link: $this#$prefix$classElement"
                 }
 
                 val name = classElement.substring(0, parentheses)
 
                 val hasParams = parentheses < classElement.length - 2
-                return "$source#$sourcePrefix$name${if (hasParams) classElement.substring(parentheses) else ""}${when {
-                    hasParams || skipAlias || sourcePrefix.isEmpty()
+                return "{@link $source#$prefix$name${if (hasParams) classElement.substring(parentheses) else ""}${when {
+                    hasParams || custom || prefix.isEmpty()
                          -> ""
                     else -> " $name"
-                }}"
+                }}}"
             }
         };
 
-        abstract fun create(sourceName: String, sourcePrefix: String, className: String?, classElement: String, postfix: String, skipAlias: Boolean): String
+        abstract fun create(sourceName: String, sourcePrefix: String, className: String?, classElement: String, postfix: String, custom: Boolean): String
     }
 
 }

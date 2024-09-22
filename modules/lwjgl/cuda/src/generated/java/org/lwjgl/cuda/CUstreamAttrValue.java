@@ -16,15 +16,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
+ * Stream attributes union, used with {@link CU#cuStreamSetAttribute StreamSetAttribute}/{@link CU#cuStreamGetAttribute StreamGetAttribute}.
+ * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * union CUstreamAttrValue {
- *     {@link CUaccessPolicyWindow CUaccessPolicyWindow} accessPolicyWindow;
- *     CUsynchronizationPolicy syncPolicy;
+ *     {@link CUaccessPolicyWindow CUaccessPolicyWindow} {@link #accessPolicyWindow};
+ *     CUsynchronizationPolicy {@link #syncPolicy};
  * }</code></pre>
  */
-public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements NativeResource {
+public class CUstreamAttrValue extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -50,15 +52,6 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
         SYNCPOLICY = layout.offsetof(1);
     }
 
-    protected CUstreamAttrValue(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CUstreamAttrValue create(long address, @Nullable ByteBuffer container) {
-        return new CUstreamAttrValue(address, container);
-    }
-
     /**
      * Creates a {@code CUstreamAttrValue} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -72,17 +65,17 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return a {@link CUaccessPolicyWindow} view of the {@code accessPolicyWindow} field. */
+    /** attribute {@link CUaccessPolicyWindow} */
     public CUaccessPolicyWindow accessPolicyWindow() { return naccessPolicyWindow(address()); }
-    /** @return the value of the {@code syncPolicy} field. */
+    /** value for {@link CU#CU_STREAM_ATTRIBUTE_SYNCHRONIZATION_POLICY STREAM_ATTRIBUTE_SYNCHRONIZATION_POLICY} */
     @NativeType("CUsynchronizationPolicy")
     public int syncPolicy() { return nsyncPolicy(address()); }
 
-    /** Copies the specified {@link CUaccessPolicyWindow} to the {@code accessPolicyWindow} field. */
+    /** Copies the specified {@link CUaccessPolicyWindow} to the {@link #accessPolicyWindow} field. */
     public CUstreamAttrValue accessPolicyWindow(CUaccessPolicyWindow value) { naccessPolicyWindow(address(), value); return this; }
-    /** Passes the {@code accessPolicyWindow} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@link #accessPolicyWindow} field to the specified {@link java.util.function.Consumer Consumer}. */
     public CUstreamAttrValue accessPolicyWindow(java.util.function.Consumer<CUaccessPolicyWindow> consumer) { consumer.accept(accessPolicyWindow()); return this; }
-    /** Sets the specified value to the {@code syncPolicy} field. */
+    /** Sets the specified value to the {@link #syncPolicy} field. */
     public CUstreamAttrValue syncPolicy(@NativeType("CUsynchronizationPolicy") int value) { nsyncPolicy(address(), value); return this; }
 
     /**
@@ -101,29 +94,29 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
 
     /** Returns a new {@code CUstreamAttrValue} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CUstreamAttrValue malloc() {
-        return new CUstreamAttrValue(nmemAllocChecked(SIZEOF), null);
+        return wrap(CUstreamAttrValue.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code CUstreamAttrValue} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CUstreamAttrValue calloc() {
-        return new CUstreamAttrValue(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(CUstreamAttrValue.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code CUstreamAttrValue} instance allocated with {@link BufferUtils}. */
     public static CUstreamAttrValue create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new CUstreamAttrValue(memAddress(container), container);
+        return wrap(CUstreamAttrValue.class, memAddress(container), container);
     }
 
     /** Returns a new {@code CUstreamAttrValue} instance for the specified memory address. */
     public static CUstreamAttrValue create(long address) {
-        return new CUstreamAttrValue(address, null);
+        return wrap(CUstreamAttrValue.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUstreamAttrValue createSafe(long address) {
-        return address == NULL ? null : new CUstreamAttrValue(address, null);
+        return address == NULL ? null : wrap(CUstreamAttrValue.class, address);
     }
 
     /**
@@ -132,7 +125,7 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
      * @param capacity the buffer capacity
      */
     public static CUstreamAttrValue.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -141,7 +134,7 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
      * @param capacity the buffer capacity
      */
     public static CUstreamAttrValue.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -151,7 +144,7 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
      */
     public static CUstreamAttrValue.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -161,13 +154,13 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
      * @param capacity the buffer capacity
      */
     public static CUstreamAttrValue.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUstreamAttrValue.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -176,7 +169,7 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
      * @param stack the stack from which to allocate
      */
     public static CUstreamAttrValue malloc(MemoryStack stack) {
-        return new CUstreamAttrValue(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(CUstreamAttrValue.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -185,7 +178,7 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
      * @param stack the stack from which to allocate
      */
     public static CUstreamAttrValue calloc(MemoryStack stack) {
-        return new CUstreamAttrValue(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(CUstreamAttrValue.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -195,7 +188,7 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
      * @param capacity the buffer capacity
      */
     public static CUstreamAttrValue.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -205,7 +198,7 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
      * @param capacity the buffer capacity
      */
     public static CUstreamAttrValue.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -230,9 +223,9 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
         /**
          * Creates a new {@code CUstreamAttrValue.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CUstreamAttrValue#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CUstreamAttrValue#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -258,17 +251,17 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link CUaccessPolicyWindow} view of the {@code accessPolicyWindow} field. */
+        /** @return a {@link CUaccessPolicyWindow} view of the {@link CUstreamAttrValue#accessPolicyWindow} field. */
         public CUaccessPolicyWindow accessPolicyWindow() { return CUstreamAttrValue.naccessPolicyWindow(address()); }
-        /** @return the value of the {@code syncPolicy} field. */
+        /** @return the value of the {@link CUstreamAttrValue#syncPolicy} field. */
         @NativeType("CUsynchronizationPolicy")
         public int syncPolicy() { return CUstreamAttrValue.nsyncPolicy(address()); }
 
-        /** Copies the specified {@link CUaccessPolicyWindow} to the {@code accessPolicyWindow} field. */
+        /** Copies the specified {@link CUaccessPolicyWindow} to the {@link CUstreamAttrValue#accessPolicyWindow} field. */
         public CUstreamAttrValue.Buffer accessPolicyWindow(CUaccessPolicyWindow value) { CUstreamAttrValue.naccessPolicyWindow(address(), value); return this; }
-        /** Passes the {@code accessPolicyWindow} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@link CUstreamAttrValue#accessPolicyWindow} field to the specified {@link java.util.function.Consumer Consumer}. */
         public CUstreamAttrValue.Buffer accessPolicyWindow(java.util.function.Consumer<CUaccessPolicyWindow> consumer) { consumer.accept(accessPolicyWindow()); return this; }
-        /** Sets the specified value to the {@code syncPolicy} field. */
+        /** Sets the specified value to the {@link CUstreamAttrValue#syncPolicy} field. */
         public CUstreamAttrValue.Buffer syncPolicy(@NativeType("CUsynchronizationPolicy") int value) { CUstreamAttrValue.nsyncPolicy(address(), value); return this; }
 
     }

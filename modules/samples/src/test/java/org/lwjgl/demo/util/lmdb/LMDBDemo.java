@@ -23,8 +23,6 @@ public final class LMDBDemo {
     }
 
     public static void main(String[] args) {
-        System.out.println("MDB_VERSION_STRING = " + MDB_VERSION_STRING);
-
         File dir = createDatabaseDirectory("lmdb");
 
         long env;

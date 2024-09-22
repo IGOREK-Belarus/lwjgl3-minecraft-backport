@@ -16,7 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#glossary-linear-color-attachment">Linear Color Attachment</a> rendering is supported by the implementation.
+ * Structure describing whether <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#glossary">Linear Color Attachment</a> rendering is supported by the implementation.
  * 
  * <h5>Description</h5>
  * 
@@ -32,12 +32,12 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <pre><code>
  * struct VkPhysicalDeviceLinearColorAttachmentFeaturesNV {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
+ *     VkStructureType sType;
+ *     void * pNext;
  *     VkBool32 {@link #linearColorAttachment};
  * }</code></pre>
  */
-public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPhysicalDeviceLinearColorAttachmentFeaturesNV> implements NativeResource {
+public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,15 +66,6 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
         LINEARCOLORATTACHMENT = layout.offsetof(2);
     }
 
-    protected VkPhysicalDeviceLinearColorAttachmentFeaturesNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceLinearColorAttachmentFeaturesNV create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceLinearColorAttachmentFeaturesNV(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceLinearColorAttachmentFeaturesNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -88,21 +79,21 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports renderable <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#glossary-linear-color-attachment">Linear Color Attachment</a> */
+    /** indicates whether the implementation supports renderable <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#glossary">Linear Color Attachment</a> */
     @NativeType("VkBool32")
     public boolean linearColorAttachment() { return nlinearColorAttachment(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceLinearColorAttachmentFeaturesNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVLinearColorAttachment#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVLinearColorAttachment#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV} value to the {@code sType} field. */
     public VkPhysicalDeviceLinearColorAttachmentFeaturesNV sType$Default() { return sType(NVLinearColorAttachment.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceLinearColorAttachmentFeaturesNV pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
     /** Sets the specified value to the {@link #linearColorAttachment} field. */
     public VkPhysicalDeviceLinearColorAttachmentFeaturesNV linearColorAttachment(@NativeType("VkBool32") boolean value) { nlinearColorAttachment(address(), value ? 1 : 0); return this; }
@@ -136,29 +127,29 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
 
     /** Returns a new {@code VkPhysicalDeviceLinearColorAttachmentFeaturesNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV malloc() {
-        return new VkPhysicalDeviceLinearColorAttachmentFeaturesNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceLinearColorAttachmentFeaturesNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceLinearColorAttachmentFeaturesNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV calloc() {
-        return new VkPhysicalDeviceLinearColorAttachmentFeaturesNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceLinearColorAttachmentFeaturesNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceLinearColorAttachmentFeaturesNV} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceLinearColorAttachmentFeaturesNV(memAddress(container), container);
+        return wrap(VkPhysicalDeviceLinearColorAttachmentFeaturesNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceLinearColorAttachmentFeaturesNV} instance for the specified memory address. */
     public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV create(long address) {
-        return new VkPhysicalDeviceLinearColorAttachmentFeaturesNV(address, null);
+        return wrap(VkPhysicalDeviceLinearColorAttachmentFeaturesNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceLinearColorAttachmentFeaturesNV(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceLinearColorAttachmentFeaturesNV.class, address);
     }
 
     /**
@@ -167,7 +158,7 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -176,7 +167,7 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -186,7 +177,7 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
      */
     public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -196,13 +187,13 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -211,7 +202,7 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceLinearColorAttachmentFeaturesNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceLinearColorAttachmentFeaturesNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -220,7 +211,7 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceLinearColorAttachmentFeaturesNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceLinearColorAttachmentFeaturesNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -230,7 +221,7 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -240,7 +231,7 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -269,9 +260,9 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
         /**
          * Creates a new {@code VkPhysicalDeviceLinearColorAttachmentFeaturesNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceLinearColorAttachmentFeaturesNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceLinearColorAttachmentFeaturesNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -297,21 +288,21 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceLinearColorAttachmentFeaturesNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceLinearColorAttachmentFeaturesNV.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceLinearColorAttachmentFeaturesNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceLinearColorAttachmentFeaturesNV.npNext(address()); }
         /** @return the value of the {@link VkPhysicalDeviceLinearColorAttachmentFeaturesNV#linearColorAttachment} field. */
         @NativeType("VkBool32")
         public boolean linearColorAttachment() { return VkPhysicalDeviceLinearColorAttachmentFeaturesNV.nlinearColorAttachment(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceLinearColorAttachmentFeaturesNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceLinearColorAttachmentFeaturesNV.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceLinearColorAttachmentFeaturesNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVLinearColorAttachment#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV} value to the {@link VkPhysicalDeviceLinearColorAttachmentFeaturesNV#sType} field. */
+        /** Sets the {@link NVLinearColorAttachment#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV} value to the {@code sType} field. */
         public VkPhysicalDeviceLinearColorAttachmentFeaturesNV.Buffer sType$Default() { return sType(NVLinearColorAttachment.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceLinearColorAttachmentFeaturesNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceLinearColorAttachmentFeaturesNV.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceLinearColorAttachmentFeaturesNV.npNext(address(), value); return this; }
         /** Sets the specified value to the {@link VkPhysicalDeviceLinearColorAttachmentFeaturesNV#linearColorAttachment} field. */
         public VkPhysicalDeviceLinearColorAttachmentFeaturesNV.Buffer linearColorAttachment(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceLinearColorAttachmentFeaturesNV.nlinearColorAttachment(address(), value ? 1 : 0); return this; }

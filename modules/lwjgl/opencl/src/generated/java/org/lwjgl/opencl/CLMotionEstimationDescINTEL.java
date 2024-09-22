@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct cl_motion_estimation_desc_intel")
-public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescINTEL> implements NativeResource {
+public class CLMotionEstimationDescINTEL extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -59,15 +59,6 @@ public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescIN
         SUBPIXEL_MODE = layout.offsetof(1);
         SAD_ADJUST_MODE = layout.offsetof(2);
         SEARCH_PATH_TYPE = layout.offsetof(3);
-    }
-
-    protected CLMotionEstimationDescINTEL(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CLMotionEstimationDescINTEL create(long address, @Nullable ByteBuffer container) {
-        return new CLMotionEstimationDescINTEL(address, container);
     }
 
     /**
@@ -140,29 +131,29 @@ public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescIN
 
     /** Returns a new {@code CLMotionEstimationDescINTEL} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CLMotionEstimationDescINTEL malloc() {
-        return new CLMotionEstimationDescINTEL(nmemAllocChecked(SIZEOF), null);
+        return wrap(CLMotionEstimationDescINTEL.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code CLMotionEstimationDescINTEL} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CLMotionEstimationDescINTEL calloc() {
-        return new CLMotionEstimationDescINTEL(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(CLMotionEstimationDescINTEL.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code CLMotionEstimationDescINTEL} instance allocated with {@link BufferUtils}. */
     public static CLMotionEstimationDescINTEL create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new CLMotionEstimationDescINTEL(memAddress(container), container);
+        return wrap(CLMotionEstimationDescINTEL.class, memAddress(container), container);
     }
 
     /** Returns a new {@code CLMotionEstimationDescINTEL} instance for the specified memory address. */
     public static CLMotionEstimationDescINTEL create(long address) {
-        return new CLMotionEstimationDescINTEL(address, null);
+        return wrap(CLMotionEstimationDescINTEL.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CLMotionEstimationDescINTEL createSafe(long address) {
-        return address == NULL ? null : new CLMotionEstimationDescINTEL(address, null);
+        return address == NULL ? null : wrap(CLMotionEstimationDescINTEL.class, address);
     }
 
     /**
@@ -171,7 +162,7 @@ public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescIN
      * @param capacity the buffer capacity
      */
     public static CLMotionEstimationDescINTEL.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -180,7 +171,7 @@ public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescIN
      * @param capacity the buffer capacity
      */
     public static CLMotionEstimationDescINTEL.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -190,7 +181,7 @@ public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescIN
      */
     public static CLMotionEstimationDescINTEL.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -200,13 +191,13 @@ public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescIN
      * @param capacity the buffer capacity
      */
     public static CLMotionEstimationDescINTEL.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CLMotionEstimationDescINTEL.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -234,7 +225,7 @@ public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescIN
      * @param stack the stack from which to allocate
      */
     public static CLMotionEstimationDescINTEL malloc(MemoryStack stack) {
-        return new CLMotionEstimationDescINTEL(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(CLMotionEstimationDescINTEL.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -243,7 +234,7 @@ public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescIN
      * @param stack the stack from which to allocate
      */
     public static CLMotionEstimationDescINTEL calloc(MemoryStack stack) {
-        return new CLMotionEstimationDescINTEL(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(CLMotionEstimationDescINTEL.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -253,7 +244,7 @@ public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescIN
      * @param capacity the buffer capacity
      */
     public static CLMotionEstimationDescINTEL.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -263,7 +254,7 @@ public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescIN
      * @param capacity the buffer capacity
      */
     public static CLMotionEstimationDescINTEL.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -296,9 +287,9 @@ public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescIN
         /**
          * Creates a new {@code CLMotionEstimationDescINTEL.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CLMotionEstimationDescINTEL#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CLMotionEstimationDescINTEL#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

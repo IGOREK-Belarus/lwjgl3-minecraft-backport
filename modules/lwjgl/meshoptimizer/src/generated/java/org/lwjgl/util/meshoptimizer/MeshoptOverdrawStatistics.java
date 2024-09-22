@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct meshopt_OverdrawStatistics")
-public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics> implements NativeResource {
+public class MeshoptOverdrawStatistics extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -55,15 +55,6 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
         OVERDRAW = layout.offsetof(2);
     }
 
-    protected MeshoptOverdrawStatistics(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected MeshoptOverdrawStatistics create(long address, @Nullable ByteBuffer container) {
-        return new MeshoptOverdrawStatistics(address, container);
-    }
-
     /**
      * Creates a {@code MeshoptOverdrawStatistics} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -90,29 +81,29 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
 
     /** Returns a new {@code MeshoptOverdrawStatistics} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static MeshoptOverdrawStatistics malloc() {
-        return new MeshoptOverdrawStatistics(nmemAllocChecked(SIZEOF), null);
+        return wrap(MeshoptOverdrawStatistics.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code MeshoptOverdrawStatistics} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static MeshoptOverdrawStatistics calloc() {
-        return new MeshoptOverdrawStatistics(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(MeshoptOverdrawStatistics.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code MeshoptOverdrawStatistics} instance allocated with {@link BufferUtils}. */
     public static MeshoptOverdrawStatistics create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new MeshoptOverdrawStatistics(memAddress(container), container);
+        return wrap(MeshoptOverdrawStatistics.class, memAddress(container), container);
     }
 
     /** Returns a new {@code MeshoptOverdrawStatistics} instance for the specified memory address. */
     public static MeshoptOverdrawStatistics create(long address) {
-        return new MeshoptOverdrawStatistics(address, null);
+        return wrap(MeshoptOverdrawStatistics.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static MeshoptOverdrawStatistics createSafe(long address) {
-        return address == NULL ? null : new MeshoptOverdrawStatistics(address, null);
+        return address == NULL ? null : wrap(MeshoptOverdrawStatistics.class, address);
     }
 
     /**
@@ -121,7 +112,7 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
      * @param capacity the buffer capacity
      */
     public static MeshoptOverdrawStatistics.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -130,7 +121,7 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
      * @param capacity the buffer capacity
      */
     public static MeshoptOverdrawStatistics.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -140,7 +131,7 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
      */
     public static MeshoptOverdrawStatistics.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -150,13 +141,13 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
      * @param capacity the buffer capacity
      */
     public static MeshoptOverdrawStatistics.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static MeshoptOverdrawStatistics.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -165,7 +156,7 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
      * @param stack the stack from which to allocate
      */
     public static MeshoptOverdrawStatistics malloc(MemoryStack stack) {
-        return new MeshoptOverdrawStatistics(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(MeshoptOverdrawStatistics.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -174,7 +165,7 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
      * @param stack the stack from which to allocate
      */
     public static MeshoptOverdrawStatistics calloc(MemoryStack stack) {
-        return new MeshoptOverdrawStatistics(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(MeshoptOverdrawStatistics.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -184,7 +175,7 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
      * @param capacity the buffer capacity
      */
     public static MeshoptOverdrawStatistics.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -194,7 +185,7 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
      * @param capacity the buffer capacity
      */
     public static MeshoptOverdrawStatistics.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -216,9 +207,9 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
         /**
          * Creates a new {@code MeshoptOverdrawStatistics.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link MeshoptOverdrawStatistics#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link MeshoptOverdrawStatistics#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

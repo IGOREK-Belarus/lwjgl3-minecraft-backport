@@ -174,5 +174,5 @@ val ARB_internalformat_query2 = "ARBInternalformatQuery2".nativeClassGL("ARB_int
         "VIEW_CLASS_BPTC_FLOAT"..0x82D3
     )
 
-    reuse(GL43C, "GetInternalformati64v")
+    GL43C reuse "GetInternalformati64v"
 }

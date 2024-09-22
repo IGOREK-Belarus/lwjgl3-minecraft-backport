@@ -52,7 +52,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint64_t const * {@link #pValues};
  * }</code></pre>
  */
-public class VkSemaphoreWaitInfo extends Struct<VkSemaphoreWaitInfo> implements NativeResource {
+public class VkSemaphoreWaitInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -90,15 +90,6 @@ public class VkSemaphoreWaitInfo extends Struct<VkSemaphoreWaitInfo> implements 
         PVALUES = layout.offsetof(5);
     }
 
-    protected VkSemaphoreWaitInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkSemaphoreWaitInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkSemaphoreWaitInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkSemaphoreWaitInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -112,7 +103,7 @@ public class VkSemaphoreWaitInfo extends Struct<VkSemaphoreWaitInfo> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -181,29 +172,29 @@ public class VkSemaphoreWaitInfo extends Struct<VkSemaphoreWaitInfo> implements 
 
     /** Returns a new {@code VkSemaphoreWaitInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSemaphoreWaitInfo malloc() {
-        return new VkSemaphoreWaitInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkSemaphoreWaitInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkSemaphoreWaitInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSemaphoreWaitInfo calloc() {
-        return new VkSemaphoreWaitInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkSemaphoreWaitInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkSemaphoreWaitInfo} instance allocated with {@link BufferUtils}. */
     public static VkSemaphoreWaitInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkSemaphoreWaitInfo(memAddress(container), container);
+        return wrap(VkSemaphoreWaitInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkSemaphoreWaitInfo} instance for the specified memory address. */
     public static VkSemaphoreWaitInfo create(long address) {
-        return new VkSemaphoreWaitInfo(address, null);
+        return wrap(VkSemaphoreWaitInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSemaphoreWaitInfo createSafe(long address) {
-        return address == NULL ? null : new VkSemaphoreWaitInfo(address, null);
+        return address == NULL ? null : wrap(VkSemaphoreWaitInfo.class, address);
     }
 
     /**
@@ -212,7 +203,7 @@ public class VkSemaphoreWaitInfo extends Struct<VkSemaphoreWaitInfo> implements 
      * @param capacity the buffer capacity
      */
     public static VkSemaphoreWaitInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -221,7 +212,7 @@ public class VkSemaphoreWaitInfo extends Struct<VkSemaphoreWaitInfo> implements 
      * @param capacity the buffer capacity
      */
     public static VkSemaphoreWaitInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -231,7 +222,7 @@ public class VkSemaphoreWaitInfo extends Struct<VkSemaphoreWaitInfo> implements 
      */
     public static VkSemaphoreWaitInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -241,13 +232,13 @@ public class VkSemaphoreWaitInfo extends Struct<VkSemaphoreWaitInfo> implements 
      * @param capacity the buffer capacity
      */
     public static VkSemaphoreWaitInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSemaphoreWaitInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -256,7 +247,7 @@ public class VkSemaphoreWaitInfo extends Struct<VkSemaphoreWaitInfo> implements 
      * @param stack the stack from which to allocate
      */
     public static VkSemaphoreWaitInfo malloc(MemoryStack stack) {
-        return new VkSemaphoreWaitInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkSemaphoreWaitInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -265,7 +256,7 @@ public class VkSemaphoreWaitInfo extends Struct<VkSemaphoreWaitInfo> implements 
      * @param stack the stack from which to allocate
      */
     public static VkSemaphoreWaitInfo calloc(MemoryStack stack) {
-        return new VkSemaphoreWaitInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkSemaphoreWaitInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -275,7 +266,7 @@ public class VkSemaphoreWaitInfo extends Struct<VkSemaphoreWaitInfo> implements 
      * @param capacity the buffer capacity
      */
     public static VkSemaphoreWaitInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -285,7 +276,7 @@ public class VkSemaphoreWaitInfo extends Struct<VkSemaphoreWaitInfo> implements 
      * @param capacity the buffer capacity
      */
     public static VkSemaphoreWaitInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -336,9 +327,9 @@ public class VkSemaphoreWaitInfo extends Struct<VkSemaphoreWaitInfo> implements 
         /**
          * Creates a new {@code VkSemaphoreWaitInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSemaphoreWaitInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkSemaphoreWaitInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

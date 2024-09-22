@@ -16,26 +16,62 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkCalibratedTimestampInfoKHR}.
+ * Structure specifying the input parameters of a calibrated timestamp query.
+ * 
+ * <h5>Valid Usage</h5>
+ * 
+ * <ul>
+ * <li>{@code timeDomain} <b>must</b> be one of the {@code VkTimeDomainEXT} values returned by {@link EXTCalibratedTimestamps#vkGetPhysicalDeviceCalibrateableTimeDomainsEXT GetPhysicalDeviceCalibrateableTimeDomainsEXT}</li>
+ * </ul>
+ * 
+ * <h5>Valid Usage (Implicit)</h5>
+ * 
+ * <ul>
+ * <li>{@code sType} <b>must</b> be {@link EXTCalibratedTimestamps#VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_EXT STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_EXT}</li>
+ * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
+ * <li>{@code timeDomain} <b>must</b> be a valid {@code VkTimeDomainEXT} value</li>
+ * </ul>
+ * 
+ * <h5>See Also</h5>
+ * 
+ * <p>{@link EXTCalibratedTimestamps#vkGetCalibratedTimestampsEXT GetCalibratedTimestampsEXT}</p>
  * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct VkCalibratedTimestampInfoEXT {
- *     VkStructureType sType;
- *     void const * pNext;
- *     VkTimeDomainKHR timeDomain;
+ *     VkStructureType {@link #sType};
+ *     void const * {@link #pNext};
+ *     VkTimeDomainEXT {@link #timeDomain};
  * }</code></pre>
  */
-public class VkCalibratedTimestampInfoEXT extends VkCalibratedTimestampInfoKHR {
+public class VkCalibratedTimestampInfoEXT extends Struct implements NativeResource {
 
-    protected VkCalibratedTimestampInfoEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
+    /** The struct size in bytes. */
+    public static final int SIZEOF;
 
-    @Override
-    protected VkCalibratedTimestampInfoEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkCalibratedTimestampInfoEXT(address, container);
+    /** The struct alignment in bytes. */
+    public static final int ALIGNOF;
+
+    /** The struct member offsets. */
+    public static final int
+        STYPE,
+        PNEXT,
+        TIMEDOMAIN;
+
+    static {
+        Layout layout = __struct(
+            __member(4),
+            __member(POINTER_SIZE),
+            __member(4)
+        );
+
+        SIZEOF = layout.getSize();
+        ALIGNOF = layout.getAlignment();
+
+        STYPE = layout.offsetof(0);
+        PNEXT = layout.offsetof(1);
+        TIMEDOMAIN = layout.offsetof(2);
     }
 
     /**
@@ -45,24 +81,32 @@ public class VkCalibratedTimestampInfoEXT extends VkCalibratedTimestampInfoKHR {
      * <p>The created instance holds a strong reference to the container object.</p>
      */
     public VkCalibratedTimestampInfoEXT(ByteBuffer container) {
-        super(container);
+        super(memAddress(container), __checkContainer(container, SIZEOF));
     }
 
-    /** Sets the specified value to the {@code sType} field. */
     @Override
+    public int sizeof() { return SIZEOF; }
+
+    /** the type of this structure. */
+    @NativeType("VkStructureType")
+    public int sType() { return nsType(address()); }
+    /** {@code NULL} or a pointer to a structure extending this structure. */
+    @NativeType("void const *")
+    public long pNext() { return npNext(address()); }
+    /** a {@code VkTimeDomainEXT} value specifying the time domain from which the calibrated timestamp value should be returned. */
+    @NativeType("VkTimeDomainEXT")
+    public int timeDomain() { return ntimeDomain(address()); }
+
+    /** Sets the specified value to the {@link #sType} field. */
     public VkCalibratedTimestampInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRCalibratedTimestamps#VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_KHR STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_KHR} value to the {@code sType} field. */
-    @Override
-    public VkCalibratedTimestampInfoEXT sType$Default() { return sType(KHRCalibratedTimestamps.VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_KHR); }
-    /** Sets the specified value to the {@code pNext} field. */
-    @Override
+    /** Sets the {@link EXTCalibratedTimestamps#VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_EXT STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_EXT} value to the {@link #sType} field. */
+    public VkCalibratedTimestampInfoEXT sType$Default() { return sType(EXTCalibratedTimestamps.VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_EXT); }
+    /** Sets the specified value to the {@link #pNext} field. */
     public VkCalibratedTimestampInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@code timeDomain} field. */
-    @Override
-    public VkCalibratedTimestampInfoEXT timeDomain(@NativeType("VkTimeDomainKHR") int value) { ntimeDomain(address(), value); return this; }
+    /** Sets the specified value to the {@link #timeDomain} field. */
+    public VkCalibratedTimestampInfoEXT timeDomain(@NativeType("VkTimeDomainEXT") int value) { ntimeDomain(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
-    @Override
     public VkCalibratedTimestampInfoEXT set(
         int sType,
         long pNext,
@@ -91,29 +135,29 @@ public class VkCalibratedTimestampInfoEXT extends VkCalibratedTimestampInfoKHR {
 
     /** Returns a new {@code VkCalibratedTimestampInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkCalibratedTimestampInfoEXT malloc() {
-        return new VkCalibratedTimestampInfoEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkCalibratedTimestampInfoEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkCalibratedTimestampInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkCalibratedTimestampInfoEXT calloc() {
-        return new VkCalibratedTimestampInfoEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkCalibratedTimestampInfoEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkCalibratedTimestampInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkCalibratedTimestampInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkCalibratedTimestampInfoEXT(memAddress(container), container);
+        return wrap(VkCalibratedTimestampInfoEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkCalibratedTimestampInfoEXT} instance for the specified memory address. */
     public static VkCalibratedTimestampInfoEXT create(long address) {
-        return new VkCalibratedTimestampInfoEXT(address, null);
+        return wrap(VkCalibratedTimestampInfoEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCalibratedTimestampInfoEXT createSafe(long address) {
-        return address == NULL ? null : new VkCalibratedTimestampInfoEXT(address, null);
+        return address == NULL ? null : wrap(VkCalibratedTimestampInfoEXT.class, address);
     }
 
     /**
@@ -122,7 +166,7 @@ public class VkCalibratedTimestampInfoEXT extends VkCalibratedTimestampInfoKHR {
      * @param capacity the buffer capacity
      */
     public static VkCalibratedTimestampInfoEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -131,7 +175,7 @@ public class VkCalibratedTimestampInfoEXT extends VkCalibratedTimestampInfoKHR {
      * @param capacity the buffer capacity
      */
     public static VkCalibratedTimestampInfoEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -141,7 +185,7 @@ public class VkCalibratedTimestampInfoEXT extends VkCalibratedTimestampInfoKHR {
      */
     public static VkCalibratedTimestampInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -151,13 +195,13 @@ public class VkCalibratedTimestampInfoEXT extends VkCalibratedTimestampInfoKHR {
      * @param capacity the buffer capacity
      */
     public static VkCalibratedTimestampInfoEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCalibratedTimestampInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -185,7 +229,7 @@ public class VkCalibratedTimestampInfoEXT extends VkCalibratedTimestampInfoKHR {
      * @param stack the stack from which to allocate
      */
     public static VkCalibratedTimestampInfoEXT malloc(MemoryStack stack) {
-        return new VkCalibratedTimestampInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkCalibratedTimestampInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -194,7 +238,7 @@ public class VkCalibratedTimestampInfoEXT extends VkCalibratedTimestampInfoKHR {
      * @param stack the stack from which to allocate
      */
     public static VkCalibratedTimestampInfoEXT calloc(MemoryStack stack) {
-        return new VkCalibratedTimestampInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkCalibratedTimestampInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -204,7 +248,7 @@ public class VkCalibratedTimestampInfoEXT extends VkCalibratedTimestampInfoKHR {
      * @param capacity the buffer capacity
      */
     public static VkCalibratedTimestampInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -214,27 +258,43 @@ public class VkCalibratedTimestampInfoEXT extends VkCalibratedTimestampInfoKHR {
      * @param capacity the buffer capacity
      */
     public static VkCalibratedTimestampInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
 
+    /** Unsafe version of {@link #sType}. */
+    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCalibratedTimestampInfoEXT.STYPE); }
+    /** Unsafe version of {@link #pNext}. */
+    public static long npNext(long struct) { return memGetAddress(struct + VkCalibratedTimestampInfoEXT.PNEXT); }
+    /** Unsafe version of {@link #timeDomain}. */
+    public static int ntimeDomain(long struct) { return UNSAFE.getInt(null, struct + VkCalibratedTimestampInfoEXT.TIMEDOMAIN); }
+
+    /** Unsafe version of {@link #sType(int) sType}. */
+    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCalibratedTimestampInfoEXT.STYPE, value); }
+    /** Unsafe version of {@link #pNext(long) pNext}. */
+    public static void npNext(long struct, long value) { memPutAddress(struct + VkCalibratedTimestampInfoEXT.PNEXT, value); }
+    /** Unsafe version of {@link #timeDomain(int) timeDomain}. */
+    public static void ntimeDomain(long struct, int value) { UNSAFE.putInt(null, struct + VkCalibratedTimestampInfoEXT.TIMEDOMAIN, value); }
+
+    // -----------------------------------
+
     /** An array of {@link VkCalibratedTimestampInfoEXT} structs. */
-    public static class Buffer extends VkCalibratedTimestampInfoKHR.Buffer {
+    public static class Buffer extends StructBuffer<VkCalibratedTimestampInfoEXT, Buffer> implements NativeResource {
 
         private static final VkCalibratedTimestampInfoEXT ELEMENT_FACTORY = VkCalibratedTimestampInfoEXT.create(-1L);
 
         /**
          * Creates a new {@code VkCalibratedTimestampInfoEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkCalibratedTimestampInfoEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkCalibratedTimestampInfoEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
         public Buffer(ByteBuffer container) {
-            super(container);
+            super(container, container.remaining() / SIZEOF);
         }
 
         public Buffer(long address, int cap) {
@@ -255,18 +315,24 @@ public class VkCalibratedTimestampInfoEXT extends VkCalibratedTimestampInfoKHR {
             return ELEMENT_FACTORY;
         }
 
-        /** Sets the specified value to the {@code sType} field. */
-        @Override
+        /** @return the value of the {@link VkCalibratedTimestampInfoEXT#sType} field. */
+        @NativeType("VkStructureType")
+        public int sType() { return VkCalibratedTimestampInfoEXT.nsType(address()); }
+        /** @return the value of the {@link VkCalibratedTimestampInfoEXT#pNext} field. */
+        @NativeType("void const *")
+        public long pNext() { return VkCalibratedTimestampInfoEXT.npNext(address()); }
+        /** @return the value of the {@link VkCalibratedTimestampInfoEXT#timeDomain} field. */
+        @NativeType("VkTimeDomainEXT")
+        public int timeDomain() { return VkCalibratedTimestampInfoEXT.ntimeDomain(address()); }
+
+        /** Sets the specified value to the {@link VkCalibratedTimestampInfoEXT#sType} field. */
         public VkCalibratedTimestampInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkCalibratedTimestampInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link KHRCalibratedTimestamps#VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_KHR STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_KHR} value to the {@code sType} field. */
-        @Override
-        public VkCalibratedTimestampInfoEXT.Buffer sType$Default() { return sType(KHRCalibratedTimestamps.VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_KHR); }
-        /** Sets the specified value to the {@code pNext} field. */
-        @Override
+        /** Sets the {@link EXTCalibratedTimestamps#VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_EXT STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_EXT} value to the {@link VkCalibratedTimestampInfoEXT#sType} field. */
+        public VkCalibratedTimestampInfoEXT.Buffer sType$Default() { return sType(EXTCalibratedTimestamps.VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_EXT); }
+        /** Sets the specified value to the {@link VkCalibratedTimestampInfoEXT#pNext} field. */
         public VkCalibratedTimestampInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkCalibratedTimestampInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@code timeDomain} field. */
-        @Override
-        public VkCalibratedTimestampInfoEXT.Buffer timeDomain(@NativeType("VkTimeDomainKHR") int value) { VkCalibratedTimestampInfoEXT.ntimeDomain(address(), value); return this; }
+        /** Sets the specified value to the {@link VkCalibratedTimestampInfoEXT#timeDomain} field. */
+        public VkCalibratedTimestampInfoEXT.Buffer timeDomain(@NativeType("VkTimeDomainEXT") int value) { VkCalibratedTimestampInfoEXT.ntimeDomain(address(), value); return this; }
 
     }
 

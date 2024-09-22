@@ -22,10 +22,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * struct StdVideoEncodeH265ReferenceModificationFlags {
  *     uint32_t ref_pic_list_modification_flag_l0 : 1;
  *     uint32_t ref_pic_list_modification_flag_l1 : 1;
- *     uint32_t reserved : 30;
  * }</code></pre>
  */
-public class StdVideoEncodeH265ReferenceModificationFlags extends Struct<StdVideoEncodeH265ReferenceModificationFlags> implements NativeResource {
+public class StdVideoEncodeH265ReferenceModificationFlags extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -48,15 +47,6 @@ public class StdVideoEncodeH265ReferenceModificationFlags extends Struct<StdVide
         BITFIELD0 = layout.offsetof(0);
     }
 
-    protected StdVideoEncodeH265ReferenceModificationFlags(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected StdVideoEncodeH265ReferenceModificationFlags create(long address, @Nullable ByteBuffer container) {
-        return new StdVideoEncodeH265ReferenceModificationFlags(address, container);
-    }
-
     /**
      * Creates a {@code StdVideoEncodeH265ReferenceModificationFlags} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -72,20 +62,20 @@ public class StdVideoEncodeH265ReferenceModificationFlags extends Struct<StdVide
 
     /** @return the value of the {@code ref_pic_list_modification_flag_l0} field. */
     @NativeType("uint32_t")
-    public boolean ref_pic_list_modification_flag_l0() { return nref_pic_list_modification_flag_l0(address()) != 0; }
+    public int ref_pic_list_modification_flag_l0() { return nref_pic_list_modification_flag_l0(address()); }
     /** @return the value of the {@code ref_pic_list_modification_flag_l1} field. */
     @NativeType("uint32_t")
-    public boolean ref_pic_list_modification_flag_l1() { return nref_pic_list_modification_flag_l1(address()) != 0; }
+    public int ref_pic_list_modification_flag_l1() { return nref_pic_list_modification_flag_l1(address()); }
 
     /** Sets the specified value to the {@code ref_pic_list_modification_flag_l0} field. */
-    public StdVideoEncodeH265ReferenceModificationFlags ref_pic_list_modification_flag_l0(@NativeType("uint32_t") boolean value) { nref_pic_list_modification_flag_l0(address(), value ? 1 : 0); return this; }
+    public StdVideoEncodeH265ReferenceModificationFlags ref_pic_list_modification_flag_l0(@NativeType("uint32_t") int value) { nref_pic_list_modification_flag_l0(address(), value); return this; }
     /** Sets the specified value to the {@code ref_pic_list_modification_flag_l1} field. */
-    public StdVideoEncodeH265ReferenceModificationFlags ref_pic_list_modification_flag_l1(@NativeType("uint32_t") boolean value) { nref_pic_list_modification_flag_l1(address(), value ? 1 : 0); return this; }
+    public StdVideoEncodeH265ReferenceModificationFlags ref_pic_list_modification_flag_l1(@NativeType("uint32_t") int value) { nref_pic_list_modification_flag_l1(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public StdVideoEncodeH265ReferenceModificationFlags set(
-        boolean ref_pic_list_modification_flag_l0,
-        boolean ref_pic_list_modification_flag_l1
+        int ref_pic_list_modification_flag_l0,
+        int ref_pic_list_modification_flag_l1
     ) {
         ref_pic_list_modification_flag_l0(ref_pic_list_modification_flag_l0);
         ref_pic_list_modification_flag_l1(ref_pic_list_modification_flag_l1);
@@ -109,29 +99,29 @@ public class StdVideoEncodeH265ReferenceModificationFlags extends Struct<StdVide
 
     /** Returns a new {@code StdVideoEncodeH265ReferenceModificationFlags} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static StdVideoEncodeH265ReferenceModificationFlags malloc() {
-        return new StdVideoEncodeH265ReferenceModificationFlags(nmemAllocChecked(SIZEOF), null);
+        return wrap(StdVideoEncodeH265ReferenceModificationFlags.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code StdVideoEncodeH265ReferenceModificationFlags} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static StdVideoEncodeH265ReferenceModificationFlags calloc() {
-        return new StdVideoEncodeH265ReferenceModificationFlags(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(StdVideoEncodeH265ReferenceModificationFlags.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code StdVideoEncodeH265ReferenceModificationFlags} instance allocated with {@link BufferUtils}. */
     public static StdVideoEncodeH265ReferenceModificationFlags create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new StdVideoEncodeH265ReferenceModificationFlags(memAddress(container), container);
+        return wrap(StdVideoEncodeH265ReferenceModificationFlags.class, memAddress(container), container);
     }
 
     /** Returns a new {@code StdVideoEncodeH265ReferenceModificationFlags} instance for the specified memory address. */
     public static StdVideoEncodeH265ReferenceModificationFlags create(long address) {
-        return new StdVideoEncodeH265ReferenceModificationFlags(address, null);
+        return wrap(StdVideoEncodeH265ReferenceModificationFlags.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoEncodeH265ReferenceModificationFlags createSafe(long address) {
-        return address == NULL ? null : new StdVideoEncodeH265ReferenceModificationFlags(address, null);
+        return address == NULL ? null : wrap(StdVideoEncodeH265ReferenceModificationFlags.class, address);
     }
 
     /**
@@ -140,7 +130,7 @@ public class StdVideoEncodeH265ReferenceModificationFlags extends Struct<StdVide
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH265ReferenceModificationFlags.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -149,7 +139,7 @@ public class StdVideoEncodeH265ReferenceModificationFlags extends Struct<StdVide
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH265ReferenceModificationFlags.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -159,7 +149,7 @@ public class StdVideoEncodeH265ReferenceModificationFlags extends Struct<StdVide
      */
     public static StdVideoEncodeH265ReferenceModificationFlags.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -169,13 +159,13 @@ public class StdVideoEncodeH265ReferenceModificationFlags extends Struct<StdVide
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH265ReferenceModificationFlags.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoEncodeH265ReferenceModificationFlags.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -184,7 +174,7 @@ public class StdVideoEncodeH265ReferenceModificationFlags extends Struct<StdVide
      * @param stack the stack from which to allocate
      */
     public static StdVideoEncodeH265ReferenceModificationFlags malloc(MemoryStack stack) {
-        return new StdVideoEncodeH265ReferenceModificationFlags(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(StdVideoEncodeH265ReferenceModificationFlags.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -193,7 +183,7 @@ public class StdVideoEncodeH265ReferenceModificationFlags extends Struct<StdVide
      * @param stack the stack from which to allocate
      */
     public static StdVideoEncodeH265ReferenceModificationFlags calloc(MemoryStack stack) {
-        return new StdVideoEncodeH265ReferenceModificationFlags(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(StdVideoEncodeH265ReferenceModificationFlags.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -203,7 +193,7 @@ public class StdVideoEncodeH265ReferenceModificationFlags extends Struct<StdVide
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH265ReferenceModificationFlags.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -213,7 +203,7 @@ public class StdVideoEncodeH265ReferenceModificationFlags extends Struct<StdVide
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH265ReferenceModificationFlags.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -223,14 +213,12 @@ public class StdVideoEncodeH265ReferenceModificationFlags extends Struct<StdVide
     public static int nref_pic_list_modification_flag_l0(long struct) { return nbitfield0(struct) & 0x00_00_00_01; }
     /** Unsafe version of {@link #ref_pic_list_modification_flag_l1}. */
     public static int nref_pic_list_modification_flag_l1(long struct) { return (nbitfield0(struct) & 0x00_00_00_02) >>> 1; }
-    public static int nreserved(long struct) { return nbitfield0(struct) >>> 2; }
 
     public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH265ReferenceModificationFlags.BITFIELD0, value); }
-    /** Unsafe version of {@link #ref_pic_list_modification_flag_l0(boolean) ref_pic_list_modification_flag_l0}. */
+    /** Unsafe version of {@link #ref_pic_list_modification_flag_l0(int) ref_pic_list_modification_flag_l0}. */
     public static void nref_pic_list_modification_flag_l0(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_FF_FF_FE) | (value & 0x00_00_00_01)); }
-    /** Unsafe version of {@link #ref_pic_list_modification_flag_l1(boolean) ref_pic_list_modification_flag_l1}. */
+    /** Unsafe version of {@link #ref_pic_list_modification_flag_l1(int) ref_pic_list_modification_flag_l1}. */
     public static void nref_pic_list_modification_flag_l1(long struct, int value) { nbitfield0(struct, ((value << 1) & 0x00_00_00_02) | (nbitfield0(struct) & 0xFF_FF_FF_FD)); }
-    public static void nreserved(long struct, int value) { nbitfield0(struct, (value << 2) | (nbitfield0(struct) & 0x00_00_00_03)); }
 
     // -----------------------------------
 
@@ -242,9 +230,9 @@ public class StdVideoEncodeH265ReferenceModificationFlags extends Struct<StdVide
         /**
          * Creates a new {@code StdVideoEncodeH265ReferenceModificationFlags.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link StdVideoEncodeH265ReferenceModificationFlags#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link StdVideoEncodeH265ReferenceModificationFlags#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -272,15 +260,15 @@ public class StdVideoEncodeH265ReferenceModificationFlags extends Struct<StdVide
 
         /** @return the value of the {@code ref_pic_list_modification_flag_l0} field. */
         @NativeType("uint32_t")
-        public boolean ref_pic_list_modification_flag_l0() { return StdVideoEncodeH265ReferenceModificationFlags.nref_pic_list_modification_flag_l0(address()) != 0; }
+        public int ref_pic_list_modification_flag_l0() { return StdVideoEncodeH265ReferenceModificationFlags.nref_pic_list_modification_flag_l0(address()); }
         /** @return the value of the {@code ref_pic_list_modification_flag_l1} field. */
         @NativeType("uint32_t")
-        public boolean ref_pic_list_modification_flag_l1() { return StdVideoEncodeH265ReferenceModificationFlags.nref_pic_list_modification_flag_l1(address()) != 0; }
+        public int ref_pic_list_modification_flag_l1() { return StdVideoEncodeH265ReferenceModificationFlags.nref_pic_list_modification_flag_l1(address()); }
 
         /** Sets the specified value to the {@code ref_pic_list_modification_flag_l0} field. */
-        public StdVideoEncodeH265ReferenceModificationFlags.Buffer ref_pic_list_modification_flag_l0(@NativeType("uint32_t") boolean value) { StdVideoEncodeH265ReferenceModificationFlags.nref_pic_list_modification_flag_l0(address(), value ? 1 : 0); return this; }
+        public StdVideoEncodeH265ReferenceModificationFlags.Buffer ref_pic_list_modification_flag_l0(@NativeType("uint32_t") int value) { StdVideoEncodeH265ReferenceModificationFlags.nref_pic_list_modification_flag_l0(address(), value); return this; }
         /** Sets the specified value to the {@code ref_pic_list_modification_flag_l1} field. */
-        public StdVideoEncodeH265ReferenceModificationFlags.Buffer ref_pic_list_modification_flag_l1(@NativeType("uint32_t") boolean value) { StdVideoEncodeH265ReferenceModificationFlags.nref_pic_list_modification_flag_l1(address(), value ? 1 : 0); return this; }
+        public StdVideoEncodeH265ReferenceModificationFlags.Buffer ref_pic_list_modification_flag_l1(@NativeType("uint32_t") int value) { StdVideoEncodeH265ReferenceModificationFlags.nref_pic_list_modification_flag_l1(address(), value); return this; }
 
     }
 

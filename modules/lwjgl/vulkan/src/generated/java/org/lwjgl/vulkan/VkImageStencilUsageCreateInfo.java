@@ -49,7 +49,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkImageUsageFlags {@link #stencilUsage};
  * }</code></pre>
  */
-public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCreateInfo> implements NativeResource {
+public class VkImageStencilUsageCreateInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -78,15 +78,6 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
         STENCILUSAGE = layout.offsetof(2);
     }
 
-    protected VkImageStencilUsageCreateInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkImageStencilUsageCreateInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkImageStencilUsageCreateInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkImageStencilUsageCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -100,7 +91,7 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -148,29 +139,29 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
 
     /** Returns a new {@code VkImageStencilUsageCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkImageStencilUsageCreateInfo malloc() {
-        return new VkImageStencilUsageCreateInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkImageStencilUsageCreateInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkImageStencilUsageCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkImageStencilUsageCreateInfo calloc() {
-        return new VkImageStencilUsageCreateInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkImageStencilUsageCreateInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkImageStencilUsageCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VkImageStencilUsageCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkImageStencilUsageCreateInfo(memAddress(container), container);
+        return wrap(VkImageStencilUsageCreateInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkImageStencilUsageCreateInfo} instance for the specified memory address. */
     public static VkImageStencilUsageCreateInfo create(long address) {
-        return new VkImageStencilUsageCreateInfo(address, null);
+        return wrap(VkImageStencilUsageCreateInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImageStencilUsageCreateInfo createSafe(long address) {
-        return address == NULL ? null : new VkImageStencilUsageCreateInfo(address, null);
+        return address == NULL ? null : wrap(VkImageStencilUsageCreateInfo.class, address);
     }
 
     /**
@@ -179,7 +170,7 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
      * @param capacity the buffer capacity
      */
     public static VkImageStencilUsageCreateInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -188,7 +179,7 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
      * @param capacity the buffer capacity
      */
     public static VkImageStencilUsageCreateInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -198,7 +189,7 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
      */
     public static VkImageStencilUsageCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -208,13 +199,13 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
      * @param capacity the buffer capacity
      */
     public static VkImageStencilUsageCreateInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImageStencilUsageCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -223,7 +214,7 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
      * @param stack the stack from which to allocate
      */
     public static VkImageStencilUsageCreateInfo malloc(MemoryStack stack) {
-        return new VkImageStencilUsageCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkImageStencilUsageCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -232,7 +223,7 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
      * @param stack the stack from which to allocate
      */
     public static VkImageStencilUsageCreateInfo calloc(MemoryStack stack) {
-        return new VkImageStencilUsageCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkImageStencilUsageCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -242,7 +233,7 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
      * @param capacity the buffer capacity
      */
     public static VkImageStencilUsageCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -252,7 +243,7 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
      * @param capacity the buffer capacity
      */
     public static VkImageStencilUsageCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -281,9 +272,9 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
         /**
          * Creates a new {@code VkImageStencilUsageCreateInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkImageStencilUsageCreateInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkImageStencilUsageCreateInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

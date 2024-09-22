@@ -356,8 +356,8 @@ val EXT_semaphore = "EXTSemaphore".nativeClassGL("EXT_semaphore", postfix = EXT)
         "LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_EXT"..0x9531
     )
 
-    reuse(EXT_memory_object, "GetUnsignedBytevEXT")
-    reuse(EXT_memory_object, "GetUnsignedBytei_vEXT")
+    EXT_memory_object reuse "GetUnsignedBytevEXT"
+    EXT_memory_object reuse "GetUnsignedBytei_vEXT"
 
     void(
         "GenSemaphoresEXT",

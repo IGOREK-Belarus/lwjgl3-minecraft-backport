@@ -18,22 +18,11 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Structure describing a supported swapchain format tuple.
  * 
- * <h5>Description</h5>
- * 
- * <p>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-imageCompressionControlSwapchain">{@code imageCompressionControlSwapchain}</a> feature is supported and a {@link VkImageCompressionPropertiesEXT} structure is included in the {@code pNext} chain of this structure, then it will be filled with the compression properties that are supported for the {@code surfaceFormat}.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-imageCompressionControlSwapchain">{@code imageCompressionControlSwapchain}</a> feature is not enabled, the {@code pNext} chain <b>must</b> not include an {@link VkImageCompressionPropertiesEXT} structure</li>
- * </ul>
- * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRGetSurfaceCapabilities2#VK_STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkImageCompressionPropertiesEXT}</li>
- * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
+ * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -49,7 +38,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkSurfaceFormatKHR VkSurfaceFormatKHR} {@link #surfaceFormat};
  * }</code></pre>
  */
-public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements NativeResource {
+public class VkSurfaceFormat2KHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -78,15 +67,6 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
         SURFACEFORMAT = layout.offsetof(2);
     }
 
-    protected VkSurfaceFormat2KHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkSurfaceFormat2KHR create(long address, @Nullable ByteBuffer container) {
-        return new VkSurfaceFormat2KHR(address, container);
-    }
-
     /**
      * Creates a {@code VkSurfaceFormat2KHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -100,7 +80,7 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -115,8 +95,6 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
     public VkSurfaceFormat2KHR sType$Default() { return sType(KHRGetSurfaceCapabilities2.VK_STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkSurfaceFormat2KHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Prepends the specified {@link VkImageCompressionPropertiesEXT} value to the {@code pNext} chain. */
-    public VkSurfaceFormat2KHR pNext(VkImageCompressionPropertiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
 
     /** Initializes this struct with the specified values. */
     public VkSurfaceFormat2KHR set(
@@ -145,29 +123,29 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
 
     /** Returns a new {@code VkSurfaceFormat2KHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSurfaceFormat2KHR malloc() {
-        return new VkSurfaceFormat2KHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkSurfaceFormat2KHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkSurfaceFormat2KHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSurfaceFormat2KHR calloc() {
-        return new VkSurfaceFormat2KHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkSurfaceFormat2KHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkSurfaceFormat2KHR} instance allocated with {@link BufferUtils}. */
     public static VkSurfaceFormat2KHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkSurfaceFormat2KHR(memAddress(container), container);
+        return wrap(VkSurfaceFormat2KHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkSurfaceFormat2KHR} instance for the specified memory address. */
     public static VkSurfaceFormat2KHR create(long address) {
-        return new VkSurfaceFormat2KHR(address, null);
+        return wrap(VkSurfaceFormat2KHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSurfaceFormat2KHR createSafe(long address) {
-        return address == NULL ? null : new VkSurfaceFormat2KHR(address, null);
+        return address == NULL ? null : wrap(VkSurfaceFormat2KHR.class, address);
     }
 
     /**
@@ -176,7 +154,7 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
      * @param capacity the buffer capacity
      */
     public static VkSurfaceFormat2KHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -185,7 +163,7 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
      * @param capacity the buffer capacity
      */
     public static VkSurfaceFormat2KHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -195,7 +173,7 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
      */
     public static VkSurfaceFormat2KHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -205,13 +183,13 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
      * @param capacity the buffer capacity
      */
     public static VkSurfaceFormat2KHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSurfaceFormat2KHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -239,7 +217,7 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
      * @param stack the stack from which to allocate
      */
     public static VkSurfaceFormat2KHR malloc(MemoryStack stack) {
-        return new VkSurfaceFormat2KHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkSurfaceFormat2KHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -248,7 +226,7 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
      * @param stack the stack from which to allocate
      */
     public static VkSurfaceFormat2KHR calloc(MemoryStack stack) {
-        return new VkSurfaceFormat2KHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkSurfaceFormat2KHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -258,7 +236,7 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
      * @param capacity the buffer capacity
      */
     public static VkSurfaceFormat2KHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -268,7 +246,7 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
      * @param capacity the buffer capacity
      */
     public static VkSurfaceFormat2KHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -295,9 +273,9 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
         /**
          * Creates a new {@code VkSurfaceFormat2KHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSurfaceFormat2KHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkSurfaceFormat2KHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -338,8 +316,6 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
         public VkSurfaceFormat2KHR.Buffer sType$Default() { return sType(KHRGetSurfaceCapabilities2.VK_STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR); }
         /** Sets the specified value to the {@link VkSurfaceFormat2KHR#pNext} field. */
         public VkSurfaceFormat2KHR.Buffer pNext(@NativeType("void *") long value) { VkSurfaceFormat2KHR.npNext(address(), value); return this; }
-        /** Prepends the specified {@link VkImageCompressionPropertiesEXT} value to the {@code pNext} chain. */
-        public VkSurfaceFormat2KHR.Buffer pNext(VkImageCompressionPropertiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
 
     }
 

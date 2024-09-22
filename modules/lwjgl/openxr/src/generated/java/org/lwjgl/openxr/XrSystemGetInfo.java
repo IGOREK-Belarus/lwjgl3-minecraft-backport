@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_SYSTEM_GET_INFO TYPE_SYSTEM_GET_INFO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code formFactor} <b>must</b> be a valid {@code XrFormFactor} value</li>
  * </ul>
  * 
@@ -43,7 +43,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrFormFactor {@link #formFactor};
  * }</code></pre>
  */
-public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeResource {
+public class XrSystemGetInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -70,15 +70,6 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
         FORMFACTOR = layout.offsetof(2);
-    }
-
-    protected XrSystemGetInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSystemGetInfo create(long address, @Nullable ByteBuffer container) {
-        return new XrSystemGetInfo(address, container);
     }
 
     /**
@@ -142,29 +133,29 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
 
     /** Returns a new {@code XrSystemGetInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSystemGetInfo malloc() {
-        return new XrSystemGetInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSystemGetInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSystemGetInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSystemGetInfo calloc() {
-        return new XrSystemGetInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSystemGetInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSystemGetInfo} instance allocated with {@link BufferUtils}. */
     public static XrSystemGetInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSystemGetInfo(memAddress(container), container);
+        return wrap(XrSystemGetInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSystemGetInfo} instance for the specified memory address. */
     public static XrSystemGetInfo create(long address) {
-        return new XrSystemGetInfo(address, null);
+        return wrap(XrSystemGetInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSystemGetInfo createSafe(long address) {
-        return address == NULL ? null : new XrSystemGetInfo(address, null);
+        return address == NULL ? null : wrap(XrSystemGetInfo.class, address);
     }
 
     /**
@@ -173,7 +164,7 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static XrSystemGetInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -182,7 +173,7 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static XrSystemGetInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -192,7 +183,7 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
      */
     public static XrSystemGetInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -202,13 +193,13 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static XrSystemGetInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSystemGetInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -217,7 +208,7 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static XrSystemGetInfo malloc(MemoryStack stack) {
-        return new XrSystemGetInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSystemGetInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -226,7 +217,7 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static XrSystemGetInfo calloc(MemoryStack stack) {
-        return new XrSystemGetInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSystemGetInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -236,7 +227,7 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static XrSystemGetInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -246,7 +237,7 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static XrSystemGetInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -275,9 +266,9 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
         /**
          * Creates a new {@code XrSystemGetInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSystemGetInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSystemGetInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

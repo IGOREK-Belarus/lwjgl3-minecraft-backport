@@ -17,6 +17,8 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
+ * Per-operation parameters for {@link CU#cuStreamBatchMemOp StreamBatchMemOp}.
+ * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
@@ -30,7 +32,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *             cuuint64_t value64;
  *         };
  *         unsigned int flags;
- *         CUdeviceptr alias;
+ *         CUdeviceptr {@link #waitValue_alias alias};
  *     } waitValue;
  *     struct {
  *         CUstreamBatchMemOpType operation;
@@ -40,20 +42,16 @@ import static org.lwjgl.system.MemoryStack.*;
  *             cuuint64_t value64;
  *         };
  *         unsigned int flags;
- *         CUdeviceptr alias;
+ *         CUdeviceptr {@link #writeValue_alias alias};
  *     } writeValue;
  *     struct {
  *         CUstreamBatchMemOpType operation;
  *         unsigned int flags;
  *     } flushRemoteWrites;
- *     struct {
- *         CUstreamBatchMemOpType operation;
- *         unsigned int flags;
- *     } memoryBarrier;
  *     cuuint64_t pad[6];
  * }</code></pre>
  */
-public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> implements NativeResource {
+public class CUstreamBatchMemOpParams extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -81,9 +79,6 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
         FLUSHREMOTEWRITES,
             FLUSHREMOTEWRITES_OPERATION,
             FLUSHREMOTEWRITES_FLAGS,
-        MEMORYBARRIER,
-            MEMORYBARRIER_OPERATION,
-            MEMORYBARRIER_FLAGS,
         PAD;
 
     static {
@@ -113,10 +108,6 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
                 __member(4),
                 __member(4)
             ),
-            __struct(
-                __member(4),
-                __member(4)
-            ),
             __array(8, 6)
         );
 
@@ -141,19 +132,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
         FLUSHREMOTEWRITES = layout.offsetof(17);
             FLUSHREMOTEWRITES_OPERATION = layout.offsetof(18);
             FLUSHREMOTEWRITES_FLAGS = layout.offsetof(19);
-        MEMORYBARRIER = layout.offsetof(20);
-            MEMORYBARRIER_OPERATION = layout.offsetof(21);
-            MEMORYBARRIER_FLAGS = layout.offsetof(22);
-        PAD = layout.offsetof(23);
-    }
-
-    protected CUstreamBatchMemOpParams(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CUstreamBatchMemOpParams create(long address, @Nullable ByteBuffer container) {
-        return new CUstreamBatchMemOpParams(address, container);
+        PAD = layout.offsetof(20);
     }
 
     /**
@@ -187,7 +166,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
     /** @return the value of the {@code waitValue.flags} field. */
     @NativeType("unsigned int")
     public int waitValue_flags() { return nwaitValue_flags(address()); }
-    /** @return the value of the {@code waitValue.alias} field. */
+    /** For driver internal use. Initial value is unimportant. */
     @NativeType("CUdeviceptr")
     public long waitValue_alias() { return nwaitValue_alias(address()); }
     /** @return the value of the {@code writeValue.operation} field. */
@@ -205,7 +184,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
     /** @return the value of the {@code writeValue.flags} field. */
     @NativeType("unsigned int")
     public int writeValue_flags() { return nwriteValue_flags(address()); }
-    /** @return the value of the {@code writeValue.alias} field. */
+    /** For driver internal use. Initial value is unimportant. */
     @NativeType("CUdeviceptr")
     public long writeValue_alias() { return nwriteValue_alias(address()); }
     /** @return the value of the {@code flushRemoteWrites.operation} field. */
@@ -214,12 +193,6 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
     /** @return the value of the {@code flushRemoteWrites.flags} field. */
     @NativeType("unsigned int")
     public int flushRemoteWrites_flags() { return nflushRemoteWrites_flags(address()); }
-    /** @return the value of the {@code memoryBarrier.operation} field. */
-    @NativeType("CUstreamBatchMemOpType")
-    public int memoryBarrier_operation() { return nmemoryBarrier_operation(address()); }
-    /** @return the value of the {@code memoryBarrier.flags} field. */
-    @NativeType("unsigned int")
-    public int memoryBarrier_flags() { return nmemoryBarrier_flags(address()); }
     /** @return a {@link LongBuffer} view of the {@code pad} field. */
     @NativeType("cuuint64_t[6]")
     public LongBuffer pad() { return npad(address()); }
@@ -239,7 +212,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
     public CUstreamBatchMemOpParams waitValue_value64(@NativeType("cuuint64_t") long value) { nwaitValue_value64(address(), value); return this; }
     /** Sets the specified value to the {@code flags} field. */
     public CUstreamBatchMemOpParams waitValue_flags(@NativeType("unsigned int") int value) { nwaitValue_flags(address(), value); return this; }
-    /** Sets the specified value to the {@code alias} field. */
+    /** Sets the specified value to the {@link #waitValue_alias} field. */
     public CUstreamBatchMemOpParams waitValue_alias(@NativeType("CUdeviceptr") long value) { nwaitValue_alias(address(), value); return this; }
     /** Sets the specified value to the {@code operation} field. */
     public CUstreamBatchMemOpParams writeValue_operation(@NativeType("CUstreamBatchMemOpType") int value) { nwriteValue_operation(address(), value); return this; }
@@ -251,16 +224,12 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
     public CUstreamBatchMemOpParams writeValue_value64(@NativeType("cuuint64_t") long value) { nwriteValue_value64(address(), value); return this; }
     /** Sets the specified value to the {@code flags} field. */
     public CUstreamBatchMemOpParams writeValue_flags(@NativeType("unsigned int") int value) { nwriteValue_flags(address(), value); return this; }
-    /** Sets the specified value to the {@code alias} field. */
+    /** Sets the specified value to the {@link #writeValue_alias} field. */
     public CUstreamBatchMemOpParams writeValue_alias(@NativeType("CUdeviceptr") long value) { nwriteValue_alias(address(), value); return this; }
     /** Sets the specified value to the {@code operation} field. */
     public CUstreamBatchMemOpParams flushRemoteWrites_operation(@NativeType("CUstreamBatchMemOpType") int value) { nflushRemoteWrites_operation(address(), value); return this; }
     /** Sets the specified value to the {@code flags} field. */
     public CUstreamBatchMemOpParams flushRemoteWrites_flags(@NativeType("unsigned int") int value) { nflushRemoteWrites_flags(address(), value); return this; }
-    /** Sets the specified value to the {@code operation} field. */
-    public CUstreamBatchMemOpParams memoryBarrier_operation(@NativeType("CUstreamBatchMemOpType") int value) { nmemoryBarrier_operation(address(), value); return this; }
-    /** Sets the specified value to the {@code flags} field. */
-    public CUstreamBatchMemOpParams memoryBarrier_flags(@NativeType("unsigned int") int value) { nmemoryBarrier_flags(address(), value); return this; }
     /** Copies the specified {@link LongBuffer} to the {@code pad} field. */
     public CUstreamBatchMemOpParams pad(@NativeType("cuuint64_t[6]") LongBuffer value) { npad(address(), value); return this; }
     /** Sets the specified value at the specified index of the {@code pad} field. */
@@ -282,29 +251,29 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
 
     /** Returns a new {@code CUstreamBatchMemOpParams} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CUstreamBatchMemOpParams malloc() {
-        return new CUstreamBatchMemOpParams(nmemAllocChecked(SIZEOF), null);
+        return wrap(CUstreamBatchMemOpParams.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code CUstreamBatchMemOpParams} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CUstreamBatchMemOpParams calloc() {
-        return new CUstreamBatchMemOpParams(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(CUstreamBatchMemOpParams.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code CUstreamBatchMemOpParams} instance allocated with {@link BufferUtils}. */
     public static CUstreamBatchMemOpParams create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new CUstreamBatchMemOpParams(memAddress(container), container);
+        return wrap(CUstreamBatchMemOpParams.class, memAddress(container), container);
     }
 
     /** Returns a new {@code CUstreamBatchMemOpParams} instance for the specified memory address. */
     public static CUstreamBatchMemOpParams create(long address) {
-        return new CUstreamBatchMemOpParams(address, null);
+        return wrap(CUstreamBatchMemOpParams.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUstreamBatchMemOpParams createSafe(long address) {
-        return address == NULL ? null : new CUstreamBatchMemOpParams(address, null);
+        return address == NULL ? null : wrap(CUstreamBatchMemOpParams.class, address);
     }
 
     /**
@@ -313,7 +282,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
      * @param capacity the buffer capacity
      */
     public static CUstreamBatchMemOpParams.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -322,7 +291,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
      * @param capacity the buffer capacity
      */
     public static CUstreamBatchMemOpParams.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -332,7 +301,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
      */
     public static CUstreamBatchMemOpParams.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -342,13 +311,13 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
      * @param capacity the buffer capacity
      */
     public static CUstreamBatchMemOpParams.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUstreamBatchMemOpParams.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -376,7 +345,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
      * @param stack the stack from which to allocate
      */
     public static CUstreamBatchMemOpParams malloc(MemoryStack stack) {
-        return new CUstreamBatchMemOpParams(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(CUstreamBatchMemOpParams.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -385,7 +354,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
      * @param stack the stack from which to allocate
      */
     public static CUstreamBatchMemOpParams calloc(MemoryStack stack) {
-        return new CUstreamBatchMemOpParams(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(CUstreamBatchMemOpParams.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -395,7 +364,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
      * @param capacity the buffer capacity
      */
     public static CUstreamBatchMemOpParams.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -405,7 +374,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
      * @param capacity the buffer capacity
      */
     public static CUstreamBatchMemOpParams.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -440,10 +409,6 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
     public static int nflushRemoteWrites_operation(long struct) { return UNSAFE.getInt(null, struct + CUstreamBatchMemOpParams.FLUSHREMOTEWRITES_OPERATION); }
     /** Unsafe version of {@link #flushRemoteWrites_flags}. */
     public static int nflushRemoteWrites_flags(long struct) { return UNSAFE.getInt(null, struct + CUstreamBatchMemOpParams.FLUSHREMOTEWRITES_FLAGS); }
-    /** Unsafe version of {@link #memoryBarrier_operation}. */
-    public static int nmemoryBarrier_operation(long struct) { return UNSAFE.getInt(null, struct + CUstreamBatchMemOpParams.MEMORYBARRIER_OPERATION); }
-    /** Unsafe version of {@link #memoryBarrier_flags}. */
-    public static int nmemoryBarrier_flags(long struct) { return UNSAFE.getInt(null, struct + CUstreamBatchMemOpParams.MEMORYBARRIER_FLAGS); }
     /** Unsafe version of {@link #pad}. */
     public static LongBuffer npad(long struct) { return memLongBuffer(struct + CUstreamBatchMemOpParams.PAD, 6); }
     /** Unsafe version of {@link #pad(int) pad}. */
@@ -481,10 +446,6 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
     public static void nflushRemoteWrites_operation(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamBatchMemOpParams.FLUSHREMOTEWRITES_OPERATION, value); }
     /** Unsafe version of {@link #flushRemoteWrites_flags(int) flushRemoteWrites_flags}. */
     public static void nflushRemoteWrites_flags(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamBatchMemOpParams.FLUSHREMOTEWRITES_FLAGS, value); }
-    /** Unsafe version of {@link #memoryBarrier_operation(int) memoryBarrier_operation}. */
-    public static void nmemoryBarrier_operation(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamBatchMemOpParams.MEMORYBARRIER_OPERATION, value); }
-    /** Unsafe version of {@link #memoryBarrier_flags(int) memoryBarrier_flags}. */
-    public static void nmemoryBarrier_flags(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamBatchMemOpParams.MEMORYBARRIER_FLAGS, value); }
     /** Unsafe version of {@link #pad(LongBuffer) pad}. */
     public static void npad(long struct, LongBuffer value) {
         if (CHECKS) { checkGT(value, 6); }
@@ -505,9 +466,9 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
         /**
          * Creates a new {@code CUstreamBatchMemOpParams.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CUstreamBatchMemOpParams#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CUstreamBatchMemOpParams#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -551,7 +512,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
         /** @return the value of the {@code waitValue.flags} field. */
         @NativeType("unsigned int")
         public int waitValue_flags() { return CUstreamBatchMemOpParams.nwaitValue_flags(address()); }
-        /** @return the value of the {@code waitValue.alias} field. */
+        /** @return the value of the {@link CUstreamBatchMemOpParams#waitValue_alias} field. */
         @NativeType("CUdeviceptr")
         public long waitValue_alias() { return CUstreamBatchMemOpParams.nwaitValue_alias(address()); }
         /** @return the value of the {@code writeValue.operation} field. */
@@ -569,7 +530,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
         /** @return the value of the {@code writeValue.flags} field. */
         @NativeType("unsigned int")
         public int writeValue_flags() { return CUstreamBatchMemOpParams.nwriteValue_flags(address()); }
-        /** @return the value of the {@code writeValue.alias} field. */
+        /** @return the value of the {@link CUstreamBatchMemOpParams#writeValue_alias} field. */
         @NativeType("CUdeviceptr")
         public long writeValue_alias() { return CUstreamBatchMemOpParams.nwriteValue_alias(address()); }
         /** @return the value of the {@code flushRemoteWrites.operation} field. */
@@ -578,12 +539,6 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
         /** @return the value of the {@code flushRemoteWrites.flags} field. */
         @NativeType("unsigned int")
         public int flushRemoteWrites_flags() { return CUstreamBatchMemOpParams.nflushRemoteWrites_flags(address()); }
-        /** @return the value of the {@code memoryBarrier.operation} field. */
-        @NativeType("CUstreamBatchMemOpType")
-        public int memoryBarrier_operation() { return CUstreamBatchMemOpParams.nmemoryBarrier_operation(address()); }
-        /** @return the value of the {@code memoryBarrier.flags} field. */
-        @NativeType("unsigned int")
-        public int memoryBarrier_flags() { return CUstreamBatchMemOpParams.nmemoryBarrier_flags(address()); }
         /** @return a {@link LongBuffer} view of the {@code pad} field. */
         @NativeType("cuuint64_t[6]")
         public LongBuffer pad() { return CUstreamBatchMemOpParams.npad(address()); }
@@ -603,7 +558,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
         public CUstreamBatchMemOpParams.Buffer waitValue_value64(@NativeType("cuuint64_t") long value) { CUstreamBatchMemOpParams.nwaitValue_value64(address(), value); return this; }
         /** Sets the specified value to the {@code flags} field. */
         public CUstreamBatchMemOpParams.Buffer waitValue_flags(@NativeType("unsigned int") int value) { CUstreamBatchMemOpParams.nwaitValue_flags(address(), value); return this; }
-        /** Sets the specified value to the {@code alias} field. */
+        /** Sets the specified value to the {@link CUstreamBatchMemOpParams#waitValue_alias} field. */
         public CUstreamBatchMemOpParams.Buffer waitValue_alias(@NativeType("CUdeviceptr") long value) { CUstreamBatchMemOpParams.nwaitValue_alias(address(), value); return this; }
         /** Sets the specified value to the {@code operation} field. */
         public CUstreamBatchMemOpParams.Buffer writeValue_operation(@NativeType("CUstreamBatchMemOpType") int value) { CUstreamBatchMemOpParams.nwriteValue_operation(address(), value); return this; }
@@ -615,16 +570,12 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
         public CUstreamBatchMemOpParams.Buffer writeValue_value64(@NativeType("cuuint64_t") long value) { CUstreamBatchMemOpParams.nwriteValue_value64(address(), value); return this; }
         /** Sets the specified value to the {@code flags} field. */
         public CUstreamBatchMemOpParams.Buffer writeValue_flags(@NativeType("unsigned int") int value) { CUstreamBatchMemOpParams.nwriteValue_flags(address(), value); return this; }
-        /** Sets the specified value to the {@code alias} field. */
+        /** Sets the specified value to the {@link CUstreamBatchMemOpParams#writeValue_alias} field. */
         public CUstreamBatchMemOpParams.Buffer writeValue_alias(@NativeType("CUdeviceptr") long value) { CUstreamBatchMemOpParams.nwriteValue_alias(address(), value); return this; }
         /** Sets the specified value to the {@code operation} field. */
         public CUstreamBatchMemOpParams.Buffer flushRemoteWrites_operation(@NativeType("CUstreamBatchMemOpType") int value) { CUstreamBatchMemOpParams.nflushRemoteWrites_operation(address(), value); return this; }
         /** Sets the specified value to the {@code flags} field. */
         public CUstreamBatchMemOpParams.Buffer flushRemoteWrites_flags(@NativeType("unsigned int") int value) { CUstreamBatchMemOpParams.nflushRemoteWrites_flags(address(), value); return this; }
-        /** Sets the specified value to the {@code operation} field. */
-        public CUstreamBatchMemOpParams.Buffer memoryBarrier_operation(@NativeType("CUstreamBatchMemOpType") int value) { CUstreamBatchMemOpParams.nmemoryBarrier_operation(address(), value); return this; }
-        /** Sets the specified value to the {@code flags} field. */
-        public CUstreamBatchMemOpParams.Buffer memoryBarrier_flags(@NativeType("unsigned int") int value) { CUstreamBatchMemOpParams.nmemoryBarrier_flags(address(), value); return this; }
         /** Copies the specified {@link LongBuffer} to the {@code pad} field. */
         public CUstreamBatchMemOpParams.Buffer pad(@NativeType("cuuint64_t[6]") LongBuffer value) { CUstreamBatchMemOpParams.npad(address(), value); return this; }
         /** Sets the specified value at the specified index of the {@code pad} field. */

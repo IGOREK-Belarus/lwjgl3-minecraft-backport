@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float {@link #m_flHmdRecommendedMegaPixelsPerSecond};
  * }</code></pre>
  */
-public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResults> implements NativeResource {
+public class Compositor_BenchmarkResults extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -52,15 +52,6 @@ public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResu
         M_FLHMDRECOMMENDEDMEGAPIXELSPERSECOND = layout.offsetof(1);
     }
 
-    protected Compositor_BenchmarkResults(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected Compositor_BenchmarkResults create(long address, @Nullable ByteBuffer container) {
-        return new Compositor_BenchmarkResults(address, container);
-    }
-
     /**
      * Creates a {@code Compositor_BenchmarkResults} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -83,29 +74,29 @@ public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResu
 
     /** Returns a new {@code Compositor_BenchmarkResults} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static Compositor_BenchmarkResults malloc() {
-        return new Compositor_BenchmarkResults(nmemAllocChecked(SIZEOF), null);
+        return wrap(Compositor_BenchmarkResults.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code Compositor_BenchmarkResults} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static Compositor_BenchmarkResults calloc() {
-        return new Compositor_BenchmarkResults(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(Compositor_BenchmarkResults.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code Compositor_BenchmarkResults} instance allocated with {@link BufferUtils}. */
     public static Compositor_BenchmarkResults create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new Compositor_BenchmarkResults(memAddress(container), container);
+        return wrap(Compositor_BenchmarkResults.class, memAddress(container), container);
     }
 
     /** Returns a new {@code Compositor_BenchmarkResults} instance for the specified memory address. */
     public static Compositor_BenchmarkResults create(long address) {
-        return new Compositor_BenchmarkResults(address, null);
+        return wrap(Compositor_BenchmarkResults.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static Compositor_BenchmarkResults createSafe(long address) {
-        return address == NULL ? null : new Compositor_BenchmarkResults(address, null);
+        return address == NULL ? null : wrap(Compositor_BenchmarkResults.class, address);
     }
 
     /**
@@ -114,7 +105,7 @@ public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResu
      * @param capacity the buffer capacity
      */
     public static Compositor_BenchmarkResults.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -123,7 +114,7 @@ public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResu
      * @param capacity the buffer capacity
      */
     public static Compositor_BenchmarkResults.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -133,7 +124,7 @@ public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResu
      */
     public static Compositor_BenchmarkResults.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -143,13 +134,13 @@ public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResu
      * @param capacity the buffer capacity
      */
     public static Compositor_BenchmarkResults.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static Compositor_BenchmarkResults.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -158,7 +149,7 @@ public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResu
      * @param stack the stack from which to allocate
      */
     public static Compositor_BenchmarkResults malloc(MemoryStack stack) {
-        return new Compositor_BenchmarkResults(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(Compositor_BenchmarkResults.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -167,7 +158,7 @@ public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResu
      * @param stack the stack from which to allocate
      */
     public static Compositor_BenchmarkResults calloc(MemoryStack stack) {
-        return new Compositor_BenchmarkResults(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(Compositor_BenchmarkResults.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -177,7 +168,7 @@ public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResu
      * @param capacity the buffer capacity
      */
     public static Compositor_BenchmarkResults.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -187,7 +178,7 @@ public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResu
      * @param capacity the buffer capacity
      */
     public static Compositor_BenchmarkResults.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -207,9 +198,9 @@ public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResu
         /**
          * Creates a new {@code Compositor_BenchmarkResults.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link Compositor_BenchmarkResults#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link Compositor_BenchmarkResults#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

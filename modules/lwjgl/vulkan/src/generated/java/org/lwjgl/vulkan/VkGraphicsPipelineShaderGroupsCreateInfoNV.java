@@ -35,15 +35,16 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>All elements of {@code pGroups} <b>must</b> use the same shader stage combinations unless any mesh shader stage is used, then either combination of task and mesh or just mesh shader is valid</li>
  * <li>Mesh and regular primitive shading stages cannot be mixed across {@code pGroups}</li>
  * <li>Each element of {@code pPipelines} <b>must</b> have been created with identical state to the pipeline currently created except the state that can be overridden by {@link VkGraphicsShaderGroupCreateInfoNV}</li>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-deviceGeneratedCommands">{@code deviceGeneratedCommands}</a> feature <b>must</b> be enabled</li>
+ * <li>The <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-deviceGeneratedCommands">{@link VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV}{@code ::deviceGeneratedCommands}</a> feature <b>must</b> be enabled</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link NVDeviceGeneratedCommands#VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV STRUCTURE_TYPE_GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV}</li>
- * <li>If {@code groupCount} is not 0, {@code pGroups} <b>must</b> be a valid pointer to an array of {@code groupCount} valid {@link VkGraphicsShaderGroupCreateInfoNV} structures</li>
+ * <li>{@code pGroups} <b>must</b> be a valid pointer to an array of {@code groupCount} valid {@link VkGraphicsShaderGroupCreateInfoNV} structures</li>
  * <li>If {@code pipelineCount} is not 0, {@code pPipelines} <b>must</b> be a valid pointer to an array of {@code pipelineCount} valid {@code VkPipeline} handles</li>
+ * <li>{@code groupCount} <b>must</b> be greater than 0</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -62,7 +63,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkPipeline const * {@link #pPipelines};
  * }</code></pre>
  */
-public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphicsPipelineShaderGroupsCreateInfoNV> implements NativeResource {
+public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -100,15 +101,6 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
         PPIPELINES = layout.offsetof(5);
     }
 
-    protected VkGraphicsPipelineShaderGroupsCreateInfoNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkGraphicsPipelineShaderGroupsCreateInfoNV create(long address, @Nullable ByteBuffer container) {
-        return new VkGraphicsPipelineShaderGroupsCreateInfoNV(address, container);
-    }
-
     /**
      * Creates a {@code VkGraphicsPipelineShaderGroupsCreateInfoNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -122,7 +114,7 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -132,7 +124,6 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
     @NativeType("uint32_t")
     public int groupCount() { return ngroupCount(address()); }
     /** a pointer to an array of {@link VkGraphicsShaderGroupCreateInfoNV} structures specifying which state of the original {@link VkGraphicsPipelineCreateInfo} each shader group overrides. */
-    @Nullable
     @NativeType("VkGraphicsShaderGroupCreateInfoNV const *")
     public VkGraphicsShaderGroupCreateInfoNV.Buffer pGroups() { return npGroups(address()); }
     /** the number of elements in the {@code pPipelines} array. */
@@ -150,7 +141,7 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
     /** Sets the specified value to the {@link #pNext} field. */
     public VkGraphicsPipelineShaderGroupsCreateInfoNV pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Sets the address of the specified {@link VkGraphicsShaderGroupCreateInfoNV.Buffer} to the {@link #pGroups} field. */
-    public VkGraphicsPipelineShaderGroupsCreateInfoNV pGroups(@Nullable @NativeType("VkGraphicsShaderGroupCreateInfoNV const *") VkGraphicsShaderGroupCreateInfoNV.Buffer value) { npGroups(address(), value); return this; }
+    public VkGraphicsPipelineShaderGroupsCreateInfoNV pGroups(@NativeType("VkGraphicsShaderGroupCreateInfoNV const *") VkGraphicsShaderGroupCreateInfoNV.Buffer value) { npGroups(address(), value); return this; }
     /** Sets the address of the specified {@link LongBuffer} to the {@link #pPipelines} field. */
     public VkGraphicsPipelineShaderGroupsCreateInfoNV pPipelines(@Nullable @NativeType("VkPipeline const *") LongBuffer value) { npPipelines(address(), value); return this; }
 
@@ -158,7 +149,7 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
     public VkGraphicsPipelineShaderGroupsCreateInfoNV set(
         int sType,
         long pNext,
-        @Nullable VkGraphicsShaderGroupCreateInfoNV.Buffer pGroups,
+        VkGraphicsShaderGroupCreateInfoNV.Buffer pGroups,
         @Nullable LongBuffer pPipelines
     ) {
         sType(sType);
@@ -185,29 +176,29 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
 
     /** Returns a new {@code VkGraphicsPipelineShaderGroupsCreateInfoNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkGraphicsPipelineShaderGroupsCreateInfoNV malloc() {
-        return new VkGraphicsPipelineShaderGroupsCreateInfoNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkGraphicsPipelineShaderGroupsCreateInfoNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkGraphicsPipelineShaderGroupsCreateInfoNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkGraphicsPipelineShaderGroupsCreateInfoNV calloc() {
-        return new VkGraphicsPipelineShaderGroupsCreateInfoNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkGraphicsPipelineShaderGroupsCreateInfoNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkGraphicsPipelineShaderGroupsCreateInfoNV} instance allocated with {@link BufferUtils}. */
     public static VkGraphicsPipelineShaderGroupsCreateInfoNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkGraphicsPipelineShaderGroupsCreateInfoNV(memAddress(container), container);
+        return wrap(VkGraphicsPipelineShaderGroupsCreateInfoNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkGraphicsPipelineShaderGroupsCreateInfoNV} instance for the specified memory address. */
     public static VkGraphicsPipelineShaderGroupsCreateInfoNV create(long address) {
-        return new VkGraphicsPipelineShaderGroupsCreateInfoNV(address, null);
+        return wrap(VkGraphicsPipelineShaderGroupsCreateInfoNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkGraphicsPipelineShaderGroupsCreateInfoNV createSafe(long address) {
-        return address == NULL ? null : new VkGraphicsPipelineShaderGroupsCreateInfoNV(address, null);
+        return address == NULL ? null : wrap(VkGraphicsPipelineShaderGroupsCreateInfoNV.class, address);
     }
 
     /**
@@ -216,7 +207,7 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
      * @param capacity the buffer capacity
      */
     public static VkGraphicsPipelineShaderGroupsCreateInfoNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -225,7 +216,7 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
      * @param capacity the buffer capacity
      */
     public static VkGraphicsPipelineShaderGroupsCreateInfoNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -235,7 +226,7 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
      */
     public static VkGraphicsPipelineShaderGroupsCreateInfoNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -245,13 +236,13 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
      * @param capacity the buffer capacity
      */
     public static VkGraphicsPipelineShaderGroupsCreateInfoNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkGraphicsPipelineShaderGroupsCreateInfoNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -260,7 +251,7 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
      * @param stack the stack from which to allocate
      */
     public static VkGraphicsPipelineShaderGroupsCreateInfoNV malloc(MemoryStack stack) {
-        return new VkGraphicsPipelineShaderGroupsCreateInfoNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkGraphicsPipelineShaderGroupsCreateInfoNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -269,7 +260,7 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
      * @param stack the stack from which to allocate
      */
     public static VkGraphicsPipelineShaderGroupsCreateInfoNV calloc(MemoryStack stack) {
-        return new VkGraphicsPipelineShaderGroupsCreateInfoNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkGraphicsPipelineShaderGroupsCreateInfoNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -279,7 +270,7 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
      * @param capacity the buffer capacity
      */
     public static VkGraphicsPipelineShaderGroupsCreateInfoNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -289,7 +280,7 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
      * @param capacity the buffer capacity
      */
     public static VkGraphicsPipelineShaderGroupsCreateInfoNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -301,7 +292,7 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
     /** Unsafe version of {@link #groupCount}. */
     public static int ngroupCount(long struct) { return UNSAFE.getInt(null, struct + VkGraphicsPipelineShaderGroupsCreateInfoNV.GROUPCOUNT); }
     /** Unsafe version of {@link #pGroups}. */
-    @Nullable public static VkGraphicsShaderGroupCreateInfoNV.Buffer npGroups(long struct) { return VkGraphicsShaderGroupCreateInfoNV.createSafe(memGetAddress(struct + VkGraphicsPipelineShaderGroupsCreateInfoNV.PGROUPS), ngroupCount(struct)); }
+    public static VkGraphicsShaderGroupCreateInfoNV.Buffer npGroups(long struct) { return VkGraphicsShaderGroupCreateInfoNV.create(memGetAddress(struct + VkGraphicsPipelineShaderGroupsCreateInfoNV.PGROUPS), ngroupCount(struct)); }
     /** Unsafe version of {@link #pipelineCount}. */
     public static int npipelineCount(long struct) { return UNSAFE.getInt(null, struct + VkGraphicsPipelineShaderGroupsCreateInfoNV.PIPELINECOUNT); }
     /** Unsafe version of {@link #pPipelines() pPipelines}. */
@@ -314,7 +305,7 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
     /** Sets the specified value to the {@code groupCount} field of the specified {@code struct}. */
     public static void ngroupCount(long struct, int value) { UNSAFE.putInt(null, struct + VkGraphicsPipelineShaderGroupsCreateInfoNV.GROUPCOUNT, value); }
     /** Unsafe version of {@link #pGroups(VkGraphicsShaderGroupCreateInfoNV.Buffer) pGroups}. */
-    public static void npGroups(long struct, @Nullable VkGraphicsShaderGroupCreateInfoNV.Buffer value) { memPutAddress(struct + VkGraphicsPipelineShaderGroupsCreateInfoNV.PGROUPS, memAddressSafe(value)); ngroupCount(struct, value == null ? 0 : value.remaining()); }
+    public static void npGroups(long struct, VkGraphicsShaderGroupCreateInfoNV.Buffer value) { memPutAddress(struct + VkGraphicsPipelineShaderGroupsCreateInfoNV.PGROUPS, value.address()); ngroupCount(struct, value.remaining()); }
     /** Sets the specified value to the {@code pipelineCount} field of the specified {@code struct}. */
     public static void npipelineCount(long struct, int value) { UNSAFE.putInt(null, struct + VkGraphicsPipelineShaderGroupsCreateInfoNV.PIPELINECOUNT, value); }
     /** Unsafe version of {@link #pPipelines(LongBuffer) pPipelines}. */
@@ -327,11 +318,9 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
      */
     public static void validate(long struct) {
         int groupCount = ngroupCount(struct);
-        if (groupCount != 0) {
-            long pGroups = memGetAddress(struct + VkGraphicsPipelineShaderGroupsCreateInfoNV.PGROUPS);
-            check(pGroups);
-            validate(pGroups, groupCount, VkGraphicsShaderGroupCreateInfoNV.SIZEOF, VkGraphicsShaderGroupCreateInfoNV::validate);
-        }
+        long pGroups = memGetAddress(struct + VkGraphicsPipelineShaderGroupsCreateInfoNV.PGROUPS);
+        check(pGroups);
+        validate(pGroups, groupCount, VkGraphicsShaderGroupCreateInfoNV.SIZEOF, VkGraphicsShaderGroupCreateInfoNV::validate);
         if (npipelineCount(struct) != 0) {
             check(memGetAddress(struct + VkGraphicsPipelineShaderGroupsCreateInfoNV.PPIPELINES));
         }
@@ -347,9 +336,9 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
         /**
          * Creates a new {@code VkGraphicsPipelineShaderGroupsCreateInfoNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkGraphicsPipelineShaderGroupsCreateInfoNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkGraphicsPipelineShaderGroupsCreateInfoNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -385,7 +374,6 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
         @NativeType("uint32_t")
         public int groupCount() { return VkGraphicsPipelineShaderGroupsCreateInfoNV.ngroupCount(address()); }
         /** @return a {@link VkGraphicsShaderGroupCreateInfoNV.Buffer} view of the struct array pointed to by the {@link VkGraphicsPipelineShaderGroupsCreateInfoNV#pGroups} field. */
-        @Nullable
         @NativeType("VkGraphicsShaderGroupCreateInfoNV const *")
         public VkGraphicsShaderGroupCreateInfoNV.Buffer pGroups() { return VkGraphicsPipelineShaderGroupsCreateInfoNV.npGroups(address()); }
         /** @return the value of the {@link VkGraphicsPipelineShaderGroupsCreateInfoNV#pipelineCount} field. */
@@ -403,7 +391,7 @@ public class VkGraphicsPipelineShaderGroupsCreateInfoNV extends Struct<VkGraphic
         /** Sets the specified value to the {@link VkGraphicsPipelineShaderGroupsCreateInfoNV#pNext} field. */
         public VkGraphicsPipelineShaderGroupsCreateInfoNV.Buffer pNext(@NativeType("void const *") long value) { VkGraphicsPipelineShaderGroupsCreateInfoNV.npNext(address(), value); return this; }
         /** Sets the address of the specified {@link VkGraphicsShaderGroupCreateInfoNV.Buffer} to the {@link VkGraphicsPipelineShaderGroupsCreateInfoNV#pGroups} field. */
-        public VkGraphicsPipelineShaderGroupsCreateInfoNV.Buffer pGroups(@Nullable @NativeType("VkGraphicsShaderGroupCreateInfoNV const *") VkGraphicsShaderGroupCreateInfoNV.Buffer value) { VkGraphicsPipelineShaderGroupsCreateInfoNV.npGroups(address(), value); return this; }
+        public VkGraphicsPipelineShaderGroupsCreateInfoNV.Buffer pGroups(@NativeType("VkGraphicsShaderGroupCreateInfoNV const *") VkGraphicsShaderGroupCreateInfoNV.Buffer value) { VkGraphicsPipelineShaderGroupsCreateInfoNV.npGroups(address(), value); return this; }
         /** Sets the address of the specified {@link LongBuffer} to the {@link VkGraphicsPipelineShaderGroupsCreateInfoNV#pPipelines} field. */
         public VkGraphicsPipelineShaderGroupsCreateInfoNV.Buffer pPipelines(@Nullable @NativeType("VkPipeline const *") LongBuffer value) { VkGraphicsPipelineShaderGroupsCreateInfoNV.npPipelines(address(), value); return this; }
 

@@ -36,7 +36,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkRectLayerKHR VkRectLayerKHR} const * {@link #pRectangles};
  * }</code></pre>
  */
-public class VkPresentRegionKHR extends Struct<VkPresentRegionKHR> implements NativeResource {
+public class VkPresentRegionKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -60,15 +60,6 @@ public class VkPresentRegionKHR extends Struct<VkPresentRegionKHR> implements Na
 
         RECTANGLECOUNT = layout.offsetof(0);
         PRECTANGLES = layout.offsetof(1);
-    }
-
-    protected VkPresentRegionKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPresentRegionKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkPresentRegionKHR(address, container);
     }
 
     /**
@@ -124,29 +115,29 @@ public class VkPresentRegionKHR extends Struct<VkPresentRegionKHR> implements Na
 
     /** Returns a new {@code VkPresentRegionKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPresentRegionKHR malloc() {
-        return new VkPresentRegionKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPresentRegionKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPresentRegionKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPresentRegionKHR calloc() {
-        return new VkPresentRegionKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPresentRegionKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPresentRegionKHR} instance allocated with {@link BufferUtils}. */
     public static VkPresentRegionKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPresentRegionKHR(memAddress(container), container);
+        return wrap(VkPresentRegionKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPresentRegionKHR} instance for the specified memory address. */
     public static VkPresentRegionKHR create(long address) {
-        return new VkPresentRegionKHR(address, null);
+        return wrap(VkPresentRegionKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPresentRegionKHR createSafe(long address) {
-        return address == NULL ? null : new VkPresentRegionKHR(address, null);
+        return address == NULL ? null : wrap(VkPresentRegionKHR.class, address);
     }
 
     /**
@@ -155,7 +146,7 @@ public class VkPresentRegionKHR extends Struct<VkPresentRegionKHR> implements Na
      * @param capacity the buffer capacity
      */
     public static VkPresentRegionKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -164,7 +155,7 @@ public class VkPresentRegionKHR extends Struct<VkPresentRegionKHR> implements Na
      * @param capacity the buffer capacity
      */
     public static VkPresentRegionKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -174,7 +165,7 @@ public class VkPresentRegionKHR extends Struct<VkPresentRegionKHR> implements Na
      */
     public static VkPresentRegionKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -184,13 +175,13 @@ public class VkPresentRegionKHR extends Struct<VkPresentRegionKHR> implements Na
      * @param capacity the buffer capacity
      */
     public static VkPresentRegionKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPresentRegionKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -218,7 +209,7 @@ public class VkPresentRegionKHR extends Struct<VkPresentRegionKHR> implements Na
      * @param stack the stack from which to allocate
      */
     public static VkPresentRegionKHR malloc(MemoryStack stack) {
-        return new VkPresentRegionKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPresentRegionKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -227,7 +218,7 @@ public class VkPresentRegionKHR extends Struct<VkPresentRegionKHR> implements Na
      * @param stack the stack from which to allocate
      */
     public static VkPresentRegionKHR calloc(MemoryStack stack) {
-        return new VkPresentRegionKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPresentRegionKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -237,7 +228,7 @@ public class VkPresentRegionKHR extends Struct<VkPresentRegionKHR> implements Na
      * @param capacity the buffer capacity
      */
     public static VkPresentRegionKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -247,7 +238,7 @@ public class VkPresentRegionKHR extends Struct<VkPresentRegionKHR> implements Na
      * @param capacity the buffer capacity
      */
     public static VkPresentRegionKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -272,9 +263,9 @@ public class VkPresentRegionKHR extends Struct<VkPresentRegionKHR> implements Na
         /**
          * Creates a new {@code VkPresentRegionKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPresentRegionKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPresentRegionKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

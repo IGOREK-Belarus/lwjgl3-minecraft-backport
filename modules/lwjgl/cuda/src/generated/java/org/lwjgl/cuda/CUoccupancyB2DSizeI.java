@@ -13,6 +13,8 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
 /**
+ * Instances of this interface may be passed to the {@link CU#cuOccupancyMaxPotentialBlockSize OccupancyMaxPotentialBlockSize} and {@link CU#cuOccupancyMaxPotentialBlockSizeWithFlags OccupancyMaxPotentialBlockSizeWithFlags} methods.
+ * 
  * <h3>Type</h3>
  * 
  * <pre><code>
@@ -41,7 +43,13 @@ public interface CUoccupancyB2DSizeI extends CallbackI {
         apiClosureRetP(ret, __result);
     }
 
-    /** @return the dynamic shared memory needed by a block */
+    /**
+     * Block size to per-block dynamic shared memory mapping for a certain kernel.
+     *
+     * @param blockSize block size of the kernel
+     *
+     * @return the dynamic shared memory needed by a block
+     */
     @NativeType("size_t") long invoke(int blockSize);
 
 }

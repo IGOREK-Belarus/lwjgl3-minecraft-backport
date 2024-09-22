@@ -903,23 +903,23 @@ class Demo {
             }
         }
 
-        data.fontIcons = nvgCreateFontMem(vg, "icons", data.entypo, false);
+        data.fontIcons = nvgCreateFontMem(vg, "icons", data.entypo, 0);
         if (data.fontIcons == -1) {
             System.err.format("Could not add font icons.\n");
             return -1;
         }
-        data.fontNormal = nvgCreateFontMem(vg, "sans", data.RobotoRegular, false);
+        data.fontNormal = nvgCreateFontMem(vg, "sans", data.RobotoRegular, 0);
         if (data.fontNormal == -1) {
             System.err.format("Could not add font italic.\n");
             return -1;
         }
-        data.fontBold = nvgCreateFontMem(vg, "sans-bold", data.RobotoBold, false);
+        data.fontBold = nvgCreateFontMem(vg, "sans-bold", data.RobotoBold, 0);
         if (data.fontBold == -1) {
             System.err.format("Could not add font bold.\n");
             return -1;
         }
 
-        data.fontEmoji = nvgCreateFontMem(vg, "emoji", data.NotoEmojiRegular, false);
+        data.fontEmoji = nvgCreateFontMem(vg, "emoji", data.NotoEmojiRegular, 0);
         if (data.fontEmoji == -1) {
             System.err.format("Could not add font emoji.\n");
             return -1;

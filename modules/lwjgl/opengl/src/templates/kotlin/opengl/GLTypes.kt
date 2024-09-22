@@ -8,7 +8,7 @@ import org.lwjgl.generator.*
 
 // numeric
 
-val GLboolean = PrimitiveType("GLboolean", PrimitiveMapping.BOOLEAN)
+val GLboolean = IntegerType("GLboolean", PrimitiveMapping.BOOLEAN, unsigned = true)
 val GLbyte = IntegerType("GLbyte", PrimitiveMapping.BYTE)
 val GLubyte = IntegerType("GLubyte", PrimitiveMapping.BYTE, unsigned = true)
 val GLshort = IntegerType("GLshort", PrimitiveMapping.SHORT)

@@ -62,7 +62,6 @@ public final class ALC {
     public static void create() {
         String libName;
         switch (Platform.get()) {
-            case FREEBSD:
             case LINUX:
             case MACOSX:
                 libName = "openal";
@@ -92,7 +91,7 @@ public final class ALC {
         public long getFunctionAddress(ByteBuffer functionName) {
             long address = library.getFunctionAddress(functionName);
             if (address == NULL && Checks.DEBUG_FUNCTIONS) {
-                apiLogMissing("ALC core", functionName);
+                apiLog("Failed to locate address for ALC core function " + memASCII(functionName));
             }
             return address;
         }
@@ -104,7 +103,7 @@ public final class ALC {
                 address = invokePPP(handle, memAddress(functionName), alcGetProcAddress);
             }
             if (address == NULL && Checks.DEBUG_FUNCTIONS) {
-                apiLogMissing("ALC", functionName);
+                apiLog("Failed to locate address for ALC function " + memASCII(functionName));
             }
             return address;
         }

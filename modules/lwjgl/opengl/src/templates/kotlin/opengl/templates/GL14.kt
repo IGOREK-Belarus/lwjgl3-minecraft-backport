@@ -56,13 +56,7 @@ val GL14 = "GL14".nativeClassGL("GL14") {
         "ONE_MINUS_CONSTANT_ALPHA"..0x8004
     )
 
-    IntConstant(
-        "Accepted by the {@code pname} parameter of GetBooleanv, GetIntegerv, GetFloatv, and GetDoublev.",
-
-        "BLEND_COLOR"..0x8005
-    )
-
-    reuse(GL14C, "BlendColor")
+    GL14C reuse "BlendColor"
 
     // EXT_blend_minmax
 
@@ -74,13 +68,7 @@ val GL14 = "GL14".nativeClassGL("GL14") {
         "MAX"..0x8008
     )
 
-    IntConstant(
-        "Accepted by the {@code pname} parameter of GetBooleanv, GetIntegerv, GetFloatv, and GetDoublev.",
-
-        "BLEND_EQUATION"..0x8009
-    )
-
-    reuse(GL14C, "BlendEquation")
+    GL14C reuse "BlendEquation"
 
     // EXT_blend_subtract
 
@@ -211,8 +199,8 @@ val GL14 = "GL14".nativeClassGL("GL14") {
 
     // EXT_multi_draw_arrays
 
-    reuse(GL14C, "MultiDrawArrays")
-    reuse(GL14C, "MultiDrawElements")
+    GL14C reuse "MultiDrawArrays"
+    GL14C reuse "MultiDrawElements"
 
     // ARB_point_parameters
 
@@ -225,10 +213,10 @@ val GL14 = "GL14".nativeClassGL("GL14") {
         "POINT_DISTANCE_ATTENUATION"..0x8129
     )
 
-    reuse(GL14C, "PointParameterf")
-    reuse(GL14C, "PointParameteri")
-    reuse(GL14C, "PointParameterfv")
-    reuse(GL14C, "PointParameteriv")
+    GL14C reuse "PointParameterf"
+    GL14C reuse "PointParameteri"
+    GL14C reuse "PointParameterfv"
+    GL14C reuse "PointParameteriv"
 
     // EXT_secondary_color
 
@@ -323,7 +311,7 @@ val GL14 = "GL14".nativeClassGL("GL14") {
         "BLEND_SRC_ALPHA"..0x80CB
     )
 
-    reuse(GL14C, "BlendFuncSeparate")
+    GL14C reuse "BlendFuncSeparate"
 
     // EXT_stencil_wrap
 

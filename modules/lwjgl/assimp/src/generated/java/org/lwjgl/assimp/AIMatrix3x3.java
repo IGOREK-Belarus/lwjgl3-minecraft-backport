@@ -34,7 +34,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct aiMatrix3x3")
-public class AIMatrix3x3 extends Struct<AIMatrix3x3> implements NativeResource {
+public class AIMatrix3x3 extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -79,15 +79,6 @@ public class AIMatrix3x3 extends Struct<AIMatrix3x3> implements NativeResource {
         C1 = layout.offsetof(6);
         C2 = layout.offsetof(7);
         C3 = layout.offsetof(8);
-    }
-
-    protected AIMatrix3x3(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected AIMatrix3x3 create(long address, @Nullable ByteBuffer container) {
-        return new AIMatrix3x3(address, container);
     }
 
     /**
@@ -182,29 +173,29 @@ public class AIMatrix3x3 extends Struct<AIMatrix3x3> implements NativeResource {
 
     /** Returns a new {@code AIMatrix3x3} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static AIMatrix3x3 malloc() {
-        return new AIMatrix3x3(nmemAllocChecked(SIZEOF), null);
+        return wrap(AIMatrix3x3.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code AIMatrix3x3} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static AIMatrix3x3 calloc() {
-        return new AIMatrix3x3(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(AIMatrix3x3.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code AIMatrix3x3} instance allocated with {@link BufferUtils}. */
     public static AIMatrix3x3 create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new AIMatrix3x3(memAddress(container), container);
+        return wrap(AIMatrix3x3.class, memAddress(container), container);
     }
 
     /** Returns a new {@code AIMatrix3x3} instance for the specified memory address. */
     public static AIMatrix3x3 create(long address) {
-        return new AIMatrix3x3(address, null);
+        return wrap(AIMatrix3x3.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static AIMatrix3x3 createSafe(long address) {
-        return address == NULL ? null : new AIMatrix3x3(address, null);
+        return address == NULL ? null : wrap(AIMatrix3x3.class, address);
     }
 
     /**
@@ -213,7 +204,7 @@ public class AIMatrix3x3 extends Struct<AIMatrix3x3> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static AIMatrix3x3.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -222,7 +213,7 @@ public class AIMatrix3x3 extends Struct<AIMatrix3x3> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static AIMatrix3x3.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -232,7 +223,7 @@ public class AIMatrix3x3 extends Struct<AIMatrix3x3> implements NativeResource {
      */
     public static AIMatrix3x3.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -242,13 +233,13 @@ public class AIMatrix3x3 extends Struct<AIMatrix3x3> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static AIMatrix3x3.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static AIMatrix3x3.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -276,7 +267,7 @@ public class AIMatrix3x3 extends Struct<AIMatrix3x3> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static AIMatrix3x3 malloc(MemoryStack stack) {
-        return new AIMatrix3x3(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(AIMatrix3x3.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -285,7 +276,7 @@ public class AIMatrix3x3 extends Struct<AIMatrix3x3> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static AIMatrix3x3 calloc(MemoryStack stack) {
-        return new AIMatrix3x3(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(AIMatrix3x3.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -295,7 +286,7 @@ public class AIMatrix3x3 extends Struct<AIMatrix3x3> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static AIMatrix3x3.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -305,7 +296,7 @@ public class AIMatrix3x3 extends Struct<AIMatrix3x3> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static AIMatrix3x3.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -358,9 +349,9 @@ public class AIMatrix3x3 extends Struct<AIMatrix3x3> implements NativeResource {
         /**
          * Creates a new {@code AIMatrix3x3.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link AIMatrix3x3#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link AIMatrix3x3#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

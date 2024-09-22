@@ -19,18 +19,22 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * A composition layer for passthrough.
  * 
- * <h5>Description</h5>
+ * <h5>Member Descriptions</h5>
  * 
- * <p>It is a composition layer type that may be submitted in {@link XR10#xrEndFrame EndFrame} where an {@link XrCompositionLayerBaseHeader} is specified, as a stand-in for the actual passthrough contents.</p>
- * 
- * <p>Errata: the third field of this structure is named {@code flags} rather than {@code layerFlags} as expected and as documented for for the parent type {@link XrCompositionLayerBaseHeader}.</p>
+ * <ul>
+ * <li>{@code type} is the {@code XrStructureType} of this structure.</li>
+ * <li>{@code next} is {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension.</li>
+ * <li>{@code flags} is a bitmask of {@code XrCompositionLayerFlagBits} that specify additional behavior.</li>
+ * <li>{@code space} is the {@code XrSpace} that specifies the layer’s space - <b>must</b> be {@link XR10#XR_NULL_HANDLE NULL_HANDLE}.</li>
+ * <li>{@code layer} is the {@code XrPassthroughLayerFB} that defines this layer’s behavior.</li>
+ * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>The {@link FBPassthrough XR_FB_passthrough} extension <b>must</b> be enabled prior to using {@link XrCompositionLayerPassthroughFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBPassthrough#XR_TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code flags} <b>must</b> be a valid combination of {@code XrCompositionLayerFlagBits} values</li>
  * <li>{@code flags} <b>must</b> not be 0</li>
  * <li>{@code space} <b>must</b> be a valid {@code XrSpace} handle</li>
@@ -46,14 +50,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <pre><code>
  * struct XrCompositionLayerPassthroughFB {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrCompositionLayerFlags {@link #flags};
- *     XrSpace {@link #space};
- *     XrPassthroughLayerFB {@link #layerHandle};
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrCompositionLayerFlags flags;
+ *     XrSpace space;
+ *     XrPassthroughLayerFB layerHandle;
  * }</code></pre>
  */
-public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPassthroughFB> implements NativeResource {
+public class XrCompositionLayerPassthroughFB extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -88,15 +92,6 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
         LAYERHANDLE = layout.offsetof(4);
     }
 
-    protected XrCompositionLayerPassthroughFB(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrCompositionLayerPassthroughFB create(long address, @Nullable ByteBuffer container) {
-        return new XrCompositionLayerPassthroughFB(address, container);
-    }
-
     /**
      * Creates a {@code XrCompositionLayerPassthroughFB} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -110,33 +105,33 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** a bitmask of {@code XrCompositionLayerFlagBits} that specify additional behavior. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("XrCompositionLayerFlags")
     public long flags() { return nflags(address()); }
-    /** the {@code XrSpace} that specifies the layer’s space - <b>must</b> be {@link XR10#XR_NULL_HANDLE NULL_HANDLE}. */
+    /** @return the value of the {@code space} field. */
     @NativeType("XrSpace")
     public long space() { return nspace(address()); }
-    /** the {@code XrPassthroughLayerFB} that defines this layer’s behavior. */
+    /** @return the value of the {@code layerHandle} field. */
     @NativeType("XrPassthroughLayerFB")
     public long layerHandle() { return nlayerHandle(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrCompositionLayerPassthroughFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBPassthrough#XR_TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBPassthrough#XR_TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB} value to the {@code type} field. */
     public XrCompositionLayerPassthroughFB type$Default() { return type(FBPassthrough.XR_TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrCompositionLayerPassthroughFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public XrCompositionLayerPassthroughFB flags(@NativeType("XrCompositionLayerFlags") long value) { nflags(address(), value); return this; }
-    /** Sets the specified value to the {@link #space} field. */
+    /** Sets the specified value to the {@code space} field. */
     public XrCompositionLayerPassthroughFB space(XrSpace value) { nspace(address(), value); return this; }
-    /** Sets the specified value to the {@link #layerHandle} field. */
+    /** Sets the specified value to the {@code layerHandle} field. */
     public XrCompositionLayerPassthroughFB layerHandle(XrPassthroughLayerFB value) { nlayerHandle(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -172,34 +167,29 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
 
     /** Returns a new {@code XrCompositionLayerPassthroughFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrCompositionLayerPassthroughFB malloc() {
-        return new XrCompositionLayerPassthroughFB(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrCompositionLayerPassthroughFB.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrCompositionLayerPassthroughFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrCompositionLayerPassthroughFB calloc() {
-        return new XrCompositionLayerPassthroughFB(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrCompositionLayerPassthroughFB.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrCompositionLayerPassthroughFB} instance allocated with {@link BufferUtils}. */
     public static XrCompositionLayerPassthroughFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrCompositionLayerPassthroughFB(memAddress(container), container);
+        return wrap(XrCompositionLayerPassthroughFB.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrCompositionLayerPassthroughFB} instance for the specified memory address. */
     public static XrCompositionLayerPassthroughFB create(long address) {
-        return new XrCompositionLayerPassthroughFB(address, null);
+        return wrap(XrCompositionLayerPassthroughFB.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrCompositionLayerPassthroughFB createSafe(long address) {
-        return address == NULL ? null : new XrCompositionLayerPassthroughFB(address, null);
-    }
-
-    /** Downcasts the specified {@code XrCompositionLayerBaseHeader} instance to {@code XrCompositionLayerPassthroughFB}. */
-    public static XrCompositionLayerPassthroughFB create(XrCompositionLayerBaseHeader value) {
-        return new XrCompositionLayerPassthroughFB(value.address(), __getContainer(value));
+        return address == NULL ? null : wrap(XrCompositionLayerPassthroughFB.class, address);
     }
 
     /**
@@ -208,7 +198,7 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerPassthroughFB.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -217,7 +207,7 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerPassthroughFB.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -227,7 +217,7 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
      */
     public static XrCompositionLayerPassthroughFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -237,18 +227,13 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerPassthroughFB.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrCompositionLayerPassthroughFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
-    }
-
-    /** Downcasts the specified {@code XrCompositionLayerBaseHeader.Buffer} instance to {@code XrCompositionLayerPassthroughFB.Buffer}. */
-    public static XrCompositionLayerPassthroughFB.Buffer create(XrCompositionLayerBaseHeader.Buffer value) {
-        return new XrCompositionLayerPassthroughFB.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -257,7 +242,7 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
      * @param stack the stack from which to allocate
      */
     public static XrCompositionLayerPassthroughFB malloc(MemoryStack stack) {
-        return new XrCompositionLayerPassthroughFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrCompositionLayerPassthroughFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -266,7 +251,7 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
      * @param stack the stack from which to allocate
      */
     public static XrCompositionLayerPassthroughFB calloc(MemoryStack stack) {
-        return new XrCompositionLayerPassthroughFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrCompositionLayerPassthroughFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -276,7 +261,7 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerPassthroughFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -286,7 +271,7 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerPassthroughFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -333,9 +318,9 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
         /**
          * Creates a new {@code XrCompositionLayerPassthroughFB.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrCompositionLayerPassthroughFB#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrCompositionLayerPassthroughFB#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -361,33 +346,33 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrCompositionLayerPassthroughFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrCompositionLayerPassthroughFB.ntype(address()); }
-        /** @return the value of the {@link XrCompositionLayerPassthroughFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrCompositionLayerPassthroughFB.nnext(address()); }
-        /** @return the value of the {@link XrCompositionLayerPassthroughFB#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("XrCompositionLayerFlags")
         public long flags() { return XrCompositionLayerPassthroughFB.nflags(address()); }
-        /** @return the value of the {@link XrCompositionLayerPassthroughFB#space} field. */
+        /** @return the value of the {@code space} field. */
         @NativeType("XrSpace")
         public long space() { return XrCompositionLayerPassthroughFB.nspace(address()); }
-        /** @return the value of the {@link XrCompositionLayerPassthroughFB#layerHandle} field. */
+        /** @return the value of the {@code layerHandle} field. */
         @NativeType("XrPassthroughLayerFB")
         public long layerHandle() { return XrCompositionLayerPassthroughFB.nlayerHandle(address()); }
 
-        /** Sets the specified value to the {@link XrCompositionLayerPassthroughFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrCompositionLayerPassthroughFB.Buffer type(@NativeType("XrStructureType") int value) { XrCompositionLayerPassthroughFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBPassthrough#XR_TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB} value to the {@link XrCompositionLayerPassthroughFB#type} field. */
+        /** Sets the {@link FBPassthrough#XR_TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB} value to the {@code type} field. */
         public XrCompositionLayerPassthroughFB.Buffer type$Default() { return type(FBPassthrough.XR_TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB); }
-        /** Sets the specified value to the {@link XrCompositionLayerPassthroughFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrCompositionLayerPassthroughFB.Buffer next(@NativeType("void const *") long value) { XrCompositionLayerPassthroughFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrCompositionLayerPassthroughFB#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public XrCompositionLayerPassthroughFB.Buffer flags(@NativeType("XrCompositionLayerFlags") long value) { XrCompositionLayerPassthroughFB.nflags(address(), value); return this; }
-        /** Sets the specified value to the {@link XrCompositionLayerPassthroughFB#space} field. */
+        /** Sets the specified value to the {@code space} field. */
         public XrCompositionLayerPassthroughFB.Buffer space(XrSpace value) { XrCompositionLayerPassthroughFB.nspace(address(), value); return this; }
-        /** Sets the specified value to the {@link XrCompositionLayerPassthroughFB#layerHandle} field. */
+        /** Sets the specified value to the {@code layerHandle} field. */
         public XrCompositionLayerPassthroughFB.Buffer layerHandle(XrPassthroughLayerFB value) { XrCompositionLayerPassthroughFB.nlayerHandle(address(), value); return this; }
 
     }

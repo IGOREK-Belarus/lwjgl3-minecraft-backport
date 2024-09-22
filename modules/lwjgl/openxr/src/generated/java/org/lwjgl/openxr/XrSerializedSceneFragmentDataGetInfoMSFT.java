@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTSceneUnderstandingSerialization XR_MSFT_scene_understanding_serialization} extension <b>must</b> be enabled prior to using {@link XrSerializedSceneFragmentDataGetInfoMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTSceneUnderstandingSerialization#XR_TYPE_SERIALIZED_SCENE_FRAGMENT_DATA_GET_INFO_MSFT TYPE_SERIALIZED_SCENE_FRAGMENT_DATA_GET_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -39,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrUuidMSFT XrUuidMSFT} {@link #sceneFragmentId};
  * }</code></pre>
  */
-public class XrSerializedSceneFragmentDataGetInfoMSFT extends Struct<XrSerializedSceneFragmentDataGetInfoMSFT> implements NativeResource {
+public class XrSerializedSceneFragmentDataGetInfoMSFT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,15 +66,6 @@ public class XrSerializedSceneFragmentDataGetInfoMSFT extends Struct<XrSerialize
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
         SCENEFRAGMENTID = layout.offsetof(2);
-    }
-
-    protected XrSerializedSceneFragmentDataGetInfoMSFT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSerializedSceneFragmentDataGetInfoMSFT create(long address, @Nullable ByteBuffer container) {
-        return new XrSerializedSceneFragmentDataGetInfoMSFT(address, container);
     }
 
     /**
@@ -139,29 +130,29 @@ public class XrSerializedSceneFragmentDataGetInfoMSFT extends Struct<XrSerialize
 
     /** Returns a new {@code XrSerializedSceneFragmentDataGetInfoMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSerializedSceneFragmentDataGetInfoMSFT malloc() {
-        return new XrSerializedSceneFragmentDataGetInfoMSFT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSerializedSceneFragmentDataGetInfoMSFT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSerializedSceneFragmentDataGetInfoMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSerializedSceneFragmentDataGetInfoMSFT calloc() {
-        return new XrSerializedSceneFragmentDataGetInfoMSFT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSerializedSceneFragmentDataGetInfoMSFT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSerializedSceneFragmentDataGetInfoMSFT} instance allocated with {@link BufferUtils}. */
     public static XrSerializedSceneFragmentDataGetInfoMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSerializedSceneFragmentDataGetInfoMSFT(memAddress(container), container);
+        return wrap(XrSerializedSceneFragmentDataGetInfoMSFT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSerializedSceneFragmentDataGetInfoMSFT} instance for the specified memory address. */
     public static XrSerializedSceneFragmentDataGetInfoMSFT create(long address) {
-        return new XrSerializedSceneFragmentDataGetInfoMSFT(address, null);
+        return wrap(XrSerializedSceneFragmentDataGetInfoMSFT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSerializedSceneFragmentDataGetInfoMSFT createSafe(long address) {
-        return address == NULL ? null : new XrSerializedSceneFragmentDataGetInfoMSFT(address, null);
+        return address == NULL ? null : wrap(XrSerializedSceneFragmentDataGetInfoMSFT.class, address);
     }
 
     /**
@@ -170,7 +161,7 @@ public class XrSerializedSceneFragmentDataGetInfoMSFT extends Struct<XrSerialize
      * @param capacity the buffer capacity
      */
     public static XrSerializedSceneFragmentDataGetInfoMSFT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -179,7 +170,7 @@ public class XrSerializedSceneFragmentDataGetInfoMSFT extends Struct<XrSerialize
      * @param capacity the buffer capacity
      */
     public static XrSerializedSceneFragmentDataGetInfoMSFT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -189,7 +180,7 @@ public class XrSerializedSceneFragmentDataGetInfoMSFT extends Struct<XrSerialize
      */
     public static XrSerializedSceneFragmentDataGetInfoMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -199,13 +190,13 @@ public class XrSerializedSceneFragmentDataGetInfoMSFT extends Struct<XrSerialize
      * @param capacity the buffer capacity
      */
     public static XrSerializedSceneFragmentDataGetInfoMSFT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSerializedSceneFragmentDataGetInfoMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -214,7 +205,7 @@ public class XrSerializedSceneFragmentDataGetInfoMSFT extends Struct<XrSerialize
      * @param stack the stack from which to allocate
      */
     public static XrSerializedSceneFragmentDataGetInfoMSFT malloc(MemoryStack stack) {
-        return new XrSerializedSceneFragmentDataGetInfoMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSerializedSceneFragmentDataGetInfoMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -223,7 +214,7 @@ public class XrSerializedSceneFragmentDataGetInfoMSFT extends Struct<XrSerialize
      * @param stack the stack from which to allocate
      */
     public static XrSerializedSceneFragmentDataGetInfoMSFT calloc(MemoryStack stack) {
-        return new XrSerializedSceneFragmentDataGetInfoMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSerializedSceneFragmentDataGetInfoMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -233,7 +224,7 @@ public class XrSerializedSceneFragmentDataGetInfoMSFT extends Struct<XrSerialize
      * @param capacity the buffer capacity
      */
     public static XrSerializedSceneFragmentDataGetInfoMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -243,7 +234,7 @@ public class XrSerializedSceneFragmentDataGetInfoMSFT extends Struct<XrSerialize
      * @param capacity the buffer capacity
      */
     public static XrSerializedSceneFragmentDataGetInfoMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -272,9 +263,9 @@ public class XrSerializedSceneFragmentDataGetInfoMSFT extends Struct<XrSerialize
         /**
          * Creates a new {@code XrSerializedSceneFragmentDataGetInfoMSFT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSerializedSceneFragmentDataGetInfoMSFT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSerializedSceneFragmentDataGetInfoMSFT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

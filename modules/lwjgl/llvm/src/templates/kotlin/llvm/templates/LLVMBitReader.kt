@@ -75,16 +75,13 @@ val LLVMBitReader = "LLVMBitReader".nativeClass(
     LLVMBool(
         "GetBitcodeModuleInContext2",
         """
-        Reads a module from the given memory buffer, returning via the {@code OutMP} parameter a module provider which performs lazy deserialization.
-
-        Takes ownership of {@code MemBuf} if (and only if) the module was read successfully.
+        Reads a module from the specified path, returning via the {@code OutMP} parameter a module provider which performs lazy deserialization. Returns 0 on
+        success.
         """,
 
         LLVMContextRef("ContextRef", ""),
         LLVMMemoryBufferRef("MemBuf", ""),
-        Check(1)..LLVMModuleRef.p("OutM", ""),
-
-        returnDoc = "0 on success"
+        Check(1)..LLVMModuleRef.p("OutM", "")
     )
 
     LLVMBool(

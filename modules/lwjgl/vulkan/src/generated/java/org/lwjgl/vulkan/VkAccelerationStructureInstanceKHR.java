@@ -63,7 +63,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint64_t {@link #accelerationStructureReference};
  * }</code></pre>
  */
-public class VkAccelerationStructureInstanceKHR extends Struct<VkAccelerationStructureInstanceKHR> implements NativeResource {
+public class VkAccelerationStructureInstanceKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -95,15 +95,6 @@ public class VkAccelerationStructureInstanceKHR extends Struct<VkAccelerationStr
         ACCELERATIONSTRUCTUREREFERENCE = layout.offsetof(3);
     }
 
-    protected VkAccelerationStructureInstanceKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkAccelerationStructureInstanceKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkAccelerationStructureInstanceKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkAccelerationStructureInstanceKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -119,7 +110,7 @@ public class VkAccelerationStructureInstanceKHR extends Struct<VkAccelerationStr
 
     /** a {@link VkTransformMatrixKHR} structure describing a transformation to be applied to the acceleration structure. */
     public VkTransformMatrixKHR transform() { return ntransform(address()); }
-    /** a 24-bit application-specified index value accessible to ray shaders in the {@code InstanceCustomIndexKHR} built-in. */
+    /** a 24-bit user-specified index value accessible to ray shaders in the {@code InstanceCustomIndexKHR} built-in. */
     @NativeType("uint32_t")
     public int instanceCustomIndex() { return ninstanceCustomIndex(address()); }
     /** an 8-bit visibility mask for the geometry. The instance <b>may</b> only be hit if {@code Cull Mask &amp; instance.mask != 0} */
@@ -192,29 +183,29 @@ public class VkAccelerationStructureInstanceKHR extends Struct<VkAccelerationStr
 
     /** Returns a new {@code VkAccelerationStructureInstanceKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureInstanceKHR malloc() {
-        return new VkAccelerationStructureInstanceKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkAccelerationStructureInstanceKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkAccelerationStructureInstanceKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureInstanceKHR calloc() {
-        return new VkAccelerationStructureInstanceKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkAccelerationStructureInstanceKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkAccelerationStructureInstanceKHR} instance allocated with {@link BufferUtils}. */
     public static VkAccelerationStructureInstanceKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkAccelerationStructureInstanceKHR(memAddress(container), container);
+        return wrap(VkAccelerationStructureInstanceKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkAccelerationStructureInstanceKHR} instance for the specified memory address. */
     public static VkAccelerationStructureInstanceKHR create(long address) {
-        return new VkAccelerationStructureInstanceKHR(address, null);
+        return wrap(VkAccelerationStructureInstanceKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureInstanceKHR createSafe(long address) {
-        return address == NULL ? null : new VkAccelerationStructureInstanceKHR(address, null);
+        return address == NULL ? null : wrap(VkAccelerationStructureInstanceKHR.class, address);
     }
 
     /**
@@ -223,7 +214,7 @@ public class VkAccelerationStructureInstanceKHR extends Struct<VkAccelerationStr
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureInstanceKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -232,7 +223,7 @@ public class VkAccelerationStructureInstanceKHR extends Struct<VkAccelerationStr
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureInstanceKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -242,7 +233,7 @@ public class VkAccelerationStructureInstanceKHR extends Struct<VkAccelerationStr
      */
     public static VkAccelerationStructureInstanceKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -252,13 +243,13 @@ public class VkAccelerationStructureInstanceKHR extends Struct<VkAccelerationStr
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureInstanceKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureInstanceKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -267,7 +258,7 @@ public class VkAccelerationStructureInstanceKHR extends Struct<VkAccelerationStr
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureInstanceKHR malloc(MemoryStack stack) {
-        return new VkAccelerationStructureInstanceKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkAccelerationStructureInstanceKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -276,7 +267,7 @@ public class VkAccelerationStructureInstanceKHR extends Struct<VkAccelerationStr
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureInstanceKHR calloc(MemoryStack stack) {
-        return new VkAccelerationStructureInstanceKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkAccelerationStructureInstanceKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -286,7 +277,7 @@ public class VkAccelerationStructureInstanceKHR extends Struct<VkAccelerationStr
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureInstanceKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -296,7 +287,7 @@ public class VkAccelerationStructureInstanceKHR extends Struct<VkAccelerationStr
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureInstanceKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -341,9 +332,9 @@ public class VkAccelerationStructureInstanceKHR extends Struct<VkAccelerationStr
         /**
          * Creates a new {@code VkAccelerationStructureInstanceKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkAccelerationStructureInstanceKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkAccelerationStructureInstanceKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

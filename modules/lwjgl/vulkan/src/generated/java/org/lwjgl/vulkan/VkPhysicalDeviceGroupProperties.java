@@ -43,7 +43,7 @@ import static org.lwjgl.vulkan.VK10.*;
  *     VkBool32 {@link #subsetAllocation};
  * }</code></pre>
  */
-public class VkPhysicalDeviceGroupProperties extends Struct<VkPhysicalDeviceGroupProperties> implements NativeResource {
+public class VkPhysicalDeviceGroupProperties extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -78,15 +78,6 @@ public class VkPhysicalDeviceGroupProperties extends Struct<VkPhysicalDeviceGrou
         SUBSETALLOCATION = layout.offsetof(4);
     }
 
-    protected VkPhysicalDeviceGroupProperties(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceGroupProperties create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceGroupProperties(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceGroupProperties} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -100,7 +91,7 @@ public class VkPhysicalDeviceGroupProperties extends Struct<VkPhysicalDeviceGrou
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -153,29 +144,29 @@ public class VkPhysicalDeviceGroupProperties extends Struct<VkPhysicalDeviceGrou
 
     /** Returns a new {@code VkPhysicalDeviceGroupProperties} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceGroupProperties malloc() {
-        return new VkPhysicalDeviceGroupProperties(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceGroupProperties.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceGroupProperties} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceGroupProperties calloc() {
-        return new VkPhysicalDeviceGroupProperties(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceGroupProperties.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceGroupProperties} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceGroupProperties create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceGroupProperties(memAddress(container), container);
+        return wrap(VkPhysicalDeviceGroupProperties.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceGroupProperties} instance for the specified memory address. */
     public static VkPhysicalDeviceGroupProperties create(long address) {
-        return new VkPhysicalDeviceGroupProperties(address, null);
+        return wrap(VkPhysicalDeviceGroupProperties.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceGroupProperties createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceGroupProperties(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceGroupProperties.class, address);
     }
 
     /**
@@ -184,7 +175,7 @@ public class VkPhysicalDeviceGroupProperties extends Struct<VkPhysicalDeviceGrou
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceGroupProperties.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -193,7 +184,7 @@ public class VkPhysicalDeviceGroupProperties extends Struct<VkPhysicalDeviceGrou
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceGroupProperties.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -203,7 +194,7 @@ public class VkPhysicalDeviceGroupProperties extends Struct<VkPhysicalDeviceGrou
      */
     public static VkPhysicalDeviceGroupProperties.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -213,13 +204,13 @@ public class VkPhysicalDeviceGroupProperties extends Struct<VkPhysicalDeviceGrou
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceGroupProperties.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceGroupProperties.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -247,7 +238,7 @@ public class VkPhysicalDeviceGroupProperties extends Struct<VkPhysicalDeviceGrou
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceGroupProperties malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceGroupProperties(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceGroupProperties.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -256,7 +247,7 @@ public class VkPhysicalDeviceGroupProperties extends Struct<VkPhysicalDeviceGrou
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceGroupProperties calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceGroupProperties(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceGroupProperties.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -266,7 +257,7 @@ public class VkPhysicalDeviceGroupProperties extends Struct<VkPhysicalDeviceGrou
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceGroupProperties.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -276,7 +267,7 @@ public class VkPhysicalDeviceGroupProperties extends Struct<VkPhysicalDeviceGrou
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceGroupProperties.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -288,7 +279,7 @@ public class VkPhysicalDeviceGroupProperties extends Struct<VkPhysicalDeviceGrou
     /** Unsafe version of {@link #physicalDeviceCount}. */
     public static int nphysicalDeviceCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceGroupProperties.PHYSICALDEVICECOUNT); }
     /** Unsafe version of {@link #physicalDevices}. */
-    public static PointerBuffer nphysicalDevices(long struct) { return memPointerBuffer(struct + VkPhysicalDeviceGroupProperties.PHYSICALDEVICES, nphysicalDeviceCount(struct)); }
+    public static PointerBuffer nphysicalDevices(long struct) { return memPointerBuffer(struct + VkPhysicalDeviceGroupProperties.PHYSICALDEVICES, VK_MAX_DEVICE_GROUP_SIZE); }
     /** Unsafe version of {@link #physicalDevices(int) physicalDevices}. */
     public static long nphysicalDevices(long struct, int index) {
         return memGetAddress(struct + VkPhysicalDeviceGroupProperties.PHYSICALDEVICES + check(index, VK_MAX_DEVICE_GROUP_SIZE) * POINTER_SIZE);
@@ -311,9 +302,9 @@ public class VkPhysicalDeviceGroupProperties extends Struct<VkPhysicalDeviceGrou
         /**
          * Creates a new {@code VkPhysicalDeviceGroupProperties.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceGroupProperties#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceGroupProperties#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct NSVGgradient")
-public class NSVGGradient extends Struct<NSVGGradient> {
+public class NSVGGradient extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -64,15 +64,6 @@ public class NSVGGradient extends Struct<NSVGGradient> {
         FY = layout.offsetof(3);
         NSTOPS = layout.offsetof(4);
         PSTOPS = layout.offsetof(5);
-    }
-
-    protected NSVGGradient(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected NSVGGradient create(long address, @Nullable ByteBuffer container) {
-        return new NSVGGradient(address, container);
     }
 
     /**
@@ -113,13 +104,13 @@ public class NSVGGradient extends Struct<NSVGGradient> {
 
     /** Returns a new {@code NSVGGradient} instance for the specified memory address. */
     public static NSVGGradient create(long address) {
-        return new NSVGGradient(address, null);
+        return wrap(NSVGGradient.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NSVGGradient createSafe(long address) {
-        return address == NULL ? null : new NSVGGradient(address, null);
+        return address == NULL ? null : wrap(NSVGGradient.class, address);
     }
 
     /**
@@ -129,13 +120,13 @@ public class NSVGGradient extends Struct<NSVGGradient> {
      * @param capacity the buffer capacity
      */
     public static NSVGGradient.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NSVGGradient.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -171,9 +162,9 @@ public class NSVGGradient extends Struct<NSVGGradient> {
         /**
          * Creates a new {@code NSVGGradient.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NSVGGradient#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link NSVGGradient#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

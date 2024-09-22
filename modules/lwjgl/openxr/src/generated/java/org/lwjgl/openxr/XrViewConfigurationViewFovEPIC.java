@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link EPICViewConfigurationFov XR_EPIC_view_configuration_fov} extension <b>must</b> be enabled prior to using {@link XrViewConfigurationViewFovEPIC}</li>
  * <li>{@code type} <b>must</b> be {@link EPICViewConfigurationFov#XR_TYPE_VIEW_CONFIGURATION_VIEW_FOV_EPIC TYPE_VIEW_CONFIGURATION_VIEW_FOV_EPIC}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -40,7 +40,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrFovf XrFovf} {@link #maxMutableFov};
  * }</code></pre>
  */
-public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationViewFovEPIC> implements NativeResource {
+public class XrViewConfigurationViewFovEPIC extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -70,15 +70,6 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
         NEXT = layout.offsetof(1);
         RECOMMENDEDFOV = layout.offsetof(2);
         MAXMUTABLEFOV = layout.offsetof(3);
-    }
-
-    protected XrViewConfigurationViewFovEPIC(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrViewConfigurationViewFovEPIC create(long address, @Nullable ByteBuffer container) {
-        return new XrViewConfigurationViewFovEPIC(address, container);
     }
 
     /**
@@ -151,29 +142,29 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
 
     /** Returns a new {@code XrViewConfigurationViewFovEPIC} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrViewConfigurationViewFovEPIC malloc() {
-        return new XrViewConfigurationViewFovEPIC(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrViewConfigurationViewFovEPIC.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrViewConfigurationViewFovEPIC} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrViewConfigurationViewFovEPIC calloc() {
-        return new XrViewConfigurationViewFovEPIC(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrViewConfigurationViewFovEPIC.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrViewConfigurationViewFovEPIC} instance allocated with {@link BufferUtils}. */
     public static XrViewConfigurationViewFovEPIC create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrViewConfigurationViewFovEPIC(memAddress(container), container);
+        return wrap(XrViewConfigurationViewFovEPIC.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrViewConfigurationViewFovEPIC} instance for the specified memory address. */
     public static XrViewConfigurationViewFovEPIC create(long address) {
-        return new XrViewConfigurationViewFovEPIC(address, null);
+        return wrap(XrViewConfigurationViewFovEPIC.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrViewConfigurationViewFovEPIC createSafe(long address) {
-        return address == NULL ? null : new XrViewConfigurationViewFovEPIC(address, null);
+        return address == NULL ? null : wrap(XrViewConfigurationViewFovEPIC.class, address);
     }
 
     /**
@@ -182,7 +173,7 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
      * @param capacity the buffer capacity
      */
     public static XrViewConfigurationViewFovEPIC.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -191,7 +182,7 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
      * @param capacity the buffer capacity
      */
     public static XrViewConfigurationViewFovEPIC.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -201,7 +192,7 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
      */
     public static XrViewConfigurationViewFovEPIC.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -211,13 +202,13 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
      * @param capacity the buffer capacity
      */
     public static XrViewConfigurationViewFovEPIC.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrViewConfigurationViewFovEPIC.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -226,7 +217,7 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
      * @param stack the stack from which to allocate
      */
     public static XrViewConfigurationViewFovEPIC malloc(MemoryStack stack) {
-        return new XrViewConfigurationViewFovEPIC(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrViewConfigurationViewFovEPIC.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -235,7 +226,7 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
      * @param stack the stack from which to allocate
      */
     public static XrViewConfigurationViewFovEPIC calloc(MemoryStack stack) {
-        return new XrViewConfigurationViewFovEPIC(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrViewConfigurationViewFovEPIC.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -245,7 +236,7 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
      * @param capacity the buffer capacity
      */
     public static XrViewConfigurationViewFovEPIC.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -255,7 +246,7 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
      * @param capacity the buffer capacity
      */
     public static XrViewConfigurationViewFovEPIC.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -288,9 +279,9 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
         /**
          * Creates a new {@code XrViewConfigurationViewFovEPIC.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrViewConfigurationViewFovEPIC#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrViewConfigurationViewFovEPIC#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

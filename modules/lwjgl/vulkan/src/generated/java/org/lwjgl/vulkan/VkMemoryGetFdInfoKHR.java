@@ -16,7 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing a POSIX FD memory export operation.
+ * Structure describing a POSIX FD semaphore export operation.
  * 
  * <h5>Description</h5>
  * 
@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>The size of the exported file <b>may</b> be larger than the size requested by {@link VkMemoryAllocateInfo}{@code ::allocationSize}. If {@code handleType} is {@link EXTExternalMemoryDmaBuf#VK_EXTERNAL_MEMORY_HANDLE_TYPE_DMA_BUF_BIT_EXT EXTERNAL_MEMORY_HANDLE_TYPE_DMA_BUF_BIT_EXT}, then the application <b>can</b> query the file’s actual size with <a href="https://man7.org/linux/man-pages/man2/lseek.2.html">{@code lseek}</a>.</p>
+ * <p>The size of the exported file <b>may</b> be larger than the size requested by {@link VkMemoryAllocateInfo}{@code ::allocationSize}. If {@code handleType} is {@link EXTExternalMemoryDmaBuf#VK_EXTERNAL_MEMORY_HANDLE_TYPE_DMA_BUF_BIT_EXT EXTERNAL_MEMORY_HANDLE_TYPE_DMA_BUF_BIT_EXT}, then the application <b>can</b> query the file’s actual size with <a target="_blank" href="https://man7.org/linux/man-pages/man2/lseek.2.html">{@code lseek}</a>.</p>
  * </div>
  * 
  * <h5>Valid Usage</h5>
@@ -57,7 +57,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkExternalMemoryHandleTypeFlagBits {@link #handleType};
  * }</code></pre>
  */
-public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implements NativeResource {
+public class VkMemoryGetFdInfoKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -89,15 +89,6 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
         HANDLETYPE = layout.offsetof(3);
     }
 
-    protected VkMemoryGetFdInfoKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkMemoryGetFdInfoKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkMemoryGetFdInfoKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkMemoryGetFdInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -111,7 +102,7 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -166,29 +157,29 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
 
     /** Returns a new {@code VkMemoryGetFdInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkMemoryGetFdInfoKHR malloc() {
-        return new VkMemoryGetFdInfoKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkMemoryGetFdInfoKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkMemoryGetFdInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkMemoryGetFdInfoKHR calloc() {
-        return new VkMemoryGetFdInfoKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkMemoryGetFdInfoKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkMemoryGetFdInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkMemoryGetFdInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkMemoryGetFdInfoKHR(memAddress(container), container);
+        return wrap(VkMemoryGetFdInfoKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkMemoryGetFdInfoKHR} instance for the specified memory address. */
     public static VkMemoryGetFdInfoKHR create(long address) {
-        return new VkMemoryGetFdInfoKHR(address, null);
+        return wrap(VkMemoryGetFdInfoKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMemoryGetFdInfoKHR createSafe(long address) {
-        return address == NULL ? null : new VkMemoryGetFdInfoKHR(address, null);
+        return address == NULL ? null : wrap(VkMemoryGetFdInfoKHR.class, address);
     }
 
     /**
@@ -197,7 +188,7 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
      * @param capacity the buffer capacity
      */
     public static VkMemoryGetFdInfoKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -206,7 +197,7 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
      * @param capacity the buffer capacity
      */
     public static VkMemoryGetFdInfoKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -216,7 +207,7 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
      */
     public static VkMemoryGetFdInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -226,13 +217,13 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
      * @param capacity the buffer capacity
      */
     public static VkMemoryGetFdInfoKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMemoryGetFdInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -260,7 +251,7 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
      * @param stack the stack from which to allocate
      */
     public static VkMemoryGetFdInfoKHR malloc(MemoryStack stack) {
-        return new VkMemoryGetFdInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkMemoryGetFdInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -269,7 +260,7 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
      * @param stack the stack from which to allocate
      */
     public static VkMemoryGetFdInfoKHR calloc(MemoryStack stack) {
-        return new VkMemoryGetFdInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkMemoryGetFdInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -279,7 +270,7 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
      * @param capacity the buffer capacity
      */
     public static VkMemoryGetFdInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -289,7 +280,7 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
      * @param capacity the buffer capacity
      */
     public static VkMemoryGetFdInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -322,9 +313,9 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
         /**
          * Creates a new {@code VkMemoryGetFdInfoKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkMemoryGetFdInfoKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkMemoryGetFdInfoKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

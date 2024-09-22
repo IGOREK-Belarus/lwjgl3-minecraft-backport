@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     {@link CXIdxObjCProtocolRefListInfo CXIdxObjCProtocolRefListInfo} const * protocols;
  * }</code></pre>
  */
-public class CXIdxObjCCategoryDeclInfo extends Struct<CXIdxObjCCategoryDeclInfo> {
+public class CXIdxObjCCategoryDeclInfo extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -60,15 +60,6 @@ public class CXIdxObjCCategoryDeclInfo extends Struct<CXIdxObjCCategoryDeclInfo>
         PROTOCOLS = layout.offsetof(4);
     }
 
-    protected CXIdxObjCCategoryDeclInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CXIdxObjCCategoryDeclInfo create(long address, @Nullable ByteBuffer container) {
-        return new CXIdxObjCCategoryDeclInfo(address, container);
-    }
-
     /**
      * Creates a {@code CXIdxObjCCategoryDeclInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -100,13 +91,13 @@ public class CXIdxObjCCategoryDeclInfo extends Struct<CXIdxObjCCategoryDeclInfo>
 
     /** Returns a new {@code CXIdxObjCCategoryDeclInfo} instance for the specified memory address. */
     public static CXIdxObjCCategoryDeclInfo create(long address) {
-        return new CXIdxObjCCategoryDeclInfo(address, null);
+        return wrap(CXIdxObjCCategoryDeclInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CXIdxObjCCategoryDeclInfo createSafe(long address) {
-        return address == NULL ? null : new CXIdxObjCCategoryDeclInfo(address, null);
+        return address == NULL ? null : wrap(CXIdxObjCCategoryDeclInfo.class, address);
     }
 
     /**
@@ -116,13 +107,13 @@ public class CXIdxObjCCategoryDeclInfo extends Struct<CXIdxObjCCategoryDeclInfo>
      * @param capacity the buffer capacity
      */
     public static CXIdxObjCCategoryDeclInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CXIdxObjCCategoryDeclInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -148,9 +139,9 @@ public class CXIdxObjCCategoryDeclInfo extends Struct<CXIdxObjCCategoryDeclInfo>
         /**
          * Creates a new {@code CXIdxObjCCategoryDeclInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CXIdxObjCCategoryDeclInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CXIdxObjCCategoryDeclInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

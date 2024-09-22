@@ -28,9 +28,6 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code bufferRowLength} <b>must</b> be 0, or greater than or equal to the {@code width} member of {@code imageExtent}</li>
  * <li>{@code bufferImageHeight} <b>must</b> be 0, or greater than or equal to the {@code height} member of {@code imageExtent}</li>
  * <li>The {@code aspectMask} member of {@code imageSubresource} <b>must</b> only have a single bit set</li>
- * <li>{@code imageExtent.width} <b>must</b> not be 0</li>
- * <li>{@code imageExtent.height} <b>must</b> not be 0</li>
- * <li>{@code imageExtent.depth} <b>must</b> not be 0</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -60,7 +57,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkExtent3D VkExtent3D} {@link #imageExtent};
  * }</code></pre>
  */
-public class VkBufferImageCopy2 extends Struct<VkBufferImageCopy2> implements NativeResource {
+public class VkBufferImageCopy2 extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -104,15 +101,6 @@ public class VkBufferImageCopy2 extends Struct<VkBufferImageCopy2> implements Na
         IMAGEEXTENT = layout.offsetof(7);
     }
 
-    protected VkBufferImageCopy2(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkBufferImageCopy2 create(long address, @Nullable ByteBuffer container) {
-        return new VkBufferImageCopy2(address, container);
-    }
-
     /**
      * Creates a {@code VkBufferImageCopy2} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -126,7 +114,7 @@ public class VkBufferImageCopy2 extends Struct<VkBufferImageCopy2> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -214,29 +202,29 @@ public class VkBufferImageCopy2 extends Struct<VkBufferImageCopy2> implements Na
 
     /** Returns a new {@code VkBufferImageCopy2} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkBufferImageCopy2 malloc() {
-        return new VkBufferImageCopy2(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkBufferImageCopy2.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkBufferImageCopy2} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkBufferImageCopy2 calloc() {
-        return new VkBufferImageCopy2(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkBufferImageCopy2.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkBufferImageCopy2} instance allocated with {@link BufferUtils}. */
     public static VkBufferImageCopy2 create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkBufferImageCopy2(memAddress(container), container);
+        return wrap(VkBufferImageCopy2.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkBufferImageCopy2} instance for the specified memory address. */
     public static VkBufferImageCopy2 create(long address) {
-        return new VkBufferImageCopy2(address, null);
+        return wrap(VkBufferImageCopy2.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkBufferImageCopy2 createSafe(long address) {
-        return address == NULL ? null : new VkBufferImageCopy2(address, null);
+        return address == NULL ? null : wrap(VkBufferImageCopy2.class, address);
     }
 
     /**
@@ -245,7 +233,7 @@ public class VkBufferImageCopy2 extends Struct<VkBufferImageCopy2> implements Na
      * @param capacity the buffer capacity
      */
     public static VkBufferImageCopy2.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -254,7 +242,7 @@ public class VkBufferImageCopy2 extends Struct<VkBufferImageCopy2> implements Na
      * @param capacity the buffer capacity
      */
     public static VkBufferImageCopy2.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -264,7 +252,7 @@ public class VkBufferImageCopy2 extends Struct<VkBufferImageCopy2> implements Na
      */
     public static VkBufferImageCopy2.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -274,13 +262,13 @@ public class VkBufferImageCopy2 extends Struct<VkBufferImageCopy2> implements Na
      * @param capacity the buffer capacity
      */
     public static VkBufferImageCopy2.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkBufferImageCopy2.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -289,7 +277,7 @@ public class VkBufferImageCopy2 extends Struct<VkBufferImageCopy2> implements Na
      * @param stack the stack from which to allocate
      */
     public static VkBufferImageCopy2 malloc(MemoryStack stack) {
-        return new VkBufferImageCopy2(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkBufferImageCopy2.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -298,7 +286,7 @@ public class VkBufferImageCopy2 extends Struct<VkBufferImageCopy2> implements Na
      * @param stack the stack from which to allocate
      */
     public static VkBufferImageCopy2 calloc(MemoryStack stack) {
-        return new VkBufferImageCopy2(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkBufferImageCopy2.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -308,7 +296,7 @@ public class VkBufferImageCopy2 extends Struct<VkBufferImageCopy2> implements Na
      * @param capacity the buffer capacity
      */
     public static VkBufferImageCopy2.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -318,7 +306,7 @@ public class VkBufferImageCopy2 extends Struct<VkBufferImageCopy2> implements Na
      * @param capacity the buffer capacity
      */
     public static VkBufferImageCopy2.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -367,9 +355,9 @@ public class VkBufferImageCopy2 extends Struct<VkBufferImageCopy2> implements Na
         /**
          * Creates a new {@code VkBufferImageCopy2.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkBufferImageCopy2#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkBufferImageCopy2#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

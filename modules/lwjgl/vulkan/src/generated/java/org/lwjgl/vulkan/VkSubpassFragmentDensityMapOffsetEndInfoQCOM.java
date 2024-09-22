@@ -21,24 +21,24 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>The array elements are given per {@code layer} as defined by <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragmentdensitymap-fetch-density-value">Fetch Density Value</a>, where <code>index = layer</code>. Each <code>(x,y)</code> offset is in framebuffer pixels and shifts the fetch of the fragment density map by that amount. Offsets can be positive or negative.</p>
+ * <p>The array elements are given per {@code layer} as defined by <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#fragmentdensitymap-fetch-density-value">Fetch Density Value</a>, where <code>index = layer</code>. Each <code>(x,y)</code> offset is in framebuffer pixels and shifts the fetch of the fragment density map by that amount. Offsets can be positive or negative.</p>
  * 
- * <p>Offset values specified for any subpass that is not the last subpass in the render pass are ignored. If the {@link VkSubpassEndInfo}{@code ::pNext} chain for the last subpass of a render pass does not include {@link VkSubpassFragmentDensityMapOffsetEndInfoQCOM}, or if {@code fragmentDensityOffsetCount} is zero, then the offset <code>(0,0)</code> is used for <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragmentdensitymap-fetch-density-value">Fetch Density Value</a>.</p>
+ * <p>Offset values specified for any subpass that is not the last subpass in the render pass are ignored. If the {@link VkSubpassEndInfo}{@code ::pNext} chain for the last subpass of a renderpass does not include {@link VkSubpassFragmentDensityMapOffsetEndInfoQCOM}, or if {@code fragmentDensityOffsetCount} is zero, then the offset <code>(0,0)</code> is used for <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#fragmentdensitymap-fetch-density-value">Fetch Density Value</a>.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-fragmentDensityMapOffset">{@code fragmentDensityMapOffset}</a> feature is not enabled or fragment density map is not enabled in the render pass, {@code fragmentDensityOffsetCount} <b>must</b> equal 0</li>
- * <li>If {@link VkSubpassDescription}{@code ::fragmentDensityMapAttachment} is not is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and was not created with {@link QCOMFragmentDensityMapOffset#VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM}, {@code fragmentDensityOffsetCount} <b>must</b> equal 0</li>
- * <li>If {@link VkSubpassDescription}{@code ::pDepthStencilAttachment} is not is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and was not created with {@link QCOMFragmentDensityMapOffset#VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM}, {@code fragmentDensityOffsetCount} <b>must</b> equal 0</li>
- * <li>If any element of {@link VkSubpassDescription}{@code ::pInputAttachments} is not is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and was not created with {@link QCOMFragmentDensityMapOffset#VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM}, {@code fragmentDensityOffsetCount} <b>must</b> equal 0</li>
- * <li>If any element of {@link VkSubpassDescription}{@code ::pColorAttachments} is not is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and was not created with {@link QCOMFragmentDensityMapOffset#VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM}, {@code fragmentDensityOffsetCount} <b>must</b> equal 0</li>
- * <li>If any element of {@link VkSubpassDescription}{@code ::pResolveAttachments} is not is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and was not created with {@link QCOMFragmentDensityMapOffset#VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM}, {@code fragmentDensityOffsetCount} <b>must</b> equal 0</li>
- * <li>If any element of {@link VkSubpassDescription}{@code ::pPreserveAttachments} is not is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and was not created with {@link QCOMFragmentDensityMapOffset#VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM}, {@code fragmentDensityOffsetCount} <b>must</b> equal 0</li>
- * <li>If {@code fragmentDensityOffsetCount} is not 0 and multiview is enabled for the render pass, {@code fragmentDensityOffsetCount} <b>must</b> equal the {@code layerCount} that was specified in creating the fragment density map attachment view</li>
- * <li>If {@code fragmentDensityOffsetCount} is not 0 and multiview is not enabled for the render pass, {@code fragmentDensityOffsetCount} <b>must</b> equal 1</li>
- * <li>The {@code x} component of each element of {@code pFragmentDensityOffsets} <b>must</b> be an integer multiple of {@code fragmentDensityOffsetGranularity.width}</li>
- * <li>The {@code y} component of each element of {@code pFragmentDensityOffsets} <b>must</b> be an integer multiple of {@code fragmentDensityOffsetGranularity.height}</li>
+ * <li>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-fragmentDensityMapOffsets">{@code fragmentDensityMapOffsets}</a> feature is not enabled or fragment density map is not enabled in the render pass, {@code fragmentDensityOffsetCount} <b>must</b> equal 0.</li>
+ * <li>If {@link VkSubpassDescription}{@code ::fragmentDensityMapAttachment} is not is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and was not created with {@link QCOMFragmentDensityMapOffset#VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM}, {@code fragmentDensityOffsetCount} <b>must</b> equal 0.</li>
+ * <li>If {@link VkSubpassDescription}{@code ::pDepthStencilAttachment} is not is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and was not created with {@link QCOMFragmentDensityMapOffset#VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM}, {@code fragmentDensityOffsetCount} <b>must</b> equal 0.</li>
+ * <li>If any element of {@link VkSubpassDescription}{@code ::pInputAttachments} is not is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and was not created with {@link QCOMFragmentDensityMapOffset#VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM}, {@code fragmentDensityOffsetCount} <b>must</b> equal 0.</li>
+ * <li>If any element of {@link VkSubpassDescription}{@code ::pColorAttachments} is not is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and was not created with {@link QCOMFragmentDensityMapOffset#VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM}, {@code fragmentDensityOffsetCount} <b>must</b> equal 0.</li>
+ * <li>If any element of {@link VkSubpassDescription}{@code ::pResolveAttachments} is not is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and was not created with {@link QCOMFragmentDensityMapOffset#VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM}, {@code fragmentDensityOffsetCount} <b>must</b> equal 0.</li>
+ * <li>If any element of {@link VkSubpassDescription}{@code ::pPreserveAttachments} is not is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and was not created with {@link QCOMFragmentDensityMapOffset#VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM}, {@code fragmentDensityOffsetCount} <b>must</b> equal 0.</li>
+ * <li>If {@code fragmentDensityOffsetCount} is not 0 and multiview is enabled for the render pass, {@code fragmentDensityOffsetCount} <b>must</b> equal the {@code layerCount} that was specified in creating the fragment density map attachment view.</li>
+ * <li>If {@code fragmentDensityOffsetCount} is not 0 and multiview is not enabled for the render pass, {@code fragmentDensityOffsetCount} <b>must</b> equal 1.</li>
+ * <li>The {@code x} component of each element of {@code pFragmentDensityOffsets} <b>must</b> be an integer multiple of {@code fragmentDensityOffsetGranularity.width}.</li>
+ * <li>The {@code y} component of each element of {@code pFragmentDensityOffsets} <b>must</b> be an integer multiple of {@code fragmentDensityOffsetGranularity.height}.</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -62,7 +62,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkOffset2D VkOffset2D} const * {@link #pFragmentDensityOffsets};
  * }</code></pre>
  */
-public class VkSubpassFragmentDensityMapOffsetEndInfoQCOM extends Struct<VkSubpassFragmentDensityMapOffsetEndInfoQCOM> implements NativeResource {
+public class VkSubpassFragmentDensityMapOffsetEndInfoQCOM extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -94,15 +94,6 @@ public class VkSubpassFragmentDensityMapOffsetEndInfoQCOM extends Struct<VkSubpa
         PFRAGMENTDENSITYOFFSETS = layout.offsetof(3);
     }
 
-    protected VkSubpassFragmentDensityMapOffsetEndInfoQCOM(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkSubpassFragmentDensityMapOffsetEndInfoQCOM create(long address, @Nullable ByteBuffer container) {
-        return new VkSubpassFragmentDensityMapOffsetEndInfoQCOM(address, container);
-    }
-
     /**
      * Creates a {@code VkSubpassFragmentDensityMapOffsetEndInfoQCOM} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -116,7 +107,7 @@ public class VkSubpassFragmentDensityMapOffsetEndInfoQCOM extends Struct<VkSubpa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -168,29 +159,29 @@ public class VkSubpassFragmentDensityMapOffsetEndInfoQCOM extends Struct<VkSubpa
 
     /** Returns a new {@code VkSubpassFragmentDensityMapOffsetEndInfoQCOM} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSubpassFragmentDensityMapOffsetEndInfoQCOM malloc() {
-        return new VkSubpassFragmentDensityMapOffsetEndInfoQCOM(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkSubpassFragmentDensityMapOffsetEndInfoQCOM.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkSubpassFragmentDensityMapOffsetEndInfoQCOM} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSubpassFragmentDensityMapOffsetEndInfoQCOM calloc() {
-        return new VkSubpassFragmentDensityMapOffsetEndInfoQCOM(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkSubpassFragmentDensityMapOffsetEndInfoQCOM.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkSubpassFragmentDensityMapOffsetEndInfoQCOM} instance allocated with {@link BufferUtils}. */
     public static VkSubpassFragmentDensityMapOffsetEndInfoQCOM create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkSubpassFragmentDensityMapOffsetEndInfoQCOM(memAddress(container), container);
+        return wrap(VkSubpassFragmentDensityMapOffsetEndInfoQCOM.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkSubpassFragmentDensityMapOffsetEndInfoQCOM} instance for the specified memory address. */
     public static VkSubpassFragmentDensityMapOffsetEndInfoQCOM create(long address) {
-        return new VkSubpassFragmentDensityMapOffsetEndInfoQCOM(address, null);
+        return wrap(VkSubpassFragmentDensityMapOffsetEndInfoQCOM.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSubpassFragmentDensityMapOffsetEndInfoQCOM createSafe(long address) {
-        return address == NULL ? null : new VkSubpassFragmentDensityMapOffsetEndInfoQCOM(address, null);
+        return address == NULL ? null : wrap(VkSubpassFragmentDensityMapOffsetEndInfoQCOM.class, address);
     }
 
     /**
@@ -199,7 +190,7 @@ public class VkSubpassFragmentDensityMapOffsetEndInfoQCOM extends Struct<VkSubpa
      * @param capacity the buffer capacity
      */
     public static VkSubpassFragmentDensityMapOffsetEndInfoQCOM.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -208,7 +199,7 @@ public class VkSubpassFragmentDensityMapOffsetEndInfoQCOM extends Struct<VkSubpa
      * @param capacity the buffer capacity
      */
     public static VkSubpassFragmentDensityMapOffsetEndInfoQCOM.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -218,7 +209,7 @@ public class VkSubpassFragmentDensityMapOffsetEndInfoQCOM extends Struct<VkSubpa
      */
     public static VkSubpassFragmentDensityMapOffsetEndInfoQCOM.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -228,13 +219,13 @@ public class VkSubpassFragmentDensityMapOffsetEndInfoQCOM extends Struct<VkSubpa
      * @param capacity the buffer capacity
      */
     public static VkSubpassFragmentDensityMapOffsetEndInfoQCOM.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSubpassFragmentDensityMapOffsetEndInfoQCOM.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -243,7 +234,7 @@ public class VkSubpassFragmentDensityMapOffsetEndInfoQCOM extends Struct<VkSubpa
      * @param stack the stack from which to allocate
      */
     public static VkSubpassFragmentDensityMapOffsetEndInfoQCOM malloc(MemoryStack stack) {
-        return new VkSubpassFragmentDensityMapOffsetEndInfoQCOM(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkSubpassFragmentDensityMapOffsetEndInfoQCOM.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -252,7 +243,7 @@ public class VkSubpassFragmentDensityMapOffsetEndInfoQCOM extends Struct<VkSubpa
      * @param stack the stack from which to allocate
      */
     public static VkSubpassFragmentDensityMapOffsetEndInfoQCOM calloc(MemoryStack stack) {
-        return new VkSubpassFragmentDensityMapOffsetEndInfoQCOM(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkSubpassFragmentDensityMapOffsetEndInfoQCOM.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -262,7 +253,7 @@ public class VkSubpassFragmentDensityMapOffsetEndInfoQCOM extends Struct<VkSubpa
      * @param capacity the buffer capacity
      */
     public static VkSubpassFragmentDensityMapOffsetEndInfoQCOM.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -272,7 +263,7 @@ public class VkSubpassFragmentDensityMapOffsetEndInfoQCOM extends Struct<VkSubpa
      * @param capacity the buffer capacity
      */
     public static VkSubpassFragmentDensityMapOffsetEndInfoQCOM.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -316,9 +307,9 @@ public class VkSubpassFragmentDensityMapOffsetEndInfoQCOM extends Struct<VkSubpa
         /**
          * Creates a new {@code VkSubpassFragmentDensityMapOffsetEndInfoQCOM.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSubpassFragmentDensityMapOffsetEndInfoQCOM#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkSubpassFragmentDensityMapOffsetEndInfoQCOM#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

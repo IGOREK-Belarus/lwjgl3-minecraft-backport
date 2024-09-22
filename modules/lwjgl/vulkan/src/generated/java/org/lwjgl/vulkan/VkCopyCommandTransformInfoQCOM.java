@@ -18,14 +18,6 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Structure describing transform parameters of rotated copy command.
  * 
- * <h5>Description</h5>
- * 
- * <p>Including this structure in the {@code pNext} chain of {@link VkBufferImageCopy2} defines a rotation to be performed when copying between an image and a buffer. Including this structure in the {@code pNext} chain of {@link VkBlitImageInfo2} defines a rotation to be performed when blitting between two images. If this structure is not specified in either case, the implementation behaves as if it was specified with a {@code transform} equal to {@link KHRSurface#VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR SURFACE_TRANSFORM_IDENTITY_BIT_KHR}.</p>
- * 
- * <p>Specifying a transform for a copy between an image and a buffer <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#copies-buffers-images-rotation-addressing">rotates the region accessed in the image around the offset</a>. Specifying a transform for a blit performs a similar transform as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#copies-images-scaling-rotation">Image Blits with Scaling and Rotation</a>.</p>
- * 
- * <p>Rotations other than {@link KHRSurface#VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR SURFACE_TRANSFORM_IDENTITY_BIT_KHR} <b>can</b> only be specified for single-plane 2D images with a 1x1x1 <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility-classes">texel block extent</a>.</p>
- * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
@@ -47,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkSurfaceTransformFlagBitsKHR {@link #transform};
  * }</code></pre>
  */
-public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransformInfoQCOM> implements NativeResource {
+public class VkCopyCommandTransformInfoQCOM extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -76,15 +68,6 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
         TRANSFORM = layout.offsetof(2);
     }
 
-    protected VkCopyCommandTransformInfoQCOM(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkCopyCommandTransformInfoQCOM create(long address, @Nullable ByteBuffer container) {
-        return new VkCopyCommandTransformInfoQCOM(address, container);
-    }
-
     /**
      * Creates a {@code VkCopyCommandTransformInfoQCOM} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -98,7 +81,7 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -146,29 +129,29 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
 
     /** Returns a new {@code VkCopyCommandTransformInfoQCOM} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkCopyCommandTransformInfoQCOM malloc() {
-        return new VkCopyCommandTransformInfoQCOM(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkCopyCommandTransformInfoQCOM.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkCopyCommandTransformInfoQCOM} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkCopyCommandTransformInfoQCOM calloc() {
-        return new VkCopyCommandTransformInfoQCOM(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkCopyCommandTransformInfoQCOM.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkCopyCommandTransformInfoQCOM} instance allocated with {@link BufferUtils}. */
     public static VkCopyCommandTransformInfoQCOM create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkCopyCommandTransformInfoQCOM(memAddress(container), container);
+        return wrap(VkCopyCommandTransformInfoQCOM.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkCopyCommandTransformInfoQCOM} instance for the specified memory address. */
     public static VkCopyCommandTransformInfoQCOM create(long address) {
-        return new VkCopyCommandTransformInfoQCOM(address, null);
+        return wrap(VkCopyCommandTransformInfoQCOM.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCopyCommandTransformInfoQCOM createSafe(long address) {
-        return address == NULL ? null : new VkCopyCommandTransformInfoQCOM(address, null);
+        return address == NULL ? null : wrap(VkCopyCommandTransformInfoQCOM.class, address);
     }
 
     /**
@@ -177,7 +160,7 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
      * @param capacity the buffer capacity
      */
     public static VkCopyCommandTransformInfoQCOM.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -186,7 +169,7 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
      * @param capacity the buffer capacity
      */
     public static VkCopyCommandTransformInfoQCOM.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -196,7 +179,7 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
      */
     public static VkCopyCommandTransformInfoQCOM.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -206,13 +189,13 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
      * @param capacity the buffer capacity
      */
     public static VkCopyCommandTransformInfoQCOM.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCopyCommandTransformInfoQCOM.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -221,7 +204,7 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
      * @param stack the stack from which to allocate
      */
     public static VkCopyCommandTransformInfoQCOM malloc(MemoryStack stack) {
-        return new VkCopyCommandTransformInfoQCOM(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkCopyCommandTransformInfoQCOM.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -230,7 +213,7 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
      * @param stack the stack from which to allocate
      */
     public static VkCopyCommandTransformInfoQCOM calloc(MemoryStack stack) {
-        return new VkCopyCommandTransformInfoQCOM(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkCopyCommandTransformInfoQCOM.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -240,7 +223,7 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
      * @param capacity the buffer capacity
      */
     public static VkCopyCommandTransformInfoQCOM.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -250,7 +233,7 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
      * @param capacity the buffer capacity
      */
     public static VkCopyCommandTransformInfoQCOM.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -279,9 +262,9 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
         /**
          * Creates a new {@code VkCopyCommandTransformInfoQCOM.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkCopyCommandTransformInfoQCOM#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkCopyCommandTransformInfoQCOM#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -334,11 +334,4 @@ ENABLE_WARNINGS()""")
 
         nullable..rpmalloc_heap_t.p("heap", "")
     )
-
-    rpmalloc_heap_t.p(
-        "malloc_get_heap_for_ptr",
-        "Returns which heap the given pointer is allocated on.",
-
-        MultiTypeAll..Unsafe..nullable..void.p("ptr", "")
-    )
 }

@@ -20,13 +20,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>Because this structure only exists to support extension-specific structures, {@link XR10#xrWaitFrame WaitFrame} <b>must</b> accept a {@code NULL} argument for {@link XR10#xrWaitFrame WaitFrame}{@code ::frameWaitInfo} for applications that are not using any relevant extensions.</p>
+ * <p>Because this structure only exists to support extension-specific structures, {@link XR10#xrWaitFrame WaitFrame} <b>must</b> accept a {@code NULL} argument for {@code frameWaitInfo} for applications that are not using any relevant extensions.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_FRAME_WAIT_INFO TYPE_FRAME_WAIT_INFO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -41,7 +41,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     void const * {@link #next};
  * }</code></pre>
  */
-public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeResource {
+public class XrFrameWaitInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -65,15 +65,6 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
 
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
-    }
-
-    protected XrFrameWaitInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrFrameWaitInfo create(long address, @Nullable ByteBuffer container) {
-        return new XrFrameWaitInfo(address, container);
     }
 
     /**
@@ -130,29 +121,29 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
 
     /** Returns a new {@code XrFrameWaitInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrFrameWaitInfo malloc() {
-        return new XrFrameWaitInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrFrameWaitInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrFrameWaitInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrFrameWaitInfo calloc() {
-        return new XrFrameWaitInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrFrameWaitInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrFrameWaitInfo} instance allocated with {@link BufferUtils}. */
     public static XrFrameWaitInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrFrameWaitInfo(memAddress(container), container);
+        return wrap(XrFrameWaitInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrFrameWaitInfo} instance for the specified memory address. */
     public static XrFrameWaitInfo create(long address) {
-        return new XrFrameWaitInfo(address, null);
+        return wrap(XrFrameWaitInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrFrameWaitInfo createSafe(long address) {
-        return address == NULL ? null : new XrFrameWaitInfo(address, null);
+        return address == NULL ? null : wrap(XrFrameWaitInfo.class, address);
     }
 
     /**
@@ -161,7 +152,7 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static XrFrameWaitInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -170,7 +161,7 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static XrFrameWaitInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -180,7 +171,7 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
      */
     public static XrFrameWaitInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -190,13 +181,13 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static XrFrameWaitInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrFrameWaitInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -205,7 +196,7 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static XrFrameWaitInfo malloc(MemoryStack stack) {
-        return new XrFrameWaitInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrFrameWaitInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -214,7 +205,7 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static XrFrameWaitInfo calloc(MemoryStack stack) {
-        return new XrFrameWaitInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrFrameWaitInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -224,7 +215,7 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static XrFrameWaitInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -234,7 +225,7 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static XrFrameWaitInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -259,9 +250,9 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
         /**
          * Creates a new {@code XrFrameWaitInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrFrameWaitInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrFrameWaitInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

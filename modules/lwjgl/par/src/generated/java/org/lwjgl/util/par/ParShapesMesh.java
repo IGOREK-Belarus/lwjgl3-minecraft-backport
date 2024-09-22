@@ -31,7 +31,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct par_shapes_mesh")
-public class ParShapesMesh extends Struct<ParShapesMesh> {
+public class ParShapesMesh extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -67,15 +67,6 @@ public class ParShapesMesh extends Struct<ParShapesMesh> {
         NTRIANGLES = layout.offsetof(3);
         NORMALS = layout.offsetof(4);
         TCOORDS = layout.offsetof(5);
-    }
-
-    protected ParShapesMesh(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected ParShapesMesh create(long address, @Nullable ByteBuffer container) {
-        return new ParShapesMesh(address, container);
     }
 
     /**
@@ -130,13 +121,13 @@ public class ParShapesMesh extends Struct<ParShapesMesh> {
 
     /** Returns a new {@code ParShapesMesh} instance for the specified memory address. */
     public static ParShapesMesh create(long address) {
-        return new ParShapesMesh(address, null);
+        return wrap(ParShapesMesh.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static ParShapesMesh createSafe(long address) {
-        return address == NULL ? null : new ParShapesMesh(address, null);
+        return address == NULL ? null : wrap(ParShapesMesh.class, address);
     }
 
     /**
@@ -146,13 +137,13 @@ public class ParShapesMesh extends Struct<ParShapesMesh> {
      * @param capacity the buffer capacity
      */
     public static ParShapesMesh.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static ParShapesMesh.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -180,9 +171,9 @@ public class ParShapesMesh extends Struct<ParShapesMesh> {
         /**
          * Creates a new {@code ParShapesMesh.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link ParShapesMesh#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link ParShapesMesh#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

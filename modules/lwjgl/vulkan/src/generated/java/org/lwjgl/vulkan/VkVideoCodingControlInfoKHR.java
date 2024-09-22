@@ -16,23 +16,21 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying video coding control parameters.
+ * Structure specifying parameters of coding control.
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If {@code flags} includes {@link KHRVideoEncodeQueue#VK_VIDEO_CODING_CONTROL_ENCODE_RATE_CONTROL_BIT_KHR VIDEO_CODING_CONTROL_ENCODE_RATE_CONTROL_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoEncodeRateControlInfoKHR} structure</li>
- * <li>If {@code flags} includes {@link KHRVideoEncodeQueue#VK_VIDEO_CODING_CONTROL_ENCODE_QUALITY_LEVEL_BIT_KHR VIDEO_CODING_CONTROL_ENCODE_QUALITY_LEVEL_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoEncodeQualityLevelInfoKHR} structure</li>
+ * <li>The first command buffer submitted for a newly created video session <b>must</b> set the {@link KHRVideoQueue#VK_VIDEO_CODING_CONTROL_RESET_BIT_KHR VIDEO_CODING_CONTROL_RESET_BIT_KHR} bit in {@link VkVideoCodingControlInfoKHR}{@code ::flags} to reset the session device context before any video decode or encode operations are performed on the session.</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoEncodeH264RateControlInfoKHR}, {@link VkVideoEncodeH265RateControlInfoKHR}, {@link VkVideoEncodeQualityLevelInfoKHR}, or {@link VkVideoEncodeRateControlInfoKHR}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoEncodeRateControlInfoKHR} or {@link VkVideoEncodeRateControlLayerInfoKHR}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be a valid combination of {@code VkVideoCodingControlFlagBitsKHR} values</li>
- * <li>{@code flags} <b>must</b> not be 0</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -48,7 +46,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkVideoCodingControlFlagsKHR {@link #flags};
  * }</code></pre>
  */
-public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfoKHR> implements NativeResource {
+public class VkVideoCodingControlInfoKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -77,15 +75,6 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
         FLAGS = layout.offsetof(2);
     }
 
-    protected VkVideoCodingControlInfoKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkVideoCodingControlInfoKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkVideoCodingControlInfoKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkVideoCodingControlInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -99,7 +88,7 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -115,14 +104,10 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
     public VkVideoCodingControlInfoKHR sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkVideoCodingControlInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Prepends the specified {@link VkVideoEncodeH264RateControlInfoKHR} value to the {@code pNext} chain. */
-    public VkVideoCodingControlInfoKHR pNext(VkVideoEncodeH264RateControlInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkVideoEncodeH265RateControlInfoKHR} value to the {@code pNext} chain. */
-    public VkVideoCodingControlInfoKHR pNext(VkVideoEncodeH265RateControlInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkVideoEncodeQualityLevelInfoKHR} value to the {@code pNext} chain. */
-    public VkVideoCodingControlInfoKHR pNext(VkVideoEncodeQualityLevelInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeRateControlInfoKHR} value to the {@code pNext} chain. */
     public VkVideoCodingControlInfoKHR pNext(VkVideoEncodeRateControlInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeRateControlLayerInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoCodingControlInfoKHR pNext(VkVideoEncodeRateControlLayerInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #flags} field. */
     public VkVideoCodingControlInfoKHR flags(@NativeType("VkVideoCodingControlFlagsKHR") int value) { nflags(address(), value); return this; }
 
@@ -155,29 +140,29 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
 
     /** Returns a new {@code VkVideoCodingControlInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkVideoCodingControlInfoKHR malloc() {
-        return new VkVideoCodingControlInfoKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkVideoCodingControlInfoKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkVideoCodingControlInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkVideoCodingControlInfoKHR calloc() {
-        return new VkVideoCodingControlInfoKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkVideoCodingControlInfoKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkVideoCodingControlInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkVideoCodingControlInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkVideoCodingControlInfoKHR(memAddress(container), container);
+        return wrap(VkVideoCodingControlInfoKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkVideoCodingControlInfoKHR} instance for the specified memory address. */
     public static VkVideoCodingControlInfoKHR create(long address) {
-        return new VkVideoCodingControlInfoKHR(address, null);
+        return wrap(VkVideoCodingControlInfoKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoCodingControlInfoKHR createSafe(long address) {
-        return address == NULL ? null : new VkVideoCodingControlInfoKHR(address, null);
+        return address == NULL ? null : wrap(VkVideoCodingControlInfoKHR.class, address);
     }
 
     /**
@@ -186,7 +171,7 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
      * @param capacity the buffer capacity
      */
     public static VkVideoCodingControlInfoKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -195,7 +180,7 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
      * @param capacity the buffer capacity
      */
     public static VkVideoCodingControlInfoKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -205,7 +190,7 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
      */
     public static VkVideoCodingControlInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -215,13 +200,13 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
      * @param capacity the buffer capacity
      */
     public static VkVideoCodingControlInfoKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoCodingControlInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -230,7 +215,7 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
      * @param stack the stack from which to allocate
      */
     public static VkVideoCodingControlInfoKHR malloc(MemoryStack stack) {
-        return new VkVideoCodingControlInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkVideoCodingControlInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -239,7 +224,7 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
      * @param stack the stack from which to allocate
      */
     public static VkVideoCodingControlInfoKHR calloc(MemoryStack stack) {
-        return new VkVideoCodingControlInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkVideoCodingControlInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -249,7 +234,7 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
      * @param capacity the buffer capacity
      */
     public static VkVideoCodingControlInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -259,7 +244,7 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
      * @param capacity the buffer capacity
      */
     public static VkVideoCodingControlInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -288,9 +273,9 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
         /**
          * Creates a new {@code VkVideoCodingControlInfoKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkVideoCodingControlInfoKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkVideoCodingControlInfoKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -332,14 +317,10 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
         public VkVideoCodingControlInfoKHR.Buffer sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR); }
         /** Sets the specified value to the {@link VkVideoCodingControlInfoKHR#pNext} field. */
         public VkVideoCodingControlInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkVideoCodingControlInfoKHR.npNext(address(), value); return this; }
-        /** Prepends the specified {@link VkVideoEncodeH264RateControlInfoKHR} value to the {@code pNext} chain. */
-        public VkVideoCodingControlInfoKHR.Buffer pNext(VkVideoEncodeH264RateControlInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkVideoEncodeH265RateControlInfoKHR} value to the {@code pNext} chain. */
-        public VkVideoCodingControlInfoKHR.Buffer pNext(VkVideoEncodeH265RateControlInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkVideoEncodeQualityLevelInfoKHR} value to the {@code pNext} chain. */
-        public VkVideoCodingControlInfoKHR.Buffer pNext(VkVideoEncodeQualityLevelInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeRateControlInfoKHR} value to the {@code pNext} chain. */
         public VkVideoCodingControlInfoKHR.Buffer pNext(VkVideoEncodeRateControlInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeRateControlLayerInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoCodingControlInfoKHR.Buffer pNext(VkVideoEncodeRateControlLayerInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkVideoCodingControlInfoKHR#flags} field. */
         public VkVideoCodingControlInfoKHR.Buffer flags(@NativeType("VkVideoCodingControlFlagsKHR") int value) { VkVideoCodingControlInfoKHR.nflags(address(), value); return this; }
 

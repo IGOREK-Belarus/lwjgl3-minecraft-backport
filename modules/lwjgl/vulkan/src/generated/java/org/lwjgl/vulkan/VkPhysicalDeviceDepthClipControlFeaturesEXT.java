@@ -32,12 +32,12 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <pre><code>
  * struct VkPhysicalDeviceDepthClipControlFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
+ *     VkStructureType sType;
+ *     void * pNext;
  *     VkBool32 {@link #depthClipControl};
  * }</code></pre>
  */
-public class VkPhysicalDeviceDepthClipControlFeaturesEXT extends Struct<VkPhysicalDeviceDepthClipControlFeaturesEXT> implements NativeResource {
+public class VkPhysicalDeviceDepthClipControlFeaturesEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,15 +66,6 @@ public class VkPhysicalDeviceDepthClipControlFeaturesEXT extends Struct<VkPhysic
         DEPTHCLIPCONTROL = layout.offsetof(2);
     }
 
-    protected VkPhysicalDeviceDepthClipControlFeaturesEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceDepthClipControlFeaturesEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceDepthClipControlFeaturesEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceDepthClipControlFeaturesEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -88,21 +79,21 @@ public class VkPhysicalDeviceDepthClipControlFeaturesEXT extends Struct<VkPhysic
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
     /** indicates that the implementation supports setting {@link VkPipelineViewportDepthClipControlCreateInfoEXT}{@code ::negativeOneToOne} to {@link VK10#VK_TRUE TRUE}. */
     @NativeType("VkBool32")
     public boolean depthClipControl() { return ndepthClipControl(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceDepthClipControlFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTDepthClipControl#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTDepthClipControl#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceDepthClipControlFeaturesEXT sType$Default() { return sType(EXTDepthClipControl.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceDepthClipControlFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
     /** Sets the specified value to the {@link #depthClipControl} field. */
     public VkPhysicalDeviceDepthClipControlFeaturesEXT depthClipControl(@NativeType("VkBool32") boolean value) { ndepthClipControl(address(), value ? 1 : 0); return this; }
@@ -136,29 +127,29 @@ public class VkPhysicalDeviceDepthClipControlFeaturesEXT extends Struct<VkPhysic
 
     /** Returns a new {@code VkPhysicalDeviceDepthClipControlFeaturesEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceDepthClipControlFeaturesEXT malloc() {
-        return new VkPhysicalDeviceDepthClipControlFeaturesEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceDepthClipControlFeaturesEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceDepthClipControlFeaturesEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceDepthClipControlFeaturesEXT calloc() {
-        return new VkPhysicalDeviceDepthClipControlFeaturesEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceDepthClipControlFeaturesEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceDepthClipControlFeaturesEXT} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceDepthClipControlFeaturesEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceDepthClipControlFeaturesEXT(memAddress(container), container);
+        return wrap(VkPhysicalDeviceDepthClipControlFeaturesEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceDepthClipControlFeaturesEXT} instance for the specified memory address. */
     public static VkPhysicalDeviceDepthClipControlFeaturesEXT create(long address) {
-        return new VkPhysicalDeviceDepthClipControlFeaturesEXT(address, null);
+        return wrap(VkPhysicalDeviceDepthClipControlFeaturesEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceDepthClipControlFeaturesEXT createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceDepthClipControlFeaturesEXT(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceDepthClipControlFeaturesEXT.class, address);
     }
 
     /**
@@ -167,7 +158,7 @@ public class VkPhysicalDeviceDepthClipControlFeaturesEXT extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDepthClipControlFeaturesEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -176,7 +167,7 @@ public class VkPhysicalDeviceDepthClipControlFeaturesEXT extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDepthClipControlFeaturesEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -186,7 +177,7 @@ public class VkPhysicalDeviceDepthClipControlFeaturesEXT extends Struct<VkPhysic
      */
     public static VkPhysicalDeviceDepthClipControlFeaturesEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -196,13 +187,13 @@ public class VkPhysicalDeviceDepthClipControlFeaturesEXT extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDepthClipControlFeaturesEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceDepthClipControlFeaturesEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -211,7 +202,7 @@ public class VkPhysicalDeviceDepthClipControlFeaturesEXT extends Struct<VkPhysic
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceDepthClipControlFeaturesEXT malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceDepthClipControlFeaturesEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceDepthClipControlFeaturesEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -220,7 +211,7 @@ public class VkPhysicalDeviceDepthClipControlFeaturesEXT extends Struct<VkPhysic
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceDepthClipControlFeaturesEXT calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceDepthClipControlFeaturesEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceDepthClipControlFeaturesEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -230,7 +221,7 @@ public class VkPhysicalDeviceDepthClipControlFeaturesEXT extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDepthClipControlFeaturesEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -240,7 +231,7 @@ public class VkPhysicalDeviceDepthClipControlFeaturesEXT extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDepthClipControlFeaturesEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -269,9 +260,9 @@ public class VkPhysicalDeviceDepthClipControlFeaturesEXT extends Struct<VkPhysic
         /**
          * Creates a new {@code VkPhysicalDeviceDepthClipControlFeaturesEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceDepthClipControlFeaturesEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceDepthClipControlFeaturesEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -297,21 +288,21 @@ public class VkPhysicalDeviceDepthClipControlFeaturesEXT extends Struct<VkPhysic
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceDepthClipControlFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceDepthClipControlFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDepthClipControlFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceDepthClipControlFeaturesEXT.npNext(address()); }
         /** @return the value of the {@link VkPhysicalDeviceDepthClipControlFeaturesEXT#depthClipControl} field. */
         @NativeType("VkBool32")
         public boolean depthClipControl() { return VkPhysicalDeviceDepthClipControlFeaturesEXT.ndepthClipControl(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceDepthClipControlFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceDepthClipControlFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceDepthClipControlFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTDepthClipControl#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT} value to the {@link VkPhysicalDeviceDepthClipControlFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTDepthClipControl#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceDepthClipControlFeaturesEXT.Buffer sType$Default() { return sType(EXTDepthClipControl.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceDepthClipControlFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceDepthClipControlFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceDepthClipControlFeaturesEXT.npNext(address(), value); return this; }
         /** Sets the specified value to the {@link VkPhysicalDeviceDepthClipControlFeaturesEXT#depthClipControl} field. */
         public VkPhysicalDeviceDepthClipControlFeaturesEXT.Buffer depthClipControl(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceDepthClipControlFeaturesEXT.ndepthClipControl(address(), value ? 1 : 0); return this; }

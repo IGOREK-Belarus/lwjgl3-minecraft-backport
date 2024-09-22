@@ -39,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #extendedDynamicState2PatchControlPoints};
  * }</code></pre>
  */
-public class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends Struct<VkPhysicalDeviceExtendedDynamicState2FeaturesEXT> implements NativeResource {
+public class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -74,15 +74,6 @@ public class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends Struct<VkP
         EXTENDEDDYNAMICSTATE2PATCHCONTROLPOINTS = layout.offsetof(4);
     }
 
-    protected VkPhysicalDeviceExtendedDynamicState2FeaturesEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceExtendedDynamicState2FeaturesEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceExtendedDynamicState2FeaturesEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceExtendedDynamicState2FeaturesEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -96,7 +87,7 @@ public class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends Struct<VkP
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -178,29 +169,29 @@ public class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends Struct<VkP
 
     /** Returns a new {@code VkPhysicalDeviceExtendedDynamicState2FeaturesEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceExtendedDynamicState2FeaturesEXT malloc() {
-        return new VkPhysicalDeviceExtendedDynamicState2FeaturesEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceExtendedDynamicState2FeaturesEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceExtendedDynamicState2FeaturesEXT calloc() {
-        return new VkPhysicalDeviceExtendedDynamicState2FeaturesEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceExtendedDynamicState2FeaturesEXT} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceExtendedDynamicState2FeaturesEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceExtendedDynamicState2FeaturesEXT(memAddress(container), container);
+        return wrap(VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceExtendedDynamicState2FeaturesEXT} instance for the specified memory address. */
     public static VkPhysicalDeviceExtendedDynamicState2FeaturesEXT create(long address) {
-        return new VkPhysicalDeviceExtendedDynamicState2FeaturesEXT(address, null);
+        return wrap(VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceExtendedDynamicState2FeaturesEXT createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceExtendedDynamicState2FeaturesEXT(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.class, address);
     }
 
     /**
@@ -209,7 +200,7 @@ public class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends Struct<VkP
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -218,7 +209,7 @@ public class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends Struct<VkP
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -228,7 +219,7 @@ public class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends Struct<VkP
      */
     public static VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -238,13 +229,13 @@ public class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends Struct<VkP
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -253,7 +244,7 @@ public class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends Struct<VkP
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceExtendedDynamicState2FeaturesEXT malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceExtendedDynamicState2FeaturesEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -262,7 +253,7 @@ public class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends Struct<VkP
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceExtendedDynamicState2FeaturesEXT calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceExtendedDynamicState2FeaturesEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -272,7 +263,7 @@ public class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends Struct<VkP
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -282,7 +273,7 @@ public class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends Struct<VkP
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -319,9 +310,9 @@ public class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends Struct<VkP
         /**
          * Creates a new {@code VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceExtendedDynamicState2FeaturesEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceExtendedDynamicState2FeaturesEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

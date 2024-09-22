@@ -30,11 +30,11 @@ import static org.lwjgl.system.MemoryStack.*;
  *     __u32 dropped;
  *     __u32 array;
  *     __u32 resv1;
- *     __u64 user_addr;
+ *     __u64 resv2;
  * }</code></pre>
  */
 @NativeType("struct io_sqring_offsets")
-public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeResource {
+public class IOSQRingOffsets extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -52,7 +52,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
         DROPPED,
         ARRAY,
         RESV1,
-        USER_ADDR;
+        RESV2;
 
     static {
         Layout layout = __struct(
@@ -78,16 +78,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
         DROPPED = layout.offsetof(5);
         ARRAY = layout.offsetof(6);
         RESV1 = layout.offsetof(7);
-        USER_ADDR = layout.offsetof(8);
-    }
-
-    protected IOSQRingOffsets(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected IOSQRingOffsets create(long address, @Nullable ByteBuffer container) {
-        return new IOSQRingOffsets(address, container);
+        RESV2 = layout.offsetof(8);
     }
 
     /**
@@ -124,9 +115,6 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
     /** @return the value of the {@code array} field. */
     @NativeType("__u32")
     public int array() { return narray(address()); }
-    /** @return the value of the {@code user_addr} field. */
-    @NativeType("__u64")
-    public long user_addr() { return nuser_addr(address()); }
 
     /** Sets the specified value to the {@code head} field. */
     public IOSQRingOffsets head(@NativeType("__u32") int value) { nhead(address(), value); return this; }
@@ -142,8 +130,6 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
     public IOSQRingOffsets dropped(@NativeType("__u32") int value) { ndropped(address(), value); return this; }
     /** Sets the specified value to the {@code array} field. */
     public IOSQRingOffsets array(@NativeType("__u32") int value) { narray(address(), value); return this; }
-    /** Sets the specified value to the {@code user_addr} field. */
-    public IOSQRingOffsets user_addr(@NativeType("__u64") long value) { nuser_addr(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public IOSQRingOffsets set(
@@ -153,8 +139,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
         int ring_entries,
         int flags,
         int dropped,
-        int array,
-        long user_addr
+        int array
     ) {
         head(head);
         tail(tail);
@@ -163,7 +148,6 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
         flags(flags);
         dropped(dropped);
         array(array);
-        user_addr(user_addr);
 
         return this;
     }
@@ -184,29 +168,29 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
 
     /** Returns a new {@code IOSQRingOffsets} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static IOSQRingOffsets malloc() {
-        return new IOSQRingOffsets(nmemAllocChecked(SIZEOF), null);
+        return wrap(IOSQRingOffsets.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code IOSQRingOffsets} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static IOSQRingOffsets calloc() {
-        return new IOSQRingOffsets(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(IOSQRingOffsets.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code IOSQRingOffsets} instance allocated with {@link BufferUtils}. */
     public static IOSQRingOffsets create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new IOSQRingOffsets(memAddress(container), container);
+        return wrap(IOSQRingOffsets.class, memAddress(container), container);
     }
 
     /** Returns a new {@code IOSQRingOffsets} instance for the specified memory address. */
     public static IOSQRingOffsets create(long address) {
-        return new IOSQRingOffsets(address, null);
+        return wrap(IOSQRingOffsets.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOSQRingOffsets createSafe(long address) {
-        return address == NULL ? null : new IOSQRingOffsets(address, null);
+        return address == NULL ? null : wrap(IOSQRingOffsets.class, address);
     }
 
     /**
@@ -215,7 +199,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static IOSQRingOffsets.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -224,7 +208,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static IOSQRingOffsets.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -234,7 +218,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
      */
     public static IOSQRingOffsets.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -244,13 +228,13 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static IOSQRingOffsets.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOSQRingOffsets.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -259,7 +243,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static IOSQRingOffsets malloc(MemoryStack stack) {
-        return new IOSQRingOffsets(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(IOSQRingOffsets.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -268,7 +252,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static IOSQRingOffsets calloc(MemoryStack stack) {
-        return new IOSQRingOffsets(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(IOSQRingOffsets.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -278,7 +262,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static IOSQRingOffsets.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -288,7 +272,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static IOSQRingOffsets.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -308,8 +292,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
     /** Unsafe version of {@link #array}. */
     public static int narray(long struct) { return UNSAFE.getInt(null, struct + IOSQRingOffsets.ARRAY); }
     public static int nresv1(long struct) { return UNSAFE.getInt(null, struct + IOSQRingOffsets.RESV1); }
-    /** Unsafe version of {@link #user_addr}. */
-    public static long nuser_addr(long struct) { return UNSAFE.getLong(null, struct + IOSQRingOffsets.USER_ADDR); }
+    public static long nresv2(long struct) { return UNSAFE.getLong(null, struct + IOSQRingOffsets.RESV2); }
 
     /** Unsafe version of {@link #head(int) head}. */
     public static void nhead(long struct, int value) { UNSAFE.putInt(null, struct + IOSQRingOffsets.HEAD, value); }
@@ -326,8 +309,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
     /** Unsafe version of {@link #array(int) array}. */
     public static void narray(long struct, int value) { UNSAFE.putInt(null, struct + IOSQRingOffsets.ARRAY, value); }
     public static void nresv1(long struct, int value) { UNSAFE.putInt(null, struct + IOSQRingOffsets.RESV1, value); }
-    /** Unsafe version of {@link #user_addr(long) user_addr}. */
-    public static void nuser_addr(long struct, long value) { UNSAFE.putLong(null, struct + IOSQRingOffsets.USER_ADDR, value); }
+    public static void nresv2(long struct, long value) { UNSAFE.putLong(null, struct + IOSQRingOffsets.RESV2, value); }
 
     // -----------------------------------
 
@@ -339,9 +321,9 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
         /**
          * Creates a new {@code IOSQRingOffsets.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link IOSQRingOffsets#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link IOSQRingOffsets#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -388,9 +370,6 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
         /** @return the value of the {@code array} field. */
         @NativeType("__u32")
         public int array() { return IOSQRingOffsets.narray(address()); }
-        /** @return the value of the {@code user_addr} field. */
-        @NativeType("__u64")
-        public long user_addr() { return IOSQRingOffsets.nuser_addr(address()); }
 
         /** Sets the specified value to the {@code head} field. */
         public IOSQRingOffsets.Buffer head(@NativeType("__u32") int value) { IOSQRingOffsets.nhead(address(), value); return this; }
@@ -406,8 +385,6 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
         public IOSQRingOffsets.Buffer dropped(@NativeType("__u32") int value) { IOSQRingOffsets.ndropped(address(), value); return this; }
         /** Sets the specified value to the {@code array} field. */
         public IOSQRingOffsets.Buffer array(@NativeType("__u32") int value) { IOSQRingOffsets.narray(address(), value); return this; }
-        /** Sets the specified value to the {@code user_addr} field. */
-        public IOSQRingOffsets.Buffer user_addr(@NativeType("__u64") long value) { IOSQRingOffsets.nuser_addr(address(), value); return this; }
 
     }
 

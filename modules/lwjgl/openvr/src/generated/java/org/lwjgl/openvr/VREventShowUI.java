@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct VREvent_ShowUI_t")
-public class VREventShowUI extends Struct<VREventShowUI> {
+public class VREventShowUI extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -43,15 +43,6 @@ public class VREventShowUI extends Struct<VREventShowUI> {
         ALIGNOF = layout.getAlignment();
 
         ETYPE = layout.offsetof(0);
-    }
-
-    protected VREventShowUI(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VREventShowUI create(long address, @Nullable ByteBuffer container) {
-        return new VREventShowUI(address, container);
     }
 
     /**
@@ -75,13 +66,13 @@ public class VREventShowUI extends Struct<VREventShowUI> {
 
     /** Returns a new {@code VREventShowUI} instance for the specified memory address. */
     public static VREventShowUI create(long address) {
-        return new VREventShowUI(address, null);
+        return wrap(VREventShowUI.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventShowUI createSafe(long address) {
-        return address == NULL ? null : new VREventShowUI(address, null);
+        return address == NULL ? null : wrap(VREventShowUI.class, address);
     }
 
     /**
@@ -91,13 +82,13 @@ public class VREventShowUI extends Struct<VREventShowUI> {
      * @param capacity the buffer capacity
      */
     public static VREventShowUI.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventShowUI.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -115,9 +106,9 @@ public class VREventShowUI extends Struct<VREventShowUI> {
         /**
          * Creates a new {@code VREventShowUI.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VREventShowUI#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VREventShowUI#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

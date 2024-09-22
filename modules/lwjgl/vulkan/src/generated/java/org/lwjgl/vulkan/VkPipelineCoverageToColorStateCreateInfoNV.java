@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If the {@code pNext} chain of {@link VkPipelineMultisampleStateCreateInfo} includes a {@link VkPipelineCoverageToColorStateCreateInfoNV} structure, then that structure controls whether the fragment coverage is substituted for a fragment color output and, if so, which output is replaced.</p>
  * 
- * <p>If {@code coverageToColorEnable} is {@link VK10#VK_TRUE TRUE}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-multisampling-coverage-mask">coverage mask</a> replaces the first component of the color value corresponding to the fragment shader output location with {@code Location} equal to {@code coverageToColorLocation} and {@code Index} equal to zero. If the color attachment format has fewer bits than the coverage mask, the low bits of the sample coverage mask are taken without any clamping. If the color attachment format has more bits than the coverage mask, the high bits of the sample coverage mask are filled with zeros.</p>
+ * <p>If {@code coverageToColorEnable} is {@link VK10#VK_TRUE TRUE}, the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-multisampling-coverage-mask">coverage mask</a> replaces the first component of the color value corresponding to the fragment shader output location with {@code Location} equal to {@code coverageToColorLocation} and {@code Index} equal to zero. If the color attachment format has fewer bits than the coverage mask, the low bits of the sample coverage mask are taken without any clamping. If the color attachment format has more bits than the coverage mask, the high bits of the sample coverage mask are filled with zeros.</p>
  * 
  * <p>If {@code coverageToColorEnable} is {@link VK10#VK_FALSE FALSE}, these operations are skipped. If this structure is not included in the {@code pNext} chain, it is as if {@code coverageToColorEnable} is {@link VK10#VK_FALSE FALSE}.</p>
  * 
@@ -50,7 +50,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #coverageToColorLocation};
  * }</code></pre>
  */
-public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelineCoverageToColorStateCreateInfoNV> implements NativeResource {
+public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -85,15 +85,6 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
         COVERAGETOCOLORLOCATION = layout.offsetof(4);
     }
 
-    protected VkPipelineCoverageToColorStateCreateInfoNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPipelineCoverageToColorStateCreateInfoNV create(long address, @Nullable ByteBuffer container) {
-        return new VkPipelineCoverageToColorStateCreateInfoNV(address, container);
-    }
-
     /**
      * Creates a {@code VkPipelineCoverageToColorStateCreateInfoNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -107,7 +98,7 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -169,29 +160,29 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
 
     /** Returns a new {@code VkPipelineCoverageToColorStateCreateInfoNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPipelineCoverageToColorStateCreateInfoNV malloc() {
-        return new VkPipelineCoverageToColorStateCreateInfoNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPipelineCoverageToColorStateCreateInfoNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineCoverageToColorStateCreateInfoNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPipelineCoverageToColorStateCreateInfoNV calloc() {
-        return new VkPipelineCoverageToColorStateCreateInfoNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPipelineCoverageToColorStateCreateInfoNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineCoverageToColorStateCreateInfoNV} instance allocated with {@link BufferUtils}. */
     public static VkPipelineCoverageToColorStateCreateInfoNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPipelineCoverageToColorStateCreateInfoNV(memAddress(container), container);
+        return wrap(VkPipelineCoverageToColorStateCreateInfoNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPipelineCoverageToColorStateCreateInfoNV} instance for the specified memory address. */
     public static VkPipelineCoverageToColorStateCreateInfoNV create(long address) {
-        return new VkPipelineCoverageToColorStateCreateInfoNV(address, null);
+        return wrap(VkPipelineCoverageToColorStateCreateInfoNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineCoverageToColorStateCreateInfoNV createSafe(long address) {
-        return address == NULL ? null : new VkPipelineCoverageToColorStateCreateInfoNV(address, null);
+        return address == NULL ? null : wrap(VkPipelineCoverageToColorStateCreateInfoNV.class, address);
     }
 
     /**
@@ -200,7 +191,7 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
      * @param capacity the buffer capacity
      */
     public static VkPipelineCoverageToColorStateCreateInfoNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -209,7 +200,7 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
      * @param capacity the buffer capacity
      */
     public static VkPipelineCoverageToColorStateCreateInfoNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -219,7 +210,7 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
      */
     public static VkPipelineCoverageToColorStateCreateInfoNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -229,13 +220,13 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
      * @param capacity the buffer capacity
      */
     public static VkPipelineCoverageToColorStateCreateInfoNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineCoverageToColorStateCreateInfoNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -263,7 +254,7 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
      * @param stack the stack from which to allocate
      */
     public static VkPipelineCoverageToColorStateCreateInfoNV malloc(MemoryStack stack) {
-        return new VkPipelineCoverageToColorStateCreateInfoNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPipelineCoverageToColorStateCreateInfoNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -272,7 +263,7 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
      * @param stack the stack from which to allocate
      */
     public static VkPipelineCoverageToColorStateCreateInfoNV calloc(MemoryStack stack) {
-        return new VkPipelineCoverageToColorStateCreateInfoNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPipelineCoverageToColorStateCreateInfoNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -282,7 +273,7 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
      * @param capacity the buffer capacity
      */
     public static VkPipelineCoverageToColorStateCreateInfoNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -292,7 +283,7 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
      * @param capacity the buffer capacity
      */
     public static VkPipelineCoverageToColorStateCreateInfoNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -329,9 +320,9 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
         /**
          * Creates a new {@code VkPipelineCoverageToColorStateCreateInfoNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPipelineCoverageToColorStateCreateInfoNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPipelineCoverageToColorStateCreateInfoNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct nk_clipboard")
-public class NkClipboard extends Struct<NkClipboard> implements NativeResource {
+public class NkClipboard extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -53,15 +53,6 @@ public class NkClipboard extends Struct<NkClipboard> implements NativeResource {
         USERDATA = layout.offsetof(0);
         PASTE = layout.offsetof(1);
         COPY = layout.offsetof(2);
-    }
-
-    protected NkClipboard(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected NkClipboard create(long address, @Nullable ByteBuffer container) {
-        return new NkClipboard(address, container);
     }
 
     /**
@@ -127,29 +118,29 @@ public class NkClipboard extends Struct<NkClipboard> implements NativeResource {
 
     /** Returns a new {@code NkClipboard} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static NkClipboard malloc() {
-        return new NkClipboard(nmemAllocChecked(SIZEOF), null);
+        return wrap(NkClipboard.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code NkClipboard} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static NkClipboard calloc() {
-        return new NkClipboard(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(NkClipboard.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code NkClipboard} instance allocated with {@link BufferUtils}. */
     public static NkClipboard create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new NkClipboard(memAddress(container), container);
+        return wrap(NkClipboard.class, memAddress(container), container);
     }
 
     /** Returns a new {@code NkClipboard} instance for the specified memory address. */
     public static NkClipboard create(long address) {
-        return new NkClipboard(address, null);
+        return wrap(NkClipboard.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkClipboard createSafe(long address) {
-        return address == NULL ? null : new NkClipboard(address, null);
+        return address == NULL ? null : wrap(NkClipboard.class, address);
     }
 
     /**
@@ -158,7 +149,7 @@ public class NkClipboard extends Struct<NkClipboard> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkClipboard.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -167,7 +158,7 @@ public class NkClipboard extends Struct<NkClipboard> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkClipboard.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -177,7 +168,7 @@ public class NkClipboard extends Struct<NkClipboard> implements NativeResource {
      */
     public static NkClipboard.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -187,13 +178,13 @@ public class NkClipboard extends Struct<NkClipboard> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkClipboard.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkClipboard.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -221,7 +212,7 @@ public class NkClipboard extends Struct<NkClipboard> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static NkClipboard malloc(MemoryStack stack) {
-        return new NkClipboard(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(NkClipboard.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -230,7 +221,7 @@ public class NkClipboard extends Struct<NkClipboard> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static NkClipboard calloc(MemoryStack stack) {
-        return new NkClipboard(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(NkClipboard.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -240,7 +231,7 @@ public class NkClipboard extends Struct<NkClipboard> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkClipboard.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -250,7 +241,7 @@ public class NkClipboard extends Struct<NkClipboard> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkClipboard.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -279,9 +270,9 @@ public class NkClipboard extends Struct<NkClipboard> implements NativeResource {
         /**
          * Creates a new {@code NkClipboard.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkClipboard#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link NkClipboard#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

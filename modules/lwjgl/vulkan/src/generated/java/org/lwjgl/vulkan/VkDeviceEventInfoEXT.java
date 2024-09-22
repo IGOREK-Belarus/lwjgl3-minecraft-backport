@@ -39,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkDeviceEventTypeEXT deviceEvent;
  * }</code></pre>
  */
-public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implements NativeResource {
+public class VkDeviceEventInfoEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -68,15 +68,6 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
         DEVICEEVENT = layout.offsetof(2);
     }
 
-    protected VkDeviceEventInfoEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkDeviceEventInfoEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkDeviceEventInfoEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkDeviceEventInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -90,7 +81,7 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -138,29 +129,29 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
 
     /** Returns a new {@code VkDeviceEventInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDeviceEventInfoEXT malloc() {
-        return new VkDeviceEventInfoEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkDeviceEventInfoEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceEventInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDeviceEventInfoEXT calloc() {
-        return new VkDeviceEventInfoEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkDeviceEventInfoEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceEventInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkDeviceEventInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkDeviceEventInfoEXT(memAddress(container), container);
+        return wrap(VkDeviceEventInfoEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkDeviceEventInfoEXT} instance for the specified memory address. */
     public static VkDeviceEventInfoEXT create(long address) {
-        return new VkDeviceEventInfoEXT(address, null);
+        return wrap(VkDeviceEventInfoEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceEventInfoEXT createSafe(long address) {
-        return address == NULL ? null : new VkDeviceEventInfoEXT(address, null);
+        return address == NULL ? null : wrap(VkDeviceEventInfoEXT.class, address);
     }
 
     /**
@@ -169,7 +160,7 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
      * @param capacity the buffer capacity
      */
     public static VkDeviceEventInfoEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -178,7 +169,7 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
      * @param capacity the buffer capacity
      */
     public static VkDeviceEventInfoEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -188,7 +179,7 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
      */
     public static VkDeviceEventInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -198,13 +189,13 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
      * @param capacity the buffer capacity
      */
     public static VkDeviceEventInfoEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceEventInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -232,7 +223,7 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
      * @param stack the stack from which to allocate
      */
     public static VkDeviceEventInfoEXT malloc(MemoryStack stack) {
-        return new VkDeviceEventInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkDeviceEventInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -241,7 +232,7 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
      * @param stack the stack from which to allocate
      */
     public static VkDeviceEventInfoEXT calloc(MemoryStack stack) {
-        return new VkDeviceEventInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkDeviceEventInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -251,7 +242,7 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
      * @param capacity the buffer capacity
      */
     public static VkDeviceEventInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -261,7 +252,7 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
      * @param capacity the buffer capacity
      */
     public static VkDeviceEventInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -290,9 +281,9 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
         /**
          * Creates a new {@code VkDeviceEventInfoEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDeviceEventInfoEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkDeviceEventInfoEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -10,24 +10,11 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 
-/**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_EXT_performance_settings">XR_EXT_performance_settings</a> extension.
- * 
- * <p>This extension defines an API for the application to give performance hints to the runtime and for the runtime to send performance related notifications back to the application. This allows both sides to dial in a suitable compromise between needed CPU and GPU performance, thermal sustainability and a consistent good user experience throughout the session.</p>
- * 
- * <p>The goal is to render frames consistently, in time, under varying system load without consuming more energy than necessary.</p>
- * 
- * <p>In summary, the APIs allow:</p>
- * 
- * <ul>
- * <li>setting performance level hints</li>
- * <li>receiving performance related notifications</li>
- * </ul>
- */
+/** The EXT_performance_settings extension. */
 public class EXTPerformanceSettings {
 
     /** The extension specification version. */
-    public static final int XR_EXT_performance_settings_SPEC_VERSION = 4;
+    public static final int XR_EXT_performance_settings_SPEC_VERSION = 3;
 
     /** The extension name. */
     public static final String XR_EXT_PERFORMANCE_SETTINGS_EXTENSION_NAME = "XR_EXT_performance_settings";

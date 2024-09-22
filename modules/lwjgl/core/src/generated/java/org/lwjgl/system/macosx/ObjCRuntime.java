@@ -1476,7 +1476,7 @@ public class ObjCRuntime {
         if (CHECKS) {
             check(cls);
         }
-        return invokePPPUPZ(cls, name, size, alignment, types, __functionAddress);
+        return invokePPPPZ(cls, name, size, alignment, types, __functionAddress);
     }
 
     /**

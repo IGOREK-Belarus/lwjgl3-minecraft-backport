@@ -40,7 +40,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     Bool {@link #same_screen};
  * }</code></pre>
  */
-public class XKeyEvent extends Struct<XKeyEvent> implements NativeResource {
+public class XKeyEvent extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -103,15 +103,6 @@ public class XKeyEvent extends Struct<XKeyEvent> implements NativeResource {
         STATE = layout.offsetof(12);
         KEYCODE = layout.offsetof(13);
         SAME_SCREEN = layout.offsetof(14);
-    }
-
-    protected XKeyEvent(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XKeyEvent create(long address, @Nullable ByteBuffer container) {
-        return new XKeyEvent(address, container);
     }
 
     /**
@@ -252,29 +243,29 @@ public class XKeyEvent extends Struct<XKeyEvent> implements NativeResource {
 
     /** Returns a new {@code XKeyEvent} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XKeyEvent malloc() {
-        return new XKeyEvent(nmemAllocChecked(SIZEOF), null);
+        return wrap(XKeyEvent.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XKeyEvent} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XKeyEvent calloc() {
-        return new XKeyEvent(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XKeyEvent.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XKeyEvent} instance allocated with {@link BufferUtils}. */
     public static XKeyEvent create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XKeyEvent(memAddress(container), container);
+        return wrap(XKeyEvent.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XKeyEvent} instance for the specified memory address. */
     public static XKeyEvent create(long address) {
-        return new XKeyEvent(address, null);
+        return wrap(XKeyEvent.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XKeyEvent createSafe(long address) {
-        return address == NULL ? null : new XKeyEvent(address, null);
+        return address == NULL ? null : wrap(XKeyEvent.class, address);
     }
 
     /**
@@ -283,7 +274,7 @@ public class XKeyEvent extends Struct<XKeyEvent> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XKeyEvent.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -292,7 +283,7 @@ public class XKeyEvent extends Struct<XKeyEvent> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XKeyEvent.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -302,7 +293,7 @@ public class XKeyEvent extends Struct<XKeyEvent> implements NativeResource {
      */
     public static XKeyEvent.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -312,13 +303,13 @@ public class XKeyEvent extends Struct<XKeyEvent> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XKeyEvent.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XKeyEvent.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -346,7 +337,7 @@ public class XKeyEvent extends Struct<XKeyEvent> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XKeyEvent malloc(MemoryStack stack) {
-        return new XKeyEvent(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XKeyEvent.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -355,7 +346,7 @@ public class XKeyEvent extends Struct<XKeyEvent> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XKeyEvent calloc(MemoryStack stack) {
-        return new XKeyEvent(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XKeyEvent.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -365,7 +356,7 @@ public class XKeyEvent extends Struct<XKeyEvent> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XKeyEvent.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -375,7 +366,7 @@ public class XKeyEvent extends Struct<XKeyEvent> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XKeyEvent.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -461,9 +452,9 @@ public class XKeyEvent extends Struct<XKeyEvent> implements NativeResource {
         /**
          * Creates a new {@code XKeyEvent.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XKeyEvent#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XKeyEvent#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

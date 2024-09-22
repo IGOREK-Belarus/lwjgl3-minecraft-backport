@@ -39,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkImageUsageFlags {@link #usage};
  * }</code></pre>
  */
-public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInfo> implements NativeResource {
+public class VkImageViewUsageCreateInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -68,15 +68,6 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
         USAGE = layout.offsetof(2);
     }
 
-    protected VkImageViewUsageCreateInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkImageViewUsageCreateInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkImageViewUsageCreateInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkImageViewUsageCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -90,7 +81,7 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -138,29 +129,29 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
 
     /** Returns a new {@code VkImageViewUsageCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkImageViewUsageCreateInfo malloc() {
-        return new VkImageViewUsageCreateInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkImageViewUsageCreateInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkImageViewUsageCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkImageViewUsageCreateInfo calloc() {
-        return new VkImageViewUsageCreateInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkImageViewUsageCreateInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkImageViewUsageCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VkImageViewUsageCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkImageViewUsageCreateInfo(memAddress(container), container);
+        return wrap(VkImageViewUsageCreateInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkImageViewUsageCreateInfo} instance for the specified memory address. */
     public static VkImageViewUsageCreateInfo create(long address) {
-        return new VkImageViewUsageCreateInfo(address, null);
+        return wrap(VkImageViewUsageCreateInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImageViewUsageCreateInfo createSafe(long address) {
-        return address == NULL ? null : new VkImageViewUsageCreateInfo(address, null);
+        return address == NULL ? null : wrap(VkImageViewUsageCreateInfo.class, address);
     }
 
     /**
@@ -169,7 +160,7 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
      * @param capacity the buffer capacity
      */
     public static VkImageViewUsageCreateInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -178,7 +169,7 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
      * @param capacity the buffer capacity
      */
     public static VkImageViewUsageCreateInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -188,7 +179,7 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
      */
     public static VkImageViewUsageCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -198,13 +189,13 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
      * @param capacity the buffer capacity
      */
     public static VkImageViewUsageCreateInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImageViewUsageCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -232,7 +223,7 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
      * @param stack the stack from which to allocate
      */
     public static VkImageViewUsageCreateInfo malloc(MemoryStack stack) {
-        return new VkImageViewUsageCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkImageViewUsageCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -241,7 +232,7 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
      * @param stack the stack from which to allocate
      */
     public static VkImageViewUsageCreateInfo calloc(MemoryStack stack) {
-        return new VkImageViewUsageCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkImageViewUsageCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -251,7 +242,7 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
      * @param capacity the buffer capacity
      */
     public static VkImageViewUsageCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -261,7 +252,7 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
      * @param capacity the buffer capacity
      */
     public static VkImageViewUsageCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -290,9 +281,9 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
         /**
          * Creates a new {@code VkImageViewUsageCreateInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkImageViewUsageCreateInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkImageViewUsageCreateInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

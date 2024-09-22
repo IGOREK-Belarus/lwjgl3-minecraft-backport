@@ -25,13 +25,6 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If the image has more than one sample, the same value is written to all samples for any pixels being cleared.</p>
  * 
- * <p>If the image or attachment format has a 64-bit component width, the first 2 array elements of each of the arrays above are reinterpreted as a single 64-bit element for the R component. The next 2 array elements are used in the same way for the G component. In other words, the union behaves as if it had the following additional members:</p>
- * 
- * <pre><code>
- * double float64[2];
- * int64_t int64[2];
- * uint64_t uint64[2];</code></pre>
- * 
  * <h5>See Also</h5>
  * 
  * <p>{@link VkClearValue}, {@link VkSamplerCustomBorderColorCreateInfoEXT}, {@link VK10#vkCmdClearColorImage CmdClearColorImage}</p>
@@ -45,7 +38,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #uint32}[4];
  * }</code></pre>
  */
-public class VkClearColorValue extends Struct<VkClearColorValue> implements NativeResource {
+public class VkClearColorValue extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -74,15 +67,6 @@ public class VkClearColorValue extends Struct<VkClearColorValue> implements Nati
         UINT32 = layout.offsetof(2);
     }
 
-    protected VkClearColorValue(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkClearColorValue create(long address, @Nullable ByteBuffer container) {
-        return new VkClearColorValue(address, container);
-    }
-
     /**
      * Creates a {@code VkClearColorValue} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -96,21 +80,21 @@ public class VkClearColorValue extends Struct<VkClearColorValue> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** are the color clear values when the format of the image or attachment is one of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-numericformat">numeric formats</a> with a numeric type that is floating-point. Floating-point values are automatically converted to the format of the image, with the clear value being treated as linear if the image is sRGB. */
+    /** are the color clear values when the format of the image or attachment is one of the formats in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#formats-numericformat">Interpretation of Numeric Format</a> table other than signed integer ({@code SINT}) or unsigned integer ({@code UINT}). Floating point values are automatically converted to the format of the image, with the clear value being treated as linear if the image is sRGB. */
     @NativeType("float[4]")
     public FloatBuffer float32() { return nfloat32(address()); }
-    /** are the color clear values when the format of the image or attachment is one of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-numericformat">numeric formats</a> with a numeric type that is floating-point. Floating-point values are automatically converted to the format of the image, with the clear value being treated as linear if the image is sRGB. */
+    /** are the color clear values when the format of the image or attachment is one of the formats in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#formats-numericformat">Interpretation of Numeric Format</a> table other than signed integer ({@code SINT}) or unsigned integer ({@code UINT}). Floating point values are automatically converted to the format of the image, with the clear value being treated as linear if the image is sRGB. */
     public float float32(int index) { return nfloat32(address(), index); }
-    /** are the color clear values when the format of the image or attachment has a numeric type that is signed integer ({@code SINT}). Signed integer values are converted to the format of the image by casting to the smaller type (with negative 32-bit values mapping to negative values in the smaller type). If the integer clear value is not representable in the target type (e.g. would overflow in conversion to that type), the clear value is undefined. */
+    /** are the color clear values when the format of the image or attachment is signed integer ({@code SINT}). Signed integer values are converted to the format of the image by casting to the smaller type (with negative 32-bit values mapping to negative values in the smaller type). If the integer clear value is not representable in the target type (e.g. would overflow in conversion to that type), the clear value is undefined. */
     @NativeType("int32_t[4]")
     public IntBuffer int32() { return nint32(address()); }
-    /** are the color clear values when the format of the image or attachment has a numeric type that is signed integer ({@code SINT}). Signed integer values are converted to the format of the image by casting to the smaller type (with negative 32-bit values mapping to negative values in the smaller type). If the integer clear value is not representable in the target type (e.g. would overflow in conversion to that type), the clear value is undefined. */
+    /** are the color clear values when the format of the image or attachment is signed integer ({@code SINT}). Signed integer values are converted to the format of the image by casting to the smaller type (with negative 32-bit values mapping to negative values in the smaller type). If the integer clear value is not representable in the target type (e.g. would overflow in conversion to that type), the clear value is undefined. */
     @NativeType("int32_t")
     public int int32(int index) { return nint32(address(), index); }
-    /** are the color clear values when the format of the image or attachment has a numeric type that is unsigned integer ({@code UINT}). Unsigned integer values are converted to the format of the image by casting to the integer type with fewer bits. */
+    /** are the color clear values when the format of the image or attachment is unsigned integer ({@code UINT}). Unsigned integer values are converted to the format of the image by casting to the integer type with fewer bits. */
     @NativeType("uint32_t[4]")
     public IntBuffer uint32() { return nuint32(address()); }
-    /** are the color clear values when the format of the image or attachment has a numeric type that is unsigned integer ({@code UINT}). Unsigned integer values are converted to the format of the image by casting to the integer type with fewer bits. */
+    /** are the color clear values when the format of the image or attachment is unsigned integer ({@code UINT}). Unsigned integer values are converted to the format of the image by casting to the integer type with fewer bits. */
     @NativeType("uint32_t")
     public int uint32(int index) { return nuint32(address(), index); }
 
@@ -143,29 +127,29 @@ public class VkClearColorValue extends Struct<VkClearColorValue> implements Nati
 
     /** Returns a new {@code VkClearColorValue} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkClearColorValue malloc() {
-        return new VkClearColorValue(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkClearColorValue.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkClearColorValue} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkClearColorValue calloc() {
-        return new VkClearColorValue(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkClearColorValue.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkClearColorValue} instance allocated with {@link BufferUtils}. */
     public static VkClearColorValue create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkClearColorValue(memAddress(container), container);
+        return wrap(VkClearColorValue.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkClearColorValue} instance for the specified memory address. */
     public static VkClearColorValue create(long address) {
-        return new VkClearColorValue(address, null);
+        return wrap(VkClearColorValue.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkClearColorValue createSafe(long address) {
-        return address == NULL ? null : new VkClearColorValue(address, null);
+        return address == NULL ? null : wrap(VkClearColorValue.class, address);
     }
 
     /**
@@ -174,7 +158,7 @@ public class VkClearColorValue extends Struct<VkClearColorValue> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkClearColorValue.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -183,7 +167,7 @@ public class VkClearColorValue extends Struct<VkClearColorValue> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkClearColorValue.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -193,7 +177,7 @@ public class VkClearColorValue extends Struct<VkClearColorValue> implements Nati
      */
     public static VkClearColorValue.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -203,13 +187,13 @@ public class VkClearColorValue extends Struct<VkClearColorValue> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkClearColorValue.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkClearColorValue.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -237,7 +221,7 @@ public class VkClearColorValue extends Struct<VkClearColorValue> implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkClearColorValue malloc(MemoryStack stack) {
-        return new VkClearColorValue(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkClearColorValue.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -246,7 +230,7 @@ public class VkClearColorValue extends Struct<VkClearColorValue> implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkClearColorValue calloc(MemoryStack stack) {
-        return new VkClearColorValue(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkClearColorValue.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -256,7 +240,7 @@ public class VkClearColorValue extends Struct<VkClearColorValue> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkClearColorValue.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -266,7 +250,7 @@ public class VkClearColorValue extends Struct<VkClearColorValue> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkClearColorValue.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -328,9 +312,9 @@ public class VkClearColorValue extends Struct<VkClearColorValue> implements Nati
         /**
          * Creates a new {@code VkClearColorValue.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkClearColorValue#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkClearColorValue#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

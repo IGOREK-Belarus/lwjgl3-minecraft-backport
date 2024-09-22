@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct libdivide_s64_branchfree_t")
-public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> implements NativeResource {
+public class LibDivideS64BranchFree extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -49,15 +49,6 @@ public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> imple
 
         MAGIC = layout.offsetof(0);
         MORE = layout.offsetof(1);
-    }
-
-    protected LibDivideS64BranchFree(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected LibDivideS64BranchFree create(long address, @Nullable ByteBuffer container) {
-        return new LibDivideS64BranchFree(address, container);
     }
 
     /**
@@ -112,29 +103,29 @@ public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> imple
 
     /** Returns a new {@code LibDivideS64BranchFree} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static LibDivideS64BranchFree malloc() {
-        return new LibDivideS64BranchFree(nmemAllocChecked(SIZEOF), null);
+        return wrap(LibDivideS64BranchFree.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code LibDivideS64BranchFree} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static LibDivideS64BranchFree calloc() {
-        return new LibDivideS64BranchFree(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(LibDivideS64BranchFree.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code LibDivideS64BranchFree} instance allocated with {@link BufferUtils}. */
     public static LibDivideS64BranchFree create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new LibDivideS64BranchFree(memAddress(container), container);
+        return wrap(LibDivideS64BranchFree.class, memAddress(container), container);
     }
 
     /** Returns a new {@code LibDivideS64BranchFree} instance for the specified memory address. */
     public static LibDivideS64BranchFree create(long address) {
-        return new LibDivideS64BranchFree(address, null);
+        return wrap(LibDivideS64BranchFree.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static LibDivideS64BranchFree createSafe(long address) {
-        return address == NULL ? null : new LibDivideS64BranchFree(address, null);
+        return address == NULL ? null : wrap(LibDivideS64BranchFree.class, address);
     }
 
     /**
@@ -143,7 +134,7 @@ public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> imple
      * @param capacity the buffer capacity
      */
     public static LibDivideS64BranchFree.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -152,7 +143,7 @@ public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> imple
      * @param capacity the buffer capacity
      */
     public static LibDivideS64BranchFree.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -162,7 +153,7 @@ public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> imple
      */
     public static LibDivideS64BranchFree.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -172,13 +163,13 @@ public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> imple
      * @param capacity the buffer capacity
      */
     public static LibDivideS64BranchFree.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static LibDivideS64BranchFree.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -206,7 +197,7 @@ public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> imple
      * @param stack the stack from which to allocate
      */
     public static LibDivideS64BranchFree malloc(MemoryStack stack) {
-        return new LibDivideS64BranchFree(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(LibDivideS64BranchFree.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -215,7 +206,7 @@ public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> imple
      * @param stack the stack from which to allocate
      */
     public static LibDivideS64BranchFree calloc(MemoryStack stack) {
-        return new LibDivideS64BranchFree(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(LibDivideS64BranchFree.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -225,7 +216,7 @@ public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> imple
      * @param capacity the buffer capacity
      */
     public static LibDivideS64BranchFree.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -235,7 +226,7 @@ public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> imple
      * @param capacity the buffer capacity
      */
     public static LibDivideS64BranchFree.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -260,9 +251,9 @@ public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> imple
         /**
          * Creates a new {@code LibDivideS64BranchFree.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link LibDivideS64BranchFree#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link LibDivideS64BranchFree#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTHandTrackingMesh XR_MSFT_hand_tracking_mesh} extension <b>must</b> be enabled prior to using {@link XrHandMeshSpaceCreateInfoMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTHandTrackingMesh#XR_TYPE_HAND_MESH_SPACE_CREATE_INFO_MSFT TYPE_HAND_MESH_SPACE_CREATE_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code handPoseType} <b>must</b> be a valid {@code XrHandPoseTypeMSFT} value</li>
  * </ul>
  * 
@@ -41,7 +41,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrPosef XrPosef} {@link #poseInHandMeshSpace};
  * }</code></pre>
  */
-public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateInfoMSFT> implements NativeResource {
+public class XrHandMeshSpaceCreateInfoMSFT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -71,15 +71,6 @@ public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateI
         NEXT = layout.offsetof(1);
         HANDPOSETYPE = layout.offsetof(2);
         POSEINHANDMESHSPACE = layout.offsetof(3);
-    }
-
-    protected XrHandMeshSpaceCreateInfoMSFT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrHandMeshSpaceCreateInfoMSFT create(long address, @Nullable ByteBuffer container) {
-        return new XrHandMeshSpaceCreateInfoMSFT(address, container);
     }
 
     /**
@@ -151,29 +142,29 @@ public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateI
 
     /** Returns a new {@code XrHandMeshSpaceCreateInfoMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrHandMeshSpaceCreateInfoMSFT malloc() {
-        return new XrHandMeshSpaceCreateInfoMSFT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrHandMeshSpaceCreateInfoMSFT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrHandMeshSpaceCreateInfoMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrHandMeshSpaceCreateInfoMSFT calloc() {
-        return new XrHandMeshSpaceCreateInfoMSFT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrHandMeshSpaceCreateInfoMSFT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrHandMeshSpaceCreateInfoMSFT} instance allocated with {@link BufferUtils}. */
     public static XrHandMeshSpaceCreateInfoMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrHandMeshSpaceCreateInfoMSFT(memAddress(container), container);
+        return wrap(XrHandMeshSpaceCreateInfoMSFT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrHandMeshSpaceCreateInfoMSFT} instance for the specified memory address. */
     public static XrHandMeshSpaceCreateInfoMSFT create(long address) {
-        return new XrHandMeshSpaceCreateInfoMSFT(address, null);
+        return wrap(XrHandMeshSpaceCreateInfoMSFT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandMeshSpaceCreateInfoMSFT createSafe(long address) {
-        return address == NULL ? null : new XrHandMeshSpaceCreateInfoMSFT(address, null);
+        return address == NULL ? null : wrap(XrHandMeshSpaceCreateInfoMSFT.class, address);
     }
 
     /**
@@ -182,7 +173,7 @@ public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateI
      * @param capacity the buffer capacity
      */
     public static XrHandMeshSpaceCreateInfoMSFT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -191,7 +182,7 @@ public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateI
      * @param capacity the buffer capacity
      */
     public static XrHandMeshSpaceCreateInfoMSFT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -201,7 +192,7 @@ public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateI
      */
     public static XrHandMeshSpaceCreateInfoMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -211,13 +202,13 @@ public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateI
      * @param capacity the buffer capacity
      */
     public static XrHandMeshSpaceCreateInfoMSFT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandMeshSpaceCreateInfoMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -226,7 +217,7 @@ public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateI
      * @param stack the stack from which to allocate
      */
     public static XrHandMeshSpaceCreateInfoMSFT malloc(MemoryStack stack) {
-        return new XrHandMeshSpaceCreateInfoMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrHandMeshSpaceCreateInfoMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -235,7 +226,7 @@ public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateI
      * @param stack the stack from which to allocate
      */
     public static XrHandMeshSpaceCreateInfoMSFT calloc(MemoryStack stack) {
-        return new XrHandMeshSpaceCreateInfoMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrHandMeshSpaceCreateInfoMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -245,7 +236,7 @@ public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateI
      * @param capacity the buffer capacity
      */
     public static XrHandMeshSpaceCreateInfoMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -255,7 +246,7 @@ public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateI
      * @param capacity the buffer capacity
      */
     public static XrHandMeshSpaceCreateInfoMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -288,9 +279,9 @@ public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateI
         /**
          * Creates a new {@code XrHandMeshSpaceCreateInfoMSFT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrHandMeshSpaceCreateInfoMSFT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrHandMeshSpaceCreateInfoMSFT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

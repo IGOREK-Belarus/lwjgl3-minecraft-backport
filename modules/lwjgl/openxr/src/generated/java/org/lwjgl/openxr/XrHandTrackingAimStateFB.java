@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBHandTrackingAim XR_FB_hand_tracking_aim} extension <b>must</b> be enabled prior to using {@link XrHandTrackingAimStateFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBHandTrackingAim#XR_TYPE_HAND_TRACKING_AIM_STATE_FB TYPE_HAND_TRACKING_AIM_STATE_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -44,7 +44,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float {@link #pinchStrengthLittle};
  * }</code></pre>
  */
-public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> implements NativeResource {
+public class XrHandTrackingAimStateFB extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -88,15 +88,6 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
         PINCHSTRENGTHLITTLE = layout.offsetof(7);
     }
 
-    protected XrHandTrackingAimStateFB(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrHandTrackingAimStateFB create(long address, @Nullable ByteBuffer container) {
-        return new XrHandTrackingAimStateFB(address, container);
-    }
-
     /**
      * Creates a {@code XrHandTrackingAimStateFB} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -119,7 +110,7 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
     /** a bitmask of {@code XrHandTrackingAimFlagBitsFB} describing the availability and state of other signals. */
     @NativeType("XrHandTrackingAimFlagsFB")
     public long status() { return nstatus(address()); }
-    /** a system-determined "aim" pose, similar in intent and convention to the <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#semantic-paths-aim-pose">aim poses</a> used with the action system, based on hand data. */
+    /** a system-determined "aim" pose, similar in intent and convention to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#aim-pose">aim poses</a> used with the action system, based on hand data. */
     public XrPosef aimPose() { return naimPose(address()); }
     /** the current pinching strength for the index finger of this hand. Range is 0.0 to 1.0, with 1.0 meaning index and thumb are fully touching. */
     public float pinchStrengthIndex() { return npinchStrengthIndex(address()); }
@@ -164,29 +155,29 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
 
     /** Returns a new {@code XrHandTrackingAimStateFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrHandTrackingAimStateFB malloc() {
-        return new XrHandTrackingAimStateFB(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrHandTrackingAimStateFB.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrHandTrackingAimStateFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrHandTrackingAimStateFB calloc() {
-        return new XrHandTrackingAimStateFB(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrHandTrackingAimStateFB.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrHandTrackingAimStateFB} instance allocated with {@link BufferUtils}. */
     public static XrHandTrackingAimStateFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrHandTrackingAimStateFB(memAddress(container), container);
+        return wrap(XrHandTrackingAimStateFB.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrHandTrackingAimStateFB} instance for the specified memory address. */
     public static XrHandTrackingAimStateFB create(long address) {
-        return new XrHandTrackingAimStateFB(address, null);
+        return wrap(XrHandTrackingAimStateFB.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandTrackingAimStateFB createSafe(long address) {
-        return address == NULL ? null : new XrHandTrackingAimStateFB(address, null);
+        return address == NULL ? null : wrap(XrHandTrackingAimStateFB.class, address);
     }
 
     /**
@@ -195,7 +186,7 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
      * @param capacity the buffer capacity
      */
     public static XrHandTrackingAimStateFB.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -204,7 +195,7 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
      * @param capacity the buffer capacity
      */
     public static XrHandTrackingAimStateFB.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -214,7 +205,7 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
      */
     public static XrHandTrackingAimStateFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -224,13 +215,13 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
      * @param capacity the buffer capacity
      */
     public static XrHandTrackingAimStateFB.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandTrackingAimStateFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -239,7 +230,7 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
      * @param stack the stack from which to allocate
      */
     public static XrHandTrackingAimStateFB malloc(MemoryStack stack) {
-        return new XrHandTrackingAimStateFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrHandTrackingAimStateFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -248,7 +239,7 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
      * @param stack the stack from which to allocate
      */
     public static XrHandTrackingAimStateFB calloc(MemoryStack stack) {
-        return new XrHandTrackingAimStateFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrHandTrackingAimStateFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -258,7 +249,7 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
      * @param capacity the buffer capacity
      */
     public static XrHandTrackingAimStateFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -268,7 +259,7 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
      * @param capacity the buffer capacity
      */
     public static XrHandTrackingAimStateFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -305,9 +296,9 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
         /**
          * Creates a new {@code XrHandTrackingAimStateFB.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrHandTrackingAimStateFB#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrHandTrackingAimStateFB#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

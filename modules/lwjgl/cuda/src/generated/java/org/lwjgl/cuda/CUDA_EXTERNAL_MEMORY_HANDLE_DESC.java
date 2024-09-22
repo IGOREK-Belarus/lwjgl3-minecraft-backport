@@ -17,25 +17,27 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
+ * External memory handle descriptor.
+ * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct CUDA_EXTERNAL_MEMORY_HANDLE_DESC {
- *     CUexternalMemoryHandleType type;
+ *     CUexternalMemoryHandleType {@link #type};
  *     union {
- *         int fd;
+ *         int {@link #handle_fd fd};
  *         struct {
- *             void * handle;
- *             void const * name;
+ *             void * {@link #handle_win32_handle handle};
+ *             void const * {@link #handle_win32_name name};
  *         } win32;
- *         void const * nvSciBufObject;
+ *         void const * {@link #handle_nvSciBufObject nvSciBufObject};
  *     } handle;
- *     unsigned long long size;
- *     unsigned int flags;
+ *     unsigned long long {@link #size};
+ *     unsigned int {@link #flags};
  *     unsigned int reserved[16];
  * }</code></pre>
  */
-public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMORY_HANDLE_DESC> implements NativeResource {
+public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -87,15 +89,6 @@ public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMOR
         RESERVED = layout.offsetof(9);
     }
 
-    protected CUDA_EXTERNAL_MEMORY_HANDLE_DESC(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CUDA_EXTERNAL_MEMORY_HANDLE_DESC create(long address, @Nullable ByteBuffer container) {
-        return new CUDA_EXTERNAL_MEMORY_HANDLE_DESC(address, container);
-    }
-
     /**
      * Creates a {@code CUDA_EXTERNAL_MEMORY_HANDLE_DESC} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -109,24 +102,24 @@ public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMOR
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return the value of the {@code type} field. */
+    /** Type of the handle */
     @NativeType("CUexternalMemoryHandleType")
     public int type() { return ntype(address()); }
-    /** @return the value of the {@code handle.fd} field. */
+    /** File descriptor referencing the memory object. Valid when type is ::CU_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD */
     public int handle_fd() { return nhandle_fd(address()); }
-    /** @return the value of the {@code handle.win32.handle} field. */
+    /** Valid NT handle. Must be NULL if 'name' is non-NULL */
     @NativeType("void *")
     public long handle_win32_handle() { return nhandle_win32_handle(address()); }
-    /** @return the value of the {@code handle.win32.name} field. */
+    /** Name of a valid memory object. Must be NULL if 'handle' is non-NULL. */
     @NativeType("void const *")
     public long handle_win32_name() { return nhandle_win32_name(address()); }
-    /** @return the value of the {@code handle.nvSciBufObject} field. */
+    /** A handle representing an {@code NvSciBuf} Object. Valid when type is {@link CU#CU_EXTERNAL_MEMORY_HANDLE_TYPE_NVSCIBUF EXTERNAL_MEMORY_HANDLE_TYPE_NVSCIBUF} */
     @NativeType("void const *")
     public long handle_nvSciBufObject() { return nhandle_nvSciBufObject(address()); }
-    /** @return the value of the {@code size} field. */
+    /** Size of the memory allocation */
     @NativeType("unsigned long long")
     public long size() { return nsize(address()); }
-    /** @return the value of the {@code flags} field. */
+    /** Flags must either be zero or {@link CU#CUDA_EXTERNAL_MEMORY_DEDICATED} */
     @NativeType("unsigned int")
     public int flags() { return nflags(address()); }
     /** @return a {@link IntBuffer} view of the {@code reserved} field. */
@@ -136,19 +129,19 @@ public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMOR
     @NativeType("unsigned int")
     public int reserved(int index) { return nreserved(address(), index); }
 
-    /** Sets the specified value to the {@code type} field. */
+    /** Sets the specified value to the {@link #type} field. */
     public CUDA_EXTERNAL_MEMORY_HANDLE_DESC type(@NativeType("CUexternalMemoryHandleType") int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@code fd} field. */
+    /** Sets the specified value to the {@link #handle_fd} field. */
     public CUDA_EXTERNAL_MEMORY_HANDLE_DESC handle_fd(int value) { nhandle_fd(address(), value); return this; }
-    /** Sets the specified value to the {@code handle} field. */
+    /** Sets the specified value to the {@link #handle_win32_handle} field. */
     public CUDA_EXTERNAL_MEMORY_HANDLE_DESC handle_win32_handle(@NativeType("void *") long value) { nhandle_win32_handle(address(), value); return this; }
-    /** Sets the specified value to the {@code name} field. */
+    /** Sets the specified value to the {@link #handle_win32_name} field. */
     public CUDA_EXTERNAL_MEMORY_HANDLE_DESC handle_win32_name(@NativeType("void const *") long value) { nhandle_win32_name(address(), value); return this; }
-    /** Sets the specified value to the {@code nvSciBufObject} field. */
+    /** Sets the specified value to the {@link #handle_nvSciBufObject} field. */
     public CUDA_EXTERNAL_MEMORY_HANDLE_DESC handle_nvSciBufObject(@NativeType("void const *") long value) { nhandle_nvSciBufObject(address(), value); return this; }
-    /** Sets the specified value to the {@code size} field. */
+    /** Sets the specified value to the {@link #size} field. */
     public CUDA_EXTERNAL_MEMORY_HANDLE_DESC size(@NativeType("unsigned long long") long value) { nsize(address(), value); return this; }
-    /** Sets the specified value to the {@code flags} field. */
+    /** Sets the specified value to the {@link #flags} field. */
     public CUDA_EXTERNAL_MEMORY_HANDLE_DESC flags(@NativeType("unsigned int") int value) { nflags(address(), value); return this; }
     /** Copies the specified {@link IntBuffer} to the {@code reserved} field. */
     public CUDA_EXTERNAL_MEMORY_HANDLE_DESC reserved(@NativeType("unsigned int[16]") IntBuffer value) { nreserved(address(), value); return this; }
@@ -171,29 +164,29 @@ public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMOR
 
     /** Returns a new {@code CUDA_EXTERNAL_MEMORY_HANDLE_DESC} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CUDA_EXTERNAL_MEMORY_HANDLE_DESC malloc() {
-        return new CUDA_EXTERNAL_MEMORY_HANDLE_DESC(nmemAllocChecked(SIZEOF), null);
+        return wrap(CUDA_EXTERNAL_MEMORY_HANDLE_DESC.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code CUDA_EXTERNAL_MEMORY_HANDLE_DESC} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CUDA_EXTERNAL_MEMORY_HANDLE_DESC calloc() {
-        return new CUDA_EXTERNAL_MEMORY_HANDLE_DESC(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(CUDA_EXTERNAL_MEMORY_HANDLE_DESC.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code CUDA_EXTERNAL_MEMORY_HANDLE_DESC} instance allocated with {@link BufferUtils}. */
     public static CUDA_EXTERNAL_MEMORY_HANDLE_DESC create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new CUDA_EXTERNAL_MEMORY_HANDLE_DESC(memAddress(container), container);
+        return wrap(CUDA_EXTERNAL_MEMORY_HANDLE_DESC.class, memAddress(container), container);
     }
 
     /** Returns a new {@code CUDA_EXTERNAL_MEMORY_HANDLE_DESC} instance for the specified memory address. */
     public static CUDA_EXTERNAL_MEMORY_HANDLE_DESC create(long address) {
-        return new CUDA_EXTERNAL_MEMORY_HANDLE_DESC(address, null);
+        return wrap(CUDA_EXTERNAL_MEMORY_HANDLE_DESC.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_EXTERNAL_MEMORY_HANDLE_DESC createSafe(long address) {
-        return address == NULL ? null : new CUDA_EXTERNAL_MEMORY_HANDLE_DESC(address, null);
+        return address == NULL ? null : wrap(CUDA_EXTERNAL_MEMORY_HANDLE_DESC.class, address);
     }
 
     /**
@@ -202,7 +195,7 @@ public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMOR
      * @param capacity the buffer capacity
      */
     public static CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -211,7 +204,7 @@ public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMOR
      * @param capacity the buffer capacity
      */
     public static CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -221,7 +214,7 @@ public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMOR
      */
     public static CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -231,13 +224,13 @@ public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMOR
      * @param capacity the buffer capacity
      */
     public static CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -265,7 +258,7 @@ public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMOR
      * @param stack the stack from which to allocate
      */
     public static CUDA_EXTERNAL_MEMORY_HANDLE_DESC malloc(MemoryStack stack) {
-        return new CUDA_EXTERNAL_MEMORY_HANDLE_DESC(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(CUDA_EXTERNAL_MEMORY_HANDLE_DESC.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -274,7 +267,7 @@ public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMOR
      * @param stack the stack from which to allocate
      */
     public static CUDA_EXTERNAL_MEMORY_HANDLE_DESC calloc(MemoryStack stack) {
-        return new CUDA_EXTERNAL_MEMORY_HANDLE_DESC(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(CUDA_EXTERNAL_MEMORY_HANDLE_DESC.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -284,7 +277,7 @@ public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMOR
      * @param capacity the buffer capacity
      */
     public static CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -294,7 +287,7 @@ public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMOR
      * @param capacity the buffer capacity
      */
     public static CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -354,9 +347,9 @@ public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMOR
         /**
          * Creates a new {@code CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -382,24 +375,24 @@ public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMOR
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@code type} field. */
+        /** @return the value of the {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#type} field. */
         @NativeType("CUexternalMemoryHandleType")
         public int type() { return CUDA_EXTERNAL_MEMORY_HANDLE_DESC.ntype(address()); }
-        /** @return the value of the {@code handle.fd} field. */
+        /** @return the value of the {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#handle_fd} field. */
         public int handle_fd() { return CUDA_EXTERNAL_MEMORY_HANDLE_DESC.nhandle_fd(address()); }
-        /** @return the value of the {@code handle.win32.handle} field. */
+        /** @return the value of the {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#handle_win32_handle} field. */
         @NativeType("void *")
         public long handle_win32_handle() { return CUDA_EXTERNAL_MEMORY_HANDLE_DESC.nhandle_win32_handle(address()); }
-        /** @return the value of the {@code handle.win32.name} field. */
+        /** @return the value of the {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#handle_win32_name} field. */
         @NativeType("void const *")
         public long handle_win32_name() { return CUDA_EXTERNAL_MEMORY_HANDLE_DESC.nhandle_win32_name(address()); }
-        /** @return the value of the {@code handle.nvSciBufObject} field. */
+        /** @return the value of the {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#handle_nvSciBufObject} field. */
         @NativeType("void const *")
         public long handle_nvSciBufObject() { return CUDA_EXTERNAL_MEMORY_HANDLE_DESC.nhandle_nvSciBufObject(address()); }
-        /** @return the value of the {@code size} field. */
+        /** @return the value of the {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#size} field. */
         @NativeType("unsigned long long")
         public long size() { return CUDA_EXTERNAL_MEMORY_HANDLE_DESC.nsize(address()); }
-        /** @return the value of the {@code flags} field. */
+        /** @return the value of the {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#flags} field. */
         @NativeType("unsigned int")
         public int flags() { return CUDA_EXTERNAL_MEMORY_HANDLE_DESC.nflags(address()); }
         /** @return a {@link IntBuffer} view of the {@code reserved} field. */
@@ -409,19 +402,19 @@ public class CUDA_EXTERNAL_MEMORY_HANDLE_DESC extends Struct<CUDA_EXTERNAL_MEMOR
         @NativeType("unsigned int")
         public int reserved(int index) { return CUDA_EXTERNAL_MEMORY_HANDLE_DESC.nreserved(address(), index); }
 
-        /** Sets the specified value to the {@code type} field. */
+        /** Sets the specified value to the {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#type} field. */
         public CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer type(@NativeType("CUexternalMemoryHandleType") int value) { CUDA_EXTERNAL_MEMORY_HANDLE_DESC.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@code fd} field. */
+        /** Sets the specified value to the {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#handle_fd} field. */
         public CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer handle_fd(int value) { CUDA_EXTERNAL_MEMORY_HANDLE_DESC.nhandle_fd(address(), value); return this; }
-        /** Sets the specified value to the {@code handle} field. */
+        /** Sets the specified value to the {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#handle_win32_handle} field. */
         public CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer handle_win32_handle(@NativeType("void *") long value) { CUDA_EXTERNAL_MEMORY_HANDLE_DESC.nhandle_win32_handle(address(), value); return this; }
-        /** Sets the specified value to the {@code name} field. */
+        /** Sets the specified value to the {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#handle_win32_name} field. */
         public CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer handle_win32_name(@NativeType("void const *") long value) { CUDA_EXTERNAL_MEMORY_HANDLE_DESC.nhandle_win32_name(address(), value); return this; }
-        /** Sets the specified value to the {@code nvSciBufObject} field. */
+        /** Sets the specified value to the {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#handle_nvSciBufObject} field. */
         public CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer handle_nvSciBufObject(@NativeType("void const *") long value) { CUDA_EXTERNAL_MEMORY_HANDLE_DESC.nhandle_nvSciBufObject(address(), value); return this; }
-        /** Sets the specified value to the {@code size} field. */
+        /** Sets the specified value to the {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#size} field. */
         public CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer size(@NativeType("unsigned long long") long value) { CUDA_EXTERNAL_MEMORY_HANDLE_DESC.nsize(address(), value); return this; }
-        /** Sets the specified value to the {@code flags} field. */
+        /** Sets the specified value to the {@link CUDA_EXTERNAL_MEMORY_HANDLE_DESC#flags} field. */
         public CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer flags(@NativeType("unsigned int") int value) { CUDA_EXTERNAL_MEMORY_HANDLE_DESC.nflags(address(), value); return this; }
         /** Copies the specified {@link IntBuffer} to the {@code reserved} field. */
         public CUDA_EXTERNAL_MEMORY_HANDLE_DESC.Buffer reserved(@NativeType("unsigned int[16]") IntBuffer value) { CUDA_EXTERNAL_MEMORY_HANDLE_DESC.nreserved(address(), value); return this; }

@@ -31,7 +31,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct DistortionCoordinates_t")
-public class DistortionCoordinates extends Struct<DistortionCoordinates> implements NativeResource {
+public class DistortionCoordinates extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -58,15 +58,6 @@ public class DistortionCoordinates extends Struct<DistortionCoordinates> impleme
         RFRED = layout.offsetof(0);
         RFGREEN = layout.offsetof(1);
         RFBLUE = layout.offsetof(2);
-    }
-
-    protected DistortionCoordinates(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected DistortionCoordinates create(long address, @Nullable ByteBuffer container) {
-        return new DistortionCoordinates(address, container);
     }
 
     /**
@@ -102,29 +93,29 @@ public class DistortionCoordinates extends Struct<DistortionCoordinates> impleme
 
     /** Returns a new {@code DistortionCoordinates} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static DistortionCoordinates malloc() {
-        return new DistortionCoordinates(nmemAllocChecked(SIZEOF), null);
+        return wrap(DistortionCoordinates.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code DistortionCoordinates} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static DistortionCoordinates calloc() {
-        return new DistortionCoordinates(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(DistortionCoordinates.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code DistortionCoordinates} instance allocated with {@link BufferUtils}. */
     public static DistortionCoordinates create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new DistortionCoordinates(memAddress(container), container);
+        return wrap(DistortionCoordinates.class, memAddress(container), container);
     }
 
     /** Returns a new {@code DistortionCoordinates} instance for the specified memory address. */
     public static DistortionCoordinates create(long address) {
-        return new DistortionCoordinates(address, null);
+        return wrap(DistortionCoordinates.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static DistortionCoordinates createSafe(long address) {
-        return address == NULL ? null : new DistortionCoordinates(address, null);
+        return address == NULL ? null : wrap(DistortionCoordinates.class, address);
     }
 
     /**
@@ -133,7 +124,7 @@ public class DistortionCoordinates extends Struct<DistortionCoordinates> impleme
      * @param capacity the buffer capacity
      */
     public static DistortionCoordinates.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -142,7 +133,7 @@ public class DistortionCoordinates extends Struct<DistortionCoordinates> impleme
      * @param capacity the buffer capacity
      */
     public static DistortionCoordinates.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -152,7 +143,7 @@ public class DistortionCoordinates extends Struct<DistortionCoordinates> impleme
      */
     public static DistortionCoordinates.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -162,13 +153,13 @@ public class DistortionCoordinates extends Struct<DistortionCoordinates> impleme
      * @param capacity the buffer capacity
      */
     public static DistortionCoordinates.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static DistortionCoordinates.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -196,7 +187,7 @@ public class DistortionCoordinates extends Struct<DistortionCoordinates> impleme
      * @param stack the stack from which to allocate
      */
     public static DistortionCoordinates malloc(MemoryStack stack) {
-        return new DistortionCoordinates(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(DistortionCoordinates.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -205,7 +196,7 @@ public class DistortionCoordinates extends Struct<DistortionCoordinates> impleme
      * @param stack the stack from which to allocate
      */
     public static DistortionCoordinates calloc(MemoryStack stack) {
-        return new DistortionCoordinates(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(DistortionCoordinates.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -215,7 +206,7 @@ public class DistortionCoordinates extends Struct<DistortionCoordinates> impleme
      * @param capacity the buffer capacity
      */
     public static DistortionCoordinates.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -225,7 +216,7 @@ public class DistortionCoordinates extends Struct<DistortionCoordinates> impleme
      * @param capacity the buffer capacity
      */
     public static DistortionCoordinates.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -259,9 +250,9 @@ public class DistortionCoordinates extends Struct<DistortionCoordinates> impleme
         /**
          * Creates a new {@code DistortionCoordinates.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link DistortionCoordinates#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link DistortionCoordinates#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

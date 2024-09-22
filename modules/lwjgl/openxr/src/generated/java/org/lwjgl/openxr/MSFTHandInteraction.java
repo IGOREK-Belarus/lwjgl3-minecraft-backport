@@ -5,11 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-/**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_MSFT_hand_interaction">XR_MSFT_hand_interaction</a> extension.
- * 
- * <p>This extension defines a new interaction profile for near interactions and far interactions driven by directly-tracked hands.</p>
- */
+/** The MSFT_hand_interaction extension. */
 public final class MSFTHandInteraction {
 
     /** The extension specification version. */

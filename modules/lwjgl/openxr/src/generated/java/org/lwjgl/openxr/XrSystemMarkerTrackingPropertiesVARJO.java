@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link VARJOMarkerTracking XR_VARJO_marker_tracking} extension <b>must</b> be enabled prior to using {@link XrSystemMarkerTrackingPropertiesVARJO}</li>
  * <li>{@code type} <b>must</b> be {@link VARJOMarkerTracking#XR_TYPE_SYSTEM_MARKER_TRACKING_PROPERTIES_VARJO TYPE_SYSTEM_MARKER_TRACKING_PROPERTIES_VARJO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -45,7 +45,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrBool32 {@link #supportsMarkerTracking};
  * }</code></pre>
  */
-public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarkerTrackingPropertiesVARJO> implements NativeResource {
+public class XrSystemMarkerTrackingPropertiesVARJO extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -72,15 +72,6 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
         SUPPORTSMARKERTRACKING = layout.offsetof(2);
-    }
-
-    protected XrSystemMarkerTrackingPropertiesVARJO(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSystemMarkerTrackingPropertiesVARJO create(long address, @Nullable ByteBuffer container) {
-        return new XrSystemMarkerTrackingPropertiesVARJO(address, container);
     }
 
     /**
@@ -112,14 +103,18 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
     public XrSystemMarkerTrackingPropertiesVARJO type$Default() { return type(VARJOMarkerTracking.XR_TYPE_SYSTEM_MARKER_TRACKING_PROPERTIES_VARJO); }
     /** Sets the specified value to the {@link #next} field. */
     public XrSystemMarkerTrackingPropertiesVARJO next(@NativeType("void *") long value) { nnext(address(), value); return this; }
+    /** Sets the specified value to the {@link #supportsMarkerTracking} field. */
+    public XrSystemMarkerTrackingPropertiesVARJO supportsMarkerTracking(@NativeType("XrBool32") boolean value) { nsupportsMarkerTracking(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrSystemMarkerTrackingPropertiesVARJO set(
         int type,
-        long next
+        long next,
+        boolean supportsMarkerTracking
     ) {
         type(type);
         next(next);
+        supportsMarkerTracking(supportsMarkerTracking);
 
         return this;
     }
@@ -140,29 +135,29 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
 
     /** Returns a new {@code XrSystemMarkerTrackingPropertiesVARJO} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSystemMarkerTrackingPropertiesVARJO malloc() {
-        return new XrSystemMarkerTrackingPropertiesVARJO(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSystemMarkerTrackingPropertiesVARJO.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSystemMarkerTrackingPropertiesVARJO} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSystemMarkerTrackingPropertiesVARJO calloc() {
-        return new XrSystemMarkerTrackingPropertiesVARJO(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSystemMarkerTrackingPropertiesVARJO.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSystemMarkerTrackingPropertiesVARJO} instance allocated with {@link BufferUtils}. */
     public static XrSystemMarkerTrackingPropertiesVARJO create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSystemMarkerTrackingPropertiesVARJO(memAddress(container), container);
+        return wrap(XrSystemMarkerTrackingPropertiesVARJO.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSystemMarkerTrackingPropertiesVARJO} instance for the specified memory address. */
     public static XrSystemMarkerTrackingPropertiesVARJO create(long address) {
-        return new XrSystemMarkerTrackingPropertiesVARJO(address, null);
+        return wrap(XrSystemMarkerTrackingPropertiesVARJO.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSystemMarkerTrackingPropertiesVARJO createSafe(long address) {
-        return address == NULL ? null : new XrSystemMarkerTrackingPropertiesVARJO(address, null);
+        return address == NULL ? null : wrap(XrSystemMarkerTrackingPropertiesVARJO.class, address);
     }
 
     /**
@@ -171,7 +166,7 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
      * @param capacity the buffer capacity
      */
     public static XrSystemMarkerTrackingPropertiesVARJO.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -180,7 +175,7 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
      * @param capacity the buffer capacity
      */
     public static XrSystemMarkerTrackingPropertiesVARJO.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -190,7 +185,7 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
      */
     public static XrSystemMarkerTrackingPropertiesVARJO.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -200,13 +195,13 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
      * @param capacity the buffer capacity
      */
     public static XrSystemMarkerTrackingPropertiesVARJO.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSystemMarkerTrackingPropertiesVARJO.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -215,7 +210,7 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
      * @param stack the stack from which to allocate
      */
     public static XrSystemMarkerTrackingPropertiesVARJO malloc(MemoryStack stack) {
-        return new XrSystemMarkerTrackingPropertiesVARJO(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSystemMarkerTrackingPropertiesVARJO.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -224,7 +219,7 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
      * @param stack the stack from which to allocate
      */
     public static XrSystemMarkerTrackingPropertiesVARJO calloc(MemoryStack stack) {
-        return new XrSystemMarkerTrackingPropertiesVARJO(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSystemMarkerTrackingPropertiesVARJO.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -234,7 +229,7 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
      * @param capacity the buffer capacity
      */
     public static XrSystemMarkerTrackingPropertiesVARJO.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -244,7 +239,7 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
      * @param capacity the buffer capacity
      */
     public static XrSystemMarkerTrackingPropertiesVARJO.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -260,6 +255,8 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
     public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemMarkerTrackingPropertiesVARJO.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemMarkerTrackingPropertiesVARJO.NEXT, value); }
+    /** Unsafe version of {@link #supportsMarkerTracking(boolean) supportsMarkerTracking}. */
+    public static void nsupportsMarkerTracking(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemMarkerTrackingPropertiesVARJO.SUPPORTSMARKERTRACKING, value); }
 
     // -----------------------------------
 
@@ -271,9 +268,9 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
         /**
          * Creates a new {@code XrSystemMarkerTrackingPropertiesVARJO.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSystemMarkerTrackingPropertiesVARJO#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSystemMarkerTrackingPropertiesVARJO#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -315,6 +312,8 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
         public XrSystemMarkerTrackingPropertiesVARJO.Buffer type$Default() { return type(VARJOMarkerTracking.XR_TYPE_SYSTEM_MARKER_TRACKING_PROPERTIES_VARJO); }
         /** Sets the specified value to the {@link XrSystemMarkerTrackingPropertiesVARJO#next} field. */
         public XrSystemMarkerTrackingPropertiesVARJO.Buffer next(@NativeType("void *") long value) { XrSystemMarkerTrackingPropertiesVARJO.nnext(address(), value); return this; }
+        /** Sets the specified value to the {@link XrSystemMarkerTrackingPropertiesVARJO#supportsMarkerTracking} field. */
+        public XrSystemMarkerTrackingPropertiesVARJO.Buffer supportsMarkerTracking(@NativeType("XrBool32") boolean value) { XrSystemMarkerTrackingPropertiesVARJO.nsupportsMarkerTracking(address(), value ? 1 : 0); return this; }
 
     }
 

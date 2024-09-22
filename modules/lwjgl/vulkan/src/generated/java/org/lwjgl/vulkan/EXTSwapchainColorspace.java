@@ -6,7 +6,9 @@
 package org.lwjgl.vulkan;
 
 /**
- * This extension expands {@code VkColorSpaceKHR} to add support for most standard color spaces beyond {@link KHRSurface#VK_COLOR_SPACE_SRGB_NONLINEAR_KHR COLOR_SPACE_SRGB_NONLINEAR_KHR}. This extension also adds support for {@link #VK_COLOR_SPACE_PASS_THROUGH_EXT COLOR_SPACE_PASS_THROUGH_EXT} which allows applications to use color spaces not explicitly enumerated in {@code VkColorSpaceKHR}.
+ * To be done.
+ * 
+ * <h5>VK_EXT_swapchain_colorspace</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -16,12 +18,15 @@ package org.lwjgl.vulkan;
  * <dt><b>Registered Extension Number</b></dt>
  * <dd>105</dd>
  * <dt><b>Revision</b></dt>
- * <dd>5</dd>
+ * <dd>4</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRSurface VK_KHR_surface}</dd>
+ * <dd><ul>
+ * <li>Requires Vulkan 1.0</li>
+ * <li>Requires {@link KHRSurface VK_KHR_surface}</li>
+ * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Courtney Goeltzenleuchter <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_swapchain_colorspace]%20@courtney-g%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_swapchain_colorspace%20extension*">courtney-g</a></li>
+ * <li>Courtney Goeltzenleuchter <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_swapchain_colorspace]%20@courtney-g%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_swapchain_colorspace%20extension%3E%3E">courtney-g</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -41,7 +46,7 @@ package org.lwjgl.vulkan;
 public final class EXTSwapchainColorspace {
 
     /** The extension specification version. */
-    public static final int VK_EXT_SWAPCHAIN_COLOR_SPACE_SPEC_VERSION = 5;
+    public static final int VK_EXT_SWAPCHAIN_COLOR_SPACE_SPEC_VERSION = 4;
 
     /** The extension name. */
     public static final String VK_EXT_SWAPCHAIN_COLOR_SPACE_EXTENSION_NAME = "VK_EXT_swapchain_colorspace";

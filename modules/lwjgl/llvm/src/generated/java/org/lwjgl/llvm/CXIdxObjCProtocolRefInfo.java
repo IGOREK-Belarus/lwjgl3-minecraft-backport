@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     {@link CXIdxLoc CXIdxLoc} loc;
  * }</code></pre>
  */
-public class CXIdxObjCProtocolRefInfo extends Struct<CXIdxObjCProtocolRefInfo> {
+public class CXIdxObjCProtocolRefInfo extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -52,15 +52,6 @@ public class CXIdxObjCProtocolRefInfo extends Struct<CXIdxObjCProtocolRefInfo> {
         LOC = layout.offsetof(2);
     }
 
-    protected CXIdxObjCProtocolRefInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CXIdxObjCProtocolRefInfo create(long address, @Nullable ByteBuffer container) {
-        return new CXIdxObjCProtocolRefInfo(address, container);
-    }
-
     /**
      * Creates a {@code CXIdxObjCProtocolRefInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -86,13 +77,13 @@ public class CXIdxObjCProtocolRefInfo extends Struct<CXIdxObjCProtocolRefInfo> {
 
     /** Returns a new {@code CXIdxObjCProtocolRefInfo} instance for the specified memory address. */
     public static CXIdxObjCProtocolRefInfo create(long address) {
-        return new CXIdxObjCProtocolRefInfo(address, null);
+        return wrap(CXIdxObjCProtocolRefInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CXIdxObjCProtocolRefInfo createSafe(long address) {
-        return address == NULL ? null : new CXIdxObjCProtocolRefInfo(address, null);
+        return address == NULL ? null : wrap(CXIdxObjCProtocolRefInfo.class, address);
     }
 
     /**
@@ -102,13 +93,13 @@ public class CXIdxObjCProtocolRefInfo extends Struct<CXIdxObjCProtocolRefInfo> {
      * @param capacity the buffer capacity
      */
     public static CXIdxObjCProtocolRefInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CXIdxObjCProtocolRefInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -130,9 +121,9 @@ public class CXIdxObjCProtocolRefInfo extends Struct<CXIdxObjCProtocolRefInfo> {
         /**
          * Creates a new {@code CXIdxObjCProtocolRefInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CXIdxObjCProtocolRefInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CXIdxObjCProtocolRefInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

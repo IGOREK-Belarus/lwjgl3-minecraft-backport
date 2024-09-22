@@ -16,8 +16,6 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
-import static org.lwjgl.openxr.MSFTSpatialGraphBridge.*;
-
 /**
  * The information to create space from a spatial graph node.
  * 
@@ -26,7 +24,7 @@ import static org.lwjgl.openxr.MSFTSpatialGraphBridge.*;
  * <ul>
  * <li>The {@link MSFTSpatialGraphBridge XR_MSFT_spatial_graph_bridge} extension <b>must</b> be enabled prior to using {@link XrSpatialGraphNodeSpaceCreateInfoMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTSpatialGraphBridge#XR_TYPE_SPATIAL_GRAPH_NODE_SPACE_CREATE_INFO_MSFT TYPE_SPATIAL_GRAPH_NODE_SPACE_CREATE_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code nodeType} <b>must</b> be a valid {@code XrSpatialGraphNodeTypeMSFT} value</li>
  * </ul>
  * 
@@ -41,11 +39,11 @@ import static org.lwjgl.openxr.MSFTSpatialGraphBridge.*;
  *     XrStructureType {@link #type};
  *     void const * {@link #next};
  *     XrSpatialGraphNodeTypeMSFT {@link #nodeType};
- *     uint8_t {@link #nodeId}[XR_GUID_SIZE_MSFT];
+ *     uint8_t {@link #nodeId}[16];
  *     {@link XrPosef XrPosef} {@link #pose};
  * }</code></pre>
  */
-public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraphNodeSpaceCreateInfoMSFT> implements NativeResource {
+public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,7 +64,7 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
             __member(4),
             __member(POINTER_SIZE),
             __member(4),
-            __array(1, XR_GUID_SIZE_MSFT),
+            __array(1, 16),
             __member(XrPosef.SIZEOF, XrPosef.ALIGNOF)
         );
 
@@ -78,15 +76,6 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
         NODETYPE = layout.offsetof(2);
         NODEID = layout.offsetof(3);
         POSE = layout.offsetof(4);
-    }
-
-    protected XrSpatialGraphNodeSpaceCreateInfoMSFT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSpatialGraphNodeSpaceCreateInfoMSFT create(long address, @Nullable ByteBuffer container) {
-        return new XrSpatialGraphNodeSpaceCreateInfoMSFT(address, container);
     }
 
     /**
@@ -112,7 +101,7 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
     @NativeType("XrSpatialGraphNodeTypeMSFT")
     public int nodeType() { return nnodeType(address()); }
     /** a global unique identifier (a.k.a. GUID or 16 byte array), representing the spatial node that is being tracked. */
-    @NativeType("uint8_t[XR_GUID_SIZE_MSFT]")
+    @NativeType("uint8_t[16]")
     public ByteBuffer nodeId() { return nnodeId(address()); }
     /** a global unique identifier (a.k.a. GUID or 16 byte array), representing the spatial node that is being tracked. */
     @NativeType("uint8_t")
@@ -129,7 +118,7 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
     /** Sets the specified value to the {@link #nodeType} field. */
     public XrSpatialGraphNodeSpaceCreateInfoMSFT nodeType(@NativeType("XrSpatialGraphNodeTypeMSFT") int value) { nnodeType(address(), value); return this; }
     /** Copies the specified {@link ByteBuffer} to the {@link #nodeId} field. */
-    public XrSpatialGraphNodeSpaceCreateInfoMSFT nodeId(@NativeType("uint8_t[XR_GUID_SIZE_MSFT]") ByteBuffer value) { nnodeId(address(), value); return this; }
+    public XrSpatialGraphNodeSpaceCreateInfoMSFT nodeId(@NativeType("uint8_t[16]") ByteBuffer value) { nnodeId(address(), value); return this; }
     /** Sets the specified value at the specified index of the {@link #nodeId} field. */
     public XrSpatialGraphNodeSpaceCreateInfoMSFT nodeId(int index, @NativeType("uint8_t") byte value) { nnodeId(address(), index, value); return this; }
     /** Copies the specified {@link XrPosef} to the {@link #pose} field. */
@@ -170,29 +159,29 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
 
     /** Returns a new {@code XrSpatialGraphNodeSpaceCreateInfoMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSpatialGraphNodeSpaceCreateInfoMSFT malloc() {
-        return new XrSpatialGraphNodeSpaceCreateInfoMSFT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSpatialGraphNodeSpaceCreateInfoMSFT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSpatialGraphNodeSpaceCreateInfoMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSpatialGraphNodeSpaceCreateInfoMSFT calloc() {
-        return new XrSpatialGraphNodeSpaceCreateInfoMSFT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSpatialGraphNodeSpaceCreateInfoMSFT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSpatialGraphNodeSpaceCreateInfoMSFT} instance allocated with {@link BufferUtils}. */
     public static XrSpatialGraphNodeSpaceCreateInfoMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSpatialGraphNodeSpaceCreateInfoMSFT(memAddress(container), container);
+        return wrap(XrSpatialGraphNodeSpaceCreateInfoMSFT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSpatialGraphNodeSpaceCreateInfoMSFT} instance for the specified memory address. */
     public static XrSpatialGraphNodeSpaceCreateInfoMSFT create(long address) {
-        return new XrSpatialGraphNodeSpaceCreateInfoMSFT(address, null);
+        return wrap(XrSpatialGraphNodeSpaceCreateInfoMSFT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSpatialGraphNodeSpaceCreateInfoMSFT createSafe(long address) {
-        return address == NULL ? null : new XrSpatialGraphNodeSpaceCreateInfoMSFT(address, null);
+        return address == NULL ? null : wrap(XrSpatialGraphNodeSpaceCreateInfoMSFT.class, address);
     }
 
     /**
@@ -201,7 +190,7 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
      * @param capacity the buffer capacity
      */
     public static XrSpatialGraphNodeSpaceCreateInfoMSFT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -210,7 +199,7 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
      * @param capacity the buffer capacity
      */
     public static XrSpatialGraphNodeSpaceCreateInfoMSFT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -220,7 +209,7 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
      */
     public static XrSpatialGraphNodeSpaceCreateInfoMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -230,13 +219,13 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
      * @param capacity the buffer capacity
      */
     public static XrSpatialGraphNodeSpaceCreateInfoMSFT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSpatialGraphNodeSpaceCreateInfoMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -245,7 +234,7 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
      * @param stack the stack from which to allocate
      */
     public static XrSpatialGraphNodeSpaceCreateInfoMSFT malloc(MemoryStack stack) {
-        return new XrSpatialGraphNodeSpaceCreateInfoMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSpatialGraphNodeSpaceCreateInfoMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -254,7 +243,7 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
      * @param stack the stack from which to allocate
      */
     public static XrSpatialGraphNodeSpaceCreateInfoMSFT calloc(MemoryStack stack) {
-        return new XrSpatialGraphNodeSpaceCreateInfoMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSpatialGraphNodeSpaceCreateInfoMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -264,7 +253,7 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
      * @param capacity the buffer capacity
      */
     public static XrSpatialGraphNodeSpaceCreateInfoMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -274,7 +263,7 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
      * @param capacity the buffer capacity
      */
     public static XrSpatialGraphNodeSpaceCreateInfoMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -286,10 +275,10 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
     /** Unsafe version of {@link #nodeType}. */
     public static int nnodeType(long struct) { return UNSAFE.getInt(null, struct + XrSpatialGraphNodeSpaceCreateInfoMSFT.NODETYPE); }
     /** Unsafe version of {@link #nodeId}. */
-    public static ByteBuffer nnodeId(long struct) { return memByteBuffer(struct + XrSpatialGraphNodeSpaceCreateInfoMSFT.NODEID, XR_GUID_SIZE_MSFT); }
+    public static ByteBuffer nnodeId(long struct) { return memByteBuffer(struct + XrSpatialGraphNodeSpaceCreateInfoMSFT.NODEID, 16); }
     /** Unsafe version of {@link #nodeId(int) nodeId}. */
     public static byte nnodeId(long struct, int index) {
-        return UNSAFE.getByte(null, struct + XrSpatialGraphNodeSpaceCreateInfoMSFT.NODEID + check(index, XR_GUID_SIZE_MSFT) * 1);
+        return UNSAFE.getByte(null, struct + XrSpatialGraphNodeSpaceCreateInfoMSFT.NODEID + check(index, 16) * 1);
     }
     /** Unsafe version of {@link #pose}. */
     public static XrPosef npose(long struct) { return XrPosef.create(struct + XrSpatialGraphNodeSpaceCreateInfoMSFT.POSE); }
@@ -302,12 +291,12 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
     public static void nnodeType(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialGraphNodeSpaceCreateInfoMSFT.NODETYPE, value); }
     /** Unsafe version of {@link #nodeId(ByteBuffer) nodeId}. */
     public static void nnodeId(long struct, ByteBuffer value) {
-        if (CHECKS) { checkGT(value, XR_GUID_SIZE_MSFT); }
+        if (CHECKS) { checkGT(value, 16); }
         memCopy(memAddress(value), struct + XrSpatialGraphNodeSpaceCreateInfoMSFT.NODEID, value.remaining() * 1);
     }
     /** Unsafe version of {@link #nodeId(int, byte) nodeId}. */
     public static void nnodeId(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + XrSpatialGraphNodeSpaceCreateInfoMSFT.NODEID + check(index, XR_GUID_SIZE_MSFT) * 1, value);
+        UNSAFE.putByte(null, struct + XrSpatialGraphNodeSpaceCreateInfoMSFT.NODEID + check(index, 16) * 1, value);
     }
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
     public static void npose(long struct, XrPosef value) { memCopy(value.address(), struct + XrSpatialGraphNodeSpaceCreateInfoMSFT.POSE, XrPosef.SIZEOF); }
@@ -322,9 +311,9 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
         /**
          * Creates a new {@code XrSpatialGraphNodeSpaceCreateInfoMSFT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSpatialGraphNodeSpaceCreateInfoMSFT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSpatialGraphNodeSpaceCreateInfoMSFT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -360,7 +349,7 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
         @NativeType("XrSpatialGraphNodeTypeMSFT")
         public int nodeType() { return XrSpatialGraphNodeSpaceCreateInfoMSFT.nnodeType(address()); }
         /** @return a {@link ByteBuffer} view of the {@link XrSpatialGraphNodeSpaceCreateInfoMSFT#nodeId} field. */
-        @NativeType("uint8_t[XR_GUID_SIZE_MSFT]")
+        @NativeType("uint8_t[16]")
         public ByteBuffer nodeId() { return XrSpatialGraphNodeSpaceCreateInfoMSFT.nnodeId(address()); }
         /** @return the value at the specified index of the {@link XrSpatialGraphNodeSpaceCreateInfoMSFT#nodeId} field. */
         @NativeType("uint8_t")
@@ -377,7 +366,7 @@ public class XrSpatialGraphNodeSpaceCreateInfoMSFT extends Struct<XrSpatialGraph
         /** Sets the specified value to the {@link XrSpatialGraphNodeSpaceCreateInfoMSFT#nodeType} field. */
         public XrSpatialGraphNodeSpaceCreateInfoMSFT.Buffer nodeType(@NativeType("XrSpatialGraphNodeTypeMSFT") int value) { XrSpatialGraphNodeSpaceCreateInfoMSFT.nnodeType(address(), value); return this; }
         /** Copies the specified {@link ByteBuffer} to the {@link XrSpatialGraphNodeSpaceCreateInfoMSFT#nodeId} field. */
-        public XrSpatialGraphNodeSpaceCreateInfoMSFT.Buffer nodeId(@NativeType("uint8_t[XR_GUID_SIZE_MSFT]") ByteBuffer value) { XrSpatialGraphNodeSpaceCreateInfoMSFT.nnodeId(address(), value); return this; }
+        public XrSpatialGraphNodeSpaceCreateInfoMSFT.Buffer nodeId(@NativeType("uint8_t[16]") ByteBuffer value) { XrSpatialGraphNodeSpaceCreateInfoMSFT.nnodeId(address(), value); return this; }
         /** Sets the specified value at the specified index of the {@link XrSpatialGraphNodeSpaceCreateInfoMSFT#nodeId} field. */
         public XrSpatialGraphNodeSpaceCreateInfoMSFT.Buffer nodeId(int index, @NativeType("uint8_t") byte value) { XrSpatialGraphNodeSpaceCreateInfoMSFT.nnodeId(address(), index, value); return this; }
         /** Copies the specified {@link XrPosef} to the {@link XrSpatialGraphNodeSpaceCreateInfoMSFT#pose} field. */

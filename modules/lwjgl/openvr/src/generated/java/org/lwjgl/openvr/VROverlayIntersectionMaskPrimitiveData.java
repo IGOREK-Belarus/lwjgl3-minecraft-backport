@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("union VROverlayIntersectionMaskPrimitive_Data_t")
-public class VROverlayIntersectionMaskPrimitiveData extends Struct<VROverlayIntersectionMaskPrimitiveData> implements NativeResource {
+public class VROverlayIntersectionMaskPrimitiveData extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -49,15 +49,6 @@ public class VROverlayIntersectionMaskPrimitiveData extends Struct<VROverlayInte
 
         M_RECTANGLE = layout.offsetof(0);
         M_CIRCLE = layout.offsetof(1);
-    }
-
-    protected VROverlayIntersectionMaskPrimitiveData(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VROverlayIntersectionMaskPrimitiveData create(long address, @Nullable ByteBuffer container) {
-        return new VROverlayIntersectionMaskPrimitiveData(address, container);
     }
 
     /**
@@ -105,29 +96,29 @@ public class VROverlayIntersectionMaskPrimitiveData extends Struct<VROverlayInte
 
     /** Returns a new {@code VROverlayIntersectionMaskPrimitiveData} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VROverlayIntersectionMaskPrimitiveData malloc() {
-        return new VROverlayIntersectionMaskPrimitiveData(nmemAllocChecked(SIZEOF), null);
+        return wrap(VROverlayIntersectionMaskPrimitiveData.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VROverlayIntersectionMaskPrimitiveData} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VROverlayIntersectionMaskPrimitiveData calloc() {
-        return new VROverlayIntersectionMaskPrimitiveData(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VROverlayIntersectionMaskPrimitiveData.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VROverlayIntersectionMaskPrimitiveData} instance allocated with {@link BufferUtils}. */
     public static VROverlayIntersectionMaskPrimitiveData create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VROverlayIntersectionMaskPrimitiveData(memAddress(container), container);
+        return wrap(VROverlayIntersectionMaskPrimitiveData.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VROverlayIntersectionMaskPrimitiveData} instance for the specified memory address. */
     public static VROverlayIntersectionMaskPrimitiveData create(long address) {
-        return new VROverlayIntersectionMaskPrimitiveData(address, null);
+        return wrap(VROverlayIntersectionMaskPrimitiveData.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VROverlayIntersectionMaskPrimitiveData createSafe(long address) {
-        return address == NULL ? null : new VROverlayIntersectionMaskPrimitiveData(address, null);
+        return address == NULL ? null : wrap(VROverlayIntersectionMaskPrimitiveData.class, address);
     }
 
     /**
@@ -136,7 +127,7 @@ public class VROverlayIntersectionMaskPrimitiveData extends Struct<VROverlayInte
      * @param capacity the buffer capacity
      */
     public static VROverlayIntersectionMaskPrimitiveData.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -145,7 +136,7 @@ public class VROverlayIntersectionMaskPrimitiveData extends Struct<VROverlayInte
      * @param capacity the buffer capacity
      */
     public static VROverlayIntersectionMaskPrimitiveData.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -155,7 +146,7 @@ public class VROverlayIntersectionMaskPrimitiveData extends Struct<VROverlayInte
      */
     public static VROverlayIntersectionMaskPrimitiveData.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -165,13 +156,13 @@ public class VROverlayIntersectionMaskPrimitiveData extends Struct<VROverlayInte
      * @param capacity the buffer capacity
      */
     public static VROverlayIntersectionMaskPrimitiveData.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VROverlayIntersectionMaskPrimitiveData.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -199,7 +190,7 @@ public class VROverlayIntersectionMaskPrimitiveData extends Struct<VROverlayInte
      * @param stack the stack from which to allocate
      */
     public static VROverlayIntersectionMaskPrimitiveData malloc(MemoryStack stack) {
-        return new VROverlayIntersectionMaskPrimitiveData(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VROverlayIntersectionMaskPrimitiveData.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -208,7 +199,7 @@ public class VROverlayIntersectionMaskPrimitiveData extends Struct<VROverlayInte
      * @param stack the stack from which to allocate
      */
     public static VROverlayIntersectionMaskPrimitiveData calloc(MemoryStack stack) {
-        return new VROverlayIntersectionMaskPrimitiveData(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VROverlayIntersectionMaskPrimitiveData.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -218,7 +209,7 @@ public class VROverlayIntersectionMaskPrimitiveData extends Struct<VROverlayInte
      * @param capacity the buffer capacity
      */
     public static VROverlayIntersectionMaskPrimitiveData.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -228,7 +219,7 @@ public class VROverlayIntersectionMaskPrimitiveData extends Struct<VROverlayInte
      * @param capacity the buffer capacity
      */
     public static VROverlayIntersectionMaskPrimitiveData.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -253,9 +244,9 @@ public class VROverlayIntersectionMaskPrimitiveData extends Struct<VROverlayInte
         /**
          * Creates a new {@code VROverlayIntersectionMaskPrimitiveData.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VROverlayIntersectionMaskPrimitiveData#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VROverlayIntersectionMaskPrimitiveData#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

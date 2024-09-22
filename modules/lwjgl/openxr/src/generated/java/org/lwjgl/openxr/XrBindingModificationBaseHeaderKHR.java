@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>The {@link KHRBindingModification XR_KHR_binding_modification} extension <b>must</b> be enabled prior to using {@link XrBindingModificationBaseHeaderKHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -41,7 +41,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     void const * {@link #next};
  * }</code></pre>
  */
-public class XrBindingModificationBaseHeaderKHR extends Struct<XrBindingModificationBaseHeaderKHR> implements NativeResource {
+public class XrBindingModificationBaseHeaderKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -65,15 +65,6 @@ public class XrBindingModificationBaseHeaderKHR extends Struct<XrBindingModifica
 
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
-    }
-
-    protected XrBindingModificationBaseHeaderKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrBindingModificationBaseHeaderKHR create(long address, @Nullable ByteBuffer container) {
-        return new XrBindingModificationBaseHeaderKHR(address, container);
     }
 
     /**
@@ -128,39 +119,34 @@ public class XrBindingModificationBaseHeaderKHR extends Struct<XrBindingModifica
 
     /** Returns a new {@code XrBindingModificationBaseHeaderKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrBindingModificationBaseHeaderKHR malloc() {
-        return new XrBindingModificationBaseHeaderKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrBindingModificationBaseHeaderKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrBindingModificationBaseHeaderKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrBindingModificationBaseHeaderKHR calloc() {
-        return new XrBindingModificationBaseHeaderKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrBindingModificationBaseHeaderKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrBindingModificationBaseHeaderKHR} instance allocated with {@link BufferUtils}. */
     public static XrBindingModificationBaseHeaderKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrBindingModificationBaseHeaderKHR(memAddress(container), container);
+        return wrap(XrBindingModificationBaseHeaderKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrBindingModificationBaseHeaderKHR} instance for the specified memory address. */
     public static XrBindingModificationBaseHeaderKHR create(long address) {
-        return new XrBindingModificationBaseHeaderKHR(address, null);
+        return wrap(XrBindingModificationBaseHeaderKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrBindingModificationBaseHeaderKHR createSafe(long address) {
-        return address == NULL ? null : new XrBindingModificationBaseHeaderKHR(address, null);
-    }
-
-    /** Upcasts the specified {@code XrInteractionProfileDpadBindingEXT} instance to {@code XrBindingModificationBaseHeaderKHR}. */
-    public static XrBindingModificationBaseHeaderKHR create(XrInteractionProfileDpadBindingEXT value) {
-        return new XrBindingModificationBaseHeaderKHR(value.address(), __getContainer(value));
+        return address == NULL ? null : wrap(XrBindingModificationBaseHeaderKHR.class, address);
     }
 
     /** Upcasts the specified {@code XrInteractionProfileAnalogThresholdVALVE} instance to {@code XrBindingModificationBaseHeaderKHR}. */
     public static XrBindingModificationBaseHeaderKHR create(XrInteractionProfileAnalogThresholdVALVE value) {
-        return new XrBindingModificationBaseHeaderKHR(value.address(), __getContainer(value));
+        return wrap(XrBindingModificationBaseHeaderKHR.class, value);
     }
 
     /**
@@ -169,7 +155,7 @@ public class XrBindingModificationBaseHeaderKHR extends Struct<XrBindingModifica
      * @param capacity the buffer capacity
      */
     public static XrBindingModificationBaseHeaderKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -178,7 +164,7 @@ public class XrBindingModificationBaseHeaderKHR extends Struct<XrBindingModifica
      * @param capacity the buffer capacity
      */
     public static XrBindingModificationBaseHeaderKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -188,7 +174,7 @@ public class XrBindingModificationBaseHeaderKHR extends Struct<XrBindingModifica
      */
     public static XrBindingModificationBaseHeaderKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -198,23 +184,18 @@ public class XrBindingModificationBaseHeaderKHR extends Struct<XrBindingModifica
      * @param capacity the buffer capacity
      */
     public static XrBindingModificationBaseHeaderKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrBindingModificationBaseHeaderKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
-    }
-
-    /** Upcasts the specified {@code XrInteractionProfileDpadBindingEXT.Buffer} instance to {@code XrBindingModificationBaseHeaderKHR.Buffer}. */
-    public static XrBindingModificationBaseHeaderKHR.Buffer create(XrInteractionProfileDpadBindingEXT.Buffer value) {
-        return new XrBindingModificationBaseHeaderKHR.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /** Upcasts the specified {@code XrInteractionProfileAnalogThresholdVALVE.Buffer} instance to {@code XrBindingModificationBaseHeaderKHR.Buffer}. */
     public static XrBindingModificationBaseHeaderKHR.Buffer create(XrInteractionProfileAnalogThresholdVALVE.Buffer value) {
-        return new XrBindingModificationBaseHeaderKHR.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+        return wrap(Buffer.class, value);
     }
 
     /**
@@ -223,7 +204,7 @@ public class XrBindingModificationBaseHeaderKHR extends Struct<XrBindingModifica
      * @param stack the stack from which to allocate
      */
     public static XrBindingModificationBaseHeaderKHR malloc(MemoryStack stack) {
-        return new XrBindingModificationBaseHeaderKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrBindingModificationBaseHeaderKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -232,7 +213,7 @@ public class XrBindingModificationBaseHeaderKHR extends Struct<XrBindingModifica
      * @param stack the stack from which to allocate
      */
     public static XrBindingModificationBaseHeaderKHR calloc(MemoryStack stack) {
-        return new XrBindingModificationBaseHeaderKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrBindingModificationBaseHeaderKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -242,7 +223,7 @@ public class XrBindingModificationBaseHeaderKHR extends Struct<XrBindingModifica
      * @param capacity the buffer capacity
      */
     public static XrBindingModificationBaseHeaderKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -252,7 +233,7 @@ public class XrBindingModificationBaseHeaderKHR extends Struct<XrBindingModifica
      * @param capacity the buffer capacity
      */
     public static XrBindingModificationBaseHeaderKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -277,9 +258,9 @@ public class XrBindingModificationBaseHeaderKHR extends Struct<XrBindingModifica
         /**
          * Creates a new {@code XrBindingModificationBaseHeaderKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrBindingModificationBaseHeaderKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrBindingModificationBaseHeaderKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

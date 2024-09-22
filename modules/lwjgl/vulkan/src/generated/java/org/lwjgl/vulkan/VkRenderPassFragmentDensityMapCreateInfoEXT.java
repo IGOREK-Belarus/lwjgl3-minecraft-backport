@@ -61,7 +61,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkAttachmentReference VkAttachmentReference} {@link #fragmentDensityMapAttachment};
  * }</code></pre>
  */
-public class VkRenderPassFragmentDensityMapCreateInfoEXT extends Struct<VkRenderPassFragmentDensityMapCreateInfoEXT> implements NativeResource {
+public class VkRenderPassFragmentDensityMapCreateInfoEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -90,15 +90,6 @@ public class VkRenderPassFragmentDensityMapCreateInfoEXT extends Struct<VkRender
         FRAGMENTDENSITYMAPATTACHMENT = layout.offsetof(2);
     }
 
-    protected VkRenderPassFragmentDensityMapCreateInfoEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkRenderPassFragmentDensityMapCreateInfoEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkRenderPassFragmentDensityMapCreateInfoEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkRenderPassFragmentDensityMapCreateInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -112,7 +103,7 @@ public class VkRenderPassFragmentDensityMapCreateInfoEXT extends Struct<VkRender
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -161,29 +152,29 @@ public class VkRenderPassFragmentDensityMapCreateInfoEXT extends Struct<VkRender
 
     /** Returns a new {@code VkRenderPassFragmentDensityMapCreateInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkRenderPassFragmentDensityMapCreateInfoEXT malloc() {
-        return new VkRenderPassFragmentDensityMapCreateInfoEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkRenderPassFragmentDensityMapCreateInfoEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkRenderPassFragmentDensityMapCreateInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkRenderPassFragmentDensityMapCreateInfoEXT calloc() {
-        return new VkRenderPassFragmentDensityMapCreateInfoEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkRenderPassFragmentDensityMapCreateInfoEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkRenderPassFragmentDensityMapCreateInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkRenderPassFragmentDensityMapCreateInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkRenderPassFragmentDensityMapCreateInfoEXT(memAddress(container), container);
+        return wrap(VkRenderPassFragmentDensityMapCreateInfoEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkRenderPassFragmentDensityMapCreateInfoEXT} instance for the specified memory address. */
     public static VkRenderPassFragmentDensityMapCreateInfoEXT create(long address) {
-        return new VkRenderPassFragmentDensityMapCreateInfoEXT(address, null);
+        return wrap(VkRenderPassFragmentDensityMapCreateInfoEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderPassFragmentDensityMapCreateInfoEXT createSafe(long address) {
-        return address == NULL ? null : new VkRenderPassFragmentDensityMapCreateInfoEXT(address, null);
+        return address == NULL ? null : wrap(VkRenderPassFragmentDensityMapCreateInfoEXT.class, address);
     }
 
     /**
@@ -192,7 +183,7 @@ public class VkRenderPassFragmentDensityMapCreateInfoEXT extends Struct<VkRender
      * @param capacity the buffer capacity
      */
     public static VkRenderPassFragmentDensityMapCreateInfoEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -201,7 +192,7 @@ public class VkRenderPassFragmentDensityMapCreateInfoEXT extends Struct<VkRender
      * @param capacity the buffer capacity
      */
     public static VkRenderPassFragmentDensityMapCreateInfoEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -211,7 +202,7 @@ public class VkRenderPassFragmentDensityMapCreateInfoEXT extends Struct<VkRender
      */
     public static VkRenderPassFragmentDensityMapCreateInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -221,13 +212,13 @@ public class VkRenderPassFragmentDensityMapCreateInfoEXT extends Struct<VkRender
      * @param capacity the buffer capacity
      */
     public static VkRenderPassFragmentDensityMapCreateInfoEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderPassFragmentDensityMapCreateInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -255,7 +246,7 @@ public class VkRenderPassFragmentDensityMapCreateInfoEXT extends Struct<VkRender
      * @param stack the stack from which to allocate
      */
     public static VkRenderPassFragmentDensityMapCreateInfoEXT malloc(MemoryStack stack) {
-        return new VkRenderPassFragmentDensityMapCreateInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkRenderPassFragmentDensityMapCreateInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -264,7 +255,7 @@ public class VkRenderPassFragmentDensityMapCreateInfoEXT extends Struct<VkRender
      * @param stack the stack from which to allocate
      */
     public static VkRenderPassFragmentDensityMapCreateInfoEXT calloc(MemoryStack stack) {
-        return new VkRenderPassFragmentDensityMapCreateInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkRenderPassFragmentDensityMapCreateInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -274,7 +265,7 @@ public class VkRenderPassFragmentDensityMapCreateInfoEXT extends Struct<VkRender
      * @param capacity the buffer capacity
      */
     public static VkRenderPassFragmentDensityMapCreateInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -284,7 +275,7 @@ public class VkRenderPassFragmentDensityMapCreateInfoEXT extends Struct<VkRender
      * @param capacity the buffer capacity
      */
     public static VkRenderPassFragmentDensityMapCreateInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -313,9 +304,9 @@ public class VkRenderPassFragmentDensityMapCreateInfoEXT extends Struct<VkRender
         /**
          * Creates a new {@code VkRenderPassFragmentDensityMapCreateInfoEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkRenderPassFragmentDensityMapCreateInfoEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkRenderPassFragmentDensityMapCreateInfoEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

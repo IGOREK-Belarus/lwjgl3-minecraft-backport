@@ -7,7 +7,6 @@ package org.lwjgl.demo.util;
 import org.lwjgl.*;
 
 import java.io.*;
-import java.net.*;
 import java.nio.*;
 import java.nio.channels.*;
 import java.nio.file.*;
@@ -40,8 +39,8 @@ public final class IOUtil {
     public static ByteBuffer ioResourceToByteBuffer(String resource, int bufferSize) throws IOException {
         ByteBuffer buffer;
 
-        Path path = resource.startsWith("http") ? null : Paths.get(resource);
-        if (path != null && Files.isReadable(path)) {
+        Path path = Paths.get(resource);
+        if (Files.isReadable(path)) {
             try (SeekableByteChannel fc = Files.newByteChannel(path)) {
                 buffer = BufferUtils.createByteBuffer((int)fc.size() + 1);
                 while (fc.read(buffer) != -1) {
@@ -50,9 +49,7 @@ public final class IOUtil {
             }
         } else {
             try (
-                InputStream source = resource.startsWith("http")
-                    ? new URL(resource).openStream()
-                    : IOUtil.class.getClassLoader().getResourceAsStream(resource);
+                InputStream source = IOUtil.class.getClassLoader().getResourceAsStream(resource);
                 ReadableByteChannel rbc = Channels.newChannel(source)
             ) {
                 buffer = createByteBuffer(bufferSize);

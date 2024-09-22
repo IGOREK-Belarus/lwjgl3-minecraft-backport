@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the {@code pEnabledValidationFeatures} array contains {@link EXTValidationFeatures#VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_RESERVE_BINDING_SLOT_EXT VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_RESERVE_BINDING_SLOT_EXT}, then it <b>must</b> also contain {@link EXTValidationFeatures#VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_EXT VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_EXT} or {@link EXTValidationFeatures#VK_VALIDATION_FEATURE_ENABLE_DEBUG_PRINTF_EXT VALIDATION_FEATURE_ENABLE_DEBUG_PRINTF_EXT}</li>
+ * <li>If the {@code pEnabledValidationFeatures} array contains {@link EXTValidationFeatures#VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_RESERVE_BINDING_SLOT_EXT VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_RESERVE_BINDING_SLOT_EXT}, then it <b>must</b> also contain {@link EXTValidationFeatures#VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_EXT VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_EXT}</li>
  * <li>If the {@code pEnabledValidationFeatures} array contains {@link EXTValidationFeatures#VK_VALIDATION_FEATURE_ENABLE_DEBUG_PRINTF_EXT VALIDATION_FEATURE_ENABLE_DEBUG_PRINTF_EXT}, then it <b>must</b> not contain {@link EXTValidationFeatures#VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_EXT VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_EXT}</li>
  * </ul>
  * 
@@ -46,7 +46,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkValidationFeatureDisableEXT const * {@link #pDisabledValidationFeatures};
  * }</code></pre>
  */
-public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> implements NativeResource {
+public class VkValidationFeaturesEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -84,15 +84,6 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
         PDISABLEDVALIDATIONFEATURES = layout.offsetof(5);
     }
 
-    protected VkValidationFeaturesEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkValidationFeaturesEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkValidationFeaturesEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkValidationFeaturesEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -106,7 +97,7 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -169,29 +160,29 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
 
     /** Returns a new {@code VkValidationFeaturesEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkValidationFeaturesEXT malloc() {
-        return new VkValidationFeaturesEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkValidationFeaturesEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkValidationFeaturesEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkValidationFeaturesEXT calloc() {
-        return new VkValidationFeaturesEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkValidationFeaturesEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkValidationFeaturesEXT} instance allocated with {@link BufferUtils}. */
     public static VkValidationFeaturesEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkValidationFeaturesEXT(memAddress(container), container);
+        return wrap(VkValidationFeaturesEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkValidationFeaturesEXT} instance for the specified memory address. */
     public static VkValidationFeaturesEXT create(long address) {
-        return new VkValidationFeaturesEXT(address, null);
+        return wrap(VkValidationFeaturesEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkValidationFeaturesEXT createSafe(long address) {
-        return address == NULL ? null : new VkValidationFeaturesEXT(address, null);
+        return address == NULL ? null : wrap(VkValidationFeaturesEXT.class, address);
     }
 
     /**
@@ -200,7 +191,7 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
      * @param capacity the buffer capacity
      */
     public static VkValidationFeaturesEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -209,7 +200,7 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
      * @param capacity the buffer capacity
      */
     public static VkValidationFeaturesEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -219,7 +210,7 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
      */
     public static VkValidationFeaturesEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -229,13 +220,13 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
      * @param capacity the buffer capacity
      */
     public static VkValidationFeaturesEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkValidationFeaturesEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -263,7 +254,7 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
      * @param stack the stack from which to allocate
      */
     public static VkValidationFeaturesEXT malloc(MemoryStack stack) {
-        return new VkValidationFeaturesEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkValidationFeaturesEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -272,7 +263,7 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
      * @param stack the stack from which to allocate
      */
     public static VkValidationFeaturesEXT calloc(MemoryStack stack) {
-        return new VkValidationFeaturesEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkValidationFeaturesEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -282,7 +273,7 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
      * @param capacity the buffer capacity
      */
     public static VkValidationFeaturesEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -292,7 +283,7 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
      * @param capacity the buffer capacity
      */
     public static VkValidationFeaturesEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -347,9 +338,9 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
         /**
          * Creates a new {@code VkValidationFeaturesEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkValidationFeaturesEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkValidationFeaturesEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

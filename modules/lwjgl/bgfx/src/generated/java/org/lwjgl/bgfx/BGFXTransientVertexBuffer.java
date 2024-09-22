@@ -32,7 +32,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct bgfx_transient_vertex_buffer_t")
-public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer> implements NativeResource {
+public class BGFXTransientVertexBuffer extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -68,15 +68,6 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
         STRIDE = layout.offsetof(3);
         HANDLE = layout.offsetof(4);
         LAYOUTHANDLE = layout.offsetof(5);
-    }
-
-    protected BGFXTransientVertexBuffer(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected BGFXTransientVertexBuffer create(long address, @Nullable ByteBuffer container) {
-        return new BGFXTransientVertexBuffer(address, container);
     }
 
     /**
@@ -155,29 +146,29 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
 
     /** Returns a new {@code BGFXTransientVertexBuffer} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static BGFXTransientVertexBuffer malloc() {
-        return new BGFXTransientVertexBuffer(nmemAllocChecked(SIZEOF), null);
+        return wrap(BGFXTransientVertexBuffer.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code BGFXTransientVertexBuffer} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static BGFXTransientVertexBuffer calloc() {
-        return new BGFXTransientVertexBuffer(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(BGFXTransientVertexBuffer.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code BGFXTransientVertexBuffer} instance allocated with {@link BufferUtils}. */
     public static BGFXTransientVertexBuffer create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new BGFXTransientVertexBuffer(memAddress(container), container);
+        return wrap(BGFXTransientVertexBuffer.class, memAddress(container), container);
     }
 
     /** Returns a new {@code BGFXTransientVertexBuffer} instance for the specified memory address. */
     public static BGFXTransientVertexBuffer create(long address) {
-        return new BGFXTransientVertexBuffer(address, null);
+        return wrap(BGFXTransientVertexBuffer.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXTransientVertexBuffer createSafe(long address) {
-        return address == NULL ? null : new BGFXTransientVertexBuffer(address, null);
+        return address == NULL ? null : wrap(BGFXTransientVertexBuffer.class, address);
     }
 
     /**
@@ -186,7 +177,7 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
      * @param capacity the buffer capacity
      */
     public static BGFXTransientVertexBuffer.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -195,7 +186,7 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
      * @param capacity the buffer capacity
      */
     public static BGFXTransientVertexBuffer.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -205,7 +196,7 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
      */
     public static BGFXTransientVertexBuffer.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -215,13 +206,13 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
      * @param capacity the buffer capacity
      */
     public static BGFXTransientVertexBuffer.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXTransientVertexBuffer.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -249,7 +240,7 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
      * @param stack the stack from which to allocate
      */
     public static BGFXTransientVertexBuffer malloc(MemoryStack stack) {
-        return new BGFXTransientVertexBuffer(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(BGFXTransientVertexBuffer.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -258,7 +249,7 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
      * @param stack the stack from which to allocate
      */
     public static BGFXTransientVertexBuffer calloc(MemoryStack stack) {
-        return new BGFXTransientVertexBuffer(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(BGFXTransientVertexBuffer.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -268,7 +259,7 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
      * @param capacity the buffer capacity
      */
     public static BGFXTransientVertexBuffer.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -278,7 +269,7 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
      * @param capacity the buffer capacity
      */
     public static BGFXTransientVertexBuffer.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -328,9 +319,9 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
         /**
          * Creates a new {@code BGFXTransientVertexBuffer.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link BGFXTransientVertexBuffer#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link BGFXTransientVertexBuffer#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

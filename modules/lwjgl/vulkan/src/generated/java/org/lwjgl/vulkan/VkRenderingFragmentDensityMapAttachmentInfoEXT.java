@@ -25,10 +25,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code imageLayout} <b>must</b> be {@link VK10#VK_IMAGE_LAYOUT_GENERAL IMAGE_LAYOUT_GENERAL} or {@link EXTFragmentDensityMap#VK_IMAGE_LAYOUT_FRAGMENT_DENSITY_MAP_OPTIMAL_EXT IMAGE_LAYOUT_FRAGMENT_DENSITY_MAP_OPTIMAL_EXT}</li>
+ * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code layout} <b>must</b> be {@link VK10#VK_IMAGE_LAYOUT_GENERAL IMAGE_LAYOUT_GENERAL} or {@link EXTFragmentDensityMap#VK_IMAGE_LAYOUT_FRAGMENT_DENSITY_MAP_OPTIMAL_EXT IMAGE_LAYOUT_FRAGMENT_DENSITY_MAP_OPTIMAL_EXT}</li>
  * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> have been created with {@link EXTFragmentDensityMap#VK_IMAGE_USAGE_FRAGMENT_DENSITY_MAP_BIT_EXT IMAGE_USAGE_FRAGMENT_DENSITY_MAP_BIT_EXT}</li>
  * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> not have been created with {@link EXTFragmentDensityMap#VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT IMAGE_CREATE_SUBSAMPLED_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview">{@code multiview}</a> feature is not enabled, {@link VkPhysicalDeviceProperties}{@code ::apiVersion} is less than Vulkan 1.1, and {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> have a {@code layerCount} equal to 1</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -49,7 +48,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkImageLayout {@link #imageLayout};
  * }</code></pre>
  */
-public class VkRenderingFragmentDensityMapAttachmentInfoEXT extends Struct<VkRenderingFragmentDensityMapAttachmentInfoEXT> implements NativeResource {
+public class VkRenderingFragmentDensityMapAttachmentInfoEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -81,15 +80,6 @@ public class VkRenderingFragmentDensityMapAttachmentInfoEXT extends Struct<VkRen
         IMAGELAYOUT = layout.offsetof(3);
     }
 
-    protected VkRenderingFragmentDensityMapAttachmentInfoEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkRenderingFragmentDensityMapAttachmentInfoEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkRenderingFragmentDensityMapAttachmentInfoEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkRenderingFragmentDensityMapAttachmentInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -103,13 +93,13 @@ public class VkRenderingFragmentDensityMapAttachmentInfoEXT extends Struct<VkRen
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the image view that will be used as a fragment density map attachment. */
+    /** the image view that will be used as a fragment shading rate attachment. */
     @NativeType("VkImageView")
     public long imageView() { return nimageView(address()); }
     /** the layout that {@code imageView} will be in during rendering. */
@@ -158,29 +148,29 @@ public class VkRenderingFragmentDensityMapAttachmentInfoEXT extends Struct<VkRen
 
     /** Returns a new {@code VkRenderingFragmentDensityMapAttachmentInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkRenderingFragmentDensityMapAttachmentInfoEXT malloc() {
-        return new VkRenderingFragmentDensityMapAttachmentInfoEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkRenderingFragmentDensityMapAttachmentInfoEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkRenderingFragmentDensityMapAttachmentInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkRenderingFragmentDensityMapAttachmentInfoEXT calloc() {
-        return new VkRenderingFragmentDensityMapAttachmentInfoEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkRenderingFragmentDensityMapAttachmentInfoEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkRenderingFragmentDensityMapAttachmentInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkRenderingFragmentDensityMapAttachmentInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkRenderingFragmentDensityMapAttachmentInfoEXT(memAddress(container), container);
+        return wrap(VkRenderingFragmentDensityMapAttachmentInfoEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkRenderingFragmentDensityMapAttachmentInfoEXT} instance for the specified memory address. */
     public static VkRenderingFragmentDensityMapAttachmentInfoEXT create(long address) {
-        return new VkRenderingFragmentDensityMapAttachmentInfoEXT(address, null);
+        return wrap(VkRenderingFragmentDensityMapAttachmentInfoEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderingFragmentDensityMapAttachmentInfoEXT createSafe(long address) {
-        return address == NULL ? null : new VkRenderingFragmentDensityMapAttachmentInfoEXT(address, null);
+        return address == NULL ? null : wrap(VkRenderingFragmentDensityMapAttachmentInfoEXT.class, address);
     }
 
     /**
@@ -189,7 +179,7 @@ public class VkRenderingFragmentDensityMapAttachmentInfoEXT extends Struct<VkRen
      * @param capacity the buffer capacity
      */
     public static VkRenderingFragmentDensityMapAttachmentInfoEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -198,7 +188,7 @@ public class VkRenderingFragmentDensityMapAttachmentInfoEXT extends Struct<VkRen
      * @param capacity the buffer capacity
      */
     public static VkRenderingFragmentDensityMapAttachmentInfoEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -208,7 +198,7 @@ public class VkRenderingFragmentDensityMapAttachmentInfoEXT extends Struct<VkRen
      */
     public static VkRenderingFragmentDensityMapAttachmentInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -218,13 +208,13 @@ public class VkRenderingFragmentDensityMapAttachmentInfoEXT extends Struct<VkRen
      * @param capacity the buffer capacity
      */
     public static VkRenderingFragmentDensityMapAttachmentInfoEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderingFragmentDensityMapAttachmentInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -233,7 +223,7 @@ public class VkRenderingFragmentDensityMapAttachmentInfoEXT extends Struct<VkRen
      * @param stack the stack from which to allocate
      */
     public static VkRenderingFragmentDensityMapAttachmentInfoEXT malloc(MemoryStack stack) {
-        return new VkRenderingFragmentDensityMapAttachmentInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkRenderingFragmentDensityMapAttachmentInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -242,7 +232,7 @@ public class VkRenderingFragmentDensityMapAttachmentInfoEXT extends Struct<VkRen
      * @param stack the stack from which to allocate
      */
     public static VkRenderingFragmentDensityMapAttachmentInfoEXT calloc(MemoryStack stack) {
-        return new VkRenderingFragmentDensityMapAttachmentInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkRenderingFragmentDensityMapAttachmentInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -252,7 +242,7 @@ public class VkRenderingFragmentDensityMapAttachmentInfoEXT extends Struct<VkRen
      * @param capacity the buffer capacity
      */
     public static VkRenderingFragmentDensityMapAttachmentInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -262,7 +252,7 @@ public class VkRenderingFragmentDensityMapAttachmentInfoEXT extends Struct<VkRen
      * @param capacity the buffer capacity
      */
     public static VkRenderingFragmentDensityMapAttachmentInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -295,9 +285,9 @@ public class VkRenderingFragmentDensityMapAttachmentInfoEXT extends Struct<VkRen
         /**
          * Creates a new {@code VkRenderingFragmentDensityMapAttachmentInfoEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkRenderingFragmentDensityMapAttachmentInfoEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkRenderingFragmentDensityMapAttachmentInfoEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

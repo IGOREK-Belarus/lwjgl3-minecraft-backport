@@ -27,13 +27,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_HAPTIC_ACTION_INFO TYPE_HAPTIC_ACTION_INFO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code action} <b>must</b> be a valid {@code XrAction} handle</li>
  * </ul>
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link XR10#xrApplyHapticFeedback ApplyHapticFeedback}, {@link FBHapticPcm#xrGetDeviceSampleRateFB GetDeviceSampleRateFB}, {@link XR10#xrStopHapticFeedback StopHapticFeedback}</p>
+ * <p>{@link XR10#xrApplyHapticFeedback ApplyHapticFeedback}, {@link XR10#xrStopHapticFeedback StopHapticFeedback}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -45,7 +45,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrPath {@link #subactionPath};
  * }</code></pre>
  */
-public class XrHapticActionInfo extends Struct<XrHapticActionInfo> implements NativeResource {
+public class XrHapticActionInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -75,15 +75,6 @@ public class XrHapticActionInfo extends Struct<XrHapticActionInfo> implements Na
         NEXT = layout.offsetof(1);
         ACTION = layout.offsetof(2);
         SUBACTIONPATH = layout.offsetof(3);
-    }
-
-    protected XrHapticActionInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrHapticActionInfo create(long address, @Nullable ByteBuffer container) {
-        return new XrHapticActionInfo(address, container);
     }
 
     /**
@@ -154,29 +145,29 @@ public class XrHapticActionInfo extends Struct<XrHapticActionInfo> implements Na
 
     /** Returns a new {@code XrHapticActionInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrHapticActionInfo malloc() {
-        return new XrHapticActionInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrHapticActionInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrHapticActionInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrHapticActionInfo calloc() {
-        return new XrHapticActionInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrHapticActionInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrHapticActionInfo} instance allocated with {@link BufferUtils}. */
     public static XrHapticActionInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrHapticActionInfo(memAddress(container), container);
+        return wrap(XrHapticActionInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrHapticActionInfo} instance for the specified memory address. */
     public static XrHapticActionInfo create(long address) {
-        return new XrHapticActionInfo(address, null);
+        return wrap(XrHapticActionInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHapticActionInfo createSafe(long address) {
-        return address == NULL ? null : new XrHapticActionInfo(address, null);
+        return address == NULL ? null : wrap(XrHapticActionInfo.class, address);
     }
 
     /**
@@ -185,7 +176,7 @@ public class XrHapticActionInfo extends Struct<XrHapticActionInfo> implements Na
      * @param capacity the buffer capacity
      */
     public static XrHapticActionInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -194,7 +185,7 @@ public class XrHapticActionInfo extends Struct<XrHapticActionInfo> implements Na
      * @param capacity the buffer capacity
      */
     public static XrHapticActionInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -204,7 +195,7 @@ public class XrHapticActionInfo extends Struct<XrHapticActionInfo> implements Na
      */
     public static XrHapticActionInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -214,13 +205,13 @@ public class XrHapticActionInfo extends Struct<XrHapticActionInfo> implements Na
      * @param capacity the buffer capacity
      */
     public static XrHapticActionInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHapticActionInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -229,7 +220,7 @@ public class XrHapticActionInfo extends Struct<XrHapticActionInfo> implements Na
      * @param stack the stack from which to allocate
      */
     public static XrHapticActionInfo malloc(MemoryStack stack) {
-        return new XrHapticActionInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrHapticActionInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -238,7 +229,7 @@ public class XrHapticActionInfo extends Struct<XrHapticActionInfo> implements Na
      * @param stack the stack from which to allocate
      */
     public static XrHapticActionInfo calloc(MemoryStack stack) {
-        return new XrHapticActionInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrHapticActionInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -248,7 +239,7 @@ public class XrHapticActionInfo extends Struct<XrHapticActionInfo> implements Na
      * @param capacity the buffer capacity
      */
     public static XrHapticActionInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -258,7 +249,7 @@ public class XrHapticActionInfo extends Struct<XrHapticActionInfo> implements Na
      * @param capacity the buffer capacity
      */
     public static XrHapticActionInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -300,9 +291,9 @@ public class XrHapticActionInfo extends Struct<XrHapticActionInfo> implements Na
         /**
          * Creates a new {@code XrHapticActionInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrHapticActionInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrHapticActionInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

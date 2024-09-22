@@ -39,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #vulkanMemoryModelAvailabilityVisibilityChains};
  * }</code></pre>
  */
-public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysicalDeviceVulkanMemoryModelFeatures> implements NativeResource {
+public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -74,15 +74,6 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
         VULKANMEMORYMODELAVAILABILITYVISIBILITYCHAINS = layout.offsetof(4);
     }
 
-    protected VkPhysicalDeviceVulkanMemoryModelFeatures(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceVulkanMemoryModelFeatures create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceVulkanMemoryModelFeatures(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceVulkanMemoryModelFeatures} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -96,19 +87,19 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether shader modules <b>can</b> declare the {@code VulkanMemoryModel} capability. */
+    /** indicates whether the Vulkan Memory Model is supported, as defined in <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#memory-model">Vulkan Memory Model</a>. This also indicates whether shader modules <b>can</b> declare the {@code VulkanMemoryModel} capability. */
     @NativeType("VkBool32")
     public boolean vulkanMemoryModel() { return nvulkanMemoryModel(address()) != 0; }
     /** indicates whether the Vulkan Memory Model can use {@code Device} scope synchronization. This also indicates whether shader modules <b>can</b> declare the {@code VulkanMemoryModelDeviceScope} capability. */
     @NativeType("VkBool32")
     public boolean vulkanMemoryModelDeviceScope() { return nvulkanMemoryModelDeviceScope(address()) != 0; }
-    /** indicates whether the Vulkan Memory Model can use <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-model-availability-visibility">availability and visibility chains</a> with more than one element. */
+    /** indicates whether the Vulkan Memory Model can use <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#memory-model-availability-visibility">availability and visibility chains</a> with more than one element. */
     @NativeType("VkBool32")
     public boolean vulkanMemoryModelAvailabilityVisibilityChains() { return nvulkanMemoryModelAvailabilityVisibilityChains(address()) != 0; }
 
@@ -158,29 +149,29 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
 
     /** Returns a new {@code VkPhysicalDeviceVulkanMemoryModelFeatures} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceVulkanMemoryModelFeatures malloc() {
-        return new VkPhysicalDeviceVulkanMemoryModelFeatures(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkanMemoryModelFeatures.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceVulkanMemoryModelFeatures} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceVulkanMemoryModelFeatures calloc() {
-        return new VkPhysicalDeviceVulkanMemoryModelFeatures(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkanMemoryModelFeatures.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceVulkanMemoryModelFeatures} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceVulkanMemoryModelFeatures create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceVulkanMemoryModelFeatures(memAddress(container), container);
+        return wrap(VkPhysicalDeviceVulkanMemoryModelFeatures.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceVulkanMemoryModelFeatures} instance for the specified memory address. */
     public static VkPhysicalDeviceVulkanMemoryModelFeatures create(long address) {
-        return new VkPhysicalDeviceVulkanMemoryModelFeatures(address, null);
+        return wrap(VkPhysicalDeviceVulkanMemoryModelFeatures.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceVulkanMemoryModelFeatures createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceVulkanMemoryModelFeatures(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceVulkanMemoryModelFeatures.class, address);
     }
 
     /**
@@ -189,7 +180,7 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkanMemoryModelFeatures.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -198,7 +189,7 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkanMemoryModelFeatures.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -208,7 +199,7 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
      */
     public static VkPhysicalDeviceVulkanMemoryModelFeatures.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -218,13 +209,13 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkanMemoryModelFeatures.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceVulkanMemoryModelFeatures.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -233,7 +224,7 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceVulkanMemoryModelFeatures malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceVulkanMemoryModelFeatures(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkanMemoryModelFeatures.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -242,7 +233,7 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceVulkanMemoryModelFeatures calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceVulkanMemoryModelFeatures(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkanMemoryModelFeatures.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -252,7 +243,7 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkanMemoryModelFeatures.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -262,7 +253,7 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkanMemoryModelFeatures.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -299,9 +290,9 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
         /**
          * Creates a new {@code VkPhysicalDeviceVulkanMemoryModelFeatures.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceVulkanMemoryModelFeatures#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceVulkanMemoryModelFeatures#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTControllerModel XR_MSFT_controller_model} extension <b>must</b> be enabled prior to using {@link XrControllerModelStateMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTControllerModel#XR_TYPE_CONTROLLER_MODEL_STATE_MSFT TYPE_CONTROLLER_MODEL_STATE_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>If {@code nodeCapacityInput} is not 0, {@code nodeStates} <b>must</b> be a pointer to an array of {@code nodeCapacityInput} {@link XrControllerModelNodeStateMSFT} structures</li>
  * </ul>
  * 
@@ -42,7 +42,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrControllerModelNodeStateMSFT XrControllerModelNodeStateMSFT} * {@link #nodeStates};
  * }</code></pre>
  */
-public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSFT> implements NativeResource {
+public class XrControllerModelStateMSFT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -77,15 +77,6 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
         NODESTATES = layout.offsetof(4);
     }
 
-    protected XrControllerModelStateMSFT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrControllerModelStateMSFT create(long address, @Nullable ByteBuffer container) {
-        return new XrControllerModelStateMSFT(address, container);
-    }
-
     /**
      * Creates a {@code XrControllerModelStateMSFT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -108,10 +99,10 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
     /** the capacity of the {@code nodeStates} array, or 0 to indicate a request to retrieve the required capacity. */
     @NativeType("uint32_t")
     public int nodeCapacityInput() { return nnodeCapacityInput(address()); }
-    /** filled in by the runtime with the count of elements in {@code nodeStates} array, or returns the required capacity in the case that {@code nodeCapacityInput} is insufficient. */
+    /** filled in by the runtime with the count of elements in {@code nodeStates} array, or returns the required capacity in the case that {@code nodeCapacityInput} is 0. */
     @NativeType("uint32_t")
     public int nodeCountOutput() { return nnodeCountOutput(address()); }
-    /** a pointer to an application-allocated array that will be filled with the {@link XrControllerModelNodeStateMSFT} values. It <b>can</b> be {@code NULL} if {@code nodeCapacityInput} is 0. */
+    /** a pointer to an application-allocated array that will be filled with the {@link XrControllerModelNodeStateMSFT} values. It <b>can</b> be {@code NULL} if {@code sourceCapacityInput} is 0. */
     @Nullable
     @NativeType("XrControllerModelNodeStateMSFT *")
     public XrControllerModelNodeStateMSFT.Buffer nodeStates() { return nnodeStates(address()); }
@@ -162,29 +153,29 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
 
     /** Returns a new {@code XrControllerModelStateMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrControllerModelStateMSFT malloc() {
-        return new XrControllerModelStateMSFT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrControllerModelStateMSFT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrControllerModelStateMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrControllerModelStateMSFT calloc() {
-        return new XrControllerModelStateMSFT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrControllerModelStateMSFT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrControllerModelStateMSFT} instance allocated with {@link BufferUtils}. */
     public static XrControllerModelStateMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrControllerModelStateMSFT(memAddress(container), container);
+        return wrap(XrControllerModelStateMSFT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrControllerModelStateMSFT} instance for the specified memory address. */
     public static XrControllerModelStateMSFT create(long address) {
-        return new XrControllerModelStateMSFT(address, null);
+        return wrap(XrControllerModelStateMSFT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrControllerModelStateMSFT createSafe(long address) {
-        return address == NULL ? null : new XrControllerModelStateMSFT(address, null);
+        return address == NULL ? null : wrap(XrControllerModelStateMSFT.class, address);
     }
 
     /**
@@ -193,7 +184,7 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
      * @param capacity the buffer capacity
      */
     public static XrControllerModelStateMSFT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -202,7 +193,7 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
      * @param capacity the buffer capacity
      */
     public static XrControllerModelStateMSFT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -212,7 +203,7 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
      */
     public static XrControllerModelStateMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -222,13 +213,13 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
      * @param capacity the buffer capacity
      */
     public static XrControllerModelStateMSFT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrControllerModelStateMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -237,7 +228,7 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
      * @param stack the stack from which to allocate
      */
     public static XrControllerModelStateMSFT malloc(MemoryStack stack) {
-        return new XrControllerModelStateMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrControllerModelStateMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -246,7 +237,7 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
      * @param stack the stack from which to allocate
      */
     public static XrControllerModelStateMSFT calloc(MemoryStack stack) {
-        return new XrControllerModelStateMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrControllerModelStateMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -256,7 +247,7 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
      * @param capacity the buffer capacity
      */
     public static XrControllerModelStateMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -266,7 +257,7 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
      * @param capacity the buffer capacity
      */
     public static XrControllerModelStateMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -303,9 +294,9 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
         /**
          * Creates a new {@code XrControllerModelStateMSFT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrControllerModelStateMSFT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrControllerModelStateMSFT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

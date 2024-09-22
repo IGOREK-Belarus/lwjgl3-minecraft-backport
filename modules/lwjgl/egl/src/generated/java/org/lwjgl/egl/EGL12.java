@@ -55,7 +55,7 @@ public class EGL12 extends EGL11 {
 
     // --- [ eglBindAPI ] ---
 
-    /** <a href="https://www.khronos.org/registry/EGL/sdk/docs/man/html/eglBindAPI.xhtml">Reference Page</a> */
+    /** <a target="_blank" href="https://www.khronos.org/registry/EGL/sdk/docs/man/html/eglBindAPI.xhtml">Reference Page</a> */
     @NativeType("EGLBoolean")
     public static boolean eglBindAPI(@NativeType("EGLenum") int api) {
         long __functionAddress = EGL.getCapabilities().eglBindAPI;
@@ -67,7 +67,7 @@ public class EGL12 extends EGL11 {
 
     // --- [ eglQueryAPI ] ---
 
-    /** <a href="https://www.khronos.org/registry/EGL/sdk/docs/man/html/eglQueryAPI.xhtml">Reference Page</a> */
+    /** <a target="_blank" href="https://www.khronos.org/registry/EGL/sdk/docs/man/html/eglQueryAPI.xhtml">Reference Page</a> */
     @NativeType("EGLenum")
     public static int eglQueryAPI() {
         long __functionAddress = EGL.getCapabilities().eglQueryAPI;
@@ -90,7 +90,7 @@ public class EGL12 extends EGL11 {
         return callPPPPP(dpy, buftype, buffer, config, attrib_list, __functionAddress);
     }
 
-    /** <a href="https://www.khronos.org/registry/EGL/sdk/docs/man/html/eglCreatePbufferFromClientBuffer.xhtml">Reference Page</a> */
+    /** <a target="_blank" href="https://www.khronos.org/registry/EGL/sdk/docs/man/html/eglCreatePbufferFromClientBuffer.xhtml">Reference Page</a> */
     @NativeType("EGLSurface")
     public static long eglCreatePbufferFromClientBuffer(@NativeType("EGLDisplay") long dpy, @NativeType("EGLenum") int buftype, @NativeType("EGLClientBuffer") long buffer, @NativeType("EGLConfig") long config, @Nullable @NativeType("EGLint const *") IntBuffer attrib_list) {
         if (CHECKS) {
@@ -101,7 +101,7 @@ public class EGL12 extends EGL11 {
 
     // --- [ eglReleaseThread ] ---
 
-    /** <a href="https://www.khronos.org/registry/EGL/sdk/docs/man/html/eglReleaseThread.xhtml">Reference Page</a> */
+    /** <a target="_blank" href="https://www.khronos.org/registry/EGL/sdk/docs/man/html/eglReleaseThread.xhtml">Reference Page</a> */
     @NativeType("EGLBoolean")
     public static boolean eglReleaseThread() {
         long __functionAddress = EGL.getCapabilities().eglReleaseThread;
@@ -113,7 +113,7 @@ public class EGL12 extends EGL11 {
 
     // --- [ eglWaitClient ] ---
 
-    /** <a href="https://www.khronos.org/registry/EGL/sdk/docs/man/html/eglWaitClient.xhtml">Reference Page</a> */
+    /** <a target="_blank" href="https://www.khronos.org/registry/EGL/sdk/docs/man/html/eglWaitClient.xhtml">Reference Page</a> */
     @NativeType("EGLBoolean")
     public static boolean eglWaitClient() {
         long __functionAddress = EGL.getCapabilities().eglWaitClient;
@@ -126,7 +126,7 @@ public class EGL12 extends EGL11 {
     /**
      * Array version of: {@link #eglCreatePbufferFromClientBuffer CreatePbufferFromClientBuffer}
      * 
-     * @see <a href="https://www.khronos.org/registry/EGL/sdk/docs/man/html/eglCreatePbufferFromClientBuffer.xhtml">Reference Page</a>
+     * @see <a target="_blank" href="https://www.khronos.org/registry/EGL/sdk/docs/man/html/eglCreatePbufferFromClientBuffer.xhtml">Reference Page</a>
      */
     @NativeType("EGLSurface")
     public static long eglCreatePbufferFromClientBuffer(@NativeType("EGLDisplay") long dpy, @NativeType("EGLenum") int buftype, @NativeType("EGLClientBuffer") long buffer, @NativeType("EGLConfig") long config, @Nullable @NativeType("EGLint const *") int[] attrib_list) {

@@ -46,9 +46,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>Queues supporting graphics and/or compute operations <b>must</b> report <code>(1,1,1)</code> in {@code minImageTransferGranularity}, meaning that there are no additional restrictions on the granularity of image transfer operations for these queues. Other queues supporting image transfer operations are only <b>required</b> to support whole mip level transfers, thus {@code minImageTransferGranularity} for queues belonging to such queue families <b>may</b> be <code>(0,0,0)</code>.</p>
  * 
- * <p>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-device">Device Memory</a> section describes memory properties queried from the physical device.</p>
+ * <p>The <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#memory-device">Device Memory</a> section describes memory properties queried from the physical device.</p>
  * 
- * <p>For physical device feature queries see the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features">Features</a> chapter.</p>
+ * <p>For physical device feature queries see the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features">Features</a> chapter.</p>
  * 
  * <h5>See Also</h5>
  * 
@@ -64,7 +64,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkExtent3D VkExtent3D} {@link #minImageTransferGranularity};
  * }</code></pre>
  */
-public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> implements NativeResource {
+public class VkQueueFamilyProperties extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -96,15 +96,6 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
         MINIMAGETRANSFERGRANULARITY = layout.offsetof(3);
     }
 
-    protected VkQueueFamilyProperties(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkQueueFamilyProperties create(long address, @Nullable ByteBuffer container) {
-        return new VkQueueFamilyProperties(address, container);
-    }
-
     /**
      * Creates a {@code VkQueueFamilyProperties} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -124,7 +115,7 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
     /** the unsigned integer count of queues in this queue family. Each queue family <b>must</b> support at least one queue. */
     @NativeType("uint32_t")
     public int queueCount() { return nqueueCount(address()); }
-    /** the unsigned integer count of meaningful bits in the timestamps written via {@link VK13#vkCmdWriteTimestamp2 CmdWriteTimestamp2} or {@link VK10#vkCmdWriteTimestamp CmdWriteTimestamp}. The valid range for the count is 36 to 64 bits, or a value of 0, indicating no support for timestamps. Bits outside the valid range are guaranteed to be zeros. */
+    /** the unsigned integer count of meaningful bits in the timestamps written via {@link VK13#vkCmdWriteTimestamp2 CmdWriteTimestamp2} or {@link VK10#vkCmdWriteTimestamp CmdWriteTimestamp}. The valid range for the count is 36..64 bits, or a value of 0, indicating no support for timestamps. Bits outside the valid range are guaranteed to be zeros. */
     @NativeType("uint32_t")
     public int timestampValidBits() { return ntimestampValidBits(address()); }
     /** the minimum granularity supported for image transfer operations on the queues in this queue family. */
@@ -134,29 +125,29 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
 
     /** Returns a new {@code VkQueueFamilyProperties} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkQueueFamilyProperties malloc() {
-        return new VkQueueFamilyProperties(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkQueueFamilyProperties.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkQueueFamilyProperties} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkQueueFamilyProperties calloc() {
-        return new VkQueueFamilyProperties(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkQueueFamilyProperties.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkQueueFamilyProperties} instance allocated with {@link BufferUtils}. */
     public static VkQueueFamilyProperties create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkQueueFamilyProperties(memAddress(container), container);
+        return wrap(VkQueueFamilyProperties.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkQueueFamilyProperties} instance for the specified memory address. */
     public static VkQueueFamilyProperties create(long address) {
-        return new VkQueueFamilyProperties(address, null);
+        return wrap(VkQueueFamilyProperties.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkQueueFamilyProperties createSafe(long address) {
-        return address == NULL ? null : new VkQueueFamilyProperties(address, null);
+        return address == NULL ? null : wrap(VkQueueFamilyProperties.class, address);
     }
 
     /**
@@ -165,7 +156,7 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
      * @param capacity the buffer capacity
      */
     public static VkQueueFamilyProperties.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -174,7 +165,7 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
      * @param capacity the buffer capacity
      */
     public static VkQueueFamilyProperties.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -184,7 +175,7 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
      */
     public static VkQueueFamilyProperties.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -194,13 +185,13 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
      * @param capacity the buffer capacity
      */
     public static VkQueueFamilyProperties.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkQueueFamilyProperties.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -228,7 +219,7 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
      * @param stack the stack from which to allocate
      */
     public static VkQueueFamilyProperties malloc(MemoryStack stack) {
-        return new VkQueueFamilyProperties(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkQueueFamilyProperties.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -237,7 +228,7 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
      * @param stack the stack from which to allocate
      */
     public static VkQueueFamilyProperties calloc(MemoryStack stack) {
-        return new VkQueueFamilyProperties(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkQueueFamilyProperties.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -247,7 +238,7 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
      * @param capacity the buffer capacity
      */
     public static VkQueueFamilyProperties.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -257,7 +248,7 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
      * @param capacity the buffer capacity
      */
     public static VkQueueFamilyProperties.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -281,9 +272,9 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
         /**
          * Creates a new {@code VkQueueFamilyProperties.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkQueueFamilyProperties#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkQueueFamilyProperties#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

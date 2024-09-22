@@ -26,8 +26,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>The example code for the this extension (like the {@link KHRSurface VK_KHR_surface} and {@code VK_GOOGLE_display_timing} extensions) is contained in the cube demo that is shipped with the official Khronos SDK, and is being kept up-to-date in that location (see: <a href="https://github.com/KhronosGroup/Vulkan-Tools/blob/main/cube/cube.c">https://github.com/KhronosGroup/Vulkan-Tools/blob/main/cube/cube.c</a> ).</p>
+ * <p>The example code for the this extension (like the {@link KHRSurface VK_KHR_surface} and {@code VK_GOOGLE_display_timing} extensions) is contained in the cube demo that is shipped with the official Khronos SDK, and is being kept up-to-date in that location (see: <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Tools/blob/master/cube/cube.c">https://github.com/KhronosGroup/Vulkan-Tools/blob/master/cube/cube.c</a> ).</p>
  * </div>
+ * 
+ * <h5>VK_GOOGLE_display_timing</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -39,10 +41,13 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRSwapchain VK_KHR_swapchain}</dd>
+ * <dd><ul>
+ * <li>Requires Vulkan 1.0</li>
+ * <li>Requires {@link KHRSwapchain VK_KHR_swapchain}</li>
+ * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Ian Elliott <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_GOOGLE_display_timing]%20@ianelliottus%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_GOOGLE_display_timing%20extension*">ianelliottus</a></li>
+ * <li>Ian Elliott <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_GOOGLE_display_timing]%20@ianelliottus%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_GOOGLE_display_timing%20extension%3E%3E">ianelliottus</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -105,7 +110,7 @@ public class GOOGLEDisplayTiming {
      * <li>{@code device} <b>must</b> be a valid {@code VkDevice} handle</li>
      * <li>{@code swapchain} <b>must</b> be a valid {@code VkSwapchainKHR} handle</li>
      * <li>{@code pDisplayTimingProperties} <b>must</b> be a valid pointer to a {@link VkRefreshCycleDurationGOOGLE} structure</li>
-     * <li>{@code swapchain} <b>must</b> have been created, allocated, or retrieved from {@code device}</li>
+     * <li>Both of {@code device}, and {@code swapchain} <b>must</b> have been created, allocated, or retrieved from the same {@code VkInstance}</li>
      * </ul>
      * 
      * <h5>Host Synchronization</h5>
@@ -184,7 +189,7 @@ public class GOOGLEDisplayTiming {
      * <li>{@code swapchain} <b>must</b> be a valid {@code VkSwapchainKHR} handle</li>
      * <li>{@code pPresentationTimingCount} <b>must</b> be a valid pointer to a {@code uint32_t} value</li>
      * <li>If the value referenced by {@code pPresentationTimingCount} is not 0, and {@code pPresentationTimings} is not {@code NULL}, {@code pPresentationTimings} <b>must</b> be a valid pointer to an array of {@code pPresentationTimingCount} {@link VkPastPresentationTimingGOOGLE} structures</li>
-     * <li>{@code swapchain} <b>must</b> have been created, allocated, or retrieved from {@code device}</li>
+     * <li>Both of {@code device}, and {@code swapchain} <b>must</b> have been created, allocated, or retrieved from the same {@code VkInstance}</li>
      * </ul>
      * 
      * <h5>Host Synchronization</h5>

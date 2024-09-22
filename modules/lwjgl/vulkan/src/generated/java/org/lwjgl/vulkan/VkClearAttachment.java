@@ -24,6 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code aspectMask} includes {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT}, it <b>must</b> not include {@link VK10#VK_IMAGE_ASPECT_DEPTH_BIT IMAGE_ASPECT_DEPTH_BIT} or {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT}</li>
  * <li>{@code aspectMask} <b>must</b> not include {@link VK10#VK_IMAGE_ASPECT_METADATA_BIT IMAGE_ASPECT_METADATA_BIT}</li>
  * <li>{@code aspectMask} <b>must</b> not include <code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code> for any index <em>i</em></li>
+ * <li>{@code clearValue} <b>must</b> be a valid {@link VkClearValue} union</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -46,7 +47,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkClearValue VkClearValue} {@link #clearValue};
  * }</code></pre>
  */
-public class VkClearAttachment extends Struct<VkClearAttachment> implements NativeResource {
+public class VkClearAttachment extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -75,15 +76,6 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
         CLEARVALUE = layout.offsetof(2);
     }
 
-    protected VkClearAttachment(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkClearAttachment create(long address, @Nullable ByteBuffer container) {
-        return new VkClearAttachment(address, container);
-    }
-
     /**
      * Creates a {@code VkClearAttachment} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -103,7 +95,7 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
     /** only meaningful if {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT} is set in {@code aspectMask}, in which case it is an index into the currently bound color attachments. */
     @NativeType("uint32_t")
     public int colorAttachment() { return ncolorAttachment(address()); }
-    /** the color or depth/stencil value to clear the attachment to, as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#clears-values">Clear Values</a> below. */
+    /** the color or depth/stencil value to clear the attachment to, as described in <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#clears-values">Clear Values</a> below. */
     public VkClearValue clearValue() { return nclearValue(address()); }
 
     /** Sets the specified value to the {@link #aspectMask} field. */
@@ -144,29 +136,29 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
 
     /** Returns a new {@code VkClearAttachment} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkClearAttachment malloc() {
-        return new VkClearAttachment(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkClearAttachment.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkClearAttachment} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkClearAttachment calloc() {
-        return new VkClearAttachment(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkClearAttachment.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkClearAttachment} instance allocated with {@link BufferUtils}. */
     public static VkClearAttachment create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkClearAttachment(memAddress(container), container);
+        return wrap(VkClearAttachment.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkClearAttachment} instance for the specified memory address. */
     public static VkClearAttachment create(long address) {
-        return new VkClearAttachment(address, null);
+        return wrap(VkClearAttachment.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkClearAttachment createSafe(long address) {
-        return address == NULL ? null : new VkClearAttachment(address, null);
+        return address == NULL ? null : wrap(VkClearAttachment.class, address);
     }
 
     /**
@@ -175,7 +167,7 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkClearAttachment.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -184,7 +176,7 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkClearAttachment.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -194,7 +186,7 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
      */
     public static VkClearAttachment.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -204,13 +196,13 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkClearAttachment.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkClearAttachment.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -238,7 +230,7 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkClearAttachment malloc(MemoryStack stack) {
-        return new VkClearAttachment(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkClearAttachment.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -247,7 +239,7 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkClearAttachment calloc(MemoryStack stack) {
-        return new VkClearAttachment(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkClearAttachment.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -257,7 +249,7 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkClearAttachment.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -267,7 +259,7 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkClearAttachment.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -296,9 +288,9 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
         /**
          * Creates a new {@code VkClearAttachment.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkClearAttachment#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkClearAttachment#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

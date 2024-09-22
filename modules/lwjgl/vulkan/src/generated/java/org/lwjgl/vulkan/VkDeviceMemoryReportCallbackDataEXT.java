@@ -42,10 +42,6 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
  * </ul>
  * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDeviceMemoryReportCallbackEXT}</p>
- * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
@@ -61,7 +57,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #heapIndex};
  * }</code></pre>
  */
-public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryReportCallbackDataEXT> implements NativeResource {
+public class VkDeviceMemoryReportCallbackDataEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -108,15 +104,6 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
         HEAPINDEX = layout.offsetof(8);
     }
 
-    protected VkDeviceMemoryReportCallbackDataEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkDeviceMemoryReportCallbackDataEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkDeviceMemoryReportCallbackDataEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkDeviceMemoryReportCallbackDataEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -130,7 +117,7 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -151,7 +138,7 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
     /** a {@code VkObjectType} value specifying the type of the object associated with this device memory report event. If {@code type} is {@link EXTDeviceMemoryReport#VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_ALLOCATE_EXT DEVICE_MEMORY_REPORT_EVENT_TYPE_ALLOCATE_EXT}, {@link EXTDeviceMemoryReport#VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_FREE_EXT DEVICE_MEMORY_REPORT_EVENT_TYPE_FREE_EXT}, {@link EXTDeviceMemoryReport#VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_IMPORT_EXT DEVICE_MEMORY_REPORT_EVENT_TYPE_IMPORT_EXT}, {@link EXTDeviceMemoryReport#VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_UNIMPORT_EXT DEVICE_MEMORY_REPORT_EVENT_TYPE_UNIMPORT_EXT} or {@link EXTDeviceMemoryReport#VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_ALLOCATION_FAILED_EXT DEVICE_MEMORY_REPORT_EVENT_TYPE_ALLOCATION_FAILED_EXT}, {@code objectType} is a valid {@code VkObjectType} enum. Otherwise, {@code objectType} is undefined. */
     @NativeType("VkObjectType")
     public int objectType() { return nobjectType(address()); }
-    /** the object this device memory report event is attributed to. If {@code type} is {@link EXTDeviceMemoryReport#VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_ALLOCATE_EXT DEVICE_MEMORY_REPORT_EVENT_TYPE_ALLOCATE_EXT}, {@link EXTDeviceMemoryReport#VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_FREE_EXT DEVICE_MEMORY_REPORT_EVENT_TYPE_FREE_EXT}, {@link EXTDeviceMemoryReport#VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_IMPORT_EXT DEVICE_MEMORY_REPORT_EVENT_TYPE_IMPORT_EXT} or {@link EXTDeviceMemoryReport#VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_UNIMPORT_EXT DEVICE_MEMORY_REPORT_EVENT_TYPE_UNIMPORT_EXT}, {@code objectHandle} is a valid Vulkan handle of the type associated with {@code objectType} as defined in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#debugging-object-types">{@code VkObjectType} and Vulkan Handle Relationship</a> table. Otherwise, {@code objectHandle} is undefined. */
+    /** the object this device memory report event is attributed to. If {@code type} is {@link EXTDeviceMemoryReport#VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_ALLOCATE_EXT DEVICE_MEMORY_REPORT_EVENT_TYPE_ALLOCATE_EXT}, {@link EXTDeviceMemoryReport#VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_FREE_EXT DEVICE_MEMORY_REPORT_EVENT_TYPE_FREE_EXT}, {@link EXTDeviceMemoryReport#VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_IMPORT_EXT DEVICE_MEMORY_REPORT_EVENT_TYPE_IMPORT_EXT} or {@link EXTDeviceMemoryReport#VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_UNIMPORT_EXT DEVICE_MEMORY_REPORT_EVENT_TYPE_UNIMPORT_EXT}, {@code objectHandle} is a valid Vulkan handle of the type associated with {@code objectType} as defined in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#debugging-object-types">{@code VkObjectType} and Vulkan Handle Relationship</a> table. Otherwise, {@code objectHandle} is undefined. */
     @NativeType("uint64_t")
     public long objectHandle() { return nobjectHandle(address()); }
     /** describes which memory heap this device memory allocation is made from. If {@code type} is {@link EXTDeviceMemoryReport#VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_ALLOCATE_EXT DEVICE_MEMORY_REPORT_EVENT_TYPE_ALLOCATE_EXT} or {@link EXTDeviceMemoryReport#VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_ALLOCATION_FAILED_EXT DEVICE_MEMORY_REPORT_EVENT_TYPE_ALLOCATION_FAILED_EXT}, {@code heapIndex} corresponds to one of the valid heaps from the {@link VkPhysicalDeviceMemoryProperties} structure. Otherwise, {@code heapIndex} is undefined. */
@@ -192,29 +179,29 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
 
     /** Returns a new {@code VkDeviceMemoryReportCallbackDataEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDeviceMemoryReportCallbackDataEXT malloc() {
-        return new VkDeviceMemoryReportCallbackDataEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkDeviceMemoryReportCallbackDataEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceMemoryReportCallbackDataEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDeviceMemoryReportCallbackDataEXT calloc() {
-        return new VkDeviceMemoryReportCallbackDataEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkDeviceMemoryReportCallbackDataEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceMemoryReportCallbackDataEXT} instance allocated with {@link BufferUtils}. */
     public static VkDeviceMemoryReportCallbackDataEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkDeviceMemoryReportCallbackDataEXT(memAddress(container), container);
+        return wrap(VkDeviceMemoryReportCallbackDataEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkDeviceMemoryReportCallbackDataEXT} instance for the specified memory address. */
     public static VkDeviceMemoryReportCallbackDataEXT create(long address) {
-        return new VkDeviceMemoryReportCallbackDataEXT(address, null);
+        return wrap(VkDeviceMemoryReportCallbackDataEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceMemoryReportCallbackDataEXT createSafe(long address) {
-        return address == NULL ? null : new VkDeviceMemoryReportCallbackDataEXT(address, null);
+        return address == NULL ? null : wrap(VkDeviceMemoryReportCallbackDataEXT.class, address);
     }
 
     /**
@@ -223,7 +210,7 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
      * @param capacity the buffer capacity
      */
     public static VkDeviceMemoryReportCallbackDataEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -232,7 +219,7 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
      * @param capacity the buffer capacity
      */
     public static VkDeviceMemoryReportCallbackDataEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -242,7 +229,7 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
      */
     public static VkDeviceMemoryReportCallbackDataEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -252,13 +239,13 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
      * @param capacity the buffer capacity
      */
     public static VkDeviceMemoryReportCallbackDataEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceMemoryReportCallbackDataEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -267,7 +254,7 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
      * @param stack the stack from which to allocate
      */
     public static VkDeviceMemoryReportCallbackDataEXT malloc(MemoryStack stack) {
-        return new VkDeviceMemoryReportCallbackDataEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkDeviceMemoryReportCallbackDataEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -276,7 +263,7 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
      * @param stack the stack from which to allocate
      */
     public static VkDeviceMemoryReportCallbackDataEXT calloc(MemoryStack stack) {
-        return new VkDeviceMemoryReportCallbackDataEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkDeviceMemoryReportCallbackDataEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -286,7 +273,7 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
      * @param capacity the buffer capacity
      */
     public static VkDeviceMemoryReportCallbackDataEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -296,7 +283,7 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
      * @param capacity the buffer capacity
      */
     public static VkDeviceMemoryReportCallbackDataEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -335,9 +322,9 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
         /**
          * Creates a new {@code VkDeviceMemoryReportCallbackDataEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDeviceMemoryReportCallbackDataEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkDeviceMemoryReportCallbackDataEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -22,8 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>The {@code aspectMask} member of {@code srcSubresource} and {@code dstSubresource} <b>must</b> only contain {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT}</li>
- * <li>If neither of the {@code layerCount} members of {@code srcSubresource} or {@code dstSubresource} are {@link VK10#VK_REMAINING_ARRAY_LAYERS REMAINING_ARRAY_LAYERS}, the {@code layerCount} member of {@code srcSubresource} and {@code dstSubresource} <b>must</b> match</li>
- * <li>If one of the {@code layerCount} members of {@code srcSubresource} or {@code dstSubresource} is {@link VK10#VK_REMAINING_ARRAY_LAYERS REMAINING_ARRAY_LAYERS}, the other member <b>must</b> be either {@link VK10#VK_REMAINING_ARRAY_LAYERS REMAINING_ARRAY_LAYERS} or equal to the {@code arrayLayers} member of the {@link VkImageCreateInfo} used to create the image minus {@code baseArrayLayer}</li>
+ * <li>The {@code layerCount} member of {@code srcSubresource} and {@code dstSubresource} <b>must</b> match</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -52,7 +51,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkExtent3D VkExtent3D} {@link #extent};
  * }</code></pre>
  */
-public class VkImageResolve2 extends Struct<VkImageResolve2> implements NativeResource {
+public class VkImageResolve2 extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -93,15 +92,6 @@ public class VkImageResolve2 extends Struct<VkImageResolve2> implements NativeRe
         EXTENT = layout.offsetof(6);
     }
 
-    protected VkImageResolve2(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkImageResolve2 create(long address, @Nullable ByteBuffer container) {
-        return new VkImageResolve2(address, container);
-    }
-
     /**
      * Creates a {@code VkImageResolve2} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -115,7 +105,7 @@ public class VkImageResolve2 extends Struct<VkImageResolve2> implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -196,29 +186,29 @@ public class VkImageResolve2 extends Struct<VkImageResolve2> implements NativeRe
 
     /** Returns a new {@code VkImageResolve2} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkImageResolve2 malloc() {
-        return new VkImageResolve2(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkImageResolve2.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkImageResolve2} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkImageResolve2 calloc() {
-        return new VkImageResolve2(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkImageResolve2.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkImageResolve2} instance allocated with {@link BufferUtils}. */
     public static VkImageResolve2 create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkImageResolve2(memAddress(container), container);
+        return wrap(VkImageResolve2.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkImageResolve2} instance for the specified memory address. */
     public static VkImageResolve2 create(long address) {
-        return new VkImageResolve2(address, null);
+        return wrap(VkImageResolve2.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImageResolve2 createSafe(long address) {
-        return address == NULL ? null : new VkImageResolve2(address, null);
+        return address == NULL ? null : wrap(VkImageResolve2.class, address);
     }
 
     /**
@@ -227,7 +217,7 @@ public class VkImageResolve2 extends Struct<VkImageResolve2> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkImageResolve2.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -236,7 +226,7 @@ public class VkImageResolve2 extends Struct<VkImageResolve2> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkImageResolve2.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -246,7 +236,7 @@ public class VkImageResolve2 extends Struct<VkImageResolve2> implements NativeRe
      */
     public static VkImageResolve2.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -256,13 +246,13 @@ public class VkImageResolve2 extends Struct<VkImageResolve2> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkImageResolve2.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImageResolve2.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -271,7 +261,7 @@ public class VkImageResolve2 extends Struct<VkImageResolve2> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static VkImageResolve2 malloc(MemoryStack stack) {
-        return new VkImageResolve2(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkImageResolve2.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -280,7 +270,7 @@ public class VkImageResolve2 extends Struct<VkImageResolve2> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static VkImageResolve2 calloc(MemoryStack stack) {
-        return new VkImageResolve2(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkImageResolve2.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -290,7 +280,7 @@ public class VkImageResolve2 extends Struct<VkImageResolve2> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkImageResolve2.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -300,7 +290,7 @@ public class VkImageResolve2 extends Struct<VkImageResolve2> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkImageResolve2.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -345,9 +335,9 @@ public class VkImageResolve2 extends Struct<VkImageResolve2> implements NativeRe
         /**
          * Creates a new {@code VkImageResolve2.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkImageResolve2#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkImageResolve2#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -44,7 +44,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #reference};
  * }</code></pre>
  */
-public class VkStencilOpState extends Struct<VkStencilOpState> implements NativeResource {
+public class VkStencilOpState extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -85,15 +85,6 @@ public class VkStencilOpState extends Struct<VkStencilOpState> implements Native
         REFERENCE = layout.offsetof(6);
     }
 
-    protected VkStencilOpState(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkStencilOpState create(long address, @Nullable ByteBuffer container) {
-        return new VkStencilOpState(address, container);
-    }
-
     /**
      * Creates a {@code VkStencilOpState} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -125,7 +116,7 @@ public class VkStencilOpState extends Struct<VkStencilOpState> implements Native
     /** selects the bits of the unsigned integer stencil values updated by the stencil test in the stencil framebuffer attachment. */
     @NativeType("uint32_t")
     public int writeMask() { return nwriteMask(address()); }
-    /** an integer stencil reference value that is used in the unsigned stencil comparison. */
+    /** an integer reference value that is used in the unsigned stencil comparison. */
     @NativeType("uint32_t")
     public int reference() { return nreference(address()); }
 
@@ -181,29 +172,29 @@ public class VkStencilOpState extends Struct<VkStencilOpState> implements Native
 
     /** Returns a new {@code VkStencilOpState} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkStencilOpState malloc() {
-        return new VkStencilOpState(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkStencilOpState.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkStencilOpState} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkStencilOpState calloc() {
-        return new VkStencilOpState(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkStencilOpState.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkStencilOpState} instance allocated with {@link BufferUtils}. */
     public static VkStencilOpState create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkStencilOpState(memAddress(container), container);
+        return wrap(VkStencilOpState.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkStencilOpState} instance for the specified memory address. */
     public static VkStencilOpState create(long address) {
-        return new VkStencilOpState(address, null);
+        return wrap(VkStencilOpState.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkStencilOpState createSafe(long address) {
-        return address == NULL ? null : new VkStencilOpState(address, null);
+        return address == NULL ? null : wrap(VkStencilOpState.class, address);
     }
 
     /**
@@ -212,7 +203,7 @@ public class VkStencilOpState extends Struct<VkStencilOpState> implements Native
      * @param capacity the buffer capacity
      */
     public static VkStencilOpState.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -221,7 +212,7 @@ public class VkStencilOpState extends Struct<VkStencilOpState> implements Native
      * @param capacity the buffer capacity
      */
     public static VkStencilOpState.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -231,7 +222,7 @@ public class VkStencilOpState extends Struct<VkStencilOpState> implements Native
      */
     public static VkStencilOpState.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -241,13 +232,13 @@ public class VkStencilOpState extends Struct<VkStencilOpState> implements Native
      * @param capacity the buffer capacity
      */
     public static VkStencilOpState.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkStencilOpState.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -275,7 +266,7 @@ public class VkStencilOpState extends Struct<VkStencilOpState> implements Native
      * @param stack the stack from which to allocate
      */
     public static VkStencilOpState malloc(MemoryStack stack) {
-        return new VkStencilOpState(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkStencilOpState.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -284,7 +275,7 @@ public class VkStencilOpState extends Struct<VkStencilOpState> implements Native
      * @param stack the stack from which to allocate
      */
     public static VkStencilOpState calloc(MemoryStack stack) {
-        return new VkStencilOpState(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkStencilOpState.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -294,7 +285,7 @@ public class VkStencilOpState extends Struct<VkStencilOpState> implements Native
      * @param capacity the buffer capacity
      */
     public static VkStencilOpState.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -304,7 +295,7 @@ public class VkStencilOpState extends Struct<VkStencilOpState> implements Native
      * @param capacity the buffer capacity
      */
     public static VkStencilOpState.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -349,9 +340,9 @@ public class VkStencilOpState extends Struct<VkStencilOpState> implements Native
         /**
          * Creates a new {@code VkStencilOpState.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkStencilOpState#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkStencilOpState#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -23,8 +23,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * struct io_uring_sq {
  *     unsigned * khead;
  *     unsigned * ktail;
- *     unsigned * {@link #kring_mask};
- *     unsigned * {@link #kring_entries};
+ *     unsigned * kring_mask;
+ *     unsigned * kring_entries;
  *     unsigned * kflags;
  *     unsigned * kdropped;
  *     unsigned * array;
@@ -33,13 +33,11 @@ import static org.lwjgl.system.MemoryStack.*;
  *     unsigned sqe_tail;
  *     size_t ring_sz;
  *     void * ring_ptr;
- *     unsigned ring_mask;
- *     unsigned ring_entries;
- *     unsigned pad[2];
+ *     unsigned pad[4];
  * }</code></pre>
  */
 @NativeType("struct io_uring_sq")
-public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
+public class IOURingSQ extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -61,8 +59,6 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
         SQE_TAIL,
         RING_SZ,
         RING_PTR,
-        RING_MASK,
-        RING_ENTRIES,
         PAD;
 
     static {
@@ -79,9 +75,7 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
             __member(4),
             __member(POINTER_SIZE),
             __member(POINTER_SIZE),
-            __member(4),
-            __member(4),
-            __array(4, 2)
+            __array(4, 4)
         );
 
         SIZEOF = layout.getSize();
@@ -99,18 +93,7 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
         SQE_TAIL = layout.offsetof(9);
         RING_SZ = layout.offsetof(10);
         RING_PTR = layout.offsetof(11);
-        RING_MASK = layout.offsetof(12);
-        RING_ENTRIES = layout.offsetof(13);
-        PAD = layout.offsetof(14);
-    }
-
-    protected IOURingSQ(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected IOURingSQ create(long address, @Nullable ByteBuffer container) {
-        return new IOURingSQ(address, container);
+        PAD = layout.offsetof(12);
     }
 
     /**
@@ -141,16 +124,16 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
     @NativeType("unsigned *")
     public IntBuffer ktail(int capacity) { return nktail(address(), capacity); }
     /**
-     * @param capacity the number of elements in the returned buffer
+     * @return a {@link IntBuffer} view of the data pointed to by the {@code kring_mask} field.
      *
-     * @return Deprecated: use {@code ring_mask} instead of {@code *kring_mask}
+     * @param capacity the number of elements in the returned buffer
      */
     @NativeType("unsigned *")
     public IntBuffer kring_mask(int capacity) { return nkring_mask(address(), capacity); }
     /**
-     * @param capacity the number of elements in the returned buffer
+     * @return a {@link IntBuffer} view of the data pointed to by the {@code kring_entries} field.
      *
-     * @return Deprecated: use {@code ring_entries} instead of {@code *kring_entries}
+     * @param capacity the number of elements in the returned buffer
      */
     @NativeType("unsigned *")
     public IntBuffer kring_entries(int capacity) { return nkring_entries(address(), capacity); }
@@ -190,20 +173,14 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
     /** @return a {@link ByteBuffer} view of the data pointed to by the {@code ring_ptr} field. */
     @NativeType("void *")
     public ByteBuffer ring_ptr() { return nring_ptr(address()); }
-    /** @return the value of the {@code ring_mask} field. */
-    @NativeType("unsigned")
-    public int ring_mask() { return nring_mask(address()); }
-    /** @return the value of the {@code ring_entries} field. */
-    @NativeType("unsigned")
-    public int ring_entries() { return nring_entries(address()); }
 
     /** Sets the address of the specified {@link IntBuffer} to the {@code khead} field. */
     public IOURingSQ khead(@NativeType("unsigned *") IntBuffer value) { nkhead(address(), value); return this; }
     /** Sets the address of the specified {@link IntBuffer} to the {@code ktail} field. */
     public IOURingSQ ktail(@NativeType("unsigned *") IntBuffer value) { nktail(address(), value); return this; }
-    /** Sets the address of the specified {@link IntBuffer} to the {@link #kring_mask} field. */
+    /** Sets the address of the specified {@link IntBuffer} to the {@code kring_mask} field. */
     public IOURingSQ kring_mask(@NativeType("unsigned *") IntBuffer value) { nkring_mask(address(), value); return this; }
-    /** Sets the address of the specified {@link IntBuffer} to the {@link #kring_entries} field. */
+    /** Sets the address of the specified {@link IntBuffer} to the {@code kring_entries} field. */
     public IOURingSQ kring_entries(@NativeType("unsigned *") IntBuffer value) { nkring_entries(address(), value); return this; }
     /** Sets the address of the specified {@link IntBuffer} to the {@code kflags} field. */
     public IOURingSQ kflags(@NativeType("unsigned *") IntBuffer value) { nkflags(address(), value); return this; }
@@ -219,10 +196,6 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
     public IOURingSQ sqe_tail(@NativeType("unsigned") int value) { nsqe_tail(address(), value); return this; }
     /** Sets the address of the specified {@link ByteBuffer} to the {@code ring_ptr} field. */
     public IOURingSQ ring_ptr(@NativeType("void *") ByteBuffer value) { nring_ptr(address(), value); return this; }
-    /** Sets the specified value to the {@code ring_mask} field. */
-    public IOURingSQ ring_mask(@NativeType("unsigned") int value) { nring_mask(address(), value); return this; }
-    /** Sets the specified value to the {@code ring_entries} field. */
-    public IOURingSQ ring_entries(@NativeType("unsigned") int value) { nring_entries(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public IOURingSQ set(
@@ -236,9 +209,7 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
         IOURingSQE sqes,
         int sqe_head,
         int sqe_tail,
-        ByteBuffer ring_ptr,
-        int ring_mask,
-        int ring_entries
+        ByteBuffer ring_ptr
     ) {
         khead(khead);
         ktail(ktail);
@@ -251,8 +222,6 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
         sqe_head(sqe_head);
         sqe_tail(sqe_tail);
         ring_ptr(ring_ptr);
-        ring_mask(ring_mask);
-        ring_entries(ring_entries);
 
         return this;
     }
@@ -273,29 +242,29 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
 
     /** Returns a new {@code IOURingSQ} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static IOURingSQ malloc() {
-        return new IOURingSQ(nmemAllocChecked(SIZEOF), null);
+        return wrap(IOURingSQ.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code IOURingSQ} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static IOURingSQ calloc() {
-        return new IOURingSQ(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(IOURingSQ.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code IOURingSQ} instance allocated with {@link BufferUtils}. */
     public static IOURingSQ create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new IOURingSQ(memAddress(container), container);
+        return wrap(IOURingSQ.class, memAddress(container), container);
     }
 
     /** Returns a new {@code IOURingSQ} instance for the specified memory address. */
     public static IOURingSQ create(long address) {
-        return new IOURingSQ(address, null);
+        return wrap(IOURingSQ.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOURingSQ createSafe(long address) {
-        return address == NULL ? null : new IOURingSQ(address, null);
+        return address == NULL ? null : wrap(IOURingSQ.class, address);
     }
 
     /**
@@ -304,7 +273,7 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingSQ.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -313,7 +282,7 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingSQ.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -323,7 +292,7 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
      */
     public static IOURingSQ.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -333,13 +302,13 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingSQ.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOURingSQ.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -348,7 +317,7 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOURingSQ malloc(MemoryStack stack) {
-        return new IOURingSQ(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(IOURingSQ.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -357,7 +326,7 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOURingSQ calloc(MemoryStack stack) {
-        return new IOURingSQ(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(IOURingSQ.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -367,7 +336,7 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingSQ.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -377,7 +346,7 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingSQ.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -406,13 +375,9 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
     public static long nring_sz(long struct) { return memGetAddress(struct + IOURingSQ.RING_SZ); }
     /** Unsafe version of {@link #ring_ptr() ring_ptr}. */
     public static ByteBuffer nring_ptr(long struct) { return memByteBuffer(memGetAddress(struct + IOURingSQ.RING_PTR), (int)nring_sz(struct)); }
-    /** Unsafe version of {@link #ring_mask}. */
-    public static int nring_mask(long struct) { return UNSAFE.getInt(null, struct + IOURingSQ.RING_MASK); }
-    /** Unsafe version of {@link #ring_entries}. */
-    public static int nring_entries(long struct) { return UNSAFE.getInt(null, struct + IOURingSQ.RING_ENTRIES); }
-    public static IntBuffer npad(long struct) { return memIntBuffer(struct + IOURingSQ.PAD, 2); }
+    public static IntBuffer npad(long struct) { return memIntBuffer(struct + IOURingSQ.PAD, 4); }
     public static int npad(long struct, int index) {
-        return UNSAFE.getInt(null, struct + IOURingSQ.PAD + check(index, 2) * 4);
+        return UNSAFE.getInt(null, struct + IOURingSQ.PAD + check(index, 4) * 4);
     }
 
     /** Unsafe version of {@link #khead(IntBuffer) khead}. */
@@ -439,16 +404,12 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
     public static void nring_sz(long struct, long value) { memPutAddress(struct + IOURingSQ.RING_SZ, value); }
     /** Unsafe version of {@link #ring_ptr(ByteBuffer) ring_ptr}. */
     public static void nring_ptr(long struct, ByteBuffer value) { memPutAddress(struct + IOURingSQ.RING_PTR, memAddress(value)); nring_sz(struct, value.remaining()); }
-    /** Unsafe version of {@link #ring_mask(int) ring_mask}. */
-    public static void nring_mask(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQ.RING_MASK, value); }
-    /** Unsafe version of {@link #ring_entries(int) ring_entries}. */
-    public static void nring_entries(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQ.RING_ENTRIES, value); }
     public static void npad(long struct, IntBuffer value) {
-        if (CHECKS) { checkGT(value, 2); }
+        if (CHECKS) { checkGT(value, 4); }
         memCopy(memAddress(value), struct + IOURingSQ.PAD, value.remaining() * 4);
     }
     public static void npad(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + IOURingSQ.PAD + check(index, 2) * 4, value);
+        UNSAFE.putInt(null, struct + IOURingSQ.PAD + check(index, 4) * 4, value);
     }
 
     /**
@@ -478,9 +439,9 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
         /**
          * Creates a new {@code IOURingSQ.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link IOURingSQ#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link IOURingSQ#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -521,14 +482,14 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
         @NativeType("unsigned *")
         public IntBuffer ktail(int capacity) { return IOURingSQ.nktail(address(), capacity); }
         /**
-         * @return a {@link IntBuffer} view of the data pointed to by the {@link IOURingSQ#kring_mask} field.
+         * @return a {@link IntBuffer} view of the data pointed to by the {@code kring_mask} field.
          *
          * @param capacity the number of elements in the returned buffer
          */
         @NativeType("unsigned *")
         public IntBuffer kring_mask(int capacity) { return IOURingSQ.nkring_mask(address(), capacity); }
         /**
-         * @return a {@link IntBuffer} view of the data pointed to by the {@link IOURingSQ#kring_entries} field.
+         * @return a {@link IntBuffer} view of the data pointed to by the {@code kring_entries} field.
          *
          * @param capacity the number of elements in the returned buffer
          */
@@ -570,20 +531,14 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
         /** @return a {@link ByteBuffer} view of the data pointed to by the {@code ring_ptr} field. */
         @NativeType("void *")
         public ByteBuffer ring_ptr() { return IOURingSQ.nring_ptr(address()); }
-        /** @return the value of the {@code ring_mask} field. */
-        @NativeType("unsigned")
-        public int ring_mask() { return IOURingSQ.nring_mask(address()); }
-        /** @return the value of the {@code ring_entries} field. */
-        @NativeType("unsigned")
-        public int ring_entries() { return IOURingSQ.nring_entries(address()); }
 
         /** Sets the address of the specified {@link IntBuffer} to the {@code khead} field. */
         public IOURingSQ.Buffer khead(@NativeType("unsigned *") IntBuffer value) { IOURingSQ.nkhead(address(), value); return this; }
         /** Sets the address of the specified {@link IntBuffer} to the {@code ktail} field. */
         public IOURingSQ.Buffer ktail(@NativeType("unsigned *") IntBuffer value) { IOURingSQ.nktail(address(), value); return this; }
-        /** Sets the address of the specified {@link IntBuffer} to the {@link IOURingSQ#kring_mask} field. */
+        /** Sets the address of the specified {@link IntBuffer} to the {@code kring_mask} field. */
         public IOURingSQ.Buffer kring_mask(@NativeType("unsigned *") IntBuffer value) { IOURingSQ.nkring_mask(address(), value); return this; }
-        /** Sets the address of the specified {@link IntBuffer} to the {@link IOURingSQ#kring_entries} field. */
+        /** Sets the address of the specified {@link IntBuffer} to the {@code kring_entries} field. */
         public IOURingSQ.Buffer kring_entries(@NativeType("unsigned *") IntBuffer value) { IOURingSQ.nkring_entries(address(), value); return this; }
         /** Sets the address of the specified {@link IntBuffer} to the {@code kflags} field. */
         public IOURingSQ.Buffer kflags(@NativeType("unsigned *") IntBuffer value) { IOURingSQ.nkflags(address(), value); return this; }
@@ -599,10 +554,6 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
         public IOURingSQ.Buffer sqe_tail(@NativeType("unsigned") int value) { IOURingSQ.nsqe_tail(address(), value); return this; }
         /** Sets the address of the specified {@link ByteBuffer} to the {@code ring_ptr} field. */
         public IOURingSQ.Buffer ring_ptr(@NativeType("void *") ByteBuffer value) { IOURingSQ.nring_ptr(address(), value); return this; }
-        /** Sets the specified value to the {@code ring_mask} field. */
-        public IOURingSQ.Buffer ring_mask(@NativeType("unsigned") int value) { IOURingSQ.nring_mask(address(), value); return this; }
-        /** Sets the specified value to the {@code ring_entries} field. */
-        public IOURingSQ.Buffer ring_entries(@NativeType("unsigned") int value) { IOURingSQ.nring_entries(address(), value); return this; }
 
     }
 

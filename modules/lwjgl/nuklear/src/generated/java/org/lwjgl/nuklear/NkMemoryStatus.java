@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct nk_memory_status")
-public class NkMemoryStatus extends Struct<NkMemoryStatus> implements NativeResource {
+public class NkMemoryStatus extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -65,15 +65,6 @@ public class NkMemoryStatus extends Struct<NkMemoryStatus> implements NativeReso
         ALLOCATED = layout.offsetof(3);
         NEEDED = layout.offsetof(4);
         CALLS = layout.offsetof(5);
-    }
-
-    protected NkMemoryStatus(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected NkMemoryStatus create(long address, @Nullable ByteBuffer container) {
-        return new NkMemoryStatus(address, container);
     }
 
     /**
@@ -112,29 +103,29 @@ public class NkMemoryStatus extends Struct<NkMemoryStatus> implements NativeReso
 
     /** Returns a new {@code NkMemoryStatus} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static NkMemoryStatus malloc() {
-        return new NkMemoryStatus(nmemAllocChecked(SIZEOF), null);
+        return wrap(NkMemoryStatus.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code NkMemoryStatus} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static NkMemoryStatus calloc() {
-        return new NkMemoryStatus(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(NkMemoryStatus.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code NkMemoryStatus} instance allocated with {@link BufferUtils}. */
     public static NkMemoryStatus create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new NkMemoryStatus(memAddress(container), container);
+        return wrap(NkMemoryStatus.class, memAddress(container), container);
     }
 
     /** Returns a new {@code NkMemoryStatus} instance for the specified memory address. */
     public static NkMemoryStatus create(long address) {
-        return new NkMemoryStatus(address, null);
+        return wrap(NkMemoryStatus.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkMemoryStatus createSafe(long address) {
-        return address == NULL ? null : new NkMemoryStatus(address, null);
+        return address == NULL ? null : wrap(NkMemoryStatus.class, address);
     }
 
     /**
@@ -143,7 +134,7 @@ public class NkMemoryStatus extends Struct<NkMemoryStatus> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static NkMemoryStatus.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -152,7 +143,7 @@ public class NkMemoryStatus extends Struct<NkMemoryStatus> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static NkMemoryStatus.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -162,7 +153,7 @@ public class NkMemoryStatus extends Struct<NkMemoryStatus> implements NativeReso
      */
     public static NkMemoryStatus.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -172,13 +163,13 @@ public class NkMemoryStatus extends Struct<NkMemoryStatus> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static NkMemoryStatus.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkMemoryStatus.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -206,7 +197,7 @@ public class NkMemoryStatus extends Struct<NkMemoryStatus> implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static NkMemoryStatus malloc(MemoryStack stack) {
-        return new NkMemoryStatus(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(NkMemoryStatus.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -215,7 +206,7 @@ public class NkMemoryStatus extends Struct<NkMemoryStatus> implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static NkMemoryStatus calloc(MemoryStack stack) {
-        return new NkMemoryStatus(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(NkMemoryStatus.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -225,7 +216,7 @@ public class NkMemoryStatus extends Struct<NkMemoryStatus> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static NkMemoryStatus.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -235,7 +226,7 @@ public class NkMemoryStatus extends Struct<NkMemoryStatus> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static NkMemoryStatus.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -263,9 +254,9 @@ public class NkMemoryStatus extends Struct<NkMemoryStatus> implements NativeReso
         /**
          * Creates a new {@code NkMemoryStatus.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkMemoryStatus#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link NkMemoryStatus#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

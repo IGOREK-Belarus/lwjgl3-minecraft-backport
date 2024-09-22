@@ -34,7 +34,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct LZ4F_frameInfo_t")
-public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResource {
+public class LZ4FFrameInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -73,15 +73,6 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
         CONTENTSIZE = layout.offsetof(4);
         DICTID = layout.offsetof(5);
         BLOCKCHECKSUMFLAG = layout.offsetof(6);
-    }
-
-    protected LZ4FFrameInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected LZ4FFrameInfo create(long address, @Nullable ByteBuffer container) {
-        return new LZ4FFrameInfo(address, container);
     }
 
     /**
@@ -171,29 +162,29 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
 
     /** Returns a new {@code LZ4FFrameInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static LZ4FFrameInfo malloc() {
-        return new LZ4FFrameInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(LZ4FFrameInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code LZ4FFrameInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static LZ4FFrameInfo calloc() {
-        return new LZ4FFrameInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(LZ4FFrameInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code LZ4FFrameInfo} instance allocated with {@link BufferUtils}. */
     public static LZ4FFrameInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new LZ4FFrameInfo(memAddress(container), container);
+        return wrap(LZ4FFrameInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code LZ4FFrameInfo} instance for the specified memory address. */
     public static LZ4FFrameInfo create(long address) {
-        return new LZ4FFrameInfo(address, null);
+        return wrap(LZ4FFrameInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static LZ4FFrameInfo createSafe(long address) {
-        return address == NULL ? null : new LZ4FFrameInfo(address, null);
+        return address == NULL ? null : wrap(LZ4FFrameInfo.class, address);
     }
 
     /**
@@ -202,7 +193,7 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static LZ4FFrameInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -211,7 +202,7 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static LZ4FFrameInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -221,7 +212,7 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
      */
     public static LZ4FFrameInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -231,13 +222,13 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static LZ4FFrameInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static LZ4FFrameInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -265,7 +256,7 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
      * @param stack the stack from which to allocate
      */
     public static LZ4FFrameInfo malloc(MemoryStack stack) {
-        return new LZ4FFrameInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(LZ4FFrameInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -274,7 +265,7 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
      * @param stack the stack from which to allocate
      */
     public static LZ4FFrameInfo calloc(MemoryStack stack) {
-        return new LZ4FFrameInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(LZ4FFrameInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -284,7 +275,7 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static LZ4FFrameInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -294,7 +285,7 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static LZ4FFrameInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -339,9 +330,9 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
         /**
          * Creates a new {@code LZ4FFrameInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link LZ4FFrameInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link LZ4FFrameInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

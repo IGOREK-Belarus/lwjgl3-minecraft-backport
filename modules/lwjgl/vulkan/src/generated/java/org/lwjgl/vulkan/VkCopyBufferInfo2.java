@@ -19,6 +19,10 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Structure specifying parameters of a buffer copy command.
  * 
+ * <h5>Description</h5>
+ * 
+ * <p>Members defined by this structure with the same name as parameters in {@link VK10#vkCmdCopyBuffer CmdCopyBuffer} have the identical effect to those parameters; the child structure {@link VkBufferCopy2} is a variant of {@link VkBufferCopy} which includes {@code sType} and {@code pNext} parameters, allowing it to be extended.</p>
+ * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
@@ -61,7 +65,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkBufferCopy2 VkBufferCopy2} const * {@link #pRegions};
  * }</code></pre>
  */
-public class VkCopyBufferInfo2 extends Struct<VkCopyBufferInfo2> implements NativeResource {
+public class VkCopyBufferInfo2 extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -99,15 +103,6 @@ public class VkCopyBufferInfo2 extends Struct<VkCopyBufferInfo2> implements Nati
         PREGIONS = layout.offsetof(5);
     }
 
-    protected VkCopyBufferInfo2(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkCopyBufferInfo2 create(long address, @Nullable ByteBuffer container) {
-        return new VkCopyBufferInfo2(address, container);
-    }
-
     /**
      * Creates a {@code VkCopyBufferInfo2} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -121,7 +116,7 @@ public class VkCopyBufferInfo2 extends Struct<VkCopyBufferInfo2> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -186,29 +181,29 @@ public class VkCopyBufferInfo2 extends Struct<VkCopyBufferInfo2> implements Nati
 
     /** Returns a new {@code VkCopyBufferInfo2} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkCopyBufferInfo2 malloc() {
-        return new VkCopyBufferInfo2(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkCopyBufferInfo2.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkCopyBufferInfo2} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkCopyBufferInfo2 calloc() {
-        return new VkCopyBufferInfo2(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkCopyBufferInfo2.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkCopyBufferInfo2} instance allocated with {@link BufferUtils}. */
     public static VkCopyBufferInfo2 create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkCopyBufferInfo2(memAddress(container), container);
+        return wrap(VkCopyBufferInfo2.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkCopyBufferInfo2} instance for the specified memory address. */
     public static VkCopyBufferInfo2 create(long address) {
-        return new VkCopyBufferInfo2(address, null);
+        return wrap(VkCopyBufferInfo2.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCopyBufferInfo2 createSafe(long address) {
-        return address == NULL ? null : new VkCopyBufferInfo2(address, null);
+        return address == NULL ? null : wrap(VkCopyBufferInfo2.class, address);
     }
 
     /**
@@ -217,7 +212,7 @@ public class VkCopyBufferInfo2 extends Struct<VkCopyBufferInfo2> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkCopyBufferInfo2.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -226,7 +221,7 @@ public class VkCopyBufferInfo2 extends Struct<VkCopyBufferInfo2> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkCopyBufferInfo2.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -236,7 +231,7 @@ public class VkCopyBufferInfo2 extends Struct<VkCopyBufferInfo2> implements Nati
      */
     public static VkCopyBufferInfo2.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -246,13 +241,13 @@ public class VkCopyBufferInfo2 extends Struct<VkCopyBufferInfo2> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkCopyBufferInfo2.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCopyBufferInfo2.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -261,7 +256,7 @@ public class VkCopyBufferInfo2 extends Struct<VkCopyBufferInfo2> implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkCopyBufferInfo2 malloc(MemoryStack stack) {
-        return new VkCopyBufferInfo2(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkCopyBufferInfo2.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -270,7 +265,7 @@ public class VkCopyBufferInfo2 extends Struct<VkCopyBufferInfo2> implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkCopyBufferInfo2 calloc(MemoryStack stack) {
-        return new VkCopyBufferInfo2(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkCopyBufferInfo2.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -280,7 +275,7 @@ public class VkCopyBufferInfo2 extends Struct<VkCopyBufferInfo2> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkCopyBufferInfo2.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -290,7 +285,7 @@ public class VkCopyBufferInfo2 extends Struct<VkCopyBufferInfo2> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkCopyBufferInfo2.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -340,9 +335,9 @@ public class VkCopyBufferInfo2 extends Struct<VkCopyBufferInfo2> implements Nati
         /**
          * Creates a new {@code VkCopyBufferInfo2.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkCopyBufferInfo2#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkCopyBufferInfo2#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

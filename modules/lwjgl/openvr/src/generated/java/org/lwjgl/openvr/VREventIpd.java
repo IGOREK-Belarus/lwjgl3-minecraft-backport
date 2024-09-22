@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct VREvent_Ipd_t")
-public class VREventIpd extends Struct<VREventIpd> {
+public class VREventIpd extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -45,15 +45,6 @@ public class VREventIpd extends Struct<VREventIpd> {
         IPDMETERS = layout.offsetof(0);
     }
 
-    protected VREventIpd(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VREventIpd create(long address, @Nullable ByteBuffer container) {
-        return new VREventIpd(address, container);
-    }
-
     /**
      * Creates a {@code VREventIpd} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -74,13 +65,13 @@ public class VREventIpd extends Struct<VREventIpd> {
 
     /** Returns a new {@code VREventIpd} instance for the specified memory address. */
     public static VREventIpd create(long address) {
-        return new VREventIpd(address, null);
+        return wrap(VREventIpd.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventIpd createSafe(long address) {
-        return address == NULL ? null : new VREventIpd(address, null);
+        return address == NULL ? null : wrap(VREventIpd.class, address);
     }
 
     /**
@@ -90,13 +81,13 @@ public class VREventIpd extends Struct<VREventIpd> {
      * @param capacity the buffer capacity
      */
     public static VREventIpd.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventIpd.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -114,9 +105,9 @@ public class VREventIpd extends Struct<VREventIpd> {
         /**
          * Creates a new {@code VREventIpd.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VREventIpd#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VREventIpd#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

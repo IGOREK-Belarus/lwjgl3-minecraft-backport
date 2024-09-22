@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If the view mask is zero for all subpasses, multiview is considered to be disabled and all drawing commands execute normally, without this additional broadcasting.</p>
  * 
- * <p>Some implementations <b>may</b> not support multiview in conjunction with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview-mesh">mesh shaders</a>, <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview-gs">geometry shaders</a> or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview-tess">tessellation shaders</a>.</p>
+ * <p>Some implementations <b>may</b> not support multiview in conjunction with <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview-gs">geometry shaders</a> or <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview-tess">tessellation shaders</a>.</p>
  * 
  * <p>When multiview is enabled, the {@link VK11#VK_DEPENDENCY_VIEW_LOCAL_BIT DEPENDENCY_VIEW_LOCAL_BIT} bit in a dependency <b>can</b> be used to express a view-local dependency, meaning that each view in the destination subpass depends on a single view in the source subpass. Unlike pipeline barriers, a subpass dependency <b>can</b> potentially have a different view mask in the source subpass and the destination subpass. If the dependency is view-local, then each view (<code>dstView</code>) in the destination subpass depends on the view <code>dstView + pViewOffsets[dependency]</code> in the source subpass. If there is not such a view in the source subpass, then this dependency does not affect that view in the destination subpass. If the dependency is not view-local, then all views in the destination subpass depend on all views in the source subpass, and the view offset is ignored. A non-zero view offset is not allowed in a self-dependency.</p>
  * 
@@ -41,8 +41,6 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>Each view index <b>must</b> not be set in more than one element of {@code pCorrelationMasks}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview">{@code multiview}</a> feature is not enabled, each element of {@code pViewMasks} <b>must</b> be 0</li>
- * <li>The index of the most significant bit in each element of {@code pViewMasks} <b>must</b> be less than <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxMultiviewViewCount">{@code maxMultiviewViewCount}</a></li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -68,7 +66,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t const * {@link #pCorrelationMasks};
  * }</code></pre>
  */
-public class VkRenderPassMultiviewCreateInfo extends Struct<VkRenderPassMultiviewCreateInfo> implements NativeResource {
+public class VkRenderPassMultiviewCreateInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -112,15 +110,6 @@ public class VkRenderPassMultiviewCreateInfo extends Struct<VkRenderPassMultivie
         PCORRELATIONMASKS = layout.offsetof(7);
     }
 
-    protected VkRenderPassMultiviewCreateInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkRenderPassMultiviewCreateInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkRenderPassMultiviewCreateInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkRenderPassMultiviewCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -134,7 +123,7 @@ public class VkRenderPassMultiviewCreateInfo extends Struct<VkRenderPassMultivie
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -208,29 +197,29 @@ public class VkRenderPassMultiviewCreateInfo extends Struct<VkRenderPassMultivie
 
     /** Returns a new {@code VkRenderPassMultiviewCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkRenderPassMultiviewCreateInfo malloc() {
-        return new VkRenderPassMultiviewCreateInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkRenderPassMultiviewCreateInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkRenderPassMultiviewCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkRenderPassMultiviewCreateInfo calloc() {
-        return new VkRenderPassMultiviewCreateInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkRenderPassMultiviewCreateInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkRenderPassMultiviewCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VkRenderPassMultiviewCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkRenderPassMultiviewCreateInfo(memAddress(container), container);
+        return wrap(VkRenderPassMultiviewCreateInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkRenderPassMultiviewCreateInfo} instance for the specified memory address. */
     public static VkRenderPassMultiviewCreateInfo create(long address) {
-        return new VkRenderPassMultiviewCreateInfo(address, null);
+        return wrap(VkRenderPassMultiviewCreateInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderPassMultiviewCreateInfo createSafe(long address) {
-        return address == NULL ? null : new VkRenderPassMultiviewCreateInfo(address, null);
+        return address == NULL ? null : wrap(VkRenderPassMultiviewCreateInfo.class, address);
     }
 
     /**
@@ -239,7 +228,7 @@ public class VkRenderPassMultiviewCreateInfo extends Struct<VkRenderPassMultivie
      * @param capacity the buffer capacity
      */
     public static VkRenderPassMultiviewCreateInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -248,7 +237,7 @@ public class VkRenderPassMultiviewCreateInfo extends Struct<VkRenderPassMultivie
      * @param capacity the buffer capacity
      */
     public static VkRenderPassMultiviewCreateInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -258,7 +247,7 @@ public class VkRenderPassMultiviewCreateInfo extends Struct<VkRenderPassMultivie
      */
     public static VkRenderPassMultiviewCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -268,13 +257,13 @@ public class VkRenderPassMultiviewCreateInfo extends Struct<VkRenderPassMultivie
      * @param capacity the buffer capacity
      */
     public static VkRenderPassMultiviewCreateInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderPassMultiviewCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -302,7 +291,7 @@ public class VkRenderPassMultiviewCreateInfo extends Struct<VkRenderPassMultivie
      * @param stack the stack from which to allocate
      */
     public static VkRenderPassMultiviewCreateInfo malloc(MemoryStack stack) {
-        return new VkRenderPassMultiviewCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkRenderPassMultiviewCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -311,7 +300,7 @@ public class VkRenderPassMultiviewCreateInfo extends Struct<VkRenderPassMultivie
      * @param stack the stack from which to allocate
      */
     public static VkRenderPassMultiviewCreateInfo calloc(MemoryStack stack) {
-        return new VkRenderPassMultiviewCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkRenderPassMultiviewCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -321,7 +310,7 @@ public class VkRenderPassMultiviewCreateInfo extends Struct<VkRenderPassMultivie
      * @param capacity the buffer capacity
      */
     public static VkRenderPassMultiviewCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -331,7 +320,7 @@ public class VkRenderPassMultiviewCreateInfo extends Struct<VkRenderPassMultivie
      * @param capacity the buffer capacity
      */
     public static VkRenderPassMultiviewCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -397,9 +386,9 @@ public class VkRenderPassMultiviewCreateInfo extends Struct<VkRenderPassMultivie
         /**
          * Creates a new {@code VkRenderPassMultiviewCreateInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkRenderPassMultiviewCreateInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkRenderPassMultiviewCreateInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

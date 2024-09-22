@@ -46,7 +46,7 @@ val ARB_get_program_binary = "ARBGetProgramBinary".nativeClassGL("ARB_get_progra
         "PROGRAM_BINARY_FORMATS"..0x87FF
     )
 
-    reuse(GL41C, "GetProgramBinary")
-    reuse(GL41C, "ProgramBinary")
-    reuse(GL41C, "ProgramParameteri")
+    GL41C reuse "GetProgramBinary"
+    GL41C reuse "ProgramBinary"
+    GL41C reuse "ProgramParameteri"
 }

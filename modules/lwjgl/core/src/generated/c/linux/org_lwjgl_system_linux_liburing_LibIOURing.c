@@ -4,12 +4,9 @@
  * MACHINE GENERATED FILE, DO NOT EDIT
  */
 #include "common_tools.h"
-DISABLE_WARNINGS()
-#ifdef LWJGL_LINUX
-    _Pragma("GCC diagnostic ignored \"-Wsign-compare\"")
-#endif
-#include "liburing/compat.h"
 #include "liburing/io_uring.h"
+DISABLE_WARNINGS()
+_Pragma("GCC diagnostic ignored \"-Wpedantic\"")
 #include "syscall.h"
 ENABLE_WARNINGS()
 

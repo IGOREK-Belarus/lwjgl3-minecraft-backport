@@ -23,11 +23,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     uint64_t {@link #overlayHandle};
  *     uint64_t devicePath;
  *     uint64_t memoryBlockId;
- *     uint32_t {@link #cursorIndex};
  * }</code></pre>
  */
 @NativeType("struct VREvent_Overlay_t")
-public class VREventOverlay extends Struct<VREventOverlay> {
+public class VREventOverlay extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -39,15 +38,13 @@ public class VREventOverlay extends Struct<VREventOverlay> {
     public static final int
         OVERLAYHANDLE,
         DEVICEPATH,
-        MEMORYBLOCKID,
-        CURSORINDEX;
+        MEMORYBLOCKID;
 
     static {
         Layout layout = __struct(
             __member(8),
             __member(8),
-            __member(8),
-            __member(4)
+            __member(8)
         );
 
         SIZEOF = layout.getSize();
@@ -56,16 +53,6 @@ public class VREventOverlay extends Struct<VREventOverlay> {
         OVERLAYHANDLE = layout.offsetof(0);
         DEVICEPATH = layout.offsetof(1);
         MEMORYBLOCKID = layout.offsetof(2);
-        CURSORINDEX = layout.offsetof(3);
-    }
-
-    protected VREventOverlay(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VREventOverlay create(long address, @Nullable ByteBuffer container) {
-        return new VREventOverlay(address, container);
     }
 
     /**
@@ -90,21 +77,18 @@ public class VREventOverlay extends Struct<VREventOverlay> {
     /** @return the value of the {@code memoryBlockId} field. */
     @NativeType("uint64_t")
     public long memoryBlockId() { return nmemoryBlockId(address()); }
-    /** if from an event triggered by cursor input on an overlay that supports multiple cursors, this is the index of which tracked cursor the event is for */
-    @NativeType("uint32_t")
-    public int cursorIndex() { return ncursorIndex(address()); }
 
     // -----------------------------------
 
     /** Returns a new {@code VREventOverlay} instance for the specified memory address. */
     public static VREventOverlay create(long address) {
-        return new VREventOverlay(address, null);
+        return wrap(VREventOverlay.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventOverlay createSafe(long address) {
-        return address == NULL ? null : new VREventOverlay(address, null);
+        return address == NULL ? null : wrap(VREventOverlay.class, address);
     }
 
     /**
@@ -114,13 +98,13 @@ public class VREventOverlay extends Struct<VREventOverlay> {
      * @param capacity the buffer capacity
      */
     public static VREventOverlay.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventOverlay.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -131,8 +115,6 @@ public class VREventOverlay extends Struct<VREventOverlay> {
     public static long ndevicePath(long struct) { return UNSAFE.getLong(null, struct + VREventOverlay.DEVICEPATH); }
     /** Unsafe version of {@link #memoryBlockId}. */
     public static long nmemoryBlockId(long struct) { return UNSAFE.getLong(null, struct + VREventOverlay.MEMORYBLOCKID); }
-    /** Unsafe version of {@link #cursorIndex}. */
-    public static int ncursorIndex(long struct) { return UNSAFE.getInt(null, struct + VREventOverlay.CURSORINDEX); }
 
     // -----------------------------------
 
@@ -144,9 +126,9 @@ public class VREventOverlay extends Struct<VREventOverlay> {
         /**
          * Creates a new {@code VREventOverlay.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VREventOverlay#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VREventOverlay#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -181,9 +163,6 @@ public class VREventOverlay extends Struct<VREventOverlay> {
         /** @return the value of the {@code memoryBlockId} field. */
         @NativeType("uint64_t")
         public long memoryBlockId() { return VREventOverlay.nmemoryBlockId(address()); }
-        /** @return the value of the {@link VREventOverlay#cursorIndex} field. */
-        @NativeType("uint32_t")
-        public int cursorIndex() { return VREventOverlay.ncursorIndex(address()); }
 
     }
 

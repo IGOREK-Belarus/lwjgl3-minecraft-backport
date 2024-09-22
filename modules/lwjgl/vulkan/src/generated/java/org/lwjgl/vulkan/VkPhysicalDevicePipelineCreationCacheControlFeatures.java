@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #pipelineCreationCacheControl};
  * }</code></pre>
  */
-public class VkPhysicalDevicePipelineCreationCacheControlFeatures extends Struct<VkPhysicalDevicePipelineCreationCacheControlFeatures> implements NativeResource {
+public class VkPhysicalDevicePipelineCreationCacheControlFeatures extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,15 +66,6 @@ public class VkPhysicalDevicePipelineCreationCacheControlFeatures extends Struct
         PIPELINECREATIONCACHECONTROL = layout.offsetof(2);
     }
 
-    protected VkPhysicalDevicePipelineCreationCacheControlFeatures(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDevicePipelineCreationCacheControlFeatures create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDevicePipelineCreationCacheControlFeatures(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDevicePipelineCreationCacheControlFeatures} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -88,7 +79,7 @@ public class VkPhysicalDevicePipelineCreationCacheControlFeatures extends Struct
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -154,29 +145,29 @@ public class VkPhysicalDevicePipelineCreationCacheControlFeatures extends Struct
 
     /** Returns a new {@code VkPhysicalDevicePipelineCreationCacheControlFeatures} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDevicePipelineCreationCacheControlFeatures malloc() {
-        return new VkPhysicalDevicePipelineCreationCacheControlFeatures(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDevicePipelineCreationCacheControlFeatures.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDevicePipelineCreationCacheControlFeatures} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDevicePipelineCreationCacheControlFeatures calloc() {
-        return new VkPhysicalDevicePipelineCreationCacheControlFeatures(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDevicePipelineCreationCacheControlFeatures.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDevicePipelineCreationCacheControlFeatures} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDevicePipelineCreationCacheControlFeatures create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDevicePipelineCreationCacheControlFeatures(memAddress(container), container);
+        return wrap(VkPhysicalDevicePipelineCreationCacheControlFeatures.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDevicePipelineCreationCacheControlFeatures} instance for the specified memory address. */
     public static VkPhysicalDevicePipelineCreationCacheControlFeatures create(long address) {
-        return new VkPhysicalDevicePipelineCreationCacheControlFeatures(address, null);
+        return wrap(VkPhysicalDevicePipelineCreationCacheControlFeatures.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDevicePipelineCreationCacheControlFeatures createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDevicePipelineCreationCacheControlFeatures(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDevicePipelineCreationCacheControlFeatures.class, address);
     }
 
     /**
@@ -185,7 +176,7 @@ public class VkPhysicalDevicePipelineCreationCacheControlFeatures extends Struct
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePipelineCreationCacheControlFeatures.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -194,7 +185,7 @@ public class VkPhysicalDevicePipelineCreationCacheControlFeatures extends Struct
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePipelineCreationCacheControlFeatures.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -204,7 +195,7 @@ public class VkPhysicalDevicePipelineCreationCacheControlFeatures extends Struct
      */
     public static VkPhysicalDevicePipelineCreationCacheControlFeatures.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -214,13 +205,13 @@ public class VkPhysicalDevicePipelineCreationCacheControlFeatures extends Struct
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePipelineCreationCacheControlFeatures.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDevicePipelineCreationCacheControlFeatures.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -229,7 +220,7 @@ public class VkPhysicalDevicePipelineCreationCacheControlFeatures extends Struct
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDevicePipelineCreationCacheControlFeatures malloc(MemoryStack stack) {
-        return new VkPhysicalDevicePipelineCreationCacheControlFeatures(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDevicePipelineCreationCacheControlFeatures.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -238,7 +229,7 @@ public class VkPhysicalDevicePipelineCreationCacheControlFeatures extends Struct
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDevicePipelineCreationCacheControlFeatures calloc(MemoryStack stack) {
-        return new VkPhysicalDevicePipelineCreationCacheControlFeatures(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDevicePipelineCreationCacheControlFeatures.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -248,7 +239,7 @@ public class VkPhysicalDevicePipelineCreationCacheControlFeatures extends Struct
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePipelineCreationCacheControlFeatures.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -258,7 +249,7 @@ public class VkPhysicalDevicePipelineCreationCacheControlFeatures extends Struct
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePipelineCreationCacheControlFeatures.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -287,9 +278,9 @@ public class VkPhysicalDevicePipelineCreationCacheControlFeatures extends Struct
         /**
          * Creates a new {@code VkPhysicalDevicePipelineCreationCacheControlFeatures.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDevicePipelineCreationCacheControlFeatures#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDevicePipelineCreationCacheControlFeatures#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

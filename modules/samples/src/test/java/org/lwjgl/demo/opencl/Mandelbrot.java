@@ -194,7 +194,6 @@ public class Mandelbrot {
                         .put(CL_WGL_HDC_KHR)
                         .put(wglGetCurrentDC());
                     break;
-                case FREEBSD:
                 case LINUX:
                     ctxProps
                         .put(CL_GL_CONTEXT_KHR)

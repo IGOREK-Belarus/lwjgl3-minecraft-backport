@@ -21,12 +21,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If {@code descriptorSetCount} is zero or this structure is not included in the {@code pNext} chain, then the variable lengths are considered to be zero. Otherwise, {@code pDescriptorCounts}[i] is the number of descriptors in the variable-sized descriptor binding in the corresponding descriptor set layout. If the variable-sized descriptor binding in the corresponding descriptor set layout has a descriptor type of {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK} then {@code pDescriptorCounts}[i] specifies the binding’s capacity in bytes. If {@link VkDescriptorSetAllocateInfo}{@code ::pSetLayouts}[i] does not include a variable-sized descriptor binding, then {@code pDescriptorCounts}[i] is ignored.</p>
+ * <p>If {@code descriptorSetCount} is zero or this structure is not included in the {@code pNext} chain, then the variable lengths are considered to be zero. Otherwise, {@code pDescriptorCounts}[i] is the number of descriptors in the variable count descriptor binding in the corresponding descriptor set layout. If the variable count descriptor binding in the corresponding descriptor set layout has a descriptor type of {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK} then {@code pDescriptorCounts}[i] specifies the binding’s capacity in bytes. If {@link VkDescriptorSetAllocateInfo}{@code ::pSetLayouts}[i] does not include a variable count descriptor binding, then {@code pDescriptorCounts}[i] is ignored.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
  * <li>If {@code descriptorSetCount} is not zero, {@code descriptorSetCount} <b>must</b> equal {@link VkDescriptorSetAllocateInfo}{@code ::descriptorSetCount}</li>
+ * <li>If {@link VkDescriptorSetAllocateInfo}{@code ::pSetLayouts}[i] has a variable descriptor count binding, then {@code pDescriptorCounts}[i] <b>must</b> be less than or equal to the descriptor count specified for that binding when the descriptor set layout was created</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -46,7 +47,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t const * {@link #pDescriptorCounts};
  * }</code></pre>
  */
-public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<VkDescriptorSetVariableDescriptorCountAllocateInfo> implements NativeResource {
+public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -78,15 +79,6 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
         PDESCRIPTORCOUNTS = layout.offsetof(3);
     }
 
-    protected VkDescriptorSetVariableDescriptorCountAllocateInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkDescriptorSetVariableDescriptorCountAllocateInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkDescriptorSetVariableDescriptorCountAllocateInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkDescriptorSetVariableDescriptorCountAllocateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -100,7 +92,7 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -109,7 +101,7 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
     /** zero or the number of elements in {@code pDescriptorCounts}. */
     @NativeType("uint32_t")
     public int descriptorSetCount() { return ndescriptorSetCount(address()); }
-    /** a pointer to an array of descriptor counts, with each member specifying the number of descriptors in a variable-sized descriptor binding in the corresponding descriptor set being allocated. */
+    /** a pointer to an array of descriptor counts, with each member specifying the number of descriptors in a variable descriptor count binding in the corresponding descriptor set being allocated. */
     @Nullable
     @NativeType("uint32_t const *")
     public IntBuffer pDescriptorCounts() { return npDescriptorCounts(address()); }
@@ -152,29 +144,29 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
 
     /** Returns a new {@code VkDescriptorSetVariableDescriptorCountAllocateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDescriptorSetVariableDescriptorCountAllocateInfo malloc() {
-        return new VkDescriptorSetVariableDescriptorCountAllocateInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkDescriptorSetVariableDescriptorCountAllocateInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkDescriptorSetVariableDescriptorCountAllocateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDescriptorSetVariableDescriptorCountAllocateInfo calloc() {
-        return new VkDescriptorSetVariableDescriptorCountAllocateInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkDescriptorSetVariableDescriptorCountAllocateInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkDescriptorSetVariableDescriptorCountAllocateInfo} instance allocated with {@link BufferUtils}. */
     public static VkDescriptorSetVariableDescriptorCountAllocateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkDescriptorSetVariableDescriptorCountAllocateInfo(memAddress(container), container);
+        return wrap(VkDescriptorSetVariableDescriptorCountAllocateInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkDescriptorSetVariableDescriptorCountAllocateInfo} instance for the specified memory address. */
     public static VkDescriptorSetVariableDescriptorCountAllocateInfo create(long address) {
-        return new VkDescriptorSetVariableDescriptorCountAllocateInfo(address, null);
+        return wrap(VkDescriptorSetVariableDescriptorCountAllocateInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorSetVariableDescriptorCountAllocateInfo createSafe(long address) {
-        return address == NULL ? null : new VkDescriptorSetVariableDescriptorCountAllocateInfo(address, null);
+        return address == NULL ? null : wrap(VkDescriptorSetVariableDescriptorCountAllocateInfo.class, address);
     }
 
     /**
@@ -183,7 +175,7 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
      * @param capacity the buffer capacity
      */
     public static VkDescriptorSetVariableDescriptorCountAllocateInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -192,7 +184,7 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
      * @param capacity the buffer capacity
      */
     public static VkDescriptorSetVariableDescriptorCountAllocateInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -202,7 +194,7 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
      */
     public static VkDescriptorSetVariableDescriptorCountAllocateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -212,13 +204,13 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
      * @param capacity the buffer capacity
      */
     public static VkDescriptorSetVariableDescriptorCountAllocateInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorSetVariableDescriptorCountAllocateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -227,7 +219,7 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorSetVariableDescriptorCountAllocateInfo malloc(MemoryStack stack) {
-        return new VkDescriptorSetVariableDescriptorCountAllocateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkDescriptorSetVariableDescriptorCountAllocateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -236,7 +228,7 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorSetVariableDescriptorCountAllocateInfo calloc(MemoryStack stack) {
-        return new VkDescriptorSetVariableDescriptorCountAllocateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkDescriptorSetVariableDescriptorCountAllocateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -246,7 +238,7 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
      * @param capacity the buffer capacity
      */
     public static VkDescriptorSetVariableDescriptorCountAllocateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -256,7 +248,7 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
      * @param capacity the buffer capacity
      */
     public static VkDescriptorSetVariableDescriptorCountAllocateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -300,9 +292,9 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
         /**
          * Creates a new {@code VkDescriptorSetVariableDescriptorCountAllocateInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDescriptorSetVariableDescriptorCountAllocateInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkDescriptorSetVariableDescriptorCountAllocateInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

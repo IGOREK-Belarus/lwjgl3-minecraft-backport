@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link KHRVisibilityMask XR_KHR_visibility_mask} extension <b>must</b> be enabled prior to using {@link XrVisibilityMaskKHR}</li>
  * <li>{@code type} <b>must</b> be {@link KHRVisibilityMask#XR_TYPE_VISIBILITY_MASK_KHR TYPE_VISIBILITY_MASK_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>If {@code vertexCapacityInput} is not 0, {@code vertices} <b>must</b> be a pointer to an array of {@code vertexCapacityInput} {@link XrVector2f} structures</li>
  * <li>If {@code indexCapacityInput} is not 0, {@code indices} <b>must</b> be a pointer to an array of {@code indexCapacityInput} {@code uint32_t} values</li>
  * </ul>
@@ -46,7 +46,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t * {@link #indices};
  * }</code></pre>
  */
-public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements NativeResource {
+public class XrVisibilityMaskKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -90,15 +90,6 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
         INDICES = layout.offsetof(7);
     }
 
-    protected XrVisibilityMaskKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrVisibilityMaskKHR create(long address, @Nullable ByteBuffer container) {
-        return new XrVisibilityMaskKHR(address, container);
-    }
-
     /**
      * Creates a {@code XrVisibilityMaskKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -121,7 +112,7 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
     /** the capacity of the {@code vertices} array, or 0 to indicate a request to retrieve the required capacity. */
     @NativeType("uint32_t")
     public int vertexCapacityInput() { return nvertexCapacityInput(address()); }
-    /** filled in by the runtime with the count of vertices written or the required capacity in the case that {@code vertexCapacityInput} or {@code indexCapacityInput} is insufficient. */
+    /** filled in by the runtime with the count of vertices written or the required capacity in the case that {@code vertexCapacityInput} or {@code indexCapacityInput} is 0. */
     @NativeType("uint32_t")
     public int vertexCountOutput() { return nvertexCountOutput(address()); }
     /** an array of vertices filled in by the runtime that specifies mask coordinates in the z=-1 plane of the rendered view—​i.e. one meter in front of the view. When rendering the mask for use in a projection layer, these vertices must be transformed by the application’s projection matrix used for the respective {@link XrCompositionLayerProjectionView}. */
@@ -131,7 +122,7 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
     /** the capacity of the {@code indices} array, or 0 to indicate a request to retrieve the required capacity. */
     @NativeType("uint32_t")
     public int indexCapacityInput() { return nindexCapacityInput(address()); }
-    /** filled in by the runtime with the count of indices written or the required capacity in the case that {@code vertexCapacityInput} or {@code indexCapacityInput} is insufficient. */
+    /** filled in by the runtime with the count of indices written or the required capacity in the case that {@code vertexCapacityInput} or {@code indexCapacityInput} is 0. */
     @NativeType("uint32_t")
     public int indexCountOutput() { return nindexCountOutput(address()); }
     /** an array of indices filled in by the runtime, specifying the indices of the mask geometry in the {@code vertices} array. */
@@ -197,29 +188,29 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
 
     /** Returns a new {@code XrVisibilityMaskKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrVisibilityMaskKHR malloc() {
-        return new XrVisibilityMaskKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrVisibilityMaskKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrVisibilityMaskKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrVisibilityMaskKHR calloc() {
-        return new XrVisibilityMaskKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrVisibilityMaskKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrVisibilityMaskKHR} instance allocated with {@link BufferUtils}. */
     public static XrVisibilityMaskKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrVisibilityMaskKHR(memAddress(container), container);
+        return wrap(XrVisibilityMaskKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrVisibilityMaskKHR} instance for the specified memory address. */
     public static XrVisibilityMaskKHR create(long address) {
-        return new XrVisibilityMaskKHR(address, null);
+        return wrap(XrVisibilityMaskKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrVisibilityMaskKHR createSafe(long address) {
-        return address == NULL ? null : new XrVisibilityMaskKHR(address, null);
+        return address == NULL ? null : wrap(XrVisibilityMaskKHR.class, address);
     }
 
     /**
@@ -228,7 +219,7 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
      * @param capacity the buffer capacity
      */
     public static XrVisibilityMaskKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -237,7 +228,7 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
      * @param capacity the buffer capacity
      */
     public static XrVisibilityMaskKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -247,7 +238,7 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
      */
     public static XrVisibilityMaskKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -257,13 +248,13 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
      * @param capacity the buffer capacity
      */
     public static XrVisibilityMaskKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrVisibilityMaskKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -272,7 +263,7 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
      * @param stack the stack from which to allocate
      */
     public static XrVisibilityMaskKHR malloc(MemoryStack stack) {
-        return new XrVisibilityMaskKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrVisibilityMaskKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -281,7 +272,7 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
      * @param stack the stack from which to allocate
      */
     public static XrVisibilityMaskKHR calloc(MemoryStack stack) {
-        return new XrVisibilityMaskKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrVisibilityMaskKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -291,7 +282,7 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
      * @param capacity the buffer capacity
      */
     public static XrVisibilityMaskKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -301,7 +292,7 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
      * @param capacity the buffer capacity
      */
     public static XrVisibilityMaskKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -350,9 +341,9 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
         /**
          * Creates a new {@code XrVisibilityMaskKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrVisibilityMaskKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrVisibilityMaskKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

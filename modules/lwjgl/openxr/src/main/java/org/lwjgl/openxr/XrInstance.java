@@ -39,7 +39,7 @@ public class XrInstance extends DispatchableHandle {
 
                 int result = callPPPI(handle, memAddress(functionName), pp.address(), XR.getGlobalCommands().xrGetInstanceProcAddr);
                 if (result != XR_SUCCESS && Checks.DEBUG_FUNCTIONS) {
-                    apiLogMissing("XR", functionName);
+                    apiLog("Failed to query address of XR function " + memASCII(functionName));
                 }
 
                 return pp.get(0);

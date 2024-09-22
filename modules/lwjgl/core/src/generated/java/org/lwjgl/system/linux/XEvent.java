@@ -59,7 +59,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     long[24];
  * }</code></pre>
  */
-public class XEvent extends Struct<XEvent> implements NativeResource {
+public class XEvent extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -182,15 +182,6 @@ public class XEvent extends Struct<XEvent> implements NativeResource {
         XCOOKIE = layout.offsetof(33);
     }
 
-    protected XEvent(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XEvent create(long address, @Nullable ByteBuffer container) {
-        return new XEvent(address, container);
-    }
-
     /**
      * Creates a {@code XEvent} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -277,29 +268,29 @@ public class XEvent extends Struct<XEvent> implements NativeResource {
 
     /** Returns a new {@code XEvent} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XEvent malloc() {
-        return new XEvent(nmemAllocChecked(SIZEOF), null);
+        return wrap(XEvent.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XEvent} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XEvent calloc() {
-        return new XEvent(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XEvent.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XEvent} instance allocated with {@link BufferUtils}. */
     public static XEvent create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XEvent(memAddress(container), container);
+        return wrap(XEvent.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XEvent} instance for the specified memory address. */
     public static XEvent create(long address) {
-        return new XEvent(address, null);
+        return wrap(XEvent.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XEvent createSafe(long address) {
-        return address == NULL ? null : new XEvent(address, null);
+        return address == NULL ? null : wrap(XEvent.class, address);
     }
 
     /**
@@ -308,7 +299,7 @@ public class XEvent extends Struct<XEvent> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XEvent.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -317,7 +308,7 @@ public class XEvent extends Struct<XEvent> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XEvent.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -327,7 +318,7 @@ public class XEvent extends Struct<XEvent> implements NativeResource {
      */
     public static XEvent.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -337,13 +328,13 @@ public class XEvent extends Struct<XEvent> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XEvent.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XEvent.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -371,7 +362,7 @@ public class XEvent extends Struct<XEvent> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XEvent malloc(MemoryStack stack) {
-        return new XEvent(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XEvent.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -380,7 +371,7 @@ public class XEvent extends Struct<XEvent> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XEvent calloc(MemoryStack stack) {
-        return new XEvent(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XEvent.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -390,7 +381,7 @@ public class XEvent extends Struct<XEvent> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XEvent.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -400,7 +391,7 @@ public class XEvent extends Struct<XEvent> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XEvent.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -484,9 +475,9 @@ public class XEvent extends Struct<XEvent> implements NativeResource {
         /**
          * Creates a new {@code XEvent.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XEvent#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XEvent#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

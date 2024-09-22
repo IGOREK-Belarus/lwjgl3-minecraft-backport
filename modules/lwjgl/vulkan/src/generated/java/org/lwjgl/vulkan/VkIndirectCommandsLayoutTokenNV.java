@@ -24,7 +24,6 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code stream} <b>must</b> be smaller than {@link VkIndirectCommandsLayoutCreateInfoNV}{@code ::streamCount}</li>
  * <li>{@code offset} <b>must</b> be less than or equal to {@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV}{@code ::maxIndirectCommandsTokenOffset}</li>
- * <li>{@code offset} <b>must</b> be aligned to the scalar alignment of {@code tokenType} or {@code minIndirectCommandsBufferOffsetAlignment}, whichever is lower</li>
  * <li>If {@code tokenType} is {@link NVDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_NV INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_NV}, {@code vertexBindingUnit} <b>must</b> stay within device supported limits for the appropriate commands</li>
  * <li>If {@code tokenType} is {@link NVDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_NV INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_NV}, {@code pushconstantPipelineLayout} <b>must</b> be valid</li>
  * <li>If {@code tokenType} is {@link NVDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_NV INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_NV}, {@code pushconstantOffset} <b>must</b> be a multiple of 4</li>
@@ -74,7 +73,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t const * pIndexTypeValues;
  * }</code></pre>
  */
-public class VkIndirectCommandsLayoutTokenNV extends Struct<VkIndirectCommandsLayoutTokenNV> implements NativeResource {
+public class VkIndirectCommandsLayoutTokenNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -139,15 +138,6 @@ public class VkIndirectCommandsLayoutTokenNV extends Struct<VkIndirectCommandsLa
         PINDEXTYPEVALUES = layout.offsetof(14);
     }
 
-    protected VkIndirectCommandsLayoutTokenNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkIndirectCommandsLayoutTokenNV create(long address, @Nullable ByteBuffer container) {
-        return new VkIndirectCommandsLayoutTokenNV(address, container);
-    }
-
     /**
      * Creates a {@code VkIndirectCommandsLayoutTokenNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -161,13 +151,13 @@ public class VkIndirectCommandsLayoutTokenNV extends Struct<VkIndirectCommandsLa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@code VkIndirectCommandsTokenTypeNV} specifying the token command type. */
+    /** specifies the token command type. */
     @NativeType("VkIndirectCommandsTokenTypeNV")
     public int tokenType() { return ntokenType(address()); }
     /** the index of the input stream containing the token argument data. */
@@ -194,7 +184,7 @@ public class VkIndirectCommandsLayoutTokenNV extends Struct<VkIndirectCommandsLa
     /** the size used for the push constant command. */
     @NativeType("uint32_t")
     public int pushconstantSize() { return npushconstantSize(address()); }
-    /** a {@code VkIndirectStateFlagsNV} bitfield indicating the active states for the state flag command. */
+    /** are the active states for the state flag command. */
     @NativeType("VkIndirectStateFlagsNV")
     public int indirectStateFlags() { return nindirectStateFlags(address()); }
     /** the optional size of the {@code pIndexTypes} and {@code pIndexTypeValues} array pairings. If not zero, it allows to register a custom {@code uint32_t} value to be treated as specific {@code VkIndexType}. */
@@ -295,29 +285,29 @@ public class VkIndirectCommandsLayoutTokenNV extends Struct<VkIndirectCommandsLa
 
     /** Returns a new {@code VkIndirectCommandsLayoutTokenNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkIndirectCommandsLayoutTokenNV malloc() {
-        return new VkIndirectCommandsLayoutTokenNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkIndirectCommandsLayoutTokenNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkIndirectCommandsLayoutTokenNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkIndirectCommandsLayoutTokenNV calloc() {
-        return new VkIndirectCommandsLayoutTokenNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkIndirectCommandsLayoutTokenNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkIndirectCommandsLayoutTokenNV} instance allocated with {@link BufferUtils}. */
     public static VkIndirectCommandsLayoutTokenNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkIndirectCommandsLayoutTokenNV(memAddress(container), container);
+        return wrap(VkIndirectCommandsLayoutTokenNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkIndirectCommandsLayoutTokenNV} instance for the specified memory address. */
     public static VkIndirectCommandsLayoutTokenNV create(long address) {
-        return new VkIndirectCommandsLayoutTokenNV(address, null);
+        return wrap(VkIndirectCommandsLayoutTokenNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkIndirectCommandsLayoutTokenNV createSafe(long address) {
-        return address == NULL ? null : new VkIndirectCommandsLayoutTokenNV(address, null);
+        return address == NULL ? null : wrap(VkIndirectCommandsLayoutTokenNV.class, address);
     }
 
     /**
@@ -326,7 +316,7 @@ public class VkIndirectCommandsLayoutTokenNV extends Struct<VkIndirectCommandsLa
      * @param capacity the buffer capacity
      */
     public static VkIndirectCommandsLayoutTokenNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -335,7 +325,7 @@ public class VkIndirectCommandsLayoutTokenNV extends Struct<VkIndirectCommandsLa
      * @param capacity the buffer capacity
      */
     public static VkIndirectCommandsLayoutTokenNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -345,7 +335,7 @@ public class VkIndirectCommandsLayoutTokenNV extends Struct<VkIndirectCommandsLa
      */
     public static VkIndirectCommandsLayoutTokenNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -355,13 +345,13 @@ public class VkIndirectCommandsLayoutTokenNV extends Struct<VkIndirectCommandsLa
      * @param capacity the buffer capacity
      */
     public static VkIndirectCommandsLayoutTokenNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkIndirectCommandsLayoutTokenNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -370,7 +360,7 @@ public class VkIndirectCommandsLayoutTokenNV extends Struct<VkIndirectCommandsLa
      * @param stack the stack from which to allocate
      */
     public static VkIndirectCommandsLayoutTokenNV malloc(MemoryStack stack) {
-        return new VkIndirectCommandsLayoutTokenNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkIndirectCommandsLayoutTokenNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -379,7 +369,7 @@ public class VkIndirectCommandsLayoutTokenNV extends Struct<VkIndirectCommandsLa
      * @param stack the stack from which to allocate
      */
     public static VkIndirectCommandsLayoutTokenNV calloc(MemoryStack stack) {
-        return new VkIndirectCommandsLayoutTokenNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkIndirectCommandsLayoutTokenNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -389,7 +379,7 @@ public class VkIndirectCommandsLayoutTokenNV extends Struct<VkIndirectCommandsLa
      * @param capacity the buffer capacity
      */
     public static VkIndirectCommandsLayoutTokenNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -399,7 +389,7 @@ public class VkIndirectCommandsLayoutTokenNV extends Struct<VkIndirectCommandsLa
      * @param capacity the buffer capacity
      */
     public static VkIndirectCommandsLayoutTokenNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -488,9 +478,9 @@ public class VkIndirectCommandsLayoutTokenNV extends Struct<VkIndirectCommandsLa
         /**
          * Creates a new {@code VkIndirectCommandsLayoutTokenNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkIndirectCommandsLayoutTokenNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkIndirectCommandsLayoutTokenNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

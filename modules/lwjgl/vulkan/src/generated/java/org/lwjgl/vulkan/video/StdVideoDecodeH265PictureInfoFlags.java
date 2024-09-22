@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t short_term_ref_pic_set_sps_flag : 1;
  * }</code></pre>
  */
-public class StdVideoDecodeH265PictureInfoFlags extends Struct<StdVideoDecodeH265PictureInfoFlags> implements NativeResource {
+public class StdVideoDecodeH265PictureInfoFlags extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -49,15 +49,6 @@ public class StdVideoDecodeH265PictureInfoFlags extends Struct<StdVideoDecodeH26
         BITFIELD0 = layout.offsetof(0);
     }
 
-    protected StdVideoDecodeH265PictureInfoFlags(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected StdVideoDecodeH265PictureInfoFlags create(long address, @Nullable ByteBuffer container) {
-        return new StdVideoDecodeH265PictureInfoFlags(address, container);
-    }
-
     /**
      * Creates a {@code StdVideoDecodeH265PictureInfoFlags} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -73,32 +64,32 @@ public class StdVideoDecodeH265PictureInfoFlags extends Struct<StdVideoDecodeH26
 
     /** @return the value of the {@code IrapPicFlag} field. */
     @NativeType("uint32_t")
-    public boolean IrapPicFlag() { return nIrapPicFlag(address()) != 0; }
+    public int IrapPicFlag() { return nIrapPicFlag(address()); }
     /** @return the value of the {@code IdrPicFlag} field. */
     @NativeType("uint32_t")
-    public boolean IdrPicFlag() { return nIdrPicFlag(address()) != 0; }
+    public int IdrPicFlag() { return nIdrPicFlag(address()); }
     /** @return the value of the {@code IsReference} field. */
     @NativeType("uint32_t")
-    public boolean IsReference() { return nIsReference(address()) != 0; }
+    public int IsReference() { return nIsReference(address()); }
     /** @return the value of the {@code short_term_ref_pic_set_sps_flag} field. */
     @NativeType("uint32_t")
-    public boolean short_term_ref_pic_set_sps_flag() { return nshort_term_ref_pic_set_sps_flag(address()) != 0; }
+    public int short_term_ref_pic_set_sps_flag() { return nshort_term_ref_pic_set_sps_flag(address()); }
 
     /** Sets the specified value to the {@code IrapPicFlag} field. */
-    public StdVideoDecodeH265PictureInfoFlags IrapPicFlag(@NativeType("uint32_t") boolean value) { nIrapPicFlag(address(), value ? 1 : 0); return this; }
+    public StdVideoDecodeH265PictureInfoFlags IrapPicFlag(@NativeType("uint32_t") int value) { nIrapPicFlag(address(), value); return this; }
     /** Sets the specified value to the {@code IdrPicFlag} field. */
-    public StdVideoDecodeH265PictureInfoFlags IdrPicFlag(@NativeType("uint32_t") boolean value) { nIdrPicFlag(address(), value ? 1 : 0); return this; }
+    public StdVideoDecodeH265PictureInfoFlags IdrPicFlag(@NativeType("uint32_t") int value) { nIdrPicFlag(address(), value); return this; }
     /** Sets the specified value to the {@code IsReference} field. */
-    public StdVideoDecodeH265PictureInfoFlags IsReference(@NativeType("uint32_t") boolean value) { nIsReference(address(), value ? 1 : 0); return this; }
+    public StdVideoDecodeH265PictureInfoFlags IsReference(@NativeType("uint32_t") int value) { nIsReference(address(), value); return this; }
     /** Sets the specified value to the {@code short_term_ref_pic_set_sps_flag} field. */
-    public StdVideoDecodeH265PictureInfoFlags short_term_ref_pic_set_sps_flag(@NativeType("uint32_t") boolean value) { nshort_term_ref_pic_set_sps_flag(address(), value ? 1 : 0); return this; }
+    public StdVideoDecodeH265PictureInfoFlags short_term_ref_pic_set_sps_flag(@NativeType("uint32_t") int value) { nshort_term_ref_pic_set_sps_flag(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public StdVideoDecodeH265PictureInfoFlags set(
-        boolean IrapPicFlag,
-        boolean IdrPicFlag,
-        boolean IsReference,
-        boolean short_term_ref_pic_set_sps_flag
+        int IrapPicFlag,
+        int IdrPicFlag,
+        int IsReference,
+        int short_term_ref_pic_set_sps_flag
     ) {
         IrapPicFlag(IrapPicFlag);
         IdrPicFlag(IdrPicFlag);
@@ -124,29 +115,29 @@ public class StdVideoDecodeH265PictureInfoFlags extends Struct<StdVideoDecodeH26
 
     /** Returns a new {@code StdVideoDecodeH265PictureInfoFlags} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static StdVideoDecodeH265PictureInfoFlags malloc() {
-        return new StdVideoDecodeH265PictureInfoFlags(nmemAllocChecked(SIZEOF), null);
+        return wrap(StdVideoDecodeH265PictureInfoFlags.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code StdVideoDecodeH265PictureInfoFlags} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static StdVideoDecodeH265PictureInfoFlags calloc() {
-        return new StdVideoDecodeH265PictureInfoFlags(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(StdVideoDecodeH265PictureInfoFlags.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code StdVideoDecodeH265PictureInfoFlags} instance allocated with {@link BufferUtils}. */
     public static StdVideoDecodeH265PictureInfoFlags create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new StdVideoDecodeH265PictureInfoFlags(memAddress(container), container);
+        return wrap(StdVideoDecodeH265PictureInfoFlags.class, memAddress(container), container);
     }
 
     /** Returns a new {@code StdVideoDecodeH265PictureInfoFlags} instance for the specified memory address. */
     public static StdVideoDecodeH265PictureInfoFlags create(long address) {
-        return new StdVideoDecodeH265PictureInfoFlags(address, null);
+        return wrap(StdVideoDecodeH265PictureInfoFlags.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoDecodeH265PictureInfoFlags createSafe(long address) {
-        return address == NULL ? null : new StdVideoDecodeH265PictureInfoFlags(address, null);
+        return address == NULL ? null : wrap(StdVideoDecodeH265PictureInfoFlags.class, address);
     }
 
     /**
@@ -155,7 +146,7 @@ public class StdVideoDecodeH265PictureInfoFlags extends Struct<StdVideoDecodeH26
      * @param capacity the buffer capacity
      */
     public static StdVideoDecodeH265PictureInfoFlags.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -164,7 +155,7 @@ public class StdVideoDecodeH265PictureInfoFlags extends Struct<StdVideoDecodeH26
      * @param capacity the buffer capacity
      */
     public static StdVideoDecodeH265PictureInfoFlags.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -174,7 +165,7 @@ public class StdVideoDecodeH265PictureInfoFlags extends Struct<StdVideoDecodeH26
      */
     public static StdVideoDecodeH265PictureInfoFlags.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -184,13 +175,13 @@ public class StdVideoDecodeH265PictureInfoFlags extends Struct<StdVideoDecodeH26
      * @param capacity the buffer capacity
      */
     public static StdVideoDecodeH265PictureInfoFlags.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoDecodeH265PictureInfoFlags.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -199,7 +190,7 @@ public class StdVideoDecodeH265PictureInfoFlags extends Struct<StdVideoDecodeH26
      * @param stack the stack from which to allocate
      */
     public static StdVideoDecodeH265PictureInfoFlags malloc(MemoryStack stack) {
-        return new StdVideoDecodeH265PictureInfoFlags(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(StdVideoDecodeH265PictureInfoFlags.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -208,7 +199,7 @@ public class StdVideoDecodeH265PictureInfoFlags extends Struct<StdVideoDecodeH26
      * @param stack the stack from which to allocate
      */
     public static StdVideoDecodeH265PictureInfoFlags calloc(MemoryStack stack) {
-        return new StdVideoDecodeH265PictureInfoFlags(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(StdVideoDecodeH265PictureInfoFlags.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -218,7 +209,7 @@ public class StdVideoDecodeH265PictureInfoFlags extends Struct<StdVideoDecodeH26
      * @param capacity the buffer capacity
      */
     public static StdVideoDecodeH265PictureInfoFlags.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -228,7 +219,7 @@ public class StdVideoDecodeH265PictureInfoFlags extends Struct<StdVideoDecodeH26
      * @param capacity the buffer capacity
      */
     public static StdVideoDecodeH265PictureInfoFlags.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -244,13 +235,13 @@ public class StdVideoDecodeH265PictureInfoFlags extends Struct<StdVideoDecodeH26
     public static int nshort_term_ref_pic_set_sps_flag(long struct) { return (nbitfield0(struct) & 0x00_00_00_08) >>> 3; }
 
     public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoDecodeH265PictureInfoFlags.BITFIELD0, value); }
-    /** Unsafe version of {@link #IrapPicFlag(boolean) IrapPicFlag}. */
+    /** Unsafe version of {@link #IrapPicFlag(int) IrapPicFlag}. */
     public static void nIrapPicFlag(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_FF_FF_FE) | (value & 0x00_00_00_01)); }
-    /** Unsafe version of {@link #IdrPicFlag(boolean) IdrPicFlag}. */
+    /** Unsafe version of {@link #IdrPicFlag(int) IdrPicFlag}. */
     public static void nIdrPicFlag(long struct, int value) { nbitfield0(struct, ((value << 1) & 0x00_00_00_02) | (nbitfield0(struct) & 0xFF_FF_FF_FD)); }
-    /** Unsafe version of {@link #IsReference(boolean) IsReference}. */
+    /** Unsafe version of {@link #IsReference(int) IsReference}. */
     public static void nIsReference(long struct, int value) { nbitfield0(struct, ((value << 2) & 0x00_00_00_04) | (nbitfield0(struct) & 0xFF_FF_FF_FB)); }
-    /** Unsafe version of {@link #short_term_ref_pic_set_sps_flag(boolean) short_term_ref_pic_set_sps_flag}. */
+    /** Unsafe version of {@link #short_term_ref_pic_set_sps_flag(int) short_term_ref_pic_set_sps_flag}. */
     public static void nshort_term_ref_pic_set_sps_flag(long struct, int value) { nbitfield0(struct, ((value << 3) & 0x00_00_00_08) | (nbitfield0(struct) & 0xFF_FF_FF_F7)); }
 
     // -----------------------------------
@@ -263,9 +254,9 @@ public class StdVideoDecodeH265PictureInfoFlags extends Struct<StdVideoDecodeH26
         /**
          * Creates a new {@code StdVideoDecodeH265PictureInfoFlags.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link StdVideoDecodeH265PictureInfoFlags#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link StdVideoDecodeH265PictureInfoFlags#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -293,25 +284,25 @@ public class StdVideoDecodeH265PictureInfoFlags extends Struct<StdVideoDecodeH26
 
         /** @return the value of the {@code IrapPicFlag} field. */
         @NativeType("uint32_t")
-        public boolean IrapPicFlag() { return StdVideoDecodeH265PictureInfoFlags.nIrapPicFlag(address()) != 0; }
+        public int IrapPicFlag() { return StdVideoDecodeH265PictureInfoFlags.nIrapPicFlag(address()); }
         /** @return the value of the {@code IdrPicFlag} field. */
         @NativeType("uint32_t")
-        public boolean IdrPicFlag() { return StdVideoDecodeH265PictureInfoFlags.nIdrPicFlag(address()) != 0; }
+        public int IdrPicFlag() { return StdVideoDecodeH265PictureInfoFlags.nIdrPicFlag(address()); }
         /** @return the value of the {@code IsReference} field. */
         @NativeType("uint32_t")
-        public boolean IsReference() { return StdVideoDecodeH265PictureInfoFlags.nIsReference(address()) != 0; }
+        public int IsReference() { return StdVideoDecodeH265PictureInfoFlags.nIsReference(address()); }
         /** @return the value of the {@code short_term_ref_pic_set_sps_flag} field. */
         @NativeType("uint32_t")
-        public boolean short_term_ref_pic_set_sps_flag() { return StdVideoDecodeH265PictureInfoFlags.nshort_term_ref_pic_set_sps_flag(address()) != 0; }
+        public int short_term_ref_pic_set_sps_flag() { return StdVideoDecodeH265PictureInfoFlags.nshort_term_ref_pic_set_sps_flag(address()); }
 
         /** Sets the specified value to the {@code IrapPicFlag} field. */
-        public StdVideoDecodeH265PictureInfoFlags.Buffer IrapPicFlag(@NativeType("uint32_t") boolean value) { StdVideoDecodeH265PictureInfoFlags.nIrapPicFlag(address(), value ? 1 : 0); return this; }
+        public StdVideoDecodeH265PictureInfoFlags.Buffer IrapPicFlag(@NativeType("uint32_t") int value) { StdVideoDecodeH265PictureInfoFlags.nIrapPicFlag(address(), value); return this; }
         /** Sets the specified value to the {@code IdrPicFlag} field. */
-        public StdVideoDecodeH265PictureInfoFlags.Buffer IdrPicFlag(@NativeType("uint32_t") boolean value) { StdVideoDecodeH265PictureInfoFlags.nIdrPicFlag(address(), value ? 1 : 0); return this; }
+        public StdVideoDecodeH265PictureInfoFlags.Buffer IdrPicFlag(@NativeType("uint32_t") int value) { StdVideoDecodeH265PictureInfoFlags.nIdrPicFlag(address(), value); return this; }
         /** Sets the specified value to the {@code IsReference} field. */
-        public StdVideoDecodeH265PictureInfoFlags.Buffer IsReference(@NativeType("uint32_t") boolean value) { StdVideoDecodeH265PictureInfoFlags.nIsReference(address(), value ? 1 : 0); return this; }
+        public StdVideoDecodeH265PictureInfoFlags.Buffer IsReference(@NativeType("uint32_t") int value) { StdVideoDecodeH265PictureInfoFlags.nIsReference(address(), value); return this; }
         /** Sets the specified value to the {@code short_term_ref_pic_set_sps_flag} field. */
-        public StdVideoDecodeH265PictureInfoFlags.Buffer short_term_ref_pic_set_sps_flag(@NativeType("uint32_t") boolean value) { StdVideoDecodeH265PictureInfoFlags.nshort_term_ref_pic_set_sps_flag(address(), value ? 1 : 0); return this; }
+        public StdVideoDecodeH265PictureInfoFlags.Buffer short_term_ref_pic_set_sps_flag(@NativeType("uint32_t") int value) { StdVideoDecodeH265PictureInfoFlags.nshort_term_ref_pic_set_sps_flag(address(), value); return this; }
 
     }
 

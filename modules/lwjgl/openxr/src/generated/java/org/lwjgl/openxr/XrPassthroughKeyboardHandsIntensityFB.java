@@ -31,7 +31,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBPassthroughKeyboardHands XR_FB_passthrough_keyboard_hands} extension <b>must</b> be enabled prior to using {@link XrPassthroughKeyboardHandsIntensityFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBPassthroughKeyboardHands#XR_TYPE_PASSTHROUGH_KEYBOARD_HANDS_INTENSITY_FB TYPE_PASSTHROUGH_KEYBOARD_HANDS_INTENSITY_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -48,7 +48,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float {@link #rightHandIntensity};
  * }</code></pre>
  */
-public class XrPassthroughKeyboardHandsIntensityFB extends Struct<XrPassthroughKeyboardHandsIntensityFB> implements NativeResource {
+public class XrPassthroughKeyboardHandsIntensityFB extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -78,15 +78,6 @@ public class XrPassthroughKeyboardHandsIntensityFB extends Struct<XrPassthroughK
         NEXT = layout.offsetof(1);
         LEFTHANDINTENSITY = layout.offsetof(2);
         RIGHTHANDINTENSITY = layout.offsetof(3);
-    }
-
-    protected XrPassthroughKeyboardHandsIntensityFB(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrPassthroughKeyboardHandsIntensityFB create(long address, @Nullable ByteBuffer container) {
-        return new XrPassthroughKeyboardHandsIntensityFB(address, container);
     }
 
     /**
@@ -155,29 +146,29 @@ public class XrPassthroughKeyboardHandsIntensityFB extends Struct<XrPassthroughK
 
     /** Returns a new {@code XrPassthroughKeyboardHandsIntensityFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrPassthroughKeyboardHandsIntensityFB malloc() {
-        return new XrPassthroughKeyboardHandsIntensityFB(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrPassthroughKeyboardHandsIntensityFB.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrPassthroughKeyboardHandsIntensityFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrPassthroughKeyboardHandsIntensityFB calloc() {
-        return new XrPassthroughKeyboardHandsIntensityFB(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrPassthroughKeyboardHandsIntensityFB.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrPassthroughKeyboardHandsIntensityFB} instance allocated with {@link BufferUtils}. */
     public static XrPassthroughKeyboardHandsIntensityFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrPassthroughKeyboardHandsIntensityFB(memAddress(container), container);
+        return wrap(XrPassthroughKeyboardHandsIntensityFB.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrPassthroughKeyboardHandsIntensityFB} instance for the specified memory address. */
     public static XrPassthroughKeyboardHandsIntensityFB create(long address) {
-        return new XrPassthroughKeyboardHandsIntensityFB(address, null);
+        return wrap(XrPassthroughKeyboardHandsIntensityFB.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrPassthroughKeyboardHandsIntensityFB createSafe(long address) {
-        return address == NULL ? null : new XrPassthroughKeyboardHandsIntensityFB(address, null);
+        return address == NULL ? null : wrap(XrPassthroughKeyboardHandsIntensityFB.class, address);
     }
 
     /**
@@ -186,7 +177,7 @@ public class XrPassthroughKeyboardHandsIntensityFB extends Struct<XrPassthroughK
      * @param capacity the buffer capacity
      */
     public static XrPassthroughKeyboardHandsIntensityFB.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -195,7 +186,7 @@ public class XrPassthroughKeyboardHandsIntensityFB extends Struct<XrPassthroughK
      * @param capacity the buffer capacity
      */
     public static XrPassthroughKeyboardHandsIntensityFB.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -205,7 +196,7 @@ public class XrPassthroughKeyboardHandsIntensityFB extends Struct<XrPassthroughK
      */
     public static XrPassthroughKeyboardHandsIntensityFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -215,13 +206,13 @@ public class XrPassthroughKeyboardHandsIntensityFB extends Struct<XrPassthroughK
      * @param capacity the buffer capacity
      */
     public static XrPassthroughKeyboardHandsIntensityFB.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrPassthroughKeyboardHandsIntensityFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -230,7 +221,7 @@ public class XrPassthroughKeyboardHandsIntensityFB extends Struct<XrPassthroughK
      * @param stack the stack from which to allocate
      */
     public static XrPassthroughKeyboardHandsIntensityFB malloc(MemoryStack stack) {
-        return new XrPassthroughKeyboardHandsIntensityFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrPassthroughKeyboardHandsIntensityFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -239,7 +230,7 @@ public class XrPassthroughKeyboardHandsIntensityFB extends Struct<XrPassthroughK
      * @param stack the stack from which to allocate
      */
     public static XrPassthroughKeyboardHandsIntensityFB calloc(MemoryStack stack) {
-        return new XrPassthroughKeyboardHandsIntensityFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrPassthroughKeyboardHandsIntensityFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -249,7 +240,7 @@ public class XrPassthroughKeyboardHandsIntensityFB extends Struct<XrPassthroughK
      * @param capacity the buffer capacity
      */
     public static XrPassthroughKeyboardHandsIntensityFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -259,7 +250,7 @@ public class XrPassthroughKeyboardHandsIntensityFB extends Struct<XrPassthroughK
      * @param capacity the buffer capacity
      */
     public static XrPassthroughKeyboardHandsIntensityFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -292,9 +283,9 @@ public class XrPassthroughKeyboardHandsIntensityFB extends Struct<XrPassthroughK
         /**
          * Creates a new {@code XrPassthroughKeyboardHandsIntensityFB.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrPassthroughKeyboardHandsIntensityFB#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrPassthroughKeyboardHandsIntensityFB#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

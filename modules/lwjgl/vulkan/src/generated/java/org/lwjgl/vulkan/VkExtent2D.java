@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkDisplayModeParametersKHR}, {@link VkDisplayPlaneCapabilitiesKHR}, {@link VkDisplayPropertiesKHR}, {@link VkDisplaySurfaceCreateInfoKHR}, {@link VkFragmentShadingRateAttachmentInfoKHR}, {@link VkImageViewSampleWeightCreateInfoQCOM}, {@link VkMultisamplePropertiesEXT}, {@link VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM}, {@link VkPhysicalDeviceFragmentDensityMapPropertiesEXT}, {@link VkPhysicalDeviceFragmentShadingRateKHR}, {@link VkPhysicalDeviceFragmentShadingRatePropertiesKHR}, {@link VkPhysicalDeviceImageProcessing2PropertiesQCOM}, {@link VkPhysicalDeviceImageProcessingPropertiesQCOM}, {@link VkPhysicalDeviceRenderPassStripedPropertiesARM}, {@link VkPhysicalDeviceSampleLocationsPropertiesEXT}, {@link VkPhysicalDeviceShadingRateImagePropertiesNV}, {@link VkPipelineFragmentShadingRateStateCreateInfoKHR}, {@link VkRect2D}, {@link VkRectLayerKHR}, {@link VkRenderingFragmentShadingRateAttachmentInfoKHR}, {@link VkSampleLocationsInfoEXT}, {@link VkSamplerBlockMatchWindowCreateInfoQCOM}, {@link VkSurfaceCapabilities2EXT}, {@link VkSurfaceCapabilitiesKHR}, {@link VkSurfacePresentScalingCapabilitiesEXT}, {@link VkSwapchainCreateInfoKHR}, {@link VkTilePropertiesQCOM}, {@link VkVideoCapabilitiesKHR}, {@link VkVideoEncodeCapabilitiesKHR}, {@link VkVideoEncodeH265CapabilitiesKHR}, {@link VkVideoPictureResourceInfoKHR}, {@link VkVideoSessionCreateInfoKHR}, {@link KHRFragmentShadingRate#vkCmdSetFragmentShadingRateKHR CmdSetFragmentShadingRateKHR}, {@link HUAWEISubpassShading#vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI GetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI}, {@link VK10#vkGetRenderAreaGranularity GetRenderAreaGranularity}, {@link KHRMaintenance5#vkGetRenderingAreaGranularityKHR GetRenderingAreaGranularityKHR}</p>
+ * <p>{@link VkDisplayModeParametersKHR}, {@link VkDisplayPlaneCapabilitiesKHR}, {@link VkDisplayPropertiesKHR}, {@link VkDisplaySurfaceCreateInfoKHR}, {@link VkFragmentShadingRateAttachmentInfoKHR}, {@link VkMultisamplePropertiesEXT}, {@link VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM}, {@link VkPhysicalDeviceFragmentDensityMapPropertiesEXT}, {@link VkPhysicalDeviceFragmentShadingRateKHR}, {@link VkPhysicalDeviceFragmentShadingRatePropertiesKHR}, {@link VkPhysicalDeviceSampleLocationsPropertiesEXT}, {@link VkPhysicalDeviceShadingRateImagePropertiesNV}, {@link VkPipelineFragmentShadingRateStateCreateInfoKHR}, {@link VkRect2D}, {@link VkRectLayerKHR}, {@link VkRenderingFragmentShadingRateAttachmentInfoKHR}, {@link VkSampleLocationsInfoEXT}, {@link VkSurfaceCapabilities2EXT}, {@link VkSurfaceCapabilitiesKHR}, {@link VkSwapchainCreateInfoKHR}, {@link VkVideoCapabilitiesKHR}, {@link VkVideoDecodeInfoKHR}, {@link VkVideoEncodeCapabilitiesKHR}, {@link VkVideoEncodeH264SessionCreateInfoEXT}, {@link VkVideoEncodeInfoKHR}, {@link VkVideoPictureResourceKHR}, {@link VkVideoSessionCreateInfoKHR}, {@link KHRFragmentShadingRate#vkCmdSetFragmentShadingRateKHR CmdSetFragmentShadingRateKHR}, {@link HUAWEISubpassShading#vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI GetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI}, {@link VK10#vkGetRenderAreaGranularity GetRenderAreaGranularity}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -30,7 +30,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #height};
  * }</code></pre>
  */
-public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
+public class VkExtent2D extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -54,15 +54,6 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
 
         WIDTH = layout.offsetof(0);
         HEIGHT = layout.offsetof(1);
-    }
-
-    protected VkExtent2D(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkExtent2D create(long address, @Nullable ByteBuffer container) {
-        return new VkExtent2D(address, container);
     }
 
     /**
@@ -117,29 +108,29 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
 
     /** Returns a new {@code VkExtent2D} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkExtent2D malloc() {
-        return new VkExtent2D(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkExtent2D.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkExtent2D} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkExtent2D calloc() {
-        return new VkExtent2D(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkExtent2D.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkExtent2D} instance allocated with {@link BufferUtils}. */
     public static VkExtent2D create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkExtent2D(memAddress(container), container);
+        return wrap(VkExtent2D.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkExtent2D} instance for the specified memory address. */
     public static VkExtent2D create(long address) {
-        return new VkExtent2D(address, null);
+        return wrap(VkExtent2D.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkExtent2D createSafe(long address) {
-        return address == NULL ? null : new VkExtent2D(address, null);
+        return address == NULL ? null : wrap(VkExtent2D.class, address);
     }
 
     /**
@@ -148,7 +139,7 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkExtent2D.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -157,7 +148,7 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkExtent2D.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -167,7 +158,7 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
      */
     public static VkExtent2D.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -177,13 +168,13 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkExtent2D.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkExtent2D.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -211,7 +202,7 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkExtent2D malloc(MemoryStack stack) {
-        return new VkExtent2D(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkExtent2D.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -220,7 +211,7 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkExtent2D calloc(MemoryStack stack) {
-        return new VkExtent2D(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkExtent2D.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -230,7 +221,7 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkExtent2D.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -240,7 +231,7 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkExtent2D.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -265,9 +256,9 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
         /**
          * Creates a new {@code VkExtent2D.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkExtent2D#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkExtent2D#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

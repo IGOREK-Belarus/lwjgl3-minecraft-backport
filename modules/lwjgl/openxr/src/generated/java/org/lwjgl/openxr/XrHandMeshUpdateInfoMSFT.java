@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>A runtime <b>may</b> not maintain a full history of hand mesh data, therefore the returned {@link XrHandMeshMSFT} might return data that’s not exactly corresponding to the {@code time} input. If the runtime cannot return any tracking data for the given {@code time} at all, it <b>must</b> set {@link XrHandMeshMSFT}{@code ::isActive} to {@link XR10#XR_FALSE FALSE} for the call to {@link MSFTHandTrackingMesh#xrUpdateHandMeshMSFT UpdateHandMeshMSFT}. Otherwise, if the runtime returns {@link XrHandMeshMSFT}{@code ::isActive} as {@link XR10#XR_TRUE TRUE}, the data in {@link XrHandMeshMSFT} must be valid to use.</p>
+ * <p>A runtime <b>may</b> not maintain a full history of hand mesh data, therefore the returned {@link XrHandMeshMSFT} might return data that’s not exactly corresponding to the {@code time} input. If the runtime cannot return any tracking data for the given {@code time} at all, it <b>must</b> set {@code isActive} to {@link XR10#XR_FALSE FALSE} for the call to {@link MSFTHandTrackingMesh#xrUpdateHandMeshMSFT UpdateHandMeshMSFT}. Otherwise, if the runtime returns {@code isActive} as {@link XR10#XR_TRUE TRUE}, the data in {@link XrHandMeshMSFT} must be valid to use.</p>
  * 
  * <p>An application can choose different {@code handPoseType} values to query the hand mesh data. The returned hand mesh <b>must</b> be consistent to the hand joint space location on the same {@code XrHandTrackerEXT} when using the same {@code XrHandPoseTypeMSFT}.</p>
  * 
@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTHandTrackingMesh XR_MSFT_hand_tracking_mesh} extension <b>must</b> be enabled prior to using {@link XrHandMeshUpdateInfoMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTHandTrackingMesh#XR_TYPE_HAND_MESH_UPDATE_INFO_MSFT TYPE_HAND_MESH_UPDATE_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code handPoseType} <b>must</b> be a valid {@code XrHandPoseTypeMSFT} value</li>
  * </ul>
  * 
@@ -47,7 +47,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrHandPoseTypeMSFT {@link #handPoseType};
  * }</code></pre>
  */
-public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> implements NativeResource {
+public class XrHandMeshUpdateInfoMSFT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -77,15 +77,6 @@ public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> i
         NEXT = layout.offsetof(1);
         TIME = layout.offsetof(2);
         HANDPOSETYPE = layout.offsetof(3);
-    }
-
-    protected XrHandMeshUpdateInfoMSFT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrHandMeshUpdateInfoMSFT create(long address, @Nullable ByteBuffer container) {
-        return new XrHandMeshUpdateInfoMSFT(address, container);
     }
 
     /**
@@ -156,29 +147,29 @@ public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> i
 
     /** Returns a new {@code XrHandMeshUpdateInfoMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrHandMeshUpdateInfoMSFT malloc() {
-        return new XrHandMeshUpdateInfoMSFT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrHandMeshUpdateInfoMSFT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrHandMeshUpdateInfoMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrHandMeshUpdateInfoMSFT calloc() {
-        return new XrHandMeshUpdateInfoMSFT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrHandMeshUpdateInfoMSFT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrHandMeshUpdateInfoMSFT} instance allocated with {@link BufferUtils}. */
     public static XrHandMeshUpdateInfoMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrHandMeshUpdateInfoMSFT(memAddress(container), container);
+        return wrap(XrHandMeshUpdateInfoMSFT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrHandMeshUpdateInfoMSFT} instance for the specified memory address. */
     public static XrHandMeshUpdateInfoMSFT create(long address) {
-        return new XrHandMeshUpdateInfoMSFT(address, null);
+        return wrap(XrHandMeshUpdateInfoMSFT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandMeshUpdateInfoMSFT createSafe(long address) {
-        return address == NULL ? null : new XrHandMeshUpdateInfoMSFT(address, null);
+        return address == NULL ? null : wrap(XrHandMeshUpdateInfoMSFT.class, address);
     }
 
     /**
@@ -187,7 +178,7 @@ public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> i
      * @param capacity the buffer capacity
      */
     public static XrHandMeshUpdateInfoMSFT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -196,7 +187,7 @@ public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> i
      * @param capacity the buffer capacity
      */
     public static XrHandMeshUpdateInfoMSFT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -206,7 +197,7 @@ public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> i
      */
     public static XrHandMeshUpdateInfoMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -216,13 +207,13 @@ public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> i
      * @param capacity the buffer capacity
      */
     public static XrHandMeshUpdateInfoMSFT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandMeshUpdateInfoMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -231,7 +222,7 @@ public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> i
      * @param stack the stack from which to allocate
      */
     public static XrHandMeshUpdateInfoMSFT malloc(MemoryStack stack) {
-        return new XrHandMeshUpdateInfoMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrHandMeshUpdateInfoMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -240,7 +231,7 @@ public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> i
      * @param stack the stack from which to allocate
      */
     public static XrHandMeshUpdateInfoMSFT calloc(MemoryStack stack) {
-        return new XrHandMeshUpdateInfoMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrHandMeshUpdateInfoMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -250,7 +241,7 @@ public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> i
      * @param capacity the buffer capacity
      */
     public static XrHandMeshUpdateInfoMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -260,7 +251,7 @@ public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> i
      * @param capacity the buffer capacity
      */
     public static XrHandMeshUpdateInfoMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -293,9 +284,9 @@ public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> i
         /**
          * Creates a new {@code XrHandMeshUpdateInfoMSFT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrHandMeshUpdateInfoMSFT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrHandMeshUpdateInfoMSFT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

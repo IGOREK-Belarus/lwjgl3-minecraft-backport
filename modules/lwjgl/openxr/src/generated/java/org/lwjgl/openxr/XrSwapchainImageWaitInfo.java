@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_SWAPCHAIN_IMAGE_WAIT_INFO TYPE_SWAPCHAIN_IMAGE_WAIT_INFO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -38,7 +38,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrDuration {@link #timeout};
  * }</code></pre>
  */
-public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> implements NativeResource {
+public class XrSwapchainImageWaitInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -67,15 +67,6 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
         TIMEOUT = layout.offsetof(2);
     }
 
-    protected XrSwapchainImageWaitInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSwapchainImageWaitInfo create(long address, @Nullable ByteBuffer container) {
-        return new XrSwapchainImageWaitInfo(address, container);
-    }
-
     /**
      * Creates a {@code XrSwapchainImageWaitInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -95,7 +86,7 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
     /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** indicates how many nanoseconds the call <b>may</b> block waiting for the image to become available for writing. */
+    /** indicates how many nanoseconds the call should block waiting for the image to become available for writing. */
     @NativeType("XrDuration")
     public long timeout() { return ntimeout(address()); }
 
@@ -137,29 +128,29 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
 
     /** Returns a new {@code XrSwapchainImageWaitInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSwapchainImageWaitInfo malloc() {
-        return new XrSwapchainImageWaitInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSwapchainImageWaitInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSwapchainImageWaitInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSwapchainImageWaitInfo calloc() {
-        return new XrSwapchainImageWaitInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSwapchainImageWaitInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSwapchainImageWaitInfo} instance allocated with {@link BufferUtils}. */
     public static XrSwapchainImageWaitInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSwapchainImageWaitInfo(memAddress(container), container);
+        return wrap(XrSwapchainImageWaitInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSwapchainImageWaitInfo} instance for the specified memory address. */
     public static XrSwapchainImageWaitInfo create(long address) {
-        return new XrSwapchainImageWaitInfo(address, null);
+        return wrap(XrSwapchainImageWaitInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSwapchainImageWaitInfo createSafe(long address) {
-        return address == NULL ? null : new XrSwapchainImageWaitInfo(address, null);
+        return address == NULL ? null : wrap(XrSwapchainImageWaitInfo.class, address);
     }
 
     /**
@@ -168,7 +159,7 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
      * @param capacity the buffer capacity
      */
     public static XrSwapchainImageWaitInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -177,7 +168,7 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
      * @param capacity the buffer capacity
      */
     public static XrSwapchainImageWaitInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -187,7 +178,7 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
      */
     public static XrSwapchainImageWaitInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -197,13 +188,13 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
      * @param capacity the buffer capacity
      */
     public static XrSwapchainImageWaitInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSwapchainImageWaitInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -212,7 +203,7 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
      * @param stack the stack from which to allocate
      */
     public static XrSwapchainImageWaitInfo malloc(MemoryStack stack) {
-        return new XrSwapchainImageWaitInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSwapchainImageWaitInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -221,7 +212,7 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
      * @param stack the stack from which to allocate
      */
     public static XrSwapchainImageWaitInfo calloc(MemoryStack stack) {
-        return new XrSwapchainImageWaitInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSwapchainImageWaitInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -231,7 +222,7 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
      * @param capacity the buffer capacity
      */
     public static XrSwapchainImageWaitInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -241,7 +232,7 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
      * @param capacity the buffer capacity
      */
     public static XrSwapchainImageWaitInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -270,9 +261,9 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
         /**
          * Creates a new {@code XrSwapchainImageWaitInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSwapchainImageWaitInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSwapchainImageWaitInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

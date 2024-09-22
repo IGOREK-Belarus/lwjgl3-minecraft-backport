@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct VREvent_SeatedZeroPoseReset_t")
-public class VREventSeatedZeroPoseReset extends Struct<VREventSeatedZeroPoseReset> {
+public class VREventSeatedZeroPoseReset extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -43,15 +43,6 @@ public class VREventSeatedZeroPoseReset extends Struct<VREventSeatedZeroPoseRese
         ALIGNOF = layout.getAlignment();
 
         BRESETBYSYSTEMMENU = layout.offsetof(0);
-    }
-
-    protected VREventSeatedZeroPoseReset(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VREventSeatedZeroPoseReset create(long address, @Nullable ByteBuffer container) {
-        return new VREventSeatedZeroPoseReset(address, container);
     }
 
     /**
@@ -75,13 +66,13 @@ public class VREventSeatedZeroPoseReset extends Struct<VREventSeatedZeroPoseRese
 
     /** Returns a new {@code VREventSeatedZeroPoseReset} instance for the specified memory address. */
     public static VREventSeatedZeroPoseReset create(long address) {
-        return new VREventSeatedZeroPoseReset(address, null);
+        return wrap(VREventSeatedZeroPoseReset.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventSeatedZeroPoseReset createSafe(long address) {
-        return address == NULL ? null : new VREventSeatedZeroPoseReset(address, null);
+        return address == NULL ? null : wrap(VREventSeatedZeroPoseReset.class, address);
     }
 
     /**
@@ -91,13 +82,13 @@ public class VREventSeatedZeroPoseReset extends Struct<VREventSeatedZeroPoseRese
      * @param capacity the buffer capacity
      */
     public static VREventSeatedZeroPoseReset.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventSeatedZeroPoseReset.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -115,9 +106,9 @@ public class VREventSeatedZeroPoseReset extends Struct<VREventSeatedZeroPoseRese
         /**
          * Creates a new {@code VREventSeatedZeroPoseReset.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VREventSeatedZeroPoseReset#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VREventSeatedZeroPoseReset#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

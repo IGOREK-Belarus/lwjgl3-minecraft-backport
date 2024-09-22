@@ -18,18 +18,11 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Structure specifying parameters of a newly created event.
  * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If the {@code pNext} chain includes a {@link VkExportMetalObjectCreateInfoEXT} structure, its {@code exportObjectType} member <b>must</b> be {@link EXTMetalObjects#VK_EXPORT_METAL_OBJECT_TYPE_METAL_SHARED_EVENT_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_SHARED_EVENT_BIT_EXT}</li>
- * </ul>
- * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK10#VK_STRUCTURE_TYPE_EVENT_CREATE_INFO STRUCTURE_TYPE_EVENT_CREATE_INFO}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkExportMetalObjectCreateInfoEXT} or {@link VkImportMetalSharedEventInfoEXT}</li>
- * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique, with the exception of structures of type {@link VkExportMetalObjectCreateInfoEXT}</li>
+ * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
  * <li>{@code flags} <b>must</b> be a valid combination of {@code VkEventCreateFlagBits} values</li>
  * </ul>
  * 
@@ -46,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkEventCreateFlags {@link #flags};
  * }</code></pre>
  */
-public class VkEventCreateInfo extends Struct<VkEventCreateInfo> implements NativeResource {
+public class VkEventCreateInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -75,15 +68,6 @@ public class VkEventCreateInfo extends Struct<VkEventCreateInfo> implements Nati
         FLAGS = layout.offsetof(2);
     }
 
-    protected VkEventCreateInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkEventCreateInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkEventCreateInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkEventCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -97,7 +81,7 @@ public class VkEventCreateInfo extends Struct<VkEventCreateInfo> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -113,10 +97,6 @@ public class VkEventCreateInfo extends Struct<VkEventCreateInfo> implements Nati
     public VkEventCreateInfo sType$Default() { return sType(VK10.VK_STRUCTURE_TYPE_EVENT_CREATE_INFO); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkEventCreateInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Prepends the specified {@link VkExportMetalObjectCreateInfoEXT} value to the {@code pNext} chain. */
-    public VkEventCreateInfo pNext(VkExportMetalObjectCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkImportMetalSharedEventInfoEXT} value to the {@code pNext} chain. */
-    public VkEventCreateInfo pNext(VkImportMetalSharedEventInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #flags} field. */
     public VkEventCreateInfo flags(@NativeType("VkEventCreateFlags") int value) { nflags(address(), value); return this; }
 
@@ -149,29 +129,29 @@ public class VkEventCreateInfo extends Struct<VkEventCreateInfo> implements Nati
 
     /** Returns a new {@code VkEventCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkEventCreateInfo malloc() {
-        return new VkEventCreateInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkEventCreateInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkEventCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkEventCreateInfo calloc() {
-        return new VkEventCreateInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkEventCreateInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkEventCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VkEventCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkEventCreateInfo(memAddress(container), container);
+        return wrap(VkEventCreateInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkEventCreateInfo} instance for the specified memory address. */
     public static VkEventCreateInfo create(long address) {
-        return new VkEventCreateInfo(address, null);
+        return wrap(VkEventCreateInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkEventCreateInfo createSafe(long address) {
-        return address == NULL ? null : new VkEventCreateInfo(address, null);
+        return address == NULL ? null : wrap(VkEventCreateInfo.class, address);
     }
 
     /**
@@ -180,7 +160,7 @@ public class VkEventCreateInfo extends Struct<VkEventCreateInfo> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkEventCreateInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -189,7 +169,7 @@ public class VkEventCreateInfo extends Struct<VkEventCreateInfo> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkEventCreateInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -199,7 +179,7 @@ public class VkEventCreateInfo extends Struct<VkEventCreateInfo> implements Nati
      */
     public static VkEventCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -209,13 +189,13 @@ public class VkEventCreateInfo extends Struct<VkEventCreateInfo> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkEventCreateInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkEventCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -243,7 +223,7 @@ public class VkEventCreateInfo extends Struct<VkEventCreateInfo> implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkEventCreateInfo malloc(MemoryStack stack) {
-        return new VkEventCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkEventCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -252,7 +232,7 @@ public class VkEventCreateInfo extends Struct<VkEventCreateInfo> implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkEventCreateInfo calloc(MemoryStack stack) {
-        return new VkEventCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkEventCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -262,7 +242,7 @@ public class VkEventCreateInfo extends Struct<VkEventCreateInfo> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkEventCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -272,7 +252,7 @@ public class VkEventCreateInfo extends Struct<VkEventCreateInfo> implements Nati
      * @param capacity the buffer capacity
      */
     public static VkEventCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -301,9 +281,9 @@ public class VkEventCreateInfo extends Struct<VkEventCreateInfo> implements Nati
         /**
          * Creates a new {@code VkEventCreateInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkEventCreateInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkEventCreateInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -345,10 +325,6 @@ public class VkEventCreateInfo extends Struct<VkEventCreateInfo> implements Nati
         public VkEventCreateInfo.Buffer sType$Default() { return sType(VK10.VK_STRUCTURE_TYPE_EVENT_CREATE_INFO); }
         /** Sets the specified value to the {@link VkEventCreateInfo#pNext} field. */
         public VkEventCreateInfo.Buffer pNext(@NativeType("void const *") long value) { VkEventCreateInfo.npNext(address(), value); return this; }
-        /** Prepends the specified {@link VkExportMetalObjectCreateInfoEXT} value to the {@code pNext} chain. */
-        public VkEventCreateInfo.Buffer pNext(VkExportMetalObjectCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkImportMetalSharedEventInfoEXT} value to the {@code pNext} chain. */
-        public VkEventCreateInfo.Buffer pNext(VkImportMetalSharedEventInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkEventCreateInfo#flags} field. */
         public VkEventCreateInfo.Buffer flags(@NativeType("VkEventCreateFlags") int value) { VkEventCreateInfo.nflags(address(), value); return this; }
 

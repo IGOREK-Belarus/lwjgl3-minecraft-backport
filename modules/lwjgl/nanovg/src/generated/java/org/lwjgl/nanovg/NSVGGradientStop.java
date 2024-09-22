@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct NSVGgradientStop")
-public class NSVGGradientStop extends Struct<NSVGGradientStop> {
+public class NSVGGradientStop extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -49,15 +49,6 @@ public class NSVGGradientStop extends Struct<NSVGGradientStop> {
         OFFSET = layout.offsetof(1);
     }
 
-    protected NSVGGradientStop(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected NSVGGradientStop create(long address, @Nullable ByteBuffer container) {
-        return new NSVGGradientStop(address, container);
-    }
-
     /**
      * Creates a {@code NSVGGradientStop} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -81,13 +72,13 @@ public class NSVGGradientStop extends Struct<NSVGGradientStop> {
 
     /** Returns a new {@code NSVGGradientStop} instance for the specified memory address. */
     public static NSVGGradientStop create(long address) {
-        return new NSVGGradientStop(address, null);
+        return wrap(NSVGGradientStop.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NSVGGradientStop createSafe(long address) {
-        return address == NULL ? null : new NSVGGradientStop(address, null);
+        return address == NULL ? null : wrap(NSVGGradientStop.class, address);
     }
 
     /**
@@ -97,13 +88,13 @@ public class NSVGGradientStop extends Struct<NSVGGradientStop> {
      * @param capacity the buffer capacity
      */
     public static NSVGGradientStop.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NSVGGradientStop.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -123,9 +114,9 @@ public class NSVGGradientStop extends Struct<NSVGGradientStop> {
         /**
          * Creates a new {@code NSVGGradientStop.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NSVGGradientStop#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link NSVGGradientStop#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

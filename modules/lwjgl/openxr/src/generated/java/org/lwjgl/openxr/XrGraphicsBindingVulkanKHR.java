@@ -39,7 +39,7 @@ import org.lwjgl.vulkan.*;
  * <ul>
  * <li>The {@link KHRVulkanEnable XR_KHR_vulkan_enable} extension <b>must</b> be enabled prior to using {@link XrGraphicsBindingVulkanKHR}</li>
  * <li>{@code type} <b>must</b> be {@link KHRVulkanEnable#XR_TYPE_GRAPHICS_BINDING_VULKAN_KHR TYPE_GRAPHICS_BINDING_VULKAN_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code instance} <b>must</b> be a valid {@code VkInstance} value</li>
  * <li>{@code physicalDevice} <b>must</b> be a valid {@code VkPhysicalDevice} value</li>
  * <li>{@code device} <b>must</b> be a valid {@code VkDevice} value</li>
@@ -62,7 +62,7 @@ import org.lwjgl.vulkan.*;
  *     uint32_t {@link #queueIndex};
  * }</code></pre>
  */
-public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKHR> implements NativeResource {
+public class XrGraphicsBindingVulkanKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -101,15 +101,6 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
         DEVICE = layout.offsetof(4);
         QUEUEFAMILYINDEX = layout.offsetof(5);
         QUEUEINDEX = layout.offsetof(6);
-    }
-
-    protected XrGraphicsBindingVulkanKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrGraphicsBindingVulkanKHR create(long address, @Nullable ByteBuffer container) {
-        return new XrGraphicsBindingVulkanKHR(address, container);
     }
 
     /**
@@ -201,29 +192,29 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
 
     /** Returns a new {@code XrGraphicsBindingVulkanKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrGraphicsBindingVulkanKHR malloc() {
-        return new XrGraphicsBindingVulkanKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrGraphicsBindingVulkanKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrGraphicsBindingVulkanKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrGraphicsBindingVulkanKHR calloc() {
-        return new XrGraphicsBindingVulkanKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrGraphicsBindingVulkanKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrGraphicsBindingVulkanKHR} instance allocated with {@link BufferUtils}. */
     public static XrGraphicsBindingVulkanKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrGraphicsBindingVulkanKHR(memAddress(container), container);
+        return wrap(XrGraphicsBindingVulkanKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrGraphicsBindingVulkanKHR} instance for the specified memory address. */
     public static XrGraphicsBindingVulkanKHR create(long address) {
-        return new XrGraphicsBindingVulkanKHR(address, null);
+        return wrap(XrGraphicsBindingVulkanKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrGraphicsBindingVulkanKHR createSafe(long address) {
-        return address == NULL ? null : new XrGraphicsBindingVulkanKHR(address, null);
+        return address == NULL ? null : wrap(XrGraphicsBindingVulkanKHR.class, address);
     }
 
     /**
@@ -232,7 +223,7 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
      * @param capacity the buffer capacity
      */
     public static XrGraphicsBindingVulkanKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -241,7 +232,7 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
      * @param capacity the buffer capacity
      */
     public static XrGraphicsBindingVulkanKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -251,7 +242,7 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
      */
     public static XrGraphicsBindingVulkanKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -261,13 +252,13 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
      * @param capacity the buffer capacity
      */
     public static XrGraphicsBindingVulkanKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrGraphicsBindingVulkanKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -276,7 +267,7 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
      * @param stack the stack from which to allocate
      */
     public static XrGraphicsBindingVulkanKHR malloc(MemoryStack stack) {
-        return new XrGraphicsBindingVulkanKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrGraphicsBindingVulkanKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -285,7 +276,7 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
      * @param stack the stack from which to allocate
      */
     public static XrGraphicsBindingVulkanKHR calloc(MemoryStack stack) {
-        return new XrGraphicsBindingVulkanKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrGraphicsBindingVulkanKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -295,7 +286,7 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
      * @param capacity the buffer capacity
      */
     public static XrGraphicsBindingVulkanKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -305,7 +296,7 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
      * @param capacity the buffer capacity
      */
     public static XrGraphicsBindingVulkanKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -361,9 +352,9 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
         /**
          * Creates a new {@code XrGraphicsBindingVulkanKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrGraphicsBindingVulkanKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrGraphicsBindingVulkanKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

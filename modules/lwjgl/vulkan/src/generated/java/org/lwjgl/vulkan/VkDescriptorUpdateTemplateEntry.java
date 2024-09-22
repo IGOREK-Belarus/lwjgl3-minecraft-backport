@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code dstBinding} <b>must</b> be a valid binding in the descriptor set layout implicitly specified when using a descriptor update template to update descriptors</li>
- * <li>{@code dstArrayElement} and {@code descriptorCount} <b>must</b> be less than or equal to the number of array elements in the descriptor set binding implicitly specified when using a descriptor update template to update descriptors, and all applicable consecutive bindings, as described by <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-updates-consecutive">consecutive binding updates</a></li>
+ * <li>{@code dstArrayElement} and {@code descriptorCount} <b>must</b> be less than or equal to the number of array elements in the descriptor set binding implicitly specified when using a descriptor update template to update descriptors, and all applicable consecutive bindings, as described by <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-updates-consecutive">consecutive binding updates</a></li>
  * <li>If {@code descriptor} type is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}, {@code dstArrayElement} <b>must</b> be an integer multiple of 4</li>
  * <li>If {@code descriptor} type is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}, {@code descriptorCount} <b>must</b> be an integer multiple of 4</li>
  * </ul>
@@ -49,7 +49,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     size_t {@link #stride};
  * }</code></pre>
  */
-public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTemplateEntry> implements NativeResource {
+public class VkDescriptorUpdateTemplateEntry extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -87,15 +87,6 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
         STRIDE = layout.offsetof(5);
     }
 
-    protected VkDescriptorUpdateTemplateEntry(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkDescriptorUpdateTemplateEntry create(long address, @Nullable ByteBuffer container) {
-        return new VkDescriptorUpdateTemplateEntry(address, container);
-    }
-
     /**
      * Creates a {@code VkDescriptorUpdateTemplateEntry} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -125,7 +116,7 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
     @NativeType("size_t")
     public long offset() { return noffset(address()); }
     /**
-     * the stride in bytes between two consecutive array elements of the descriptor update information in the raw data structure. The actual pointer ptr for each array element j of update entry i is computed using the following formula:
+     * the stride in bytes between two consecutive array elements of the descriptor update informations in the raw data structure. The actual pointer ptr for each array element j of update entry i is computed using the following formula:
      * 
      * <pre><code>
      *     const char *ptr = (const char *)pData + pDescriptorUpdateEntries[i].offset + j * pDescriptorUpdateEntries[i].stride</code></pre>
@@ -183,29 +174,29 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
 
     /** Returns a new {@code VkDescriptorUpdateTemplateEntry} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDescriptorUpdateTemplateEntry malloc() {
-        return new VkDescriptorUpdateTemplateEntry(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkDescriptorUpdateTemplateEntry.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkDescriptorUpdateTemplateEntry} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDescriptorUpdateTemplateEntry calloc() {
-        return new VkDescriptorUpdateTemplateEntry(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkDescriptorUpdateTemplateEntry.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkDescriptorUpdateTemplateEntry} instance allocated with {@link BufferUtils}. */
     public static VkDescriptorUpdateTemplateEntry create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkDescriptorUpdateTemplateEntry(memAddress(container), container);
+        return wrap(VkDescriptorUpdateTemplateEntry.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkDescriptorUpdateTemplateEntry} instance for the specified memory address. */
     public static VkDescriptorUpdateTemplateEntry create(long address) {
-        return new VkDescriptorUpdateTemplateEntry(address, null);
+        return wrap(VkDescriptorUpdateTemplateEntry.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorUpdateTemplateEntry createSafe(long address) {
-        return address == NULL ? null : new VkDescriptorUpdateTemplateEntry(address, null);
+        return address == NULL ? null : wrap(VkDescriptorUpdateTemplateEntry.class, address);
     }
 
     /**
@@ -214,7 +205,7 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
      * @param capacity the buffer capacity
      */
     public static VkDescriptorUpdateTemplateEntry.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -223,7 +214,7 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
      * @param capacity the buffer capacity
      */
     public static VkDescriptorUpdateTemplateEntry.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -233,7 +224,7 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
      */
     public static VkDescriptorUpdateTemplateEntry.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -243,13 +234,13 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
      * @param capacity the buffer capacity
      */
     public static VkDescriptorUpdateTemplateEntry.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorUpdateTemplateEntry.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -277,7 +268,7 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorUpdateTemplateEntry malloc(MemoryStack stack) {
-        return new VkDescriptorUpdateTemplateEntry(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkDescriptorUpdateTemplateEntry.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -286,7 +277,7 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorUpdateTemplateEntry calloc(MemoryStack stack) {
-        return new VkDescriptorUpdateTemplateEntry(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkDescriptorUpdateTemplateEntry.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -296,7 +287,7 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
      * @param capacity the buffer capacity
      */
     public static VkDescriptorUpdateTemplateEntry.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -306,7 +297,7 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
      * @param capacity the buffer capacity
      */
     public static VkDescriptorUpdateTemplateEntry.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -347,9 +338,9 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
         /**
          * Creates a new {@code VkDescriptorUpdateTemplateEntry.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDescriptorUpdateTemplateEntry#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkDescriptorUpdateTemplateEntry#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

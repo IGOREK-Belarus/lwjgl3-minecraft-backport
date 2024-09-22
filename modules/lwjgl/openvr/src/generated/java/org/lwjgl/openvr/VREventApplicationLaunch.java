@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct VREvent_ApplicationLaunch_t")
-public class VREventApplicationLaunch extends Struct<VREventApplicationLaunch> {
+public class VREventApplicationLaunch extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -47,15 +47,6 @@ public class VREventApplicationLaunch extends Struct<VREventApplicationLaunch> {
 
         PID = layout.offsetof(0);
         UNARGSHANDLE = layout.offsetof(1);
-    }
-
-    protected VREventApplicationLaunch(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VREventApplicationLaunch create(long address, @Nullable ByteBuffer container) {
-        return new VREventApplicationLaunch(address, container);
     }
 
     /**
@@ -82,13 +73,13 @@ public class VREventApplicationLaunch extends Struct<VREventApplicationLaunch> {
 
     /** Returns a new {@code VREventApplicationLaunch} instance for the specified memory address. */
     public static VREventApplicationLaunch create(long address) {
-        return new VREventApplicationLaunch(address, null);
+        return wrap(VREventApplicationLaunch.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventApplicationLaunch createSafe(long address) {
-        return address == NULL ? null : new VREventApplicationLaunch(address, null);
+        return address == NULL ? null : wrap(VREventApplicationLaunch.class, address);
     }
 
     /**
@@ -98,13 +89,13 @@ public class VREventApplicationLaunch extends Struct<VREventApplicationLaunch> {
      * @param capacity the buffer capacity
      */
     public static VREventApplicationLaunch.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventApplicationLaunch.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -124,9 +115,9 @@ public class VREventApplicationLaunch extends Struct<VREventApplicationLaunch> {
         /**
          * Creates a new {@code VREventApplicationLaunch.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VREventApplicationLaunch#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VREventApplicationLaunch#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

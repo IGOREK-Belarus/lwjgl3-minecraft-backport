@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_VIEW TYPE_VIEW}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -43,7 +43,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrFovf XrFovf} {@link #fov};
  * }</code></pre>
  */
-public class XrView extends Struct<XrView> implements NativeResource {
+public class XrView extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -73,15 +73,6 @@ public class XrView extends Struct<XrView> implements NativeResource {
         NEXT = layout.offsetof(1);
         POSE = layout.offsetof(2);
         FOV = layout.offsetof(3);
-    }
-
-    protected XrView(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrView create(long address, @Nullable ByteBuffer container) {
-        return new XrView(address, container);
     }
 
     /**
@@ -154,29 +145,29 @@ public class XrView extends Struct<XrView> implements NativeResource {
 
     /** Returns a new {@code XrView} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrView malloc() {
-        return new XrView(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrView.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrView} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrView calloc() {
-        return new XrView(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrView.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrView} instance allocated with {@link BufferUtils}. */
     public static XrView create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrView(memAddress(container), container);
+        return wrap(XrView.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrView} instance for the specified memory address. */
     public static XrView create(long address) {
-        return new XrView(address, null);
+        return wrap(XrView.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrView createSafe(long address) {
-        return address == NULL ? null : new XrView(address, null);
+        return address == NULL ? null : wrap(XrView.class, address);
     }
 
     /**
@@ -185,7 +176,7 @@ public class XrView extends Struct<XrView> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrView.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -194,7 +185,7 @@ public class XrView extends Struct<XrView> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrView.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -204,7 +195,7 @@ public class XrView extends Struct<XrView> implements NativeResource {
      */
     public static XrView.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -214,13 +205,13 @@ public class XrView extends Struct<XrView> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrView.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrView.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -229,7 +220,7 @@ public class XrView extends Struct<XrView> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrView malloc(MemoryStack stack) {
-        return new XrView(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrView.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -238,7 +229,7 @@ public class XrView extends Struct<XrView> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrView calloc(MemoryStack stack) {
-        return new XrView(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrView.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -248,7 +239,7 @@ public class XrView extends Struct<XrView> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrView.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -258,7 +249,7 @@ public class XrView extends Struct<XrView> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrView.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -291,9 +282,9 @@ public class XrView extends Struct<XrView> implements NativeResource {
         /**
          * Creates a new {@code XrView.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrView#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrView#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

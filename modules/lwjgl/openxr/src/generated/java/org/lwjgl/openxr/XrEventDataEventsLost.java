@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_EVENT_DATA_EVENTS_LOST TYPE_EVENT_DATA_EVENTS_LOST}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -42,7 +42,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #lostEventCount};
  * }</code></pre>
  */
-public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> implements NativeResource {
+public class XrEventDataEventsLost extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -69,15 +69,6 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
         LOSTEVENTCOUNT = layout.offsetof(2);
-    }
-
-    protected XrEventDataEventsLost(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrEventDataEventsLost create(long address, @Nullable ByteBuffer container) {
-        return new XrEventDataEventsLost(address, container);
     }
 
     /**
@@ -109,14 +100,18 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
     public XrEventDataEventsLost type$Default() { return type(XR10.XR_TYPE_EVENT_DATA_EVENTS_LOST); }
     /** Sets the specified value to the {@link #next} field. */
     public XrEventDataEventsLost next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
+    /** Sets the specified value to the {@link #lostEventCount} field. */
+    public XrEventDataEventsLost lostEventCount(@NativeType("uint32_t") int value) { nlostEventCount(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrEventDataEventsLost set(
         int type,
-        long next
+        long next,
+        int lostEventCount
     ) {
         type(type);
         next(next);
+        lostEventCount(lostEventCount);
 
         return this;
     }
@@ -137,34 +132,34 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
 
     /** Returns a new {@code XrEventDataEventsLost} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrEventDataEventsLost malloc() {
-        return new XrEventDataEventsLost(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrEventDataEventsLost.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrEventDataEventsLost} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrEventDataEventsLost calloc() {
-        return new XrEventDataEventsLost(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrEventDataEventsLost.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrEventDataEventsLost} instance allocated with {@link BufferUtils}. */
     public static XrEventDataEventsLost create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrEventDataEventsLost(memAddress(container), container);
+        return wrap(XrEventDataEventsLost.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrEventDataEventsLost} instance for the specified memory address. */
     public static XrEventDataEventsLost create(long address) {
-        return new XrEventDataEventsLost(address, null);
+        return wrap(XrEventDataEventsLost.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrEventDataEventsLost createSafe(long address) {
-        return address == NULL ? null : new XrEventDataEventsLost(address, null);
+        return address == NULL ? null : wrap(XrEventDataEventsLost.class, address);
     }
 
     /** Downcasts the specified {@code XrEventDataBaseHeader} instance to {@code XrEventDataEventsLost}. */
     public static XrEventDataEventsLost create(XrEventDataBaseHeader value) {
-        return new XrEventDataEventsLost(value.address(), __getContainer(value));
+        return wrap(XrEventDataEventsLost.class, value);
     }
 
     /**
@@ -173,7 +168,7 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
      * @param capacity the buffer capacity
      */
     public static XrEventDataEventsLost.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -182,7 +177,7 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
      * @param capacity the buffer capacity
      */
     public static XrEventDataEventsLost.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -192,7 +187,7 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
      */
     public static XrEventDataEventsLost.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -202,18 +197,18 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
      * @param capacity the buffer capacity
      */
     public static XrEventDataEventsLost.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrEventDataEventsLost.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /** Downcasts the specified {@code XrEventDataBaseHeader.Buffer} instance to {@code XrEventDataEventsLost.Buffer}. */
     public static XrEventDataEventsLost.Buffer create(XrEventDataBaseHeader.Buffer value) {
-        return new XrEventDataEventsLost.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+        return wrap(Buffer.class, value);
     }
 
     /**
@@ -222,7 +217,7 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
      * @param stack the stack from which to allocate
      */
     public static XrEventDataEventsLost malloc(MemoryStack stack) {
-        return new XrEventDataEventsLost(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrEventDataEventsLost.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -231,7 +226,7 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
      * @param stack the stack from which to allocate
      */
     public static XrEventDataEventsLost calloc(MemoryStack stack) {
-        return new XrEventDataEventsLost(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrEventDataEventsLost.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -241,7 +236,7 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
      * @param capacity the buffer capacity
      */
     public static XrEventDataEventsLost.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -251,7 +246,7 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
      * @param capacity the buffer capacity
      */
     public static XrEventDataEventsLost.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -267,6 +262,8 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
     public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataEventsLost.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataEventsLost.NEXT, value); }
+    /** Unsafe version of {@link #lostEventCount(int) lostEventCount}. */
+    public static void nlostEventCount(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataEventsLost.LOSTEVENTCOUNT, value); }
 
     // -----------------------------------
 
@@ -278,9 +275,9 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
         /**
          * Creates a new {@code XrEventDataEventsLost.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrEventDataEventsLost#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrEventDataEventsLost#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -322,6 +319,8 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
         public XrEventDataEventsLost.Buffer type$Default() { return type(XR10.XR_TYPE_EVENT_DATA_EVENTS_LOST); }
         /** Sets the specified value to the {@link XrEventDataEventsLost#next} field. */
         public XrEventDataEventsLost.Buffer next(@NativeType("void const *") long value) { XrEventDataEventsLost.nnext(address(), value); return this; }
+        /** Sets the specified value to the {@link XrEventDataEventsLost#lostEventCount} field. */
+        public XrEventDataEventsLost.Buffer lostEventCount(@NativeType("uint32_t") int value) { XrEventDataEventsLost.nlostEventCount(address(), value); return this; }
 
     }
 

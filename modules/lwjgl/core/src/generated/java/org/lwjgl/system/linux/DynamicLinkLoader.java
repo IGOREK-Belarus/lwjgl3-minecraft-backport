@@ -99,7 +99,7 @@ public class DynamicLinkLoader {
     @NativeType("char *")
     public static String dlerror() {
         long __result = ndlerror();
-        return memUTF8Safe(__result);
+        return memASCIISafe(__result);
     }
 
     // --- [ dlsym ] ---

@@ -38,7 +38,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #meshShader};
  * }</code></pre>
  */
-public class VkPhysicalDeviceMeshShaderFeaturesNV extends Struct<VkPhysicalDeviceMeshShaderFeaturesNV> implements NativeResource {
+public class VkPhysicalDeviceMeshShaderFeaturesNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -70,15 +70,6 @@ public class VkPhysicalDeviceMeshShaderFeaturesNV extends Struct<VkPhysicalDevic
         MESHSHADER = layout.offsetof(3);
     }
 
-    protected VkPhysicalDeviceMeshShaderFeaturesNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceMeshShaderFeaturesNV create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceMeshShaderFeaturesNV(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceMeshShaderFeaturesNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -92,16 +83,16 @@ public class VkPhysicalDeviceMeshShaderFeaturesNV extends Struct<VkPhysicalDevic
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** specifies whether task shaders are supported. If this feature is not enabled, the {@link NVMeshShader#VK_SHADER_STAGE_TASK_BIT_NV SHADER_STAGE_TASK_BIT_NV} and {@link NVMeshShader#VK_PIPELINE_STAGE_TASK_SHADER_BIT_NV PIPELINE_STAGE_TASK_SHADER_BIT_NV} enum values <b>must</b> not be used. */
+    /** indicates whether the task shader stage is supported. */
     @NativeType("VkBool32")
     public boolean taskShader() { return ntaskShader(address()) != 0; }
-    /** specifies whether mesh shaders are supported. If this feature is not enabled, the {@link NVMeshShader#VK_SHADER_STAGE_MESH_BIT_NV SHADER_STAGE_MESH_BIT_NV} and {@link NVMeshShader#VK_PIPELINE_STAGE_MESH_SHADER_BIT_NV PIPELINE_STAGE_MESH_SHADER_BIT_NV} enum values <b>must</b> not be used. */
+    /** indicates whether the mesh shader stage is supported. */
     @NativeType("VkBool32")
     public boolean meshShader() { return nmeshShader(address()) != 0; }
 
@@ -147,29 +138,29 @@ public class VkPhysicalDeviceMeshShaderFeaturesNV extends Struct<VkPhysicalDevic
 
     /** Returns a new {@code VkPhysicalDeviceMeshShaderFeaturesNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceMeshShaderFeaturesNV malloc() {
-        return new VkPhysicalDeviceMeshShaderFeaturesNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceMeshShaderFeaturesNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceMeshShaderFeaturesNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceMeshShaderFeaturesNV calloc() {
-        return new VkPhysicalDeviceMeshShaderFeaturesNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceMeshShaderFeaturesNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceMeshShaderFeaturesNV} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceMeshShaderFeaturesNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceMeshShaderFeaturesNV(memAddress(container), container);
+        return wrap(VkPhysicalDeviceMeshShaderFeaturesNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceMeshShaderFeaturesNV} instance for the specified memory address. */
     public static VkPhysicalDeviceMeshShaderFeaturesNV create(long address) {
-        return new VkPhysicalDeviceMeshShaderFeaturesNV(address, null);
+        return wrap(VkPhysicalDeviceMeshShaderFeaturesNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceMeshShaderFeaturesNV createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceMeshShaderFeaturesNV(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceMeshShaderFeaturesNV.class, address);
     }
 
     /**
@@ -178,7 +169,7 @@ public class VkPhysicalDeviceMeshShaderFeaturesNV extends Struct<VkPhysicalDevic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMeshShaderFeaturesNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -187,7 +178,7 @@ public class VkPhysicalDeviceMeshShaderFeaturesNV extends Struct<VkPhysicalDevic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMeshShaderFeaturesNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -197,7 +188,7 @@ public class VkPhysicalDeviceMeshShaderFeaturesNV extends Struct<VkPhysicalDevic
      */
     public static VkPhysicalDeviceMeshShaderFeaturesNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -207,13 +198,13 @@ public class VkPhysicalDeviceMeshShaderFeaturesNV extends Struct<VkPhysicalDevic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMeshShaderFeaturesNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceMeshShaderFeaturesNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -241,7 +232,7 @@ public class VkPhysicalDeviceMeshShaderFeaturesNV extends Struct<VkPhysicalDevic
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceMeshShaderFeaturesNV malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceMeshShaderFeaturesNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceMeshShaderFeaturesNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -250,7 +241,7 @@ public class VkPhysicalDeviceMeshShaderFeaturesNV extends Struct<VkPhysicalDevic
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceMeshShaderFeaturesNV calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceMeshShaderFeaturesNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceMeshShaderFeaturesNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -260,7 +251,7 @@ public class VkPhysicalDeviceMeshShaderFeaturesNV extends Struct<VkPhysicalDevic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMeshShaderFeaturesNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -270,7 +261,7 @@ public class VkPhysicalDeviceMeshShaderFeaturesNV extends Struct<VkPhysicalDevic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMeshShaderFeaturesNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -303,9 +294,9 @@ public class VkPhysicalDeviceMeshShaderFeaturesNV extends Struct<VkPhysicalDevic
         /**
          * Creates a new {@code VkPhysicalDeviceMeshShaderFeaturesNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceMeshShaderFeaturesNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceMeshShaderFeaturesNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

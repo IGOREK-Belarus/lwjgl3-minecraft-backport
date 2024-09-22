@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint64_t {@link #maxTimelineSemaphoreValueDifference};
  * }</code></pre>
  */
-public class VkPhysicalDeviceTimelineSemaphoreProperties extends Struct<VkPhysicalDeviceTimelineSemaphoreProperties> implements NativeResource {
+public class VkPhysicalDeviceTimelineSemaphoreProperties extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,15 +66,6 @@ public class VkPhysicalDeviceTimelineSemaphoreProperties extends Struct<VkPhysic
         MAXTIMELINESEMAPHOREVALUEDIFFERENCE = layout.offsetof(2);
     }
 
-    protected VkPhysicalDeviceTimelineSemaphoreProperties(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceTimelineSemaphoreProperties create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceTimelineSemaphoreProperties(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceTimelineSemaphoreProperties} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -88,7 +79,7 @@ public class VkPhysicalDeviceTimelineSemaphoreProperties extends Struct<VkPhysic
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -132,29 +123,29 @@ public class VkPhysicalDeviceTimelineSemaphoreProperties extends Struct<VkPhysic
 
     /** Returns a new {@code VkPhysicalDeviceTimelineSemaphoreProperties} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceTimelineSemaphoreProperties malloc() {
-        return new VkPhysicalDeviceTimelineSemaphoreProperties(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceTimelineSemaphoreProperties.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceTimelineSemaphoreProperties} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceTimelineSemaphoreProperties calloc() {
-        return new VkPhysicalDeviceTimelineSemaphoreProperties(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceTimelineSemaphoreProperties.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceTimelineSemaphoreProperties} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceTimelineSemaphoreProperties create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceTimelineSemaphoreProperties(memAddress(container), container);
+        return wrap(VkPhysicalDeviceTimelineSemaphoreProperties.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceTimelineSemaphoreProperties} instance for the specified memory address. */
     public static VkPhysicalDeviceTimelineSemaphoreProperties create(long address) {
-        return new VkPhysicalDeviceTimelineSemaphoreProperties(address, null);
+        return wrap(VkPhysicalDeviceTimelineSemaphoreProperties.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceTimelineSemaphoreProperties createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceTimelineSemaphoreProperties(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceTimelineSemaphoreProperties.class, address);
     }
 
     /**
@@ -163,7 +154,7 @@ public class VkPhysicalDeviceTimelineSemaphoreProperties extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceTimelineSemaphoreProperties.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -172,7 +163,7 @@ public class VkPhysicalDeviceTimelineSemaphoreProperties extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceTimelineSemaphoreProperties.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -182,7 +173,7 @@ public class VkPhysicalDeviceTimelineSemaphoreProperties extends Struct<VkPhysic
      */
     public static VkPhysicalDeviceTimelineSemaphoreProperties.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -192,13 +183,13 @@ public class VkPhysicalDeviceTimelineSemaphoreProperties extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceTimelineSemaphoreProperties.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceTimelineSemaphoreProperties.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -207,7 +198,7 @@ public class VkPhysicalDeviceTimelineSemaphoreProperties extends Struct<VkPhysic
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceTimelineSemaphoreProperties malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceTimelineSemaphoreProperties(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceTimelineSemaphoreProperties.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -216,7 +207,7 @@ public class VkPhysicalDeviceTimelineSemaphoreProperties extends Struct<VkPhysic
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceTimelineSemaphoreProperties calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceTimelineSemaphoreProperties(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceTimelineSemaphoreProperties.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -226,7 +217,7 @@ public class VkPhysicalDeviceTimelineSemaphoreProperties extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceTimelineSemaphoreProperties.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -236,7 +227,7 @@ public class VkPhysicalDeviceTimelineSemaphoreProperties extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceTimelineSemaphoreProperties.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -263,9 +254,9 @@ public class VkPhysicalDeviceTimelineSemaphoreProperties extends Struct<VkPhysic
         /**
          * Creates a new {@code VkPhysicalDeviceTimelineSemaphoreProperties.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceTimelineSemaphoreProperties#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceTimelineSemaphoreProperties#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

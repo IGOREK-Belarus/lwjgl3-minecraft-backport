@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link XrCompositionLayerReprojectionPlaneOverrideMSFT}, {@link XrGeometryInstanceCreateInfoFB}, {@link XrGeometryInstanceTransformFB}, {@link XrHandCapsuleFB}, {@link XrHandJointVelocityEXT}, {@link XrHandMeshVertexMSFT}, {@link XrHandTrackingMeshFB}, {@link XrKeyboardTrackingDescriptionFB}, {@link XrPassthroughMeshTransformInfoHTC}, {@link XrPosef}, {@link XrQuaternionf}, {@link XrSceneMeshVertexBufferMSFT}, {@link XrSceneOrientedBoxBoundMSFT}, {@link XrSceneSphereBoundMSFT}, {@link XrSpaceTriangleMeshMETA}, {@link XrSpaceVelocity}, {@link XrSpaceVelocityData}, {@link XrTriangleMeshCreateInfoFB}, {@link XrVector2f}, {@link XrVector4f}, {@link FBTriangleMesh#xrTriangleMeshGetVertexBufferFB TriangleMeshGetVertexBufferFB}</p>
+ * <p>{@link XrCompositionLayerReprojectionPlaneOverrideMSFT}, {@link XrGeometryInstanceCreateInfoFB}, {@link XrGeometryInstanceTransformFB}, {@link XrHandCapsuleFB}, {@link XrHandJointVelocityEXT}, {@link XrHandMeshVertexMSFT}, {@link XrHandTrackingMeshFB}, {@link XrKeyboardTrackingDescriptionFB}, {@link XrPosef}, {@link XrQuaternionf}, {@link XrSceneMeshVertexBufferMSFT}, {@link XrSceneOrientedBoxBoundMSFT}, {@link XrSceneSphereBoundMSFT}, {@link XrSpaceVelocity}, {@link XrTriangleMeshCreateInfoFB}, {@link XrVector2f}, {@link XrVector4f}, {@link FBTriangleMesh#xrTriangleMeshGetVertexBufferFB TriangleMeshGetVertexBufferFB}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -35,7 +35,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float {@link #z};
  * }</code></pre>
  */
-public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
+public class XrVector3f extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -62,15 +62,6 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
         X = layout.offsetof(0);
         Y = layout.offsetof(1);
         Z = layout.offsetof(2);
-    }
-
-    protected XrVector3f(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrVector3f create(long address, @Nullable ByteBuffer container) {
-        return new XrVector3f(address, container);
     }
 
     /**
@@ -129,29 +120,29 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
 
     /** Returns a new {@code XrVector3f} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrVector3f malloc() {
-        return new XrVector3f(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrVector3f.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrVector3f} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrVector3f calloc() {
-        return new XrVector3f(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrVector3f.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrVector3f} instance allocated with {@link BufferUtils}. */
     public static XrVector3f create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrVector3f(memAddress(container), container);
+        return wrap(XrVector3f.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrVector3f} instance for the specified memory address. */
     public static XrVector3f create(long address) {
-        return new XrVector3f(address, null);
+        return wrap(XrVector3f.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrVector3f createSafe(long address) {
-        return address == NULL ? null : new XrVector3f(address, null);
+        return address == NULL ? null : wrap(XrVector3f.class, address);
     }
 
     /**
@@ -160,7 +151,7 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrVector3f.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -169,7 +160,7 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrVector3f.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -179,7 +170,7 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
      */
     public static XrVector3f.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -189,13 +180,13 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrVector3f.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrVector3f.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -204,7 +195,7 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrVector3f malloc(MemoryStack stack) {
-        return new XrVector3f(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrVector3f.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -213,7 +204,7 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrVector3f calloc(MemoryStack stack) {
-        return new XrVector3f(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrVector3f.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -223,7 +214,7 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrVector3f.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -233,7 +224,7 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrVector3f.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -262,9 +253,9 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
         /**
          * Creates a new {@code XrVector3f.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrVector3f#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrVector3f#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

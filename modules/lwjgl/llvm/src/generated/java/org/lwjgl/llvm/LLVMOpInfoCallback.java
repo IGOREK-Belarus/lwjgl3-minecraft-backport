@@ -21,8 +21,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     void *DisInfo,
  *     uint64_t PC,
  *     uint64_t Offset,
- *     uint64_t OpSize,
- *     uint64_t InstSize,
+ *     uint64_t Size,
  *     int TagType,
  *     void *TagBuf
  * )</code></pre>
@@ -72,8 +71,8 @@ public abstract class LLVMOpInfoCallback extends Callback implements LLVMOpInfoC
         }
 
         @Override
-        public int invoke(long DisInfo, long PC, long Offset, long OpSize, long InstSize, int TagType, long TagBuf) {
-            return delegate.invoke(DisInfo, PC, Offset, OpSize, InstSize, TagType, TagBuf);
+        public int invoke(long DisInfo, long PC, long Offset, long Size, int TagType, long TagBuf) {
+            return delegate.invoke(DisInfo, PC, Offset, Size, TagType, TagBuf);
         }
 
     }

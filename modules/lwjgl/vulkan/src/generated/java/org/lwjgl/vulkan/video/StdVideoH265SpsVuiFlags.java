@@ -40,7 +40,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t restricted_ref_pic_lists_flag : 1;
  * }</code></pre>
  */
-public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> implements NativeResource {
+public class StdVideoH265SpsVuiFlags extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -61,15 +61,6 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
         ALIGNOF = layout.getAlignment();
 
         BITFIELD0 = layout.offsetof(0);
-    }
-
-    protected StdVideoH265SpsVuiFlags(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected StdVideoH265SpsVuiFlags create(long address, @Nullable ByteBuffer container) {
-        return new StdVideoH265SpsVuiFlags(address, container);
     }
 
     /**
@@ -236,29 +227,29 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
 
     /** Returns a new {@code StdVideoH265SpsVuiFlags} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static StdVideoH265SpsVuiFlags malloc() {
-        return new StdVideoH265SpsVuiFlags(nmemAllocChecked(SIZEOF), null);
+        return wrap(StdVideoH265SpsVuiFlags.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code StdVideoH265SpsVuiFlags} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static StdVideoH265SpsVuiFlags calloc() {
-        return new StdVideoH265SpsVuiFlags(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(StdVideoH265SpsVuiFlags.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code StdVideoH265SpsVuiFlags} instance allocated with {@link BufferUtils}. */
     public static StdVideoH265SpsVuiFlags create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new StdVideoH265SpsVuiFlags(memAddress(container), container);
+        return wrap(StdVideoH265SpsVuiFlags.class, memAddress(container), container);
     }
 
     /** Returns a new {@code StdVideoH265SpsVuiFlags} instance for the specified memory address. */
     public static StdVideoH265SpsVuiFlags create(long address) {
-        return new StdVideoH265SpsVuiFlags(address, null);
+        return wrap(StdVideoH265SpsVuiFlags.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoH265SpsVuiFlags createSafe(long address) {
-        return address == NULL ? null : new StdVideoH265SpsVuiFlags(address, null);
+        return address == NULL ? null : wrap(StdVideoH265SpsVuiFlags.class, address);
     }
 
     /**
@@ -267,7 +258,7 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
      * @param capacity the buffer capacity
      */
     public static StdVideoH265SpsVuiFlags.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -276,7 +267,7 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
      * @param capacity the buffer capacity
      */
     public static StdVideoH265SpsVuiFlags.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -286,7 +277,7 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
      */
     public static StdVideoH265SpsVuiFlags.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -296,13 +287,13 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
      * @param capacity the buffer capacity
      */
     public static StdVideoH265SpsVuiFlags.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoH265SpsVuiFlags.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -311,7 +302,7 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
      * @param stack the stack from which to allocate
      */
     public static StdVideoH265SpsVuiFlags malloc(MemoryStack stack) {
-        return new StdVideoH265SpsVuiFlags(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(StdVideoH265SpsVuiFlags.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -320,7 +311,7 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
      * @param stack the stack from which to allocate
      */
     public static StdVideoH265SpsVuiFlags calloc(MemoryStack stack) {
-        return new StdVideoH265SpsVuiFlags(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(StdVideoH265SpsVuiFlags.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -330,7 +321,7 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
      * @param capacity the buffer capacity
      */
     public static StdVideoH265SpsVuiFlags.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -340,7 +331,7 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
      * @param capacity the buffer capacity
      */
     public static StdVideoH265SpsVuiFlags.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -431,9 +422,9 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
         /**
          * Creates a new {@code StdVideoH265SpsVuiFlags.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link StdVideoH265SpsVuiFlags#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link StdVideoH265SpsVuiFlags#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

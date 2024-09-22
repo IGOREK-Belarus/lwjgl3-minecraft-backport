@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct VREvent_ShowDevTools_t")
-public class VREventShowDevTools extends Struct<VREventShowDevTools> {
+public class VREventShowDevTools extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -43,15 +43,6 @@ public class VREventShowDevTools extends Struct<VREventShowDevTools> {
         ALIGNOF = layout.getAlignment();
 
         NBROWSERIDENTIFIER = layout.offsetof(0);
-    }
-
-    protected VREventShowDevTools(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VREventShowDevTools create(long address, @Nullable ByteBuffer container) {
-        return new VREventShowDevTools(address, container);
     }
 
     /**
@@ -75,13 +66,13 @@ public class VREventShowDevTools extends Struct<VREventShowDevTools> {
 
     /** Returns a new {@code VREventShowDevTools} instance for the specified memory address. */
     public static VREventShowDevTools create(long address) {
-        return new VREventShowDevTools(address, null);
+        return wrap(VREventShowDevTools.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventShowDevTools createSafe(long address) {
-        return address == NULL ? null : new VREventShowDevTools(address, null);
+        return address == NULL ? null : wrap(VREventShowDevTools.class, address);
     }
 
     /**
@@ -91,13 +82,13 @@ public class VREventShowDevTools extends Struct<VREventShowDevTools> {
      * @param capacity the buffer capacity
      */
     public static VREventShowDevTools.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventShowDevTools.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -115,9 +106,9 @@ public class VREventShowDevTools extends Struct<VREventShowDevTools> {
         /**
          * Creates a new {@code VREventShowDevTools.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VREventShowDevTools#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VREventShowDevTools#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -22,7 +22,7 @@ import static org.lwjgl.vulkan.VK10.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkVideoCapabilitiesKHR}, {@link VkVideoSessionCreateInfoKHR}, {@link VK10#vkEnumerateDeviceExtensionProperties EnumerateDeviceExtensionProperties}, {@link VK10#vkEnumerateInstanceExtensionProperties EnumerateInstanceExtensionProperties}</p>
+ * <p>{@link VkVideoDecodeH264CapabilitiesEXT}, {@link VkVideoDecodeH264SessionCreateInfoEXT}, {@link VkVideoDecodeH265CapabilitiesEXT}, {@link VkVideoDecodeH265SessionCreateInfoEXT}, {@link VkVideoEncodeH264CapabilitiesEXT}, {@link VkVideoEncodeH264SessionCreateInfoEXT}, {@link VkVideoEncodeH265CapabilitiesEXT}, {@link VkVideoEncodeH265SessionCreateInfoEXT}, {@link VK10#vkEnumerateDeviceExtensionProperties EnumerateDeviceExtensionProperties}, {@link VK10#vkEnumerateInstanceExtensionProperties EnumerateInstanceExtensionProperties}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -32,7 +32,7 @@ import static org.lwjgl.vulkan.VK10.*;
  *     uint32_t {@link #specVersion};
  * }</code></pre>
  */
-public class VkExtensionProperties extends Struct<VkExtensionProperties> implements NativeResource {
+public class VkExtensionProperties extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -56,15 +56,6 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
 
         EXTENSIONNAME = layout.offsetof(0);
         SPECVERSION = layout.offsetof(1);
-    }
-
-    protected VkExtensionProperties(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkExtensionProperties create(long address, @Nullable ByteBuffer container) {
-        return new VkExtensionProperties(address, container);
     }
 
     /**
@@ -94,29 +85,29 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
 
     /** Returns a new {@code VkExtensionProperties} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkExtensionProperties malloc() {
-        return new VkExtensionProperties(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkExtensionProperties.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkExtensionProperties} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkExtensionProperties calloc() {
-        return new VkExtensionProperties(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkExtensionProperties.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkExtensionProperties} instance allocated with {@link BufferUtils}. */
     public static VkExtensionProperties create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkExtensionProperties(memAddress(container), container);
+        return wrap(VkExtensionProperties.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkExtensionProperties} instance for the specified memory address. */
     public static VkExtensionProperties create(long address) {
-        return new VkExtensionProperties(address, null);
+        return wrap(VkExtensionProperties.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkExtensionProperties createSafe(long address) {
-        return address == NULL ? null : new VkExtensionProperties(address, null);
+        return address == NULL ? null : wrap(VkExtensionProperties.class, address);
     }
 
     /**
@@ -125,7 +116,7 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
      * @param capacity the buffer capacity
      */
     public static VkExtensionProperties.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -134,7 +125,7 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
      * @param capacity the buffer capacity
      */
     public static VkExtensionProperties.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -144,7 +135,7 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
      */
     public static VkExtensionProperties.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -154,13 +145,13 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
      * @param capacity the buffer capacity
      */
     public static VkExtensionProperties.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkExtensionProperties.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -188,7 +179,7 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
      * @param stack the stack from which to allocate
      */
     public static VkExtensionProperties malloc(MemoryStack stack) {
-        return new VkExtensionProperties(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkExtensionProperties.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -197,7 +188,7 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
      * @param stack the stack from which to allocate
      */
     public static VkExtensionProperties calloc(MemoryStack stack) {
-        return new VkExtensionProperties(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkExtensionProperties.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -207,7 +198,7 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
      * @param capacity the buffer capacity
      */
     public static VkExtensionProperties.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -217,7 +208,7 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
      * @param capacity the buffer capacity
      */
     public static VkExtensionProperties.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -239,9 +230,9 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
         /**
          * Creates a new {@code VkExtensionProperties.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkExtensionProperties#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkExtensionProperties#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

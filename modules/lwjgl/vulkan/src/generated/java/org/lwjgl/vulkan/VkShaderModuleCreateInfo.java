@@ -22,30 +22,31 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If pCode is a pointer to SPIR-V code, {@code codeSize} <b>must</b> be a multiple of 4</li>
- * <li>If pCode is a pointer to SPIR-V code, {@code pCode} <b>must</b> point to valid SPIR-V code, formatted and packed as described by the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirv-spec">Khronos SPIR-V Specification</a></li>
- * <li>If pCode is a pointer to SPIR-V code, {@code pCode} <b>must</b> adhere to the validation rules described by the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-module-validation">Validation Rules within a Module</a> section of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
- * <li>If pCode is a pointer to SPIR-V code, {@code pCode} <b>must</b> declare the {@code Shader} capability for SPIR-V code</li>
- * <li>If pCode is a pointer to SPIR-V code, {@code pCode} <b>must</b> not declare any capability that is not supported by the API, as described by the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-module-validation">Capabilities</a> section of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
- * <li>If pCode is a pointer to SPIR-V code, and {@code pCode} declares any of the capabilities listed in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities-table">SPIR-V Environment</a> appendix, one of the corresponding requirements <b>must</b> be satisfied</li>
- * <li>If pCode is a pointer to SPIR-V code, {@code pCode} <b>must</b> not declare any SPIR-V extension that is not supported by the API, as described by the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-extensions">Extension</a> section of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
- * <li>If pCode is a pointer to SPIR-V code, and {@code pCode} declares any of the SPIR-V extensions listed in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-extensions-table">SPIR-V Environment</a> appendix, one of the corresponding requirements <b>must</b> be satisfied</li>
- * <li>If the {@link NVGLSLShader VK_NV_glsl_shader} extension is not enabled, {@code pCode} <b>must</b> be a pointer to SPIR-V code</li>
- * <li>If {@code pCode} is a pointer to GLSL code, it <b>must</b> be valid GLSL code written to the {@code GL_KHR_vulkan_glsl} GLSL extension specification</li>
  * <li>{@code codeSize} <b>must</b> be greater than 0</li>
+ * <li>If {@code pCode} is a pointer to SPIR-V code, {@code codeSize} <b>must</b> be a multiple of 4</li>
+ * <li>{@code pCode} <b>must</b> point to either valid SPIR-V code, formatted and packed as described by the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirv-spec">Khronos SPIR-V Specification</a> or valid GLSL code which <b>must</b> be written to the {@code GL_KHR_vulkan_glsl} extension specification</li>
+ * <li>If {@code pCode} is a pointer to SPIR-V code, that code <b>must</b> adhere to the validation rules described by the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-module-validation">Validation Rules within a Module</a> section of the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
+ * <li>If {@code pCode} is a pointer to GLSL code, it <b>must</b> be valid GLSL code written to the {@code GL_KHR_vulkan_glsl} GLSL extension specification</li>
+ * <li>{@code pCode} <b>must</b> declare the {@code Shader} capability for SPIR-V code</li>
+ * <li>{@code pCode} <b>must</b> not declare any capability that is not supported by the API, as described by the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-module-validation">Capabilities</a> section of the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
+ * <li>If {@code pCode} declares any of the capabilities listed in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities-table">SPIR-V Environment</a> appendix, one of the corresponding requirements <b>must</b> be satisfied</li>
+ * <li>{@code pCode} <b>must</b> not declare any SPIR-V extension that is not supported by the API, as described by the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-extensions">Extension</a> section of the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
+ * <li>If {@code pCode} declares any of the SPIR-V extensions listed in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-extensions-table">SPIR-V Environment</a> appendix, one of the corresponding requirements <b>must</b> be satisfied</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK10#VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO}</li>
+ * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkShaderModuleValidationCacheCreateInfoEXT}</li>
+ * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be 0</li>
  * <li>{@code pCode} <b>must</b> be a valid pointer to an array of {@code codeSize / 4} {@code uint32_t} values</li>
  * </ul>
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VK10#vkCreateShaderModule CreateShaderModule}, {@link EXTShaderModuleIdentifier#vkGetShaderModuleCreateInfoIdentifierEXT GetShaderModuleCreateInfoIdentifierEXT}</p>
+ * <p>{@link VK10#vkCreateShaderModule CreateShaderModule}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -58,7 +59,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t const * {@link #pCode};
  * }</code></pre>
  */
-public class VkShaderModuleCreateInfo extends Struct<VkShaderModuleCreateInfo> implements NativeResource {
+public class VkShaderModuleCreateInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -93,15 +94,6 @@ public class VkShaderModuleCreateInfo extends Struct<VkShaderModuleCreateInfo> i
         PCODE = layout.offsetof(4);
     }
 
-    protected VkShaderModuleCreateInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkShaderModuleCreateInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkShaderModuleCreateInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkShaderModuleCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -115,7 +107,7 @@ public class VkShaderModuleCreateInfo extends Struct<VkShaderModuleCreateInfo> i
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -139,8 +131,6 @@ public class VkShaderModuleCreateInfo extends Struct<VkShaderModuleCreateInfo> i
     public VkShaderModuleCreateInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Prepends the specified {@link VkShaderModuleValidationCacheCreateInfoEXT} value to the {@code pNext} chain. */
     public VkShaderModuleCreateInfo pNext(VkShaderModuleValidationCacheCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkValidationFeaturesEXT} value to the {@code pNext} chain. */
-    public VkShaderModuleCreateInfo pNext(VkValidationFeaturesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #flags} field. */
     public VkShaderModuleCreateInfo flags(@NativeType("VkShaderModuleCreateFlags") int value) { nflags(address(), value); return this; }
     /** Sets the address of the specified {@link ByteBuffer} to the {@link #pCode} field. */
@@ -177,29 +167,29 @@ public class VkShaderModuleCreateInfo extends Struct<VkShaderModuleCreateInfo> i
 
     /** Returns a new {@code VkShaderModuleCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkShaderModuleCreateInfo malloc() {
-        return new VkShaderModuleCreateInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkShaderModuleCreateInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkShaderModuleCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkShaderModuleCreateInfo calloc() {
-        return new VkShaderModuleCreateInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkShaderModuleCreateInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkShaderModuleCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VkShaderModuleCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkShaderModuleCreateInfo(memAddress(container), container);
+        return wrap(VkShaderModuleCreateInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkShaderModuleCreateInfo} instance for the specified memory address. */
     public static VkShaderModuleCreateInfo create(long address) {
-        return new VkShaderModuleCreateInfo(address, null);
+        return wrap(VkShaderModuleCreateInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkShaderModuleCreateInfo createSafe(long address) {
-        return address == NULL ? null : new VkShaderModuleCreateInfo(address, null);
+        return address == NULL ? null : wrap(VkShaderModuleCreateInfo.class, address);
     }
 
     /**
@@ -208,7 +198,7 @@ public class VkShaderModuleCreateInfo extends Struct<VkShaderModuleCreateInfo> i
      * @param capacity the buffer capacity
      */
     public static VkShaderModuleCreateInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -217,7 +207,7 @@ public class VkShaderModuleCreateInfo extends Struct<VkShaderModuleCreateInfo> i
      * @param capacity the buffer capacity
      */
     public static VkShaderModuleCreateInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -227,7 +217,7 @@ public class VkShaderModuleCreateInfo extends Struct<VkShaderModuleCreateInfo> i
      */
     public static VkShaderModuleCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -237,13 +227,13 @@ public class VkShaderModuleCreateInfo extends Struct<VkShaderModuleCreateInfo> i
      * @param capacity the buffer capacity
      */
     public static VkShaderModuleCreateInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkShaderModuleCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -271,7 +261,7 @@ public class VkShaderModuleCreateInfo extends Struct<VkShaderModuleCreateInfo> i
      * @param stack the stack from which to allocate
      */
     public static VkShaderModuleCreateInfo malloc(MemoryStack stack) {
-        return new VkShaderModuleCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkShaderModuleCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -280,7 +270,7 @@ public class VkShaderModuleCreateInfo extends Struct<VkShaderModuleCreateInfo> i
      * @param stack the stack from which to allocate
      */
     public static VkShaderModuleCreateInfo calloc(MemoryStack stack) {
-        return new VkShaderModuleCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkShaderModuleCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -290,7 +280,7 @@ public class VkShaderModuleCreateInfo extends Struct<VkShaderModuleCreateInfo> i
      * @param capacity the buffer capacity
      */
     public static VkShaderModuleCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -300,7 +290,7 @@ public class VkShaderModuleCreateInfo extends Struct<VkShaderModuleCreateInfo> i
      * @param capacity the buffer capacity
      */
     public static VkShaderModuleCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -346,9 +336,9 @@ public class VkShaderModuleCreateInfo extends Struct<VkShaderModuleCreateInfo> i
         /**
          * Creates a new {@code VkShaderModuleCreateInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkShaderModuleCreateInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkShaderModuleCreateInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -398,8 +388,6 @@ public class VkShaderModuleCreateInfo extends Struct<VkShaderModuleCreateInfo> i
         public VkShaderModuleCreateInfo.Buffer pNext(@NativeType("void const *") long value) { VkShaderModuleCreateInfo.npNext(address(), value); return this; }
         /** Prepends the specified {@link VkShaderModuleValidationCacheCreateInfoEXT} value to the {@code pNext} chain. */
         public VkShaderModuleCreateInfo.Buffer pNext(VkShaderModuleValidationCacheCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkValidationFeaturesEXT} value to the {@code pNext} chain. */
-        public VkShaderModuleCreateInfo.Buffer pNext(VkValidationFeaturesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkShaderModuleCreateInfo#flags} field. */
         public VkShaderModuleCreateInfo.Buffer flags(@NativeType("VkShaderModuleCreateFlags") int value) { VkShaderModuleCreateInfo.nflags(address(), value); return this; }
         /** Sets the address of the specified {@link ByteBuffer} to the {@link VkShaderModuleCreateInfo#pCode} field. */

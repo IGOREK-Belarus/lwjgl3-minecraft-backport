@@ -29,15 +29,6 @@ import static org.lwjgl.system.MemoryStack.*;
  */
 public class VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR extends VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures {
 
-    protected VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -91,29 +82,29 @@ public class VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR extends VkPh
 
     /** Returns a new {@code VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR malloc() {
-        return new VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR calloc() {
-        return new VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR(memAddress(container), container);
+        return wrap(VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR} instance for the specified memory address. */
     public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR create(long address) {
-        return new VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR(address, null);
+        return wrap(VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.class, address);
     }
 
     /**
@@ -122,7 +113,7 @@ public class VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR extends VkPh
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -131,7 +122,7 @@ public class VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR extends VkPh
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -141,7 +132,7 @@ public class VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR extends VkPh
      */
     public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -151,13 +142,13 @@ public class VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR extends VkPh
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -166,7 +157,7 @@ public class VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR extends VkPh
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -175,7 +166,7 @@ public class VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR extends VkPh
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -185,7 +176,7 @@ public class VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR extends VkPh
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -195,7 +186,7 @@ public class VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR extends VkPh
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -208,9 +199,9 @@ public class VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR extends VkPh
         /**
          * Creates a new {@code VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

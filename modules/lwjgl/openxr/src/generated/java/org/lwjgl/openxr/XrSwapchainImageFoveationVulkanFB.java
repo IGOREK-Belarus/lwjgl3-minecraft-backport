@@ -25,7 +25,7 @@ import org.lwjgl.vulkan.*;
  * <ul>
  * <li>The {@link FBFoveationVulkan XR_FB_foveation_vulkan} extension <b>must</b> be enabled prior to using {@link XrSwapchainImageFoveationVulkanFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBFoveationVulkan#XR_TYPE_SWAPCHAIN_IMAGE_FOVEATION_VULKAN_FB TYPE_SWAPCHAIN_IMAGE_FOVEATION_VULKAN_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -43,7 +43,7 @@ import org.lwjgl.vulkan.*;
  *     uint32_t {@link #height};
  * }</code></pre>
  */
-public class XrSwapchainImageFoveationVulkanFB extends Struct<XrSwapchainImageFoveationVulkanFB> implements NativeResource {
+public class XrSwapchainImageFoveationVulkanFB extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -76,15 +76,6 @@ public class XrSwapchainImageFoveationVulkanFB extends Struct<XrSwapchainImageFo
         IMAGE = layout.offsetof(2);
         WIDTH = layout.offsetof(3);
         HEIGHT = layout.offsetof(4);
-    }
-
-    protected XrSwapchainImageFoveationVulkanFB(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSwapchainImageFoveationVulkanFB create(long address, @Nullable ByteBuffer container) {
-        return new XrSwapchainImageFoveationVulkanFB(address, container);
     }
 
     /**
@@ -150,29 +141,29 @@ public class XrSwapchainImageFoveationVulkanFB extends Struct<XrSwapchainImageFo
 
     /** Returns a new {@code XrSwapchainImageFoveationVulkanFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSwapchainImageFoveationVulkanFB malloc() {
-        return new XrSwapchainImageFoveationVulkanFB(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSwapchainImageFoveationVulkanFB.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSwapchainImageFoveationVulkanFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSwapchainImageFoveationVulkanFB calloc() {
-        return new XrSwapchainImageFoveationVulkanFB(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSwapchainImageFoveationVulkanFB.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSwapchainImageFoveationVulkanFB} instance allocated with {@link BufferUtils}. */
     public static XrSwapchainImageFoveationVulkanFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSwapchainImageFoveationVulkanFB(memAddress(container), container);
+        return wrap(XrSwapchainImageFoveationVulkanFB.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSwapchainImageFoveationVulkanFB} instance for the specified memory address. */
     public static XrSwapchainImageFoveationVulkanFB create(long address) {
-        return new XrSwapchainImageFoveationVulkanFB(address, null);
+        return wrap(XrSwapchainImageFoveationVulkanFB.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSwapchainImageFoveationVulkanFB createSafe(long address) {
-        return address == NULL ? null : new XrSwapchainImageFoveationVulkanFB(address, null);
+        return address == NULL ? null : wrap(XrSwapchainImageFoveationVulkanFB.class, address);
     }
 
     /**
@@ -181,7 +172,7 @@ public class XrSwapchainImageFoveationVulkanFB extends Struct<XrSwapchainImageFo
      * @param capacity the buffer capacity
      */
     public static XrSwapchainImageFoveationVulkanFB.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -190,7 +181,7 @@ public class XrSwapchainImageFoveationVulkanFB extends Struct<XrSwapchainImageFo
      * @param capacity the buffer capacity
      */
     public static XrSwapchainImageFoveationVulkanFB.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -200,7 +191,7 @@ public class XrSwapchainImageFoveationVulkanFB extends Struct<XrSwapchainImageFo
      */
     public static XrSwapchainImageFoveationVulkanFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -210,13 +201,13 @@ public class XrSwapchainImageFoveationVulkanFB extends Struct<XrSwapchainImageFo
      * @param capacity the buffer capacity
      */
     public static XrSwapchainImageFoveationVulkanFB.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSwapchainImageFoveationVulkanFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -225,7 +216,7 @@ public class XrSwapchainImageFoveationVulkanFB extends Struct<XrSwapchainImageFo
      * @param stack the stack from which to allocate
      */
     public static XrSwapchainImageFoveationVulkanFB malloc(MemoryStack stack) {
-        return new XrSwapchainImageFoveationVulkanFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSwapchainImageFoveationVulkanFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -234,7 +225,7 @@ public class XrSwapchainImageFoveationVulkanFB extends Struct<XrSwapchainImageFo
      * @param stack the stack from which to allocate
      */
     public static XrSwapchainImageFoveationVulkanFB calloc(MemoryStack stack) {
-        return new XrSwapchainImageFoveationVulkanFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSwapchainImageFoveationVulkanFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -244,7 +235,7 @@ public class XrSwapchainImageFoveationVulkanFB extends Struct<XrSwapchainImageFo
      * @param capacity the buffer capacity
      */
     public static XrSwapchainImageFoveationVulkanFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -254,7 +245,7 @@ public class XrSwapchainImageFoveationVulkanFB extends Struct<XrSwapchainImageFo
      * @param capacity the buffer capacity
      */
     public static XrSwapchainImageFoveationVulkanFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -285,9 +276,9 @@ public class XrSwapchainImageFoveationVulkanFB extends Struct<XrSwapchainImageFo
         /**
          * Creates a new {@code XrSwapchainImageFoveationVulkanFB.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSwapchainImageFoveationVulkanFB#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSwapchainImageFoveationVulkanFB#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

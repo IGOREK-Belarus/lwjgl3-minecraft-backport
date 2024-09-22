@@ -25,8 +25,4 @@ public class VkQueue extends DispatchableHandleDevice {
         return device;
     }
 
-    @Override
-    public VKCapabilitiesInstance getCapabilitiesInstance() {
-        return getDevice().getCapabilitiesInstance();
-    }
 }

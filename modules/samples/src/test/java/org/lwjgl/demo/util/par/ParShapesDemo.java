@@ -8,7 +8,6 @@ import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
-import org.lwjgl.util.nfd.*;
 import org.lwjgl.util.par.*;
 
 import java.nio.*;
@@ -249,8 +248,6 @@ public final class ParShapesDemo {
 
         glDeleteShader(fshader);
         glDeleteShader(vshader);
-
-        NFD_Init();
     }
 
     private static void updateViewport(int width, int height) {
@@ -502,8 +499,6 @@ public final class ParShapesDemo {
         if (debugCB != null) {
             debugCB.free();
         }
-
-        NFD_Quit();
     }
 
     private void run() {
@@ -581,19 +576,14 @@ public final class ParShapesDemo {
 
     private void exportMesh() {
         try (MemoryStack stack = stackPush()) {
-            NFDFilterItem.Buffer filter = NFDFilterItem.malloc(1, stack);
-            filter.get(0)
-                .name(stack.UTF8("Wavefront Object"))
-                .spec(stack.UTF8("obj"));
-
             PointerBuffer pp = stack.mallocPointer(1);
 
-            int result = NFD_SaveDialog(pp, filter, null, "mesh.obj");
+            int result = NFD_SaveDialog("obj", null, pp);
             switch (result) {
                 case NFD_OKAY:
                     long path = pp.get(0);
                     npar_shapes_export(mesh.address(), path);
-                    NFD_FreePath(path);
+                    nNFD_Free(path);
                     break;
                 case NFD_ERROR:
                     System.err.format("Error: %s\n", NFD_GetError());

@@ -39,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #attachmentFragmentShadingRate};
  * }</code></pre>
  */
-public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhysicalDeviceFragmentShadingRateFeaturesKHR> implements NativeResource {
+public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -74,15 +74,6 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
         ATTACHMENTFRAGMENTSHADINGRATE = layout.offsetof(4);
     }
 
-    protected VkPhysicalDeviceFragmentShadingRateFeaturesKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceFragmentShadingRateFeaturesKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceFragmentShadingRateFeaturesKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceFragmentShadingRateFeaturesKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -96,19 +87,19 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate-pipeline">pipeline fragment shading rate</a>. */
+    /** indicates that the implementation supports the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate-pipeline">pipeline fragment shading rate</a>. */
     @NativeType("VkBool32")
     public boolean pipelineFragmentShadingRate() { return npipelineFragmentShadingRate(address()) != 0; }
-    /** indicates that the implementation supports the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate-primitive">primitive fragment shading rate</a>. */
+    /** indicates that the implementation supports the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate-primitive">primitive fragment shading rate</a>. */
     @NativeType("VkBool32")
     public boolean primitiveFragmentShadingRate() { return nprimitiveFragmentShadingRate(address()) != 0; }
-    /** indicates that the implementation supports the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate-attachment">attachment fragment shading rate</a>. */
+    /** indicates that the implementation supports the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate-attachment">attachment fragment shading rate</a>. */
     @NativeType("VkBool32")
     public boolean attachmentFragmentShadingRate() { return nattachmentFragmentShadingRate(address()) != 0; }
 
@@ -158,29 +149,29 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
 
     /** Returns a new {@code VkPhysicalDeviceFragmentShadingRateFeaturesKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR malloc() {
-        return new VkPhysicalDeviceFragmentShadingRateFeaturesKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceFragmentShadingRateFeaturesKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceFragmentShadingRateFeaturesKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR calloc() {
-        return new VkPhysicalDeviceFragmentShadingRateFeaturesKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceFragmentShadingRateFeaturesKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceFragmentShadingRateFeaturesKHR} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceFragmentShadingRateFeaturesKHR(memAddress(container), container);
+        return wrap(VkPhysicalDeviceFragmentShadingRateFeaturesKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceFragmentShadingRateFeaturesKHR} instance for the specified memory address. */
     public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR create(long address) {
-        return new VkPhysicalDeviceFragmentShadingRateFeaturesKHR(address, null);
+        return wrap(VkPhysicalDeviceFragmentShadingRateFeaturesKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceFragmentShadingRateFeaturesKHR(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceFragmentShadingRateFeaturesKHR.class, address);
     }
 
     /**
@@ -189,7 +180,7 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -198,7 +189,7 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -208,7 +199,7 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
      */
     public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -218,13 +209,13 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -233,7 +224,7 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceFragmentShadingRateFeaturesKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceFragmentShadingRateFeaturesKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -242,7 +233,7 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceFragmentShadingRateFeaturesKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceFragmentShadingRateFeaturesKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -252,7 +243,7 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -262,7 +253,7 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -299,9 +290,9 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
         /**
          * Creates a new {@code VkPhysicalDeviceFragmentShadingRateFeaturesKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceFragmentShadingRateFeaturesKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceFragmentShadingRateFeaturesKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

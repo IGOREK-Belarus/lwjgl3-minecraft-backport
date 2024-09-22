@@ -12,6 +12,7 @@ import java.nio.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
 
+import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
@@ -32,15 +33,6 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 public class VkPipelineRenderingCreateInfoKHR extends VkPipelineRenderingCreateInfo {
-
-    protected VkPipelineRenderingCreateInfoKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPipelineRenderingCreateInfoKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkPipelineRenderingCreateInfoKHR(address, container);
-    }
 
     /**
      * Creates a {@code VkPipelineRenderingCreateInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
@@ -64,9 +56,6 @@ public class VkPipelineRenderingCreateInfoKHR extends VkPipelineRenderingCreateI
     /** Sets the specified value to the {@code viewMask} field. */
     @Override
     public VkPipelineRenderingCreateInfoKHR viewMask(@NativeType("uint32_t") int value) { nviewMask(address(), value); return this; }
-    /** Sets the specified value to the {@code colorAttachmentCount} field. */
-    @Override
-    public VkPipelineRenderingCreateInfoKHR colorAttachmentCount(@NativeType("uint32_t") int value) { ncolorAttachmentCount(address(), value); return this; }
     /** Sets the address of the specified {@link IntBuffer} to the {@code pColorAttachmentFormats} field. */
     @Override
     public VkPipelineRenderingCreateInfoKHR pColorAttachmentFormats(@Nullable @NativeType("VkFormat const *") IntBuffer value) { npColorAttachmentFormats(address(), value); return this; }
@@ -83,7 +72,6 @@ public class VkPipelineRenderingCreateInfoKHR extends VkPipelineRenderingCreateI
         int sType,
         long pNext,
         int viewMask,
-        int colorAttachmentCount,
         @Nullable IntBuffer pColorAttachmentFormats,
         int depthAttachmentFormat,
         int stencilAttachmentFormat
@@ -91,7 +79,6 @@ public class VkPipelineRenderingCreateInfoKHR extends VkPipelineRenderingCreateI
         sType(sType);
         pNext(pNext);
         viewMask(viewMask);
-        colorAttachmentCount(colorAttachmentCount);
         pColorAttachmentFormats(pColorAttachmentFormats);
         depthAttachmentFormat(depthAttachmentFormat);
         stencilAttachmentFormat(stencilAttachmentFormat);
@@ -115,29 +102,29 @@ public class VkPipelineRenderingCreateInfoKHR extends VkPipelineRenderingCreateI
 
     /** Returns a new {@code VkPipelineRenderingCreateInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPipelineRenderingCreateInfoKHR malloc() {
-        return new VkPipelineRenderingCreateInfoKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPipelineRenderingCreateInfoKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineRenderingCreateInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPipelineRenderingCreateInfoKHR calloc() {
-        return new VkPipelineRenderingCreateInfoKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPipelineRenderingCreateInfoKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineRenderingCreateInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkPipelineRenderingCreateInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPipelineRenderingCreateInfoKHR(memAddress(container), container);
+        return wrap(VkPipelineRenderingCreateInfoKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPipelineRenderingCreateInfoKHR} instance for the specified memory address. */
     public static VkPipelineRenderingCreateInfoKHR create(long address) {
-        return new VkPipelineRenderingCreateInfoKHR(address, null);
+        return wrap(VkPipelineRenderingCreateInfoKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineRenderingCreateInfoKHR createSafe(long address) {
-        return address == NULL ? null : new VkPipelineRenderingCreateInfoKHR(address, null);
+        return address == NULL ? null : wrap(VkPipelineRenderingCreateInfoKHR.class, address);
     }
 
     /**
@@ -146,7 +133,7 @@ public class VkPipelineRenderingCreateInfoKHR extends VkPipelineRenderingCreateI
      * @param capacity the buffer capacity
      */
     public static VkPipelineRenderingCreateInfoKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -155,7 +142,7 @@ public class VkPipelineRenderingCreateInfoKHR extends VkPipelineRenderingCreateI
      * @param capacity the buffer capacity
      */
     public static VkPipelineRenderingCreateInfoKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -165,7 +152,7 @@ public class VkPipelineRenderingCreateInfoKHR extends VkPipelineRenderingCreateI
      */
     public static VkPipelineRenderingCreateInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -175,13 +162,13 @@ public class VkPipelineRenderingCreateInfoKHR extends VkPipelineRenderingCreateI
      * @param capacity the buffer capacity
      */
     public static VkPipelineRenderingCreateInfoKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineRenderingCreateInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -190,7 +177,7 @@ public class VkPipelineRenderingCreateInfoKHR extends VkPipelineRenderingCreateI
      * @param stack the stack from which to allocate
      */
     public static VkPipelineRenderingCreateInfoKHR malloc(MemoryStack stack) {
-        return new VkPipelineRenderingCreateInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPipelineRenderingCreateInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -199,7 +186,7 @@ public class VkPipelineRenderingCreateInfoKHR extends VkPipelineRenderingCreateI
      * @param stack the stack from which to allocate
      */
     public static VkPipelineRenderingCreateInfoKHR calloc(MemoryStack stack) {
-        return new VkPipelineRenderingCreateInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPipelineRenderingCreateInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -209,7 +196,7 @@ public class VkPipelineRenderingCreateInfoKHR extends VkPipelineRenderingCreateI
      * @param capacity the buffer capacity
      */
     public static VkPipelineRenderingCreateInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -219,7 +206,7 @@ public class VkPipelineRenderingCreateInfoKHR extends VkPipelineRenderingCreateI
      * @param capacity the buffer capacity
      */
     public static VkPipelineRenderingCreateInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -232,9 +219,9 @@ public class VkPipelineRenderingCreateInfoKHR extends VkPipelineRenderingCreateI
         /**
          * Creates a new {@code VkPipelineRenderingCreateInfoKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPipelineRenderingCreateInfoKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPipelineRenderingCreateInfoKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -272,9 +259,6 @@ public class VkPipelineRenderingCreateInfoKHR extends VkPipelineRenderingCreateI
         /** Sets the specified value to the {@code viewMask} field. */
         @Override
         public VkPipelineRenderingCreateInfoKHR.Buffer viewMask(@NativeType("uint32_t") int value) { VkPipelineRenderingCreateInfoKHR.nviewMask(address(), value); return this; }
-        /** Sets the specified value to the {@code colorAttachmentCount} field. */
-        @Override
-        public VkPipelineRenderingCreateInfoKHR.Buffer colorAttachmentCount(@NativeType("uint32_t") int value) { VkPipelineRenderingCreateInfoKHR.ncolorAttachmentCount(address(), value); return this; }
         /** Sets the address of the specified {@link IntBuffer} to the {@code pColorAttachmentFormats} field. */
         @Override
         public VkPipelineRenderingCreateInfoKHR.Buffer pColorAttachmentFormats(@Nullable @NativeType("VkFormat const *") IntBuffer value) { VkPipelineRenderingCreateInfoKHR.npColorAttachmentFormats(address(), value); return this; }

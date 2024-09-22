@@ -40,7 +40,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkViewportWScalingNV VkViewportWScalingNV} const * {@link #pViewportWScalings};
  * }</code></pre>
  */
-public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipelineViewportWScalingStateCreateInfoNV> implements NativeResource {
+public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -75,15 +75,6 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
         PVIEWPORTWSCALINGS = layout.offsetof(4);
     }
 
-    protected VkPipelineViewportWScalingStateCreateInfoNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPipelineViewportWScalingStateCreateInfoNV create(long address, @Nullable ByteBuffer container) {
-        return new VkPipelineViewportWScalingStateCreateInfoNV(address, container);
-    }
-
     /**
      * Creates a {@code VkPipelineViewportWScalingStateCreateInfoNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -97,7 +88,7 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -160,29 +151,29 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
 
     /** Returns a new {@code VkPipelineViewportWScalingStateCreateInfoNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPipelineViewportWScalingStateCreateInfoNV malloc() {
-        return new VkPipelineViewportWScalingStateCreateInfoNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPipelineViewportWScalingStateCreateInfoNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineViewportWScalingStateCreateInfoNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPipelineViewportWScalingStateCreateInfoNV calloc() {
-        return new VkPipelineViewportWScalingStateCreateInfoNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPipelineViewportWScalingStateCreateInfoNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineViewportWScalingStateCreateInfoNV} instance allocated with {@link BufferUtils}. */
     public static VkPipelineViewportWScalingStateCreateInfoNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPipelineViewportWScalingStateCreateInfoNV(memAddress(container), container);
+        return wrap(VkPipelineViewportWScalingStateCreateInfoNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPipelineViewportWScalingStateCreateInfoNV} instance for the specified memory address. */
     public static VkPipelineViewportWScalingStateCreateInfoNV create(long address) {
-        return new VkPipelineViewportWScalingStateCreateInfoNV(address, null);
+        return wrap(VkPipelineViewportWScalingStateCreateInfoNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineViewportWScalingStateCreateInfoNV createSafe(long address) {
-        return address == NULL ? null : new VkPipelineViewportWScalingStateCreateInfoNV(address, null);
+        return address == NULL ? null : wrap(VkPipelineViewportWScalingStateCreateInfoNV.class, address);
     }
 
     /**
@@ -191,7 +182,7 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
      * @param capacity the buffer capacity
      */
     public static VkPipelineViewportWScalingStateCreateInfoNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -200,7 +191,7 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
      * @param capacity the buffer capacity
      */
     public static VkPipelineViewportWScalingStateCreateInfoNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -210,7 +201,7 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
      */
     public static VkPipelineViewportWScalingStateCreateInfoNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -220,13 +211,13 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
      * @param capacity the buffer capacity
      */
     public static VkPipelineViewportWScalingStateCreateInfoNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineViewportWScalingStateCreateInfoNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -254,7 +245,7 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
      * @param stack the stack from which to allocate
      */
     public static VkPipelineViewportWScalingStateCreateInfoNV malloc(MemoryStack stack) {
-        return new VkPipelineViewportWScalingStateCreateInfoNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPipelineViewportWScalingStateCreateInfoNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -263,7 +254,7 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
      * @param stack the stack from which to allocate
      */
     public static VkPipelineViewportWScalingStateCreateInfoNV calloc(MemoryStack stack) {
-        return new VkPipelineViewportWScalingStateCreateInfoNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPipelineViewportWScalingStateCreateInfoNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -273,7 +264,7 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
      * @param capacity the buffer capacity
      */
     public static VkPipelineViewportWScalingStateCreateInfoNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -283,7 +274,7 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
      * @param capacity the buffer capacity
      */
     public static VkPipelineViewportWScalingStateCreateInfoNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -320,9 +311,9 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
         /**
          * Creates a new {@code VkPipelineViewportWScalingStateCreateInfoNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPipelineViewportWScalingStateCreateInfoNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPipelineViewportWScalingStateCreateInfoNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

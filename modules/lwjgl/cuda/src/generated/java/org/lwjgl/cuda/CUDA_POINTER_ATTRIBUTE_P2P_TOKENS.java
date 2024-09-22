@@ -16,6 +16,8 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
+ * GPU Direct v3 tokens.
+ * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
@@ -24,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     unsigned int vaSpaceToken;
  * }</code></pre>
  */
-public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRIBUTE_P2P_TOKENS> implements NativeResource {
+public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -48,15 +50,6 @@ public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRI
 
         P2PTOKEN = layout.offsetof(0);
         VASPACETOKEN = layout.offsetof(1);
-    }
-
-    protected CUDA_POINTER_ATTRIBUTE_P2P_TOKENS(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CUDA_POINTER_ATTRIBUTE_P2P_TOKENS create(long address, @Nullable ByteBuffer container) {
-        return new CUDA_POINTER_ATTRIBUTE_P2P_TOKENS(address, container);
     }
 
     /**
@@ -111,29 +104,29 @@ public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRI
 
     /** Returns a new {@code CUDA_POINTER_ATTRIBUTE_P2P_TOKENS} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS malloc() {
-        return new CUDA_POINTER_ATTRIBUTE_P2P_TOKENS(nmemAllocChecked(SIZEOF), null);
+        return wrap(CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code CUDA_POINTER_ATTRIBUTE_P2P_TOKENS} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS calloc() {
-        return new CUDA_POINTER_ATTRIBUTE_P2P_TOKENS(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code CUDA_POINTER_ATTRIBUTE_P2P_TOKENS} instance allocated with {@link BufferUtils}. */
     public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new CUDA_POINTER_ATTRIBUTE_P2P_TOKENS(memAddress(container), container);
+        return wrap(CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.class, memAddress(container), container);
     }
 
     /** Returns a new {@code CUDA_POINTER_ATTRIBUTE_P2P_TOKENS} instance for the specified memory address. */
     public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS create(long address) {
-        return new CUDA_POINTER_ATTRIBUTE_P2P_TOKENS(address, null);
+        return wrap(CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS createSafe(long address) {
-        return address == NULL ? null : new CUDA_POINTER_ATTRIBUTE_P2P_TOKENS(address, null);
+        return address == NULL ? null : wrap(CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.class, address);
     }
 
     /**
@@ -142,7 +135,7 @@ public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRI
      * @param capacity the buffer capacity
      */
     public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -151,7 +144,7 @@ public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRI
      * @param capacity the buffer capacity
      */
     public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -161,7 +154,7 @@ public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRI
      */
     public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -171,13 +164,13 @@ public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRI
      * @param capacity the buffer capacity
      */
     public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -186,7 +179,7 @@ public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRI
      * @param stack the stack from which to allocate
      */
     public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS malloc(MemoryStack stack) {
-        return new CUDA_POINTER_ATTRIBUTE_P2P_TOKENS(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -195,7 +188,7 @@ public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRI
      * @param stack the stack from which to allocate
      */
     public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS calloc(MemoryStack stack) {
-        return new CUDA_POINTER_ATTRIBUTE_P2P_TOKENS(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -205,7 +198,7 @@ public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRI
      * @param capacity the buffer capacity
      */
     public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -215,7 +208,7 @@ public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRI
      * @param capacity the buffer capacity
      */
     public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -240,9 +233,9 @@ public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRI
         /**
          * Creates a new {@code CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CUDA_POINTER_ATTRIBUTE_P2P_TOKENS#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CUDA_POINTER_ATTRIBUTE_P2P_TOKENS#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

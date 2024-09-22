@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>When the returned {@code isActive} value is {@link XR10#XR_FALSE FALSE}, the runtime indicates the hand is not actively tracked, for example, the hand is outside of sensor’s range, or the input focus is taken away from the application. When the runtime returns {@link XR10#XR_FALSE FALSE} to {@code isActive}, it <b>must</b> set {@code indexBufferChanged} and {@code vertexBufferChanged} to {@link XR10#XR_FALSE FALSE}, and <b>must</b> not change the content in {@code indexBuffer} or {@code vertexBuffer},</p>
  * 
- * <p>When the returned {@code isActive} value is {@link XR10#XR_TRUE TRUE}, the hand tracking mesh represented in {@code indexBuffer} and {@code vertexBuffer} are updated to the latest data of the {@link XrHandMeshUpdateInfoMSFT}{@code ::time} given to the {@link MSFTHandTrackingMesh#xrUpdateHandMeshMSFT UpdateHandMeshMSFT} function. The runtime <b>must</b> set {@code indexBufferChanged} and {@code vertexBufferChanged} to reflect whether the index or vertex buffer’s content are changed during the update. In this way, the application can easily avoid unnecessary processing of buffers when there’s no new data.</p>
+ * <p>When the returned {@code isActive} value is {@link XR10#XR_TRUE TRUE}, the hand tracking mesh represented in {@code indexBuffer} and {@code vertexBuffer} are updated to the latest data of the {@code time} given to the {@link MSFTHandTrackingMesh#xrUpdateHandMeshMSFT UpdateHandMeshMSFT} function. The runtime <b>must</b> set {@code indexBufferChanged} and {@code vertexBufferChanged} to reflect whether the index or vertex buffer’s content are changed during the update. In this way, the application can easily avoid unnecessary processing of buffers when there’s no new data.</p>
  * 
  * <p>The hand mesh is represented in triangle lists and each triangle’s vertices are in clockwise order when looking from outside of the hand. When hand tracking is active, i.e. when {@code isActive} is returned as {@link XR10#XR_TRUE TRUE}, the returned {@code indexBuffer.indexCountOutput} value <b>must</b> be positive and multiple of 3, and {@code vertexBuffer.vertexCountOutput} value <b>must</b> be equal to or larger than 3.</p>
  * 
@@ -31,7 +31,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTHandTrackingMesh XR_MSFT_hand_tracking_mesh} extension <b>must</b> be enabled prior to using {@link XrHandMeshMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTHandTrackingMesh#XR_TYPE_HAND_MESH_MSFT TYPE_HAND_MESH_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code indexBuffer} <b>must</b> be a valid {@link XrHandMeshIndexBufferMSFT} structure</li>
  * <li>{@code vertexBuffer} <b>must</b> be a valid {@link XrHandMeshVertexBufferMSFT} structure</li>
  * </ul>
@@ -53,7 +53,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrHandMeshVertexBufferMSFT XrHandMeshVertexBufferMSFT} {@link #vertexBuffer};
  * }</code></pre>
  */
-public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeResource {
+public class XrHandMeshMSFT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -92,15 +92,6 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
         VERTEXBUFFERCHANGED = layout.offsetof(4);
         INDEXBUFFER = layout.offsetof(5);
         VERTEXBUFFER = layout.offsetof(6);
-    }
-
-    protected XrHandMeshMSFT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrHandMeshMSFT create(long address, @Nullable ByteBuffer container) {
-        return new XrHandMeshMSFT(address, container);
     }
 
     /**
@@ -194,29 +185,29 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
 
     /** Returns a new {@code XrHandMeshMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrHandMeshMSFT malloc() {
-        return new XrHandMeshMSFT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrHandMeshMSFT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrHandMeshMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrHandMeshMSFT calloc() {
-        return new XrHandMeshMSFT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrHandMeshMSFT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrHandMeshMSFT} instance allocated with {@link BufferUtils}. */
     public static XrHandMeshMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrHandMeshMSFT(memAddress(container), container);
+        return wrap(XrHandMeshMSFT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrHandMeshMSFT} instance for the specified memory address. */
     public static XrHandMeshMSFT create(long address) {
-        return new XrHandMeshMSFT(address, null);
+        return wrap(XrHandMeshMSFT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandMeshMSFT createSafe(long address) {
-        return address == NULL ? null : new XrHandMeshMSFT(address, null);
+        return address == NULL ? null : wrap(XrHandMeshMSFT.class, address);
     }
 
     /**
@@ -225,7 +216,7 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static XrHandMeshMSFT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -234,7 +225,7 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static XrHandMeshMSFT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -244,7 +235,7 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
      */
     public static XrHandMeshMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -254,13 +245,13 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static XrHandMeshMSFT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandMeshMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -269,7 +260,7 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static XrHandMeshMSFT malloc(MemoryStack stack) {
-        return new XrHandMeshMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrHandMeshMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -278,7 +269,7 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static XrHandMeshMSFT calloc(MemoryStack stack) {
-        return new XrHandMeshMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrHandMeshMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -288,7 +279,7 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static XrHandMeshMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -298,7 +289,7 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
      * @param capacity the buffer capacity
      */
     public static XrHandMeshMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -333,6 +324,16 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
     /** Unsafe version of {@link #vertexBuffer(XrHandMeshVertexBufferMSFT) vertexBuffer}. */
     public static void nvertexBuffer(long struct, XrHandMeshVertexBufferMSFT value) { memCopy(value.address(), struct + XrHandMeshMSFT.VERTEXBUFFER, XrHandMeshVertexBufferMSFT.SIZEOF); }
 
+    /**
+     * Validates pointer members that should not be {@code NULL}.
+     *
+     * @param struct the struct to validate
+     */
+    public static void validate(long struct) {
+        XrHandMeshIndexBufferMSFT.validate(struct + XrHandMeshMSFT.INDEXBUFFER);
+        XrHandMeshVertexBufferMSFT.validate(struct + XrHandMeshMSFT.VERTEXBUFFER);
+    }
+
     // -----------------------------------
 
     /** An array of {@link XrHandMeshMSFT} structs. */
@@ -343,9 +344,9 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
         /**
          * Creates a new {@code XrHandMeshMSFT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrHandMeshMSFT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrHandMeshMSFT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -157,7 +157,7 @@ public final class BlendishDemo {
     }
 
     private static void initBlendish(long vg) {
-        bndSetFont(nvgCreateFontMem(vg, "system", font, false));
+        bndSetFont(nvgCreateFontMem(vg, "system", font, 0));
 
         System.out.println("Downloading Blender icons...");
         long t = System.nanoTime();
@@ -1305,7 +1305,7 @@ enum SubType {
 
 // The classes below were generated using the LWJGL generator, then cleaned-up.
 
-class UIData extends Struct<UIData> implements NativeResource {
+class UIData extends Struct implements NativeResource {
 
     public static final int SIZEOF;
     public static final int ALIGNOF;
@@ -1327,13 +1327,8 @@ class UIData extends Struct<UIData> implements NativeResource {
         HANDLER = layout.offsetof(1);
     }
 
-    UIData(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected UIData create(long address, @Nullable ByteBuffer container) {
-        return new UIData(address, container);
+    UIData(ByteBuffer container) {
+        super(memAddress(container), __checkContainer(container, SIZEOF));
     }
 
     @Override
@@ -1354,12 +1349,12 @@ class UIData extends Struct<UIData> implements NativeResource {
     }
 
     public static UIData create(long address) {
-        return new UIData(address, null);
+        return wrap(UIData.class, address);
     }
 
     @Nullable
     public static UIData createSafe(long address) {
-        return address == NULL ? null : new UIData(address, null);
+        return address == NULL ? null : wrap(UIData.class, address);
     }
 
     public static int nsubtype(long struct)                              { return UNSAFE.getInt(null, struct + UIData.SUBTYPE); }
@@ -1370,7 +1365,7 @@ class UIData extends Struct<UIData> implements NativeResource {
 
 }
 
-class UIRectData extends Struct<UIRectData> implements NativeResource {
+class UIRectData extends Struct implements NativeResource {
 
     public static final int SIZEOF;
     public static final int ALIGNOF;
@@ -1395,13 +1390,8 @@ class UIRectData extends Struct<UIRectData> implements NativeResource {
         COLOR = layout.offsetof(2);
     }
 
-    UIRectData(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected UIRectData create(long address, @Nullable ByteBuffer container) {
-        return new UIRectData(address, container);
+    UIRectData(ByteBuffer container) {
+        super(memAddress(container), __checkContainer(container, SIZEOF));
     }
 
     @Override
@@ -1439,7 +1429,7 @@ class UIRectData extends Struct<UIRectData> implements NativeResource {
     }
 
     public static UIRectData create(long address) {
-        return new UIRectData(address, null);
+        return wrap(UIRectData.class, address);
     }
 
     public static UIData nhead(long struct)                  { return UIData.create(struct + UIRectData.HEAD); }
@@ -1458,7 +1448,7 @@ class UIRectData extends Struct<UIRectData> implements NativeResource {
 
 }
 
-class UIButtonData extends Struct<UIButtonData> implements NativeResource {
+class UIButtonData extends Struct implements NativeResource {
 
     public static final int SIZEOF;
     public static final int ALIGNOF;
@@ -1483,13 +1473,8 @@ class UIButtonData extends Struct<UIButtonData> implements NativeResource {
         LABEL = layout.offsetof(2);
     }
 
-    UIButtonData(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected UIButtonData create(long address, @Nullable ByteBuffer container) {
-        return new UIButtonData(address, container);
+    UIButtonData(ByteBuffer container) {
+        super(memAddress(container), __checkContainer(container, SIZEOF));
     }
 
     @Override
@@ -1522,7 +1507,7 @@ class UIButtonData extends Struct<UIButtonData> implements NativeResource {
     }
 
     public static UIButtonData create(long address) {
-        return new UIButtonData(address, null);
+        return wrap(UIButtonData.class, address);
     }
 
     public static UIData nhead(long struct)                  { return UIData.create(struct + UIButtonData.HEAD); }
@@ -1541,7 +1526,7 @@ class UIButtonData extends Struct<UIButtonData> implements NativeResource {
 
 }
 
-class UICheckData extends Struct<UICheckData> implements NativeResource {
+class UICheckData extends Struct implements NativeResource {
 
     public static final int SIZEOF;
     public static final int ALIGNOF;
@@ -1566,13 +1551,8 @@ class UICheckData extends Struct<UICheckData> implements NativeResource {
         OPTION = layout.offsetof(2);
     }
 
-    UICheckData(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected UICheckData create(long address, @Nullable ByteBuffer container) {
-        return new UICheckData(address, container);
+    UICheckData(ByteBuffer container) {
+        super(memAddress(container), __checkContainer(container, SIZEOF));
     }
 
     @Override
@@ -1606,7 +1586,7 @@ class UICheckData extends Struct<UICheckData> implements NativeResource {
     }
 
     public static UICheckData create(long address) {
-        return new UICheckData(address, null);
+        return wrap(UICheckData.class, address);
     }
 
     public static UIData nhead(long struct)                    { return UIData.create(struct + UICheckData.HEAD); }
@@ -1625,7 +1605,7 @@ class UICheckData extends Struct<UICheckData> implements NativeResource {
 
 }
 
-class UIRadioData extends Struct<UIRadioData> implements NativeResource {
+class UIRadioData extends Struct implements NativeResource {
 
     public static final int SIZEOF;
     public static final int ALIGNOF;
@@ -1653,13 +1633,8 @@ class UIRadioData extends Struct<UIRadioData> implements NativeResource {
         VALUE = layout.offsetof(3);
     }
 
-    UIRadioData(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected UIRadioData create(long address, @Nullable ByteBuffer container) {
-        return new UIRadioData(address, container);
+    UIRadioData(ByteBuffer container) {
+        super(memAddress(container), __checkContainer(container, SIZEOF));
     }
 
     @Override
@@ -1698,7 +1673,7 @@ class UIRadioData extends Struct<UIRadioData> implements NativeResource {
     }
 
     public static UIRadioData create(long address) {
-        return new UIRadioData(address, null);
+        return wrap(UIRadioData.class, address);
     }
 
     public static UIData nhead(long struct)                   { return UIData.create(struct + UIRadioData.HEAD); }
@@ -1719,7 +1694,7 @@ class UIRadioData extends Struct<UIRadioData> implements NativeResource {
 
 }
 
-class UISliderData extends Struct<UISliderData> implements NativeResource {
+class UISliderData extends Struct implements NativeResource {
 
     public static final int SIZEOF;
     public static final int ALIGNOF;
@@ -1744,13 +1719,8 @@ class UISliderData extends Struct<UISliderData> implements NativeResource {
         PROGRESS = layout.offsetof(2);
     }
 
-    UISliderData(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected UISliderData create(long address, @Nullable ByteBuffer container) {
-        return new UISliderData(address, container);
+    UISliderData(ByteBuffer container) {
+        super(memAddress(container), __checkContainer(container, SIZEOF));
     }
 
     @Override
@@ -1784,7 +1754,7 @@ class UISliderData extends Struct<UISliderData> implements NativeResource {
     }
 
     public static UISliderData create(long address) {
-        return new UISliderData(address, null);
+        return wrap(UISliderData.class, address);
     }
 
     public static UIData nhead(long struct)                        { return UIData.create(struct + UISliderData.HEAD); }
@@ -1803,7 +1773,7 @@ class UISliderData extends Struct<UISliderData> implements NativeResource {
 
 }
 
-class UITextData extends Struct<UITextData> implements NativeResource {
+class UITextData extends Struct implements NativeResource {
 
     public static final int SIZEOF;
     public static final int ALIGNOF;
@@ -1828,13 +1798,8 @@ class UITextData extends Struct<UITextData> implements NativeResource {
         MAXSIZE = layout.offsetof(2);
     }
 
-    UITextData(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected UITextData create(long address, @Nullable ByteBuffer container) {
-        return new UITextData(address, container);
+    UITextData(ByteBuffer container) {
+        super(memAddress(container), __checkContainer(container, SIZEOF));
     }
 
     @Override
@@ -1867,7 +1832,7 @@ class UITextData extends Struct<UITextData> implements NativeResource {
     }
 
     public static UITextData create(long address) {
-        return new UITextData(address, null);
+        return wrap(UITextData.class, address);
     }
 
     public static UIData nhead(long struct)                 { return UIData.create(struct + UITextData.HEAD); }

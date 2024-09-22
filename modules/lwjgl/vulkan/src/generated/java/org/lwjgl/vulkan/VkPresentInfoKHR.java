@@ -31,24 +31,22 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>Elements of {@code pSwapchain} <b>must</b> be unique</li>
  * <li>Each element of {@code pImageIndices} <b>must</b> be the index of a presentable image acquired from the swapchain specified by the corresponding element of the {@code pSwapchains} array, and the presented image subresource <b>must</b> be in the {@link KHRSwapchain#VK_IMAGE_LAYOUT_PRESENT_SRC_KHR IMAGE_LAYOUT_PRESENT_SRC_KHR} or {@link KHRSharedPresentableImage#VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR IMAGE_LAYOUT_SHARED_PRESENT_KHR} layout at the time the operation is executed on a {@code VkDevice}</li>
- * <li>If a {@link VkPresentIdKHR} structure is included in the {@code pNext} chain, and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-presentId">{@code presentId}</a> feature is not enabled, each {@code presentIds} entry in that structure <b>must</b> be NULL</li>
- * <li>If any element of the {@code pSwapchains} array has been created with {@link VkSwapchainPresentModesCreateInfoEXT}, all of the elements of this array <b>must</b> be created with {@link VkSwapchainPresentModesCreateInfoEXT}</li>
+ * <li>If a {@link VkPresentIdKHR} structure is included in the {@code pNext} chain, and the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-presentId">{@code presentId}</a> feature is not enabled, each {@code presentIds} entry in that structure <b>must</b> be NULL</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRSwapchain#VK_STRUCTURE_TYPE_PRESENT_INFO_KHR STRUCTURE_TYPE_PRESENT_INFO_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDeviceGroupPresentInfoKHR}, {@link VkDisplayPresentInfoKHR}, {@link VkFrameBoundaryEXT}, {@link VkPresentIdKHR}, {@link VkPresentRegionsKHR}, {@link VkPresentTimesInfoGOOGLE}, {@link VkSwapchainPresentFenceInfoEXT}, or {@link VkSwapchainPresentModeInfoEXT}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDeviceGroupPresentInfoKHR}, {@link VkDisplayPresentInfoKHR}, {@link VkPresentIdKHR}, {@link VkPresentRegionsKHR}, or {@link VkPresentTimesInfoGOOGLE}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>If {@code waitSemaphoreCount} is not 0, {@code pWaitSemaphores} <b>must</b> be a valid pointer to an array of {@code waitSemaphoreCount} valid {@code VkSemaphore} handles</li>
  * <li>{@code pSwapchains} <b>must</b> be a valid pointer to an array of {@code swapchainCount} valid {@code VkSwapchainKHR} handles</li>
  * <li>{@code pImageIndices} <b>must</b> be a valid pointer to an array of {@code swapchainCount} {@code uint32_t} values</li>
  * <li>If {@code pResults} is not {@code NULL}, {@code pResults} <b>must</b> be a valid pointer to an array of {@code swapchainCount} {@code VkResult} values</li>
  * <li>{@code swapchainCount} <b>must</b> be greater than 0</li>
- * <li>Both of the elements of {@code pSwapchains}, and the elements of {@code pWaitSemaphores} that are valid handles of non-ignored parameters <b>must</b> have been created, allocated, or retrieved from the same {@code VkDevice}</li>
+ * <li>Both of the elements of {@code pSwapchains}, and the elements of {@code pWaitSemaphores} that are valid handles of non-ignored parameters <b>must</b> have been created, allocated, or retrieved from the same {@code VkInstance}</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -69,7 +67,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkResult * {@link #pResults};
  * }</code></pre>
  */
-public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements NativeResource {
+public class VkPresentInfoKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -113,15 +111,6 @@ public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements Native
         PRESULTS = layout.offsetof(7);
     }
 
-    protected VkPresentInfoKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPresentInfoKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkPresentInfoKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkPresentInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -135,7 +124,7 @@ public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements Native
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -151,7 +140,7 @@ public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements Native
     /** the number of swapchains being presented to by this command. */
     @NativeType("uint32_t")
     public int swapchainCount() { return nswapchainCount(address()); }
-    /** a pointer to an array of {@code VkSwapchainKHR} objects with {@code swapchainCount} entries. */
+    /** a pointer to an array of {@code VkSwapchainKHR} objects with {@code swapchainCount} entries. A given swapchain <b>must</b> not appear in this list more than once. */
     @NativeType("VkSwapchainKHR const *")
     public LongBuffer pSwapchains() { return npSwapchains(address()); }
     /** a pointer to an array of indices into the array of each swapchain’s presentable images, with {@code swapchainCount} entries. Each entry in this array identifies the image to present on the corresponding entry in the {@code pSwapchains} array. */
@@ -172,18 +161,12 @@ public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements Native
     public VkPresentInfoKHR pNext(VkDeviceGroupPresentInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkDisplayPresentInfoKHR} value to the {@code pNext} chain. */
     public VkPresentInfoKHR pNext(VkDisplayPresentInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkFrameBoundaryEXT} value to the {@code pNext} chain. */
-    public VkPresentInfoKHR pNext(VkFrameBoundaryEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkPresentIdKHR} value to the {@code pNext} chain. */
     public VkPresentInfoKHR pNext(VkPresentIdKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkPresentRegionsKHR} value to the {@code pNext} chain. */
     public VkPresentInfoKHR pNext(VkPresentRegionsKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkPresentTimesInfoGOOGLE} value to the {@code pNext} chain. */
     public VkPresentInfoKHR pNext(VkPresentTimesInfoGOOGLE value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkSwapchainPresentFenceInfoEXT} value to the {@code pNext} chain. */
-    public VkPresentInfoKHR pNext(VkSwapchainPresentFenceInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkSwapchainPresentModeInfoEXT} value to the {@code pNext} chain. */
-    public VkPresentInfoKHR pNext(VkSwapchainPresentModeInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the address of the specified {@link LongBuffer} to the {@link #pWaitSemaphores} field. */
     public VkPresentInfoKHR pWaitSemaphores(@Nullable @NativeType("VkSemaphore const *") LongBuffer value) { npWaitSemaphores(address(), value); return this; }
     /** Sets the specified value to the {@link #swapchainCount} field. */
@@ -232,29 +215,29 @@ public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements Native
 
     /** Returns a new {@code VkPresentInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPresentInfoKHR malloc() {
-        return new VkPresentInfoKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPresentInfoKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPresentInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPresentInfoKHR calloc() {
-        return new VkPresentInfoKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPresentInfoKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPresentInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkPresentInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPresentInfoKHR(memAddress(container), container);
+        return wrap(VkPresentInfoKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPresentInfoKHR} instance for the specified memory address. */
     public static VkPresentInfoKHR create(long address) {
-        return new VkPresentInfoKHR(address, null);
+        return wrap(VkPresentInfoKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPresentInfoKHR createSafe(long address) {
-        return address == NULL ? null : new VkPresentInfoKHR(address, null);
+        return address == NULL ? null : wrap(VkPresentInfoKHR.class, address);
     }
 
     /**
@@ -263,7 +246,7 @@ public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements Native
      * @param capacity the buffer capacity
      */
     public static VkPresentInfoKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -272,7 +255,7 @@ public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements Native
      * @param capacity the buffer capacity
      */
     public static VkPresentInfoKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -282,7 +265,7 @@ public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements Native
      */
     public static VkPresentInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -292,13 +275,13 @@ public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements Native
      * @param capacity the buffer capacity
      */
     public static VkPresentInfoKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPresentInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -326,7 +309,7 @@ public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements Native
      * @param stack the stack from which to allocate
      */
     public static VkPresentInfoKHR malloc(MemoryStack stack) {
-        return new VkPresentInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPresentInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -335,7 +318,7 @@ public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements Native
      * @param stack the stack from which to allocate
      */
     public static VkPresentInfoKHR calloc(MemoryStack stack) {
-        return new VkPresentInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPresentInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -345,7 +328,7 @@ public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements Native
      * @param capacity the buffer capacity
      */
     public static VkPresentInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -355,7 +338,7 @@ public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements Native
      * @param capacity the buffer capacity
      */
     public static VkPresentInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -417,9 +400,9 @@ public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements Native
         /**
          * Creates a new {@code VkPresentInfoKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPresentInfoKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPresentInfoKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -482,18 +465,12 @@ public class VkPresentInfoKHR extends Struct<VkPresentInfoKHR> implements Native
         public VkPresentInfoKHR.Buffer pNext(VkDeviceGroupPresentInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkDisplayPresentInfoKHR} value to the {@code pNext} chain. */
         public VkPresentInfoKHR.Buffer pNext(VkDisplayPresentInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkFrameBoundaryEXT} value to the {@code pNext} chain. */
-        public VkPresentInfoKHR.Buffer pNext(VkFrameBoundaryEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkPresentIdKHR} value to the {@code pNext} chain. */
         public VkPresentInfoKHR.Buffer pNext(VkPresentIdKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkPresentRegionsKHR} value to the {@code pNext} chain. */
         public VkPresentInfoKHR.Buffer pNext(VkPresentRegionsKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkPresentTimesInfoGOOGLE} value to the {@code pNext} chain. */
         public VkPresentInfoKHR.Buffer pNext(VkPresentTimesInfoGOOGLE value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkSwapchainPresentFenceInfoEXT} value to the {@code pNext} chain. */
-        public VkPresentInfoKHR.Buffer pNext(VkSwapchainPresentFenceInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkSwapchainPresentModeInfoEXT} value to the {@code pNext} chain. */
-        public VkPresentInfoKHR.Buffer pNext(VkSwapchainPresentModeInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the address of the specified {@link LongBuffer} to the {@link VkPresentInfoKHR#pWaitSemaphores} field. */
         public VkPresentInfoKHR.Buffer pWaitSemaphores(@Nullable @NativeType("VkSemaphore const *") LongBuffer value) { VkPresentInfoKHR.npWaitSemaphores(address(), value); return this; }
         /** Sets the specified value to the {@link VkPresentInfoKHR#swapchainCount} field. */

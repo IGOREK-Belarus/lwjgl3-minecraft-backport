@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBHandTrackingMesh XR_FB_hand_tracking_mesh} extension <b>must</b> be enabled prior to using {@link XrHandTrackingScaleFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBHandTrackingMesh#XR_TYPE_HAND_TRACKING_SCALE_FB TYPE_HAND_TRACKING_SCALE_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h3>Layout</h3>
@@ -38,7 +38,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float {@link #overrideValueInput};
  * }</code></pre>
  */
-public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> implements NativeResource {
+public class XrHandTrackingScaleFB extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -76,15 +76,6 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
         OVERRIDEVALUEINPUT = layout.offsetof(5);
     }
 
-    protected XrHandTrackingScaleFB(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrHandTrackingScaleFB create(long address, @Nullable ByteBuffer container) {
-        return new XrHandTrackingScaleFB(address, container);
-    }
-
     /**
      * Creates a {@code XrHandTrackingScaleFB} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -104,14 +95,14 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
     /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** an output value: the currently measured scale as otherwise applied without passing this structure. */
+    /** an output value: the currently measured scale as would be applied without passing this structure. */
     public float sensorOutput() { return nsensorOutput(address()); }
-    /** an output value: the effective output that the bind skeleton is getting on the current call, which <b>may</b> be subject to filtering, scaling, or validation. */
+    /** an output value: the effective output that the bind skeleton is getting on the current call, which may be subject to filtering, scaling, or validation. */
     public float currentOutput() { return ncurrentOutput(address()); }
-    /** indicates whether the runtime <b>must</b> scale the output of this {@link EXTHandTracking#xrLocateHandJointsEXT LocateHandJointsEXT} call according to {@code overrideValueInput} */
+    /** indicates whether the runtime should scale the output of this {@link EXTHandTracking#xrLocateHandJointsEXT LocateHandJointsEXT} call according to {@code overrideValueInput} */
     @NativeType("XrBool32")
     public boolean overrideHandScale() { return noverrideHandScale(address()) != 0; }
-    /** an <b>optional</b> input value, enabled only when the {@code overrideHandScale} parameter is set. Setting this to 1.0 and setting {@code overrideHandScale} to {@code true} will give the joints in mesh binding scale. */
+    /** an optional input value, enabled only when the {@code overrideHandScale} parameter is set. Setting this to 1.0 and setting {@code overrideHandScale} to {@code true} will give the joints in mesh binding scale. */
     public float overrideValueInput() { return noverrideValueInput(address()); }
 
     /** Sets the specified value to the {@link #type} field. */
@@ -120,14 +111,30 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
     public XrHandTrackingScaleFB type$Default() { return type(FBHandTrackingMesh.XR_TYPE_HAND_TRACKING_SCALE_FB); }
     /** Sets the specified value to the {@link #next} field. */
     public XrHandTrackingScaleFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
+    /** Sets the specified value to the {@link #sensorOutput} field. */
+    public XrHandTrackingScaleFB sensorOutput(float value) { nsensorOutput(address(), value); return this; }
+    /** Sets the specified value to the {@link #currentOutput} field. */
+    public XrHandTrackingScaleFB currentOutput(float value) { ncurrentOutput(address(), value); return this; }
+    /** Sets the specified value to the {@link #overrideHandScale} field. */
+    public XrHandTrackingScaleFB overrideHandScale(@NativeType("XrBool32") boolean value) { noverrideHandScale(address(), value ? 1 : 0); return this; }
+    /** Sets the specified value to the {@link #overrideValueInput} field. */
+    public XrHandTrackingScaleFB overrideValueInput(float value) { noverrideValueInput(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrHandTrackingScaleFB set(
         int type,
-        long next
+        long next,
+        float sensorOutput,
+        float currentOutput,
+        boolean overrideHandScale,
+        float overrideValueInput
     ) {
         type(type);
         next(next);
+        sensorOutput(sensorOutput);
+        currentOutput(currentOutput);
+        overrideHandScale(overrideHandScale);
+        overrideValueInput(overrideValueInput);
 
         return this;
     }
@@ -148,29 +155,29 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
 
     /** Returns a new {@code XrHandTrackingScaleFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrHandTrackingScaleFB malloc() {
-        return new XrHandTrackingScaleFB(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrHandTrackingScaleFB.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrHandTrackingScaleFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrHandTrackingScaleFB calloc() {
-        return new XrHandTrackingScaleFB(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrHandTrackingScaleFB.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrHandTrackingScaleFB} instance allocated with {@link BufferUtils}. */
     public static XrHandTrackingScaleFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrHandTrackingScaleFB(memAddress(container), container);
+        return wrap(XrHandTrackingScaleFB.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrHandTrackingScaleFB} instance for the specified memory address. */
     public static XrHandTrackingScaleFB create(long address) {
-        return new XrHandTrackingScaleFB(address, null);
+        return wrap(XrHandTrackingScaleFB.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandTrackingScaleFB createSafe(long address) {
-        return address == NULL ? null : new XrHandTrackingScaleFB(address, null);
+        return address == NULL ? null : wrap(XrHandTrackingScaleFB.class, address);
     }
 
     /**
@@ -179,7 +186,7 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
      * @param capacity the buffer capacity
      */
     public static XrHandTrackingScaleFB.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -188,7 +195,7 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
      * @param capacity the buffer capacity
      */
     public static XrHandTrackingScaleFB.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -198,7 +205,7 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
      */
     public static XrHandTrackingScaleFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -208,13 +215,13 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
      * @param capacity the buffer capacity
      */
     public static XrHandTrackingScaleFB.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandTrackingScaleFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -223,7 +230,7 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
      * @param stack the stack from which to allocate
      */
     public static XrHandTrackingScaleFB malloc(MemoryStack stack) {
-        return new XrHandTrackingScaleFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrHandTrackingScaleFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -232,7 +239,7 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
      * @param stack the stack from which to allocate
      */
     public static XrHandTrackingScaleFB calloc(MemoryStack stack) {
-        return new XrHandTrackingScaleFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrHandTrackingScaleFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -242,7 +249,7 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
      * @param capacity the buffer capacity
      */
     public static XrHandTrackingScaleFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -252,7 +259,7 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
      * @param capacity the buffer capacity
      */
     public static XrHandTrackingScaleFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -274,6 +281,14 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
     public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrHandTrackingScaleFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrHandTrackingScaleFB.NEXT, value); }
+    /** Unsafe version of {@link #sensorOutput(float) sensorOutput}. */
+    public static void nsensorOutput(long struct, float value) { UNSAFE.putFloat(null, struct + XrHandTrackingScaleFB.SENSOROUTPUT, value); }
+    /** Unsafe version of {@link #currentOutput(float) currentOutput}. */
+    public static void ncurrentOutput(long struct, float value) { UNSAFE.putFloat(null, struct + XrHandTrackingScaleFB.CURRENTOUTPUT, value); }
+    /** Unsafe version of {@link #overrideHandScale(boolean) overrideHandScale}. */
+    public static void noverrideHandScale(long struct, int value) { UNSAFE.putInt(null, struct + XrHandTrackingScaleFB.OVERRIDEHANDSCALE, value); }
+    /** Unsafe version of {@link #overrideValueInput(float) overrideValueInput}. */
+    public static void noverrideValueInput(long struct, float value) { UNSAFE.putFloat(null, struct + XrHandTrackingScaleFB.OVERRIDEVALUEINPUT, value); }
 
     // -----------------------------------
 
@@ -285,9 +300,9 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
         /**
          * Creates a new {@code XrHandTrackingScaleFB.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrHandTrackingScaleFB#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrHandTrackingScaleFB#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -335,6 +350,14 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
         public XrHandTrackingScaleFB.Buffer type$Default() { return type(FBHandTrackingMesh.XR_TYPE_HAND_TRACKING_SCALE_FB); }
         /** Sets the specified value to the {@link XrHandTrackingScaleFB#next} field. */
         public XrHandTrackingScaleFB.Buffer next(@NativeType("void *") long value) { XrHandTrackingScaleFB.nnext(address(), value); return this; }
+        /** Sets the specified value to the {@link XrHandTrackingScaleFB#sensorOutput} field. */
+        public XrHandTrackingScaleFB.Buffer sensorOutput(float value) { XrHandTrackingScaleFB.nsensorOutput(address(), value); return this; }
+        /** Sets the specified value to the {@link XrHandTrackingScaleFB#currentOutput} field. */
+        public XrHandTrackingScaleFB.Buffer currentOutput(float value) { XrHandTrackingScaleFB.ncurrentOutput(address(), value); return this; }
+        /** Sets the specified value to the {@link XrHandTrackingScaleFB#overrideHandScale} field. */
+        public XrHandTrackingScaleFB.Buffer overrideHandScale(@NativeType("XrBool32") boolean value) { XrHandTrackingScaleFB.noverrideHandScale(address(), value ? 1 : 0); return this; }
+        /** Sets the specified value to the {@link XrHandTrackingScaleFB#overrideValueInput} field. */
+        public XrHandTrackingScaleFB.Buffer overrideValueInput(float value) { XrHandTrackingScaleFB.noverrideValueInput(address(), value); return this; }
 
     }
 

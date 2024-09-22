@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkExternalMemoryProperties VkExternalMemoryProperties} {@link #externalMemoryProperties};
  * }</code></pre>
  */
-public class VkExternalImageFormatProperties extends Struct<VkExternalImageFormatProperties> implements NativeResource {
+public class VkExternalImageFormatProperties extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,15 +66,6 @@ public class VkExternalImageFormatProperties extends Struct<VkExternalImageForma
         EXTERNALMEMORYPROPERTIES = layout.offsetof(2);
     }
 
-    protected VkExternalImageFormatProperties(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkExternalImageFormatProperties create(long address, @Nullable ByteBuffer container) {
-        return new VkExternalImageFormatProperties(address, container);
-    }
-
     /**
      * Creates a {@code VkExternalImageFormatProperties} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -88,7 +79,7 @@ public class VkExternalImageFormatProperties extends Struct<VkExternalImageForma
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -131,29 +122,29 @@ public class VkExternalImageFormatProperties extends Struct<VkExternalImageForma
 
     /** Returns a new {@code VkExternalImageFormatProperties} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkExternalImageFormatProperties malloc() {
-        return new VkExternalImageFormatProperties(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkExternalImageFormatProperties.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkExternalImageFormatProperties} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkExternalImageFormatProperties calloc() {
-        return new VkExternalImageFormatProperties(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkExternalImageFormatProperties.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkExternalImageFormatProperties} instance allocated with {@link BufferUtils}. */
     public static VkExternalImageFormatProperties create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkExternalImageFormatProperties(memAddress(container), container);
+        return wrap(VkExternalImageFormatProperties.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkExternalImageFormatProperties} instance for the specified memory address. */
     public static VkExternalImageFormatProperties create(long address) {
-        return new VkExternalImageFormatProperties(address, null);
+        return wrap(VkExternalImageFormatProperties.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkExternalImageFormatProperties createSafe(long address) {
-        return address == NULL ? null : new VkExternalImageFormatProperties(address, null);
+        return address == NULL ? null : wrap(VkExternalImageFormatProperties.class, address);
     }
 
     /**
@@ -162,7 +153,7 @@ public class VkExternalImageFormatProperties extends Struct<VkExternalImageForma
      * @param capacity the buffer capacity
      */
     public static VkExternalImageFormatProperties.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -171,7 +162,7 @@ public class VkExternalImageFormatProperties extends Struct<VkExternalImageForma
      * @param capacity the buffer capacity
      */
     public static VkExternalImageFormatProperties.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -181,7 +172,7 @@ public class VkExternalImageFormatProperties extends Struct<VkExternalImageForma
      */
     public static VkExternalImageFormatProperties.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -191,13 +182,13 @@ public class VkExternalImageFormatProperties extends Struct<VkExternalImageForma
      * @param capacity the buffer capacity
      */
     public static VkExternalImageFormatProperties.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkExternalImageFormatProperties.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -225,7 +216,7 @@ public class VkExternalImageFormatProperties extends Struct<VkExternalImageForma
      * @param stack the stack from which to allocate
      */
     public static VkExternalImageFormatProperties malloc(MemoryStack stack) {
-        return new VkExternalImageFormatProperties(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkExternalImageFormatProperties.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -234,7 +225,7 @@ public class VkExternalImageFormatProperties extends Struct<VkExternalImageForma
      * @param stack the stack from which to allocate
      */
     public static VkExternalImageFormatProperties calloc(MemoryStack stack) {
-        return new VkExternalImageFormatProperties(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkExternalImageFormatProperties.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -244,7 +235,7 @@ public class VkExternalImageFormatProperties extends Struct<VkExternalImageForma
      * @param capacity the buffer capacity
      */
     public static VkExternalImageFormatProperties.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -254,7 +245,7 @@ public class VkExternalImageFormatProperties extends Struct<VkExternalImageForma
      * @param capacity the buffer capacity
      */
     public static VkExternalImageFormatProperties.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -281,9 +272,9 @@ public class VkExternalImageFormatProperties extends Struct<VkExternalImageForma
         /**
          * Creates a new {@code VkExternalImageFormatProperties.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkExternalImageFormatProperties#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkExternalImageFormatProperties#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

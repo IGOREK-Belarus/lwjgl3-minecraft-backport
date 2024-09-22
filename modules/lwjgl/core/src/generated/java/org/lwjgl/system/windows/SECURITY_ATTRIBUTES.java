@@ -30,7 +30,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     BOOL {@link #bInheritHandle};
  * }</code></pre>
  */
-public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements NativeResource {
+public class SECURITY_ATTRIBUTES extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -57,15 +57,6 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
         NLENGTH = layout.offsetof(0);
         LPSECURITYDESCRIPTOR = layout.offsetof(1);
         BINHERITHANDLE = layout.offsetof(2);
-    }
-
-    protected SECURITY_ATTRIBUTES(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected SECURITY_ATTRIBUTES create(long address, @Nullable ByteBuffer container) {
-        return new SECURITY_ATTRIBUTES(address, container);
     }
 
     /**
@@ -132,29 +123,29 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
 
     /** Returns a new {@code SECURITY_ATTRIBUTES} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static SECURITY_ATTRIBUTES malloc() {
-        return new SECURITY_ATTRIBUTES(nmemAllocChecked(SIZEOF), null);
+        return wrap(SECURITY_ATTRIBUTES.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code SECURITY_ATTRIBUTES} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static SECURITY_ATTRIBUTES calloc() {
-        return new SECURITY_ATTRIBUTES(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(SECURITY_ATTRIBUTES.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code SECURITY_ATTRIBUTES} instance allocated with {@link BufferUtils}. */
     public static SECURITY_ATTRIBUTES create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new SECURITY_ATTRIBUTES(memAddress(container), container);
+        return wrap(SECURITY_ATTRIBUTES.class, memAddress(container), container);
     }
 
     /** Returns a new {@code SECURITY_ATTRIBUTES} instance for the specified memory address. */
     public static SECURITY_ATTRIBUTES create(long address) {
-        return new SECURITY_ATTRIBUTES(address, null);
+        return wrap(SECURITY_ATTRIBUTES.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static SECURITY_ATTRIBUTES createSafe(long address) {
-        return address == NULL ? null : new SECURITY_ATTRIBUTES(address, null);
+        return address == NULL ? null : wrap(SECURITY_ATTRIBUTES.class, address);
     }
 
     /**
@@ -163,7 +154,7 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
      * @param capacity the buffer capacity
      */
     public static SECURITY_ATTRIBUTES.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -172,7 +163,7 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
      * @param capacity the buffer capacity
      */
     public static SECURITY_ATTRIBUTES.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -182,7 +173,7 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
      */
     public static SECURITY_ATTRIBUTES.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -192,13 +183,13 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
      * @param capacity the buffer capacity
      */
     public static SECURITY_ATTRIBUTES.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static SECURITY_ATTRIBUTES.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -226,7 +217,7 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
      * @param stack the stack from which to allocate
      */
     public static SECURITY_ATTRIBUTES malloc(MemoryStack stack) {
-        return new SECURITY_ATTRIBUTES(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(SECURITY_ATTRIBUTES.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -235,7 +226,7 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
      * @param stack the stack from which to allocate
      */
     public static SECURITY_ATTRIBUTES calloc(MemoryStack stack) {
-        return new SECURITY_ATTRIBUTES(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(SECURITY_ATTRIBUTES.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -245,7 +236,7 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
      * @param capacity the buffer capacity
      */
     public static SECURITY_ATTRIBUTES.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -255,7 +246,7 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
      * @param capacity the buffer capacity
      */
     public static SECURITY_ATTRIBUTES.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -293,9 +284,9 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
         /**
          * Creates a new {@code SECURITY_ATTRIBUTES.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link SECURITY_ATTRIBUTES#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link SECURITY_ATTRIBUTES#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

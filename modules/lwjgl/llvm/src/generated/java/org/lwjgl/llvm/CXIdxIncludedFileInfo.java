@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     int {@link #isModuleImport};
  * }</code></pre>
  */
-public class CXIdxIncludedFileInfo extends Struct<CXIdxIncludedFileInfo> {
+public class CXIdxIncludedFileInfo extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -64,15 +64,6 @@ public class CXIdxIncludedFileInfo extends Struct<CXIdxIncludedFileInfo> {
         ISIMPORT = layout.offsetof(3);
         ISANGLED = layout.offsetof(4);
         ISMODULEIMPORT = layout.offsetof(5);
-    }
-
-    protected CXIdxIncludedFileInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CXIdxIncludedFileInfo create(long address, @Nullable ByteBuffer container) {
-        return new CXIdxIncludedFileInfo(address, container);
     }
 
     /**
@@ -113,13 +104,13 @@ public class CXIdxIncludedFileInfo extends Struct<CXIdxIncludedFileInfo> {
 
     /** Returns a new {@code CXIdxIncludedFileInfo} instance for the specified memory address. */
     public static CXIdxIncludedFileInfo create(long address) {
-        return new CXIdxIncludedFileInfo(address, null);
+        return wrap(CXIdxIncludedFileInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CXIdxIncludedFileInfo createSafe(long address) {
-        return address == NULL ? null : new CXIdxIncludedFileInfo(address, null);
+        return address == NULL ? null : wrap(CXIdxIncludedFileInfo.class, address);
     }
 
     /**
@@ -129,13 +120,13 @@ public class CXIdxIncludedFileInfo extends Struct<CXIdxIncludedFileInfo> {
      * @param capacity the buffer capacity
      */
     public static CXIdxIncludedFileInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CXIdxIncludedFileInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -165,9 +156,9 @@ public class CXIdxIncludedFileInfo extends Struct<CXIdxIncludedFileInfo> {
         /**
          * Creates a new {@code CXIdxIncludedFileInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CXIdxIncludedFileInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CXIdxIncludedFileInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -13,8 +13,6 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-import static org.lwjgl.nuklear.Nuklear.*;
-
 /**
  * <h3>Layout</h3>
  * 
@@ -33,7 +31,7 @@ import static org.lwjgl.nuklear.Nuklear.*;
  * }</code></pre>
  */
 @NativeType("struct nk_popup_state")
-public class NkPopupState extends Struct<NkPopupState> {
+public class NkPopupState extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -81,15 +79,6 @@ public class NkPopupState extends Struct<NkPopupState> {
         CON_OLD = layout.offsetof(7);
         ACTIVE_CON = layout.offsetof(8);
         HEADER = layout.offsetof(9);
-    }
-
-    protected NkPopupState(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected NkPopupState create(long address, @Nullable ByteBuffer container) {
-        return new NkPopupState(address, container);
     }
 
     /**
@@ -140,13 +129,13 @@ public class NkPopupState extends Struct<NkPopupState> {
 
     /** Returns a new {@code NkPopupState} instance for the specified memory address. */
     public static NkPopupState create(long address) {
-        return new NkPopupState(address, null);
+        return wrap(NkPopupState.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkPopupState createSafe(long address) {
-        return address == NULL ? null : new NkPopupState(address, null);
+        return address == NULL ? null : wrap(NkPopupState.class, address);
     }
 
     /**
@@ -156,13 +145,13 @@ public class NkPopupState extends Struct<NkPopupState> {
      * @param capacity the buffer capacity
      */
     public static NkPopupState.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkPopupState.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -198,9 +187,9 @@ public class NkPopupState extends Struct<NkPopupState> {
         /**
          * Creates a new {@code NkPopupState.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkPopupState#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link NkPopupState#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

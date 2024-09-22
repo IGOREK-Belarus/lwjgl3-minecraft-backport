@@ -39,7 +39,7 @@ import org.lwjgl.egl.*;
  * <ul>
  * <li>The {@link FBSwapchainUpdateStateOpenGLES XR_FB_swapchain_update_state_opengl_es} extension <b>must</b> be enabled prior to using {@link XrSwapchainStateSamplerOpenGLESFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBSwapchainUpdateStateOpenGLES#XR_TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code minFilter} <b>must</b> be a valid {@code EGLenum} value</li>
  * <li>{@code magFilter} <b>must</b> be a valid {@code EGLenum} value</li>
  * <li>{@code wrapModeS} <b>must</b> be a valid {@code EGLenum} value</li>
@@ -72,7 +72,7 @@ import org.lwjgl.egl.*;
  *     {@link XrColor4f XrColor4f} {@link #borderColor};
  * }</code></pre>
  */
-public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSamplerOpenGLESFB> implements NativeResource {
+public class XrSwapchainStateSamplerOpenGLESFB extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -126,15 +126,6 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
         SWIZZLEALPHA = layout.offsetof(9);
         MAXANISOTROPY = layout.offsetof(10);
         BORDERCOLOR = layout.offsetof(11);
-    }
-
-    protected XrSwapchainStateSamplerOpenGLESFB(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSwapchainStateSamplerOpenGLESFB create(long address, @Nullable ByteBuffer container) {
-        return new XrSwapchainStateSamplerOpenGLESFB(address, container);
     }
 
     /**
@@ -261,34 +252,34 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
 
     /** Returns a new {@code XrSwapchainStateSamplerOpenGLESFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSwapchainStateSamplerOpenGLESFB malloc() {
-        return new XrSwapchainStateSamplerOpenGLESFB(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSwapchainStateSamplerOpenGLESFB.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSwapchainStateSamplerOpenGLESFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSwapchainStateSamplerOpenGLESFB calloc() {
-        return new XrSwapchainStateSamplerOpenGLESFB(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSwapchainStateSamplerOpenGLESFB.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSwapchainStateSamplerOpenGLESFB} instance allocated with {@link BufferUtils}. */
     public static XrSwapchainStateSamplerOpenGLESFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSwapchainStateSamplerOpenGLESFB(memAddress(container), container);
+        return wrap(XrSwapchainStateSamplerOpenGLESFB.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSwapchainStateSamplerOpenGLESFB} instance for the specified memory address. */
     public static XrSwapchainStateSamplerOpenGLESFB create(long address) {
-        return new XrSwapchainStateSamplerOpenGLESFB(address, null);
+        return wrap(XrSwapchainStateSamplerOpenGLESFB.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSwapchainStateSamplerOpenGLESFB createSafe(long address) {
-        return address == NULL ? null : new XrSwapchainStateSamplerOpenGLESFB(address, null);
+        return address == NULL ? null : wrap(XrSwapchainStateSamplerOpenGLESFB.class, address);
     }
 
     /** Downcasts the specified {@code XrSwapchainStateBaseHeaderFB} instance to {@code XrSwapchainStateSamplerOpenGLESFB}. */
     public static XrSwapchainStateSamplerOpenGLESFB create(XrSwapchainStateBaseHeaderFB value) {
-        return new XrSwapchainStateSamplerOpenGLESFB(value.address(), __getContainer(value));
+        return wrap(XrSwapchainStateSamplerOpenGLESFB.class, value);
     }
 
     /**
@@ -297,7 +288,7 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
      * @param capacity the buffer capacity
      */
     public static XrSwapchainStateSamplerOpenGLESFB.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -306,7 +297,7 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
      * @param capacity the buffer capacity
      */
     public static XrSwapchainStateSamplerOpenGLESFB.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -316,7 +307,7 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
      */
     public static XrSwapchainStateSamplerOpenGLESFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -326,18 +317,18 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
      * @param capacity the buffer capacity
      */
     public static XrSwapchainStateSamplerOpenGLESFB.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSwapchainStateSamplerOpenGLESFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /** Downcasts the specified {@code XrSwapchainStateBaseHeaderFB.Buffer} instance to {@code XrSwapchainStateSamplerOpenGLESFB.Buffer}. */
     public static XrSwapchainStateSamplerOpenGLESFB.Buffer create(XrSwapchainStateBaseHeaderFB.Buffer value) {
-        return new XrSwapchainStateSamplerOpenGLESFB.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+        return wrap(Buffer.class, value);
     }
 
     /**
@@ -346,7 +337,7 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
      * @param stack the stack from which to allocate
      */
     public static XrSwapchainStateSamplerOpenGLESFB malloc(MemoryStack stack) {
-        return new XrSwapchainStateSamplerOpenGLESFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSwapchainStateSamplerOpenGLESFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -355,7 +346,7 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
      * @param stack the stack from which to allocate
      */
     public static XrSwapchainStateSamplerOpenGLESFB calloc(MemoryStack stack) {
-        return new XrSwapchainStateSamplerOpenGLESFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSwapchainStateSamplerOpenGLESFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -365,7 +356,7 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
      * @param capacity the buffer capacity
      */
     public static XrSwapchainStateSamplerOpenGLESFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -375,7 +366,7 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
      * @param capacity the buffer capacity
      */
     public static XrSwapchainStateSamplerOpenGLESFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -440,9 +431,9 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
         /**
          * Creates a new {@code XrSwapchainStateSamplerOpenGLESFB.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSwapchainStateSamplerOpenGLESFB#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSwapchainStateSamplerOpenGLESFB#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

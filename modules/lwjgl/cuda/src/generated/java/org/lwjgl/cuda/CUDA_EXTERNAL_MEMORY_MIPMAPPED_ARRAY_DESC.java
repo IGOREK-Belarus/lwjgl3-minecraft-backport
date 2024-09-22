@@ -17,17 +17,19 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
+ * External memory mipmap descriptor.
+ * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC {
- *     unsigned long long offset;
- *     {@link CUDA_ARRAY3D_DESCRIPTOR CUDA_ARRAY3D_DESCRIPTOR} arrayDesc;
- *     unsigned int numLevels;
+ *     unsigned long long {@link #offset};
+ *     {@link CUDA_ARRAY3D_DESCRIPTOR CUDA_ARRAY3D_DESCRIPTOR} {@link #arrayDesc};
+ *     unsigned int {@link #numLevels};
  *     unsigned int reserved[16];
  * }</code></pre>
  */
-public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC> implements NativeResource {
+public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -59,15 +61,6 @@ public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTER
         RESERVED = layout.offsetof(3);
     }
 
-    protected CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC create(long address, @Nullable ByteBuffer container) {
-        return new CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC(address, container);
-    }
-
     /**
      * Creates a {@code CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -81,12 +74,12 @@ public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTER
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return the value of the {@code offset} field. */
+    /** Offset into the memory object where the base level of the mipmap chain is. */
     @NativeType("unsigned long long")
     public long offset() { return noffset(address()); }
-    /** @return a {@link CUDA_ARRAY3D_DESCRIPTOR} view of the {@code arrayDesc} field. */
+    /** Format, dimension and type of base level of the mipmap chain */
     public CUDA_ARRAY3D_DESCRIPTOR arrayDesc() { return narrayDesc(address()); }
-    /** @return the value of the {@code numLevels} field. */
+    /** Total number of levels in the mipmap chain */
     @NativeType("unsigned int")
     public int numLevels() { return nnumLevels(address()); }
     /** @return a {@link IntBuffer} view of the {@code reserved} field. */
@@ -96,13 +89,13 @@ public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTER
     @NativeType("unsigned int")
     public int reserved(int index) { return nreserved(address(), index); }
 
-    /** Sets the specified value to the {@code offset} field. */
+    /** Sets the specified value to the {@link #offset} field. */
     public CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC offset(@NativeType("unsigned long long") long value) { noffset(address(), value); return this; }
-    /** Copies the specified {@link CUDA_ARRAY3D_DESCRIPTOR} to the {@code arrayDesc} field. */
+    /** Copies the specified {@link CUDA_ARRAY3D_DESCRIPTOR} to the {@link #arrayDesc} field. */
     public CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC arrayDesc(CUDA_ARRAY3D_DESCRIPTOR value) { narrayDesc(address(), value); return this; }
-    /** Passes the {@code arrayDesc} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@link #arrayDesc} field to the specified {@link java.util.function.Consumer Consumer}. */
     public CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC arrayDesc(java.util.function.Consumer<CUDA_ARRAY3D_DESCRIPTOR> consumer) { consumer.accept(arrayDesc()); return this; }
-    /** Sets the specified value to the {@code numLevels} field. */
+    /** Sets the specified value to the {@link #numLevels} field. */
     public CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC numLevels(@NativeType("unsigned int") int value) { nnumLevels(address(), value); return this; }
     /** Copies the specified {@link IntBuffer} to the {@code reserved} field. */
     public CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC reserved(@NativeType("unsigned int[16]") IntBuffer value) { nreserved(address(), value); return this; }
@@ -140,29 +133,29 @@ public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTER
 
     /** Returns a new {@code CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC malloc() {
-        return new CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC(nmemAllocChecked(SIZEOF), null);
+        return wrap(CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC calloc() {
-        return new CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC} instance allocated with {@link BufferUtils}. */
     public static CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC(memAddress(container), container);
+        return wrap(CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.class, memAddress(container), container);
     }
 
     /** Returns a new {@code CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC} instance for the specified memory address. */
     public static CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC create(long address) {
-        return new CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC(address, null);
+        return wrap(CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC createSafe(long address) {
-        return address == NULL ? null : new CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC(address, null);
+        return address == NULL ? null : wrap(CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.class, address);
     }
 
     /**
@@ -171,7 +164,7 @@ public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTER
      * @param capacity the buffer capacity
      */
     public static CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -180,7 +173,7 @@ public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTER
      * @param capacity the buffer capacity
      */
     public static CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -190,7 +183,7 @@ public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTER
      */
     public static CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -200,13 +193,13 @@ public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTER
      * @param capacity the buffer capacity
      */
     public static CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -234,7 +227,7 @@ public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTER
      * @param stack the stack from which to allocate
      */
     public static CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC malloc(MemoryStack stack) {
-        return new CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -243,7 +236,7 @@ public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTER
      * @param stack the stack from which to allocate
      */
     public static CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC calloc(MemoryStack stack) {
-        return new CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -253,7 +246,7 @@ public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTER
      * @param capacity the buffer capacity
      */
     public static CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -263,7 +256,7 @@ public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTER
      * @param capacity the buffer capacity
      */
     public static CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -307,9 +300,9 @@ public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTER
         /**
          * Creates a new {@code CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -335,12 +328,12 @@ public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTER
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@code offset} field. */
+        /** @return the value of the {@link CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC#offset} field. */
         @NativeType("unsigned long long")
         public long offset() { return CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.noffset(address()); }
-        /** @return a {@link CUDA_ARRAY3D_DESCRIPTOR} view of the {@code arrayDesc} field. */
+        /** @return a {@link CUDA_ARRAY3D_DESCRIPTOR} view of the {@link CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC#arrayDesc} field. */
         public CUDA_ARRAY3D_DESCRIPTOR arrayDesc() { return CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.narrayDesc(address()); }
-        /** @return the value of the {@code numLevels} field. */
+        /** @return the value of the {@link CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC#numLevels} field. */
         @NativeType("unsigned int")
         public int numLevels() { return CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.nnumLevels(address()); }
         /** @return a {@link IntBuffer} view of the {@code reserved} field. */
@@ -350,13 +343,13 @@ public class CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC extends Struct<CUDA_EXTER
         @NativeType("unsigned int")
         public int reserved(int index) { return CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.nreserved(address(), index); }
 
-        /** Sets the specified value to the {@code offset} field. */
+        /** Sets the specified value to the {@link CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC#offset} field. */
         public CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.Buffer offset(@NativeType("unsigned long long") long value) { CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.noffset(address(), value); return this; }
-        /** Copies the specified {@link CUDA_ARRAY3D_DESCRIPTOR} to the {@code arrayDesc} field. */
+        /** Copies the specified {@link CUDA_ARRAY3D_DESCRIPTOR} to the {@link CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC#arrayDesc} field. */
         public CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.Buffer arrayDesc(CUDA_ARRAY3D_DESCRIPTOR value) { CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.narrayDesc(address(), value); return this; }
-        /** Passes the {@code arrayDesc} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@link CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC#arrayDesc} field to the specified {@link java.util.function.Consumer Consumer}. */
         public CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.Buffer arrayDesc(java.util.function.Consumer<CUDA_ARRAY3D_DESCRIPTOR> consumer) { consumer.accept(arrayDesc()); return this; }
-        /** Sets the specified value to the {@code numLevels} field. */
+        /** Sets the specified value to the {@link CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC#numLevels} field. */
         public CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.Buffer numLevels(@NativeType("unsigned int") int value) { CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.nnumLevels(address(), value); return this; }
         /** Copies the specified {@link IntBuffer} to the {@code reserved} field. */
         public CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.Buffer reserved(@NativeType("unsigned int[16]") IntBuffer value) { CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC.nreserved(address(), value); return this; }

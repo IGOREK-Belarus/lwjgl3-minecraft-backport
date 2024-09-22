@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct nk_key")
-public class NkKey extends Struct<NkKey> {
+public class NkKey extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -47,15 +47,6 @@ public class NkKey extends Struct<NkKey> {
 
         DOWN = layout.offsetof(0);
         CLICKED = layout.offsetof(1);
-    }
-
-    protected NkKey(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected NkKey create(long address, @Nullable ByteBuffer container) {
-        return new NkKey(address, container);
     }
 
     /**
@@ -82,13 +73,13 @@ public class NkKey extends Struct<NkKey> {
 
     /** Returns a new {@code NkKey} instance for the specified memory address. */
     public static NkKey create(long address) {
-        return new NkKey(address, null);
+        return wrap(NkKey.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkKey createSafe(long address) {
-        return address == NULL ? null : new NkKey(address, null);
+        return address == NULL ? null : wrap(NkKey.class, address);
     }
 
     /**
@@ -98,13 +89,13 @@ public class NkKey extends Struct<NkKey> {
      * @param capacity the buffer capacity
      */
     public static NkKey.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkKey.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -124,9 +115,9 @@ public class NkKey extends Struct<NkKey> {
         /**
          * Creates a new {@code NkKey.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkKey#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link NkKey#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

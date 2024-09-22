@@ -33,7 +33,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #supportsTextureGatherLODBiasAMD};
  * }</code></pre>
  */
-public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGatherFormatPropertiesAMD> implements NativeResource {
+public class VkTextureLODGatherFormatPropertiesAMD extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -62,15 +62,6 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
         SUPPORTSTEXTUREGATHERLODBIASAMD = layout.offsetof(2);
     }
 
-    protected VkTextureLODGatherFormatPropertiesAMD(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkTextureLODGatherFormatPropertiesAMD create(long address, @Nullable ByteBuffer container) {
-        return new VkTextureLODGatherFormatPropertiesAMD(address, container);
-    }
-
     /**
      * Creates a {@code VkTextureLODGatherFormatPropertiesAMD} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -84,13 +75,13 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** tells if the image format can be used with texture gather bias/LOD functions, as introduced by the {@link AMDTextureGatherBiasLod VK_AMD_texture_gather_bias_lod} extension. This field is set by the implementation. An application-specified value is ignored. */
+    /** tells if the image format can be used with texture gather bias/LOD functions, as introduced by the {@link AMDTextureGatherBiasLod VK_AMD_texture_gather_bias_lod} extension. This field is set by the implementation. User-specified value is ignored. */
     @NativeType("VkBool32")
     public boolean supportsTextureGatherLODBiasAMD() { return nsupportsTextureGatherLODBiasAMD(address()) != 0; }
 
@@ -128,29 +119,29 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
 
     /** Returns a new {@code VkTextureLODGatherFormatPropertiesAMD} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkTextureLODGatherFormatPropertiesAMD malloc() {
-        return new VkTextureLODGatherFormatPropertiesAMD(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkTextureLODGatherFormatPropertiesAMD.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkTextureLODGatherFormatPropertiesAMD} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkTextureLODGatherFormatPropertiesAMD calloc() {
-        return new VkTextureLODGatherFormatPropertiesAMD(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkTextureLODGatherFormatPropertiesAMD.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkTextureLODGatherFormatPropertiesAMD} instance allocated with {@link BufferUtils}. */
     public static VkTextureLODGatherFormatPropertiesAMD create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkTextureLODGatherFormatPropertiesAMD(memAddress(container), container);
+        return wrap(VkTextureLODGatherFormatPropertiesAMD.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkTextureLODGatherFormatPropertiesAMD} instance for the specified memory address. */
     public static VkTextureLODGatherFormatPropertiesAMD create(long address) {
-        return new VkTextureLODGatherFormatPropertiesAMD(address, null);
+        return wrap(VkTextureLODGatherFormatPropertiesAMD.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkTextureLODGatherFormatPropertiesAMD createSafe(long address) {
-        return address == NULL ? null : new VkTextureLODGatherFormatPropertiesAMD(address, null);
+        return address == NULL ? null : wrap(VkTextureLODGatherFormatPropertiesAMD.class, address);
     }
 
     /**
@@ -159,7 +150,7 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
      * @param capacity the buffer capacity
      */
     public static VkTextureLODGatherFormatPropertiesAMD.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -168,7 +159,7 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
      * @param capacity the buffer capacity
      */
     public static VkTextureLODGatherFormatPropertiesAMD.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -178,7 +169,7 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
      */
     public static VkTextureLODGatherFormatPropertiesAMD.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -188,13 +179,13 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
      * @param capacity the buffer capacity
      */
     public static VkTextureLODGatherFormatPropertiesAMD.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkTextureLODGatherFormatPropertiesAMD.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -222,7 +213,7 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
      * @param stack the stack from which to allocate
      */
     public static VkTextureLODGatherFormatPropertiesAMD malloc(MemoryStack stack) {
-        return new VkTextureLODGatherFormatPropertiesAMD(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkTextureLODGatherFormatPropertiesAMD.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -231,7 +222,7 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
      * @param stack the stack from which to allocate
      */
     public static VkTextureLODGatherFormatPropertiesAMD calloc(MemoryStack stack) {
-        return new VkTextureLODGatherFormatPropertiesAMD(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkTextureLODGatherFormatPropertiesAMD.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -241,7 +232,7 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
      * @param capacity the buffer capacity
      */
     public static VkTextureLODGatherFormatPropertiesAMD.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -251,7 +242,7 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
      * @param capacity the buffer capacity
      */
     public static VkTextureLODGatherFormatPropertiesAMD.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -278,9 +269,9 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
         /**
          * Creates a new {@code VkTextureLODGatherFormatPropertiesAMD.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkTextureLODGatherFormatPropertiesAMD#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkTextureLODGatherFormatPropertiesAMD#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

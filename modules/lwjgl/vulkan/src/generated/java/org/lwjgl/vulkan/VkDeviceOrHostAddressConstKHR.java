@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkAccelerationStructureGeometryAabbsDataKHR}, {@link VkAccelerationStructureGeometryInstancesDataKHR}, {@link VkAccelerationStructureGeometryMotionTrianglesDataNV}, {@link VkAccelerationStructureGeometryTrianglesDataKHR}, {@link VkAccelerationStructureTrianglesDisplacementMicromapNV}, {@link VkAccelerationStructureTrianglesOpacityMicromapEXT}, {@link VkCopyMemoryToAccelerationStructureInfoKHR}, {@link VkCopyMemoryToMicromapInfoEXT}, {@link VkMicromapBuildInfoEXT}</p>
+ * <p>{@link VkAccelerationStructureGeometryAabbsDataKHR}, {@link VkAccelerationStructureGeometryInstancesDataKHR}, {@link VkAccelerationStructureGeometryMotionTrianglesDataNV}, {@link VkAccelerationStructureGeometryTrianglesDataKHR}, {@link VkCopyMemoryToAccelerationStructureInfoKHR}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -30,7 +30,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     void const * {@link #hostAddress};
  * }</code></pre>
  */
-public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressConstKHR> implements NativeResource {
+public class VkDeviceOrHostAddressConstKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -54,15 +54,6 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
 
         DEVICEADDRESS = layout.offsetof(0);
         HOSTADDRESS = layout.offsetof(1);
-    }
-
-    protected VkDeviceOrHostAddressConstKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkDeviceOrHostAddressConstKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkDeviceOrHostAddressConstKHR(address, container);
     }
 
     /**
@@ -106,29 +97,29 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
 
     /** Returns a new {@code VkDeviceOrHostAddressConstKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDeviceOrHostAddressConstKHR malloc() {
-        return new VkDeviceOrHostAddressConstKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkDeviceOrHostAddressConstKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceOrHostAddressConstKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDeviceOrHostAddressConstKHR calloc() {
-        return new VkDeviceOrHostAddressConstKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkDeviceOrHostAddressConstKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceOrHostAddressConstKHR} instance allocated with {@link BufferUtils}. */
     public static VkDeviceOrHostAddressConstKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkDeviceOrHostAddressConstKHR(memAddress(container), container);
+        return wrap(VkDeviceOrHostAddressConstKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkDeviceOrHostAddressConstKHR} instance for the specified memory address. */
     public static VkDeviceOrHostAddressConstKHR create(long address) {
-        return new VkDeviceOrHostAddressConstKHR(address, null);
+        return wrap(VkDeviceOrHostAddressConstKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceOrHostAddressConstKHR createSafe(long address) {
-        return address == NULL ? null : new VkDeviceOrHostAddressConstKHR(address, null);
+        return address == NULL ? null : wrap(VkDeviceOrHostAddressConstKHR.class, address);
     }
 
     /**
@@ -137,7 +128,7 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
      * @param capacity the buffer capacity
      */
     public static VkDeviceOrHostAddressConstKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -146,7 +137,7 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
      * @param capacity the buffer capacity
      */
     public static VkDeviceOrHostAddressConstKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -156,7 +147,7 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
      */
     public static VkDeviceOrHostAddressConstKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -166,13 +157,13 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
      * @param capacity the buffer capacity
      */
     public static VkDeviceOrHostAddressConstKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceOrHostAddressConstKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -181,7 +172,7 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
      * @param stack the stack from which to allocate
      */
     public static VkDeviceOrHostAddressConstKHR malloc(MemoryStack stack) {
-        return new VkDeviceOrHostAddressConstKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkDeviceOrHostAddressConstKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -190,7 +181,7 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
      * @param stack the stack from which to allocate
      */
     public static VkDeviceOrHostAddressConstKHR calloc(MemoryStack stack) {
-        return new VkDeviceOrHostAddressConstKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkDeviceOrHostAddressConstKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -200,7 +191,7 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
      * @param capacity the buffer capacity
      */
     public static VkDeviceOrHostAddressConstKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -210,7 +201,7 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
      * @param capacity the buffer capacity
      */
     public static VkDeviceOrHostAddressConstKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -235,9 +226,9 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
         /**
          * Creates a new {@code VkDeviceOrHostAddressConstKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDeviceOrHostAddressConstKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkDeviceOrHostAddressConstKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -26,7 +26,7 @@ import org.lwjgl.vulkan.*;
  * <ul>
  * <li>The {@link KHRVulkanEnable2 XR_KHR_vulkan_enable2} extension <b>must</b> be enabled prior to using {@link XrVulkanInstanceCreateInfoKHR}</li>
  * <li>{@code type} <b>must</b> be {@link KHRVulkanEnable2#XR_TYPE_VULKAN_INSTANCE_CREATE_INFO_KHR TYPE_VULKAN_INSTANCE_CREATE_INFO_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code createFlags} <b>must</b> be 0</li>
  * <li>{@code pfnGetInstanceProcAddr} <b>must</b> be a valid {@code PFN_vkGetInstanceProcAddr} value</li>
  * <li>{@code vulkanCreateInfo} <b>must</b> be a pointer to a valid {@code VkInstanceCreateInfo} value</li>
@@ -41,16 +41,16 @@ import org.lwjgl.vulkan.*;
  * 
  * <pre><code>
  * struct XrVulkanInstanceCreateInfoKHR {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
+ *     XrStructureType type;
+ *     void const * next;
  *     XrSystemId {@link #systemId};
- *     XrVulkanInstanceCreateFlagsKHR {@link #createFlags};
+ *     XrVulkanInstanceCreateFlagsKHR createFlags;
  *     PFN_vkGetInstanceProcAddr {@link #pfnGetInstanceProcAddr};
  *     {@link VkInstanceCreateInfo VkInstanceCreateInfo} const * {@link #vulkanCreateInfo};
  *     {@link VkAllocationCallbacks VkAllocationCallbacks} const * {@link #vulkanAllocator};
  * }</code></pre>
  */
-public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreateInfoKHR> implements NativeResource {
+public class XrVulkanInstanceCreateInfoKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -91,15 +91,6 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreate
         VULKANALLOCATOR = layout.offsetof(6);
     }
 
-    protected XrVulkanInstanceCreateInfoKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrVulkanInstanceCreateInfoKHR create(long address, @Nullable ByteBuffer container) {
-        return new XrVulkanInstanceCreateInfoKHR(address, container);
-    }
-
     /**
      * Creates a {@code XrVulkanInstanceCreateInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -113,38 +104,38 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreate
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
     /** an {@code XrSystemId} handle for the system which will be used to create a session. */
     @NativeType("XrSystemId")
     public long systemId() { return nsystemId(address()); }
-    /** a bitmask of {@code XrVulkanInstanceCreateFlagBitsKHR} */
+    /** @return the value of the {@code createFlags} field. */
     @NativeType("XrVulkanInstanceCreateFlagsKHR")
     public long createFlags() { return ncreateFlags(address()); }
     /** a function pointer to {@code vkGetInstanceProcAddr} or a compatible entry point. */
     @NativeType("PFN_vkGetInstanceProcAddr")
     public long pfnGetInstanceProcAddr() { return npfnGetInstanceProcAddr(address()); }
-    /** the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkInstanceCreateInfo.html">{@code VkInstanceCreateInfo} as specified by Vulkan</a>. */
+    /** the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkInstanceCreateInfo.html">{@code VkInstanceCreateInfo} as specified by Vulkan</a>. */
     @NativeType("VkInstanceCreateInfo const *")
     public VkInstanceCreateInfo vulkanCreateInfo() { return nvulkanCreateInfo(address()); }
-    /** the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAllocationCallbacks.html">{@code VkAllocationCallbacks} as specified by Vulkan</a>. */
+    /** the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAllocationCallbacks.html">{@code VkAllocationCallbacks} as specified by Vulkan</a>. */
     @Nullable
     @NativeType("VkAllocationCallbacks const *")
     public VkAllocationCallbacks vulkanAllocator() { return nvulkanAllocator(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrVulkanInstanceCreateInfoKHR type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link KHRVulkanEnable2#XR_TYPE_VULKAN_INSTANCE_CREATE_INFO_KHR TYPE_VULKAN_INSTANCE_CREATE_INFO_KHR} value to the {@link #type} field. */
+    /** Sets the {@link KHRVulkanEnable2#XR_TYPE_VULKAN_INSTANCE_CREATE_INFO_KHR TYPE_VULKAN_INSTANCE_CREATE_INFO_KHR} value to the {@code type} field. */
     public XrVulkanInstanceCreateInfoKHR type$Default() { return type(KHRVulkanEnable2.XR_TYPE_VULKAN_INSTANCE_CREATE_INFO_KHR); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrVulkanInstanceCreateInfoKHR next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
     /** Sets the specified value to the {@link #systemId} field. */
     public XrVulkanInstanceCreateInfoKHR systemId(@NativeType("XrSystemId") long value) { nsystemId(address(), value); return this; }
-    /** Sets the specified value to the {@link #createFlags} field. */
+    /** Sets the specified value to the {@code createFlags} field. */
     public XrVulkanInstanceCreateInfoKHR createFlags(@NativeType("XrVulkanInstanceCreateFlagsKHR") long value) { ncreateFlags(address(), value); return this; }
     /** Sets the specified value to the {@link #pfnGetInstanceProcAddr} field. */
     public XrVulkanInstanceCreateInfoKHR pfnGetInstanceProcAddr(@NativeType("PFN_vkGetInstanceProcAddr") long value) { npfnGetInstanceProcAddr(address(), value); return this; }
@@ -190,29 +181,29 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreate
 
     /** Returns a new {@code XrVulkanInstanceCreateInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrVulkanInstanceCreateInfoKHR malloc() {
-        return new XrVulkanInstanceCreateInfoKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrVulkanInstanceCreateInfoKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrVulkanInstanceCreateInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrVulkanInstanceCreateInfoKHR calloc() {
-        return new XrVulkanInstanceCreateInfoKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrVulkanInstanceCreateInfoKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrVulkanInstanceCreateInfoKHR} instance allocated with {@link BufferUtils}. */
     public static XrVulkanInstanceCreateInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrVulkanInstanceCreateInfoKHR(memAddress(container), container);
+        return wrap(XrVulkanInstanceCreateInfoKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrVulkanInstanceCreateInfoKHR} instance for the specified memory address. */
     public static XrVulkanInstanceCreateInfoKHR create(long address) {
-        return new XrVulkanInstanceCreateInfoKHR(address, null);
+        return wrap(XrVulkanInstanceCreateInfoKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrVulkanInstanceCreateInfoKHR createSafe(long address) {
-        return address == NULL ? null : new XrVulkanInstanceCreateInfoKHR(address, null);
+        return address == NULL ? null : wrap(XrVulkanInstanceCreateInfoKHR.class, address);
     }
 
     /**
@@ -221,7 +212,7 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreate
      * @param capacity the buffer capacity
      */
     public static XrVulkanInstanceCreateInfoKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -230,7 +221,7 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreate
      * @param capacity the buffer capacity
      */
     public static XrVulkanInstanceCreateInfoKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -240,7 +231,7 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreate
      */
     public static XrVulkanInstanceCreateInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -250,13 +241,13 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreate
      * @param capacity the buffer capacity
      */
     public static XrVulkanInstanceCreateInfoKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrVulkanInstanceCreateInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -265,7 +256,7 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreate
      * @param stack the stack from which to allocate
      */
     public static XrVulkanInstanceCreateInfoKHR malloc(MemoryStack stack) {
-        return new XrVulkanInstanceCreateInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrVulkanInstanceCreateInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -274,7 +265,7 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreate
      * @param stack the stack from which to allocate
      */
     public static XrVulkanInstanceCreateInfoKHR calloc(MemoryStack stack) {
-        return new XrVulkanInstanceCreateInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrVulkanInstanceCreateInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -284,7 +275,7 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreate
      * @param capacity the buffer capacity
      */
     public static XrVulkanInstanceCreateInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -294,7 +285,7 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreate
      * @param capacity the buffer capacity
      */
     public static XrVulkanInstanceCreateInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -351,9 +342,9 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreate
         /**
          * Creates a new {@code XrVulkanInstanceCreateInfoKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrVulkanInstanceCreateInfoKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrVulkanInstanceCreateInfoKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -379,16 +370,16 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreate
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrVulkanInstanceCreateInfoKHR#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrVulkanInstanceCreateInfoKHR.ntype(address()); }
-        /** @return the value of the {@link XrVulkanInstanceCreateInfoKHR#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrVulkanInstanceCreateInfoKHR.nnext(address()); }
         /** @return the value of the {@link XrVulkanInstanceCreateInfoKHR#systemId} field. */
         @NativeType("XrSystemId")
         public long systemId() { return XrVulkanInstanceCreateInfoKHR.nsystemId(address()); }
-        /** @return the value of the {@link XrVulkanInstanceCreateInfoKHR#createFlags} field. */
+        /** @return the value of the {@code createFlags} field. */
         @NativeType("XrVulkanInstanceCreateFlagsKHR")
         public long createFlags() { return XrVulkanInstanceCreateInfoKHR.ncreateFlags(address()); }
         /** @return the value of the {@link XrVulkanInstanceCreateInfoKHR#pfnGetInstanceProcAddr} field. */
@@ -402,15 +393,15 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreate
         @NativeType("VkAllocationCallbacks const *")
         public VkAllocationCallbacks vulkanAllocator() { return XrVulkanInstanceCreateInfoKHR.nvulkanAllocator(address()); }
 
-        /** Sets the specified value to the {@link XrVulkanInstanceCreateInfoKHR#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrVulkanInstanceCreateInfoKHR.Buffer type(@NativeType("XrStructureType") int value) { XrVulkanInstanceCreateInfoKHR.ntype(address(), value); return this; }
-        /** Sets the {@link KHRVulkanEnable2#XR_TYPE_VULKAN_INSTANCE_CREATE_INFO_KHR TYPE_VULKAN_INSTANCE_CREATE_INFO_KHR} value to the {@link XrVulkanInstanceCreateInfoKHR#type} field. */
+        /** Sets the {@link KHRVulkanEnable2#XR_TYPE_VULKAN_INSTANCE_CREATE_INFO_KHR TYPE_VULKAN_INSTANCE_CREATE_INFO_KHR} value to the {@code type} field. */
         public XrVulkanInstanceCreateInfoKHR.Buffer type$Default() { return type(KHRVulkanEnable2.XR_TYPE_VULKAN_INSTANCE_CREATE_INFO_KHR); }
-        /** Sets the specified value to the {@link XrVulkanInstanceCreateInfoKHR#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrVulkanInstanceCreateInfoKHR.Buffer next(@NativeType("void const *") long value) { XrVulkanInstanceCreateInfoKHR.nnext(address(), value); return this; }
         /** Sets the specified value to the {@link XrVulkanInstanceCreateInfoKHR#systemId} field. */
         public XrVulkanInstanceCreateInfoKHR.Buffer systemId(@NativeType("XrSystemId") long value) { XrVulkanInstanceCreateInfoKHR.nsystemId(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVulkanInstanceCreateInfoKHR#createFlags} field. */
+        /** Sets the specified value to the {@code createFlags} field. */
         public XrVulkanInstanceCreateInfoKHR.Buffer createFlags(@NativeType("XrVulkanInstanceCreateFlagsKHR") long value) { XrVulkanInstanceCreateInfoKHR.ncreateFlags(address(), value); return this; }
         /** Sets the specified value to the {@link XrVulkanInstanceCreateInfoKHR#pfnGetInstanceProcAddr} field. */
         public XrVulkanInstanceCreateInfoKHR.Buffer pfnGetInstanceProcAddr(@NativeType("PFN_vkGetInstanceProcAddr") long value) { XrVulkanInstanceCreateInfoKHR.npfnGetInstanceProcAddr(address(), value); return this; }

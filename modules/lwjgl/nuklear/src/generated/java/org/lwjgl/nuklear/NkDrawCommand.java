@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct nk_draw_command")
-public class NkDrawCommand extends Struct<NkDrawCommand> {
+public class NkDrawCommand extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -55,15 +55,6 @@ public class NkDrawCommand extends Struct<NkDrawCommand> {
         CLIP_RECT = layout.offsetof(1);
         TEXTURE = layout.offsetof(2);
         USERDATA = layout.offsetof(3);
-    }
-
-    protected NkDrawCommand(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected NkDrawCommand create(long address, @Nullable ByteBuffer container) {
-        return new NkDrawCommand(address, container);
     }
 
     /**
@@ -96,13 +87,13 @@ public class NkDrawCommand extends Struct<NkDrawCommand> {
 
     /** Returns a new {@code NkDrawCommand} instance for the specified memory address. */
     public static NkDrawCommand create(long address) {
-        return new NkDrawCommand(address, null);
+        return wrap(NkDrawCommand.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkDrawCommand createSafe(long address) {
-        return address == NULL ? null : new NkDrawCommand(address, null);
+        return address == NULL ? null : wrap(NkDrawCommand.class, address);
     }
 
     /**
@@ -112,13 +103,13 @@ public class NkDrawCommand extends Struct<NkDrawCommand> {
      * @param capacity the buffer capacity
      */
     public static NkDrawCommand.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkDrawCommand.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -142,9 +133,9 @@ public class NkDrawCommand extends Struct<NkDrawCommand> {
         /**
          * Creates a new {@code NkDrawCommand.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkDrawCommand#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link NkDrawCommand#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

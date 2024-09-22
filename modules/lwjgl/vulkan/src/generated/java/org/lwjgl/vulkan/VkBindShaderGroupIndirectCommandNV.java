@@ -29,10 +29,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <pre><code>
  * struct VkBindShaderGroupIndirectCommandNV {
- *     uint32_t {@link #groupIndex};
+ *     uint32_t groupIndex;
  * }</code></pre>
  */
-public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroupIndirectCommandNV> implements NativeResource {
+public class VkBindShaderGroupIndirectCommandNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -55,15 +55,6 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
         GROUPINDEX = layout.offsetof(0);
     }
 
-    protected VkBindShaderGroupIndirectCommandNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkBindShaderGroupIndirectCommandNV create(long address, @Nullable ByteBuffer container) {
-        return new VkBindShaderGroupIndirectCommandNV(address, container);
-    }
-
     /**
      * Creates a {@code VkBindShaderGroupIndirectCommandNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -77,11 +68,11 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** specifies which shader group of the current bound graphics pipeline is used. */
+    /** @return the value of the {@code groupIndex} field. */
     @NativeType("uint32_t")
     public int groupIndex() { return ngroupIndex(address()); }
 
-    /** Sets the specified value to the {@link #groupIndex} field. */
+    /** Sets the specified value to the {@code groupIndex} field. */
     public VkBindShaderGroupIndirectCommandNV groupIndex(@NativeType("uint32_t") int value) { ngroupIndex(address(), value); return this; }
 
     /**
@@ -100,29 +91,29 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
 
     /** Returns a new {@code VkBindShaderGroupIndirectCommandNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkBindShaderGroupIndirectCommandNV malloc() {
-        return new VkBindShaderGroupIndirectCommandNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkBindShaderGroupIndirectCommandNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkBindShaderGroupIndirectCommandNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkBindShaderGroupIndirectCommandNV calloc() {
-        return new VkBindShaderGroupIndirectCommandNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkBindShaderGroupIndirectCommandNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkBindShaderGroupIndirectCommandNV} instance allocated with {@link BufferUtils}. */
     public static VkBindShaderGroupIndirectCommandNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkBindShaderGroupIndirectCommandNV(memAddress(container), container);
+        return wrap(VkBindShaderGroupIndirectCommandNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkBindShaderGroupIndirectCommandNV} instance for the specified memory address. */
     public static VkBindShaderGroupIndirectCommandNV create(long address) {
-        return new VkBindShaderGroupIndirectCommandNV(address, null);
+        return wrap(VkBindShaderGroupIndirectCommandNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkBindShaderGroupIndirectCommandNV createSafe(long address) {
-        return address == NULL ? null : new VkBindShaderGroupIndirectCommandNV(address, null);
+        return address == NULL ? null : wrap(VkBindShaderGroupIndirectCommandNV.class, address);
     }
 
     /**
@@ -131,7 +122,7 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
      * @param capacity the buffer capacity
      */
     public static VkBindShaderGroupIndirectCommandNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -140,7 +131,7 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
      * @param capacity the buffer capacity
      */
     public static VkBindShaderGroupIndirectCommandNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -150,7 +141,7 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
      */
     public static VkBindShaderGroupIndirectCommandNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -160,13 +151,13 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
      * @param capacity the buffer capacity
      */
     public static VkBindShaderGroupIndirectCommandNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkBindShaderGroupIndirectCommandNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -175,7 +166,7 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
      * @param stack the stack from which to allocate
      */
     public static VkBindShaderGroupIndirectCommandNV malloc(MemoryStack stack) {
-        return new VkBindShaderGroupIndirectCommandNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkBindShaderGroupIndirectCommandNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -184,7 +175,7 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
      * @param stack the stack from which to allocate
      */
     public static VkBindShaderGroupIndirectCommandNV calloc(MemoryStack stack) {
-        return new VkBindShaderGroupIndirectCommandNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkBindShaderGroupIndirectCommandNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -194,7 +185,7 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
      * @param capacity the buffer capacity
      */
     public static VkBindShaderGroupIndirectCommandNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -204,7 +195,7 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
      * @param capacity the buffer capacity
      */
     public static VkBindShaderGroupIndirectCommandNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -225,9 +216,9 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
         /**
          * Creates a new {@code VkBindShaderGroupIndirectCommandNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkBindShaderGroupIndirectCommandNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkBindShaderGroupIndirectCommandNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -253,11 +244,11 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkBindShaderGroupIndirectCommandNV#groupIndex} field. */
+        /** @return the value of the {@code groupIndex} field. */
         @NativeType("uint32_t")
         public int groupIndex() { return VkBindShaderGroupIndirectCommandNV.ngroupIndex(address()); }
 
-        /** Sets the specified value to the {@link VkBindShaderGroupIndirectCommandNV#groupIndex} field. */
+        /** Sets the specified value to the {@code groupIndex} field. */
         public VkBindShaderGroupIndirectCommandNV.Buffer groupIndex(@NativeType("uint32_t") int value) { VkBindShaderGroupIndirectCommandNV.ngroupIndex(address(), value); return this; }
 
     }

@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct objc_property_attribute_t")
-public class ObjCPropertyAttribute extends Struct<ObjCPropertyAttribute> implements NativeResource {
+public class ObjCPropertyAttribute extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -52,15 +52,6 @@ public class ObjCPropertyAttribute extends Struct<ObjCPropertyAttribute> impleme
 
         NAME = layout.offsetof(0);
         VALUE = layout.offsetof(1);
-    }
-
-    protected ObjCPropertyAttribute(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected ObjCPropertyAttribute create(long address, @Nullable ByteBuffer container) {
-        return new ObjCPropertyAttribute(address, container);
     }
 
     /**
@@ -121,29 +112,29 @@ public class ObjCPropertyAttribute extends Struct<ObjCPropertyAttribute> impleme
 
     /** Returns a new {@code ObjCPropertyAttribute} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static ObjCPropertyAttribute malloc() {
-        return new ObjCPropertyAttribute(nmemAllocChecked(SIZEOF), null);
+        return wrap(ObjCPropertyAttribute.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code ObjCPropertyAttribute} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static ObjCPropertyAttribute calloc() {
-        return new ObjCPropertyAttribute(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(ObjCPropertyAttribute.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code ObjCPropertyAttribute} instance allocated with {@link BufferUtils}. */
     public static ObjCPropertyAttribute create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new ObjCPropertyAttribute(memAddress(container), container);
+        return wrap(ObjCPropertyAttribute.class, memAddress(container), container);
     }
 
     /** Returns a new {@code ObjCPropertyAttribute} instance for the specified memory address. */
     public static ObjCPropertyAttribute create(long address) {
-        return new ObjCPropertyAttribute(address, null);
+        return wrap(ObjCPropertyAttribute.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static ObjCPropertyAttribute createSafe(long address) {
-        return address == NULL ? null : new ObjCPropertyAttribute(address, null);
+        return address == NULL ? null : wrap(ObjCPropertyAttribute.class, address);
     }
 
     /**
@@ -152,7 +143,7 @@ public class ObjCPropertyAttribute extends Struct<ObjCPropertyAttribute> impleme
      * @param capacity the buffer capacity
      */
     public static ObjCPropertyAttribute.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -161,7 +152,7 @@ public class ObjCPropertyAttribute extends Struct<ObjCPropertyAttribute> impleme
      * @param capacity the buffer capacity
      */
     public static ObjCPropertyAttribute.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -171,7 +162,7 @@ public class ObjCPropertyAttribute extends Struct<ObjCPropertyAttribute> impleme
      */
     public static ObjCPropertyAttribute.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -181,13 +172,13 @@ public class ObjCPropertyAttribute extends Struct<ObjCPropertyAttribute> impleme
      * @param capacity the buffer capacity
      */
     public static ObjCPropertyAttribute.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static ObjCPropertyAttribute.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -215,7 +206,7 @@ public class ObjCPropertyAttribute extends Struct<ObjCPropertyAttribute> impleme
      * @param stack the stack from which to allocate
      */
     public static ObjCPropertyAttribute malloc(MemoryStack stack) {
-        return new ObjCPropertyAttribute(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(ObjCPropertyAttribute.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -224,7 +215,7 @@ public class ObjCPropertyAttribute extends Struct<ObjCPropertyAttribute> impleme
      * @param stack the stack from which to allocate
      */
     public static ObjCPropertyAttribute calloc(MemoryStack stack) {
-        return new ObjCPropertyAttribute(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(ObjCPropertyAttribute.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -234,7 +225,7 @@ public class ObjCPropertyAttribute extends Struct<ObjCPropertyAttribute> impleme
      * @param capacity the buffer capacity
      */
     public static ObjCPropertyAttribute.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -244,7 +235,7 @@ public class ObjCPropertyAttribute extends Struct<ObjCPropertyAttribute> impleme
      * @param capacity the buffer capacity
      */
     public static ObjCPropertyAttribute.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -289,9 +280,9 @@ public class ObjCPropertyAttribute extends Struct<ObjCPropertyAttribute> impleme
         /**
          * Creates a new {@code ObjCPropertyAttribute.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link ObjCPropertyAttribute#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link ObjCPropertyAttribute#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link VARJOMarkerTracking XR_VARJO_marker_tracking} extension <b>must</b> be enabled prior to using {@link XrEventDataMarkerTrackingUpdateVARJO}</li>
  * <li>{@code type} <b>must</b> be {@link VARJOMarkerTracking#XR_TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -42,11 +42,11 @@ import static org.lwjgl.system.MemoryStack.*;
  *     void const * {@link #next};
  *     uint64_t {@link #markerId};
  *     XrBool32 {@link #isActive};
- *     XrBool32 {@link #isPredicted};
+ *     XrBool32 isPredicted;
  *     XrTime {@link #time};
  * }</code></pre>
  */
-public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMarkerTrackingUpdateVARJO> implements NativeResource {
+public class XrEventDataMarkerTrackingUpdateVARJO extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -84,15 +84,6 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
         TIME = layout.offsetof(5);
     }
 
-    protected XrEventDataMarkerTrackingUpdateVARJO(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrEventDataMarkerTrackingUpdateVARJO create(long address, @Nullable ByteBuffer container) {
-        return new XrEventDataMarkerTrackingUpdateVARJO(address, container);
-    }
-
     /**
      * Creates a {@code XrEventDataMarkerTrackingUpdateVARJO} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -118,7 +109,7 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
     /** the tracking state of the marker. */
     @NativeType("XrBool32")
     public boolean isActive() { return nisActive(address()) != 0; }
-    /** the prediction state of the marker. */
+    /** @return the value of the {@code isPredicted} field. */
     @NativeType("XrBool32")
     public boolean isPredicted() { return nisPredicted(address()) != 0; }
     /** the time of the marker update. */
@@ -131,14 +122,30 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
     public XrEventDataMarkerTrackingUpdateVARJO type$Default() { return type(VARJOMarkerTracking.XR_TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO); }
     /** Sets the specified value to the {@link #next} field. */
     public XrEventDataMarkerTrackingUpdateVARJO next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
+    /** Sets the specified value to the {@link #markerId} field. */
+    public XrEventDataMarkerTrackingUpdateVARJO markerId(@NativeType("uint64_t") long value) { nmarkerId(address(), value); return this; }
+    /** Sets the specified value to the {@link #isActive} field. */
+    public XrEventDataMarkerTrackingUpdateVARJO isActive(@NativeType("XrBool32") boolean value) { nisActive(address(), value ? 1 : 0); return this; }
+    /** Sets the specified value to the {@code isPredicted} field. */
+    public XrEventDataMarkerTrackingUpdateVARJO isPredicted(@NativeType("XrBool32") boolean value) { nisPredicted(address(), value ? 1 : 0); return this; }
+    /** Sets the specified value to the {@link #time} field. */
+    public XrEventDataMarkerTrackingUpdateVARJO time(@NativeType("XrTime") long value) { ntime(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrEventDataMarkerTrackingUpdateVARJO set(
         int type,
-        long next
+        long next,
+        long markerId,
+        boolean isActive,
+        boolean isPredicted,
+        long time
     ) {
         type(type);
         next(next);
+        markerId(markerId);
+        isActive(isActive);
+        isPredicted(isPredicted);
+        time(time);
 
         return this;
     }
@@ -159,34 +166,34 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
 
     /** Returns a new {@code XrEventDataMarkerTrackingUpdateVARJO} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrEventDataMarkerTrackingUpdateVARJO malloc() {
-        return new XrEventDataMarkerTrackingUpdateVARJO(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrEventDataMarkerTrackingUpdateVARJO.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrEventDataMarkerTrackingUpdateVARJO} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrEventDataMarkerTrackingUpdateVARJO calloc() {
-        return new XrEventDataMarkerTrackingUpdateVARJO(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrEventDataMarkerTrackingUpdateVARJO.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrEventDataMarkerTrackingUpdateVARJO} instance allocated with {@link BufferUtils}. */
     public static XrEventDataMarkerTrackingUpdateVARJO create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrEventDataMarkerTrackingUpdateVARJO(memAddress(container), container);
+        return wrap(XrEventDataMarkerTrackingUpdateVARJO.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrEventDataMarkerTrackingUpdateVARJO} instance for the specified memory address. */
     public static XrEventDataMarkerTrackingUpdateVARJO create(long address) {
-        return new XrEventDataMarkerTrackingUpdateVARJO(address, null);
+        return wrap(XrEventDataMarkerTrackingUpdateVARJO.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrEventDataMarkerTrackingUpdateVARJO createSafe(long address) {
-        return address == NULL ? null : new XrEventDataMarkerTrackingUpdateVARJO(address, null);
+        return address == NULL ? null : wrap(XrEventDataMarkerTrackingUpdateVARJO.class, address);
     }
 
     /** Downcasts the specified {@code XrEventDataBaseHeader} instance to {@code XrEventDataMarkerTrackingUpdateVARJO}. */
     public static XrEventDataMarkerTrackingUpdateVARJO create(XrEventDataBaseHeader value) {
-        return new XrEventDataMarkerTrackingUpdateVARJO(value.address(), __getContainer(value));
+        return wrap(XrEventDataMarkerTrackingUpdateVARJO.class, value);
     }
 
     /**
@@ -195,7 +202,7 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
      * @param capacity the buffer capacity
      */
     public static XrEventDataMarkerTrackingUpdateVARJO.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -204,7 +211,7 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
      * @param capacity the buffer capacity
      */
     public static XrEventDataMarkerTrackingUpdateVARJO.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -214,7 +221,7 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
      */
     public static XrEventDataMarkerTrackingUpdateVARJO.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -224,18 +231,18 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
      * @param capacity the buffer capacity
      */
     public static XrEventDataMarkerTrackingUpdateVARJO.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrEventDataMarkerTrackingUpdateVARJO.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /** Downcasts the specified {@code XrEventDataBaseHeader.Buffer} instance to {@code XrEventDataMarkerTrackingUpdateVARJO.Buffer}. */
     public static XrEventDataMarkerTrackingUpdateVARJO.Buffer create(XrEventDataBaseHeader.Buffer value) {
-        return new XrEventDataMarkerTrackingUpdateVARJO.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+        return wrap(Buffer.class, value);
     }
 
     /**
@@ -244,7 +251,7 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
      * @param stack the stack from which to allocate
      */
     public static XrEventDataMarkerTrackingUpdateVARJO malloc(MemoryStack stack) {
-        return new XrEventDataMarkerTrackingUpdateVARJO(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrEventDataMarkerTrackingUpdateVARJO.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -253,7 +260,7 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
      * @param stack the stack from which to allocate
      */
     public static XrEventDataMarkerTrackingUpdateVARJO calloc(MemoryStack stack) {
-        return new XrEventDataMarkerTrackingUpdateVARJO(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrEventDataMarkerTrackingUpdateVARJO.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -263,7 +270,7 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
      * @param capacity the buffer capacity
      */
     public static XrEventDataMarkerTrackingUpdateVARJO.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -273,7 +280,7 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
      * @param capacity the buffer capacity
      */
     public static XrEventDataMarkerTrackingUpdateVARJO.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -295,6 +302,14 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
     public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataMarkerTrackingUpdateVARJO.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataMarkerTrackingUpdateVARJO.NEXT, value); }
+    /** Unsafe version of {@link #markerId(long) markerId}. */
+    public static void nmarkerId(long struct, long value) { UNSAFE.putLong(null, struct + XrEventDataMarkerTrackingUpdateVARJO.MARKERID, value); }
+    /** Unsafe version of {@link #isActive(boolean) isActive}. */
+    public static void nisActive(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataMarkerTrackingUpdateVARJO.ISACTIVE, value); }
+    /** Unsafe version of {@link #isPredicted(boolean) isPredicted}. */
+    public static void nisPredicted(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataMarkerTrackingUpdateVARJO.ISPREDICTED, value); }
+    /** Unsafe version of {@link #time(long) time}. */
+    public static void ntime(long struct, long value) { UNSAFE.putLong(null, struct + XrEventDataMarkerTrackingUpdateVARJO.TIME, value); }
 
     // -----------------------------------
 
@@ -306,9 +321,9 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
         /**
          * Creates a new {@code XrEventDataMarkerTrackingUpdateVARJO.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrEventDataMarkerTrackingUpdateVARJO#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrEventDataMarkerTrackingUpdateVARJO#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -346,7 +361,7 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
         /** @return the value of the {@link XrEventDataMarkerTrackingUpdateVARJO#isActive} field. */
         @NativeType("XrBool32")
         public boolean isActive() { return XrEventDataMarkerTrackingUpdateVARJO.nisActive(address()) != 0; }
-        /** @return the value of the {@link XrEventDataMarkerTrackingUpdateVARJO#isPredicted} field. */
+        /** @return the value of the {@code isPredicted} field. */
         @NativeType("XrBool32")
         public boolean isPredicted() { return XrEventDataMarkerTrackingUpdateVARJO.nisPredicted(address()) != 0; }
         /** @return the value of the {@link XrEventDataMarkerTrackingUpdateVARJO#time} field. */
@@ -359,6 +374,14 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
         public XrEventDataMarkerTrackingUpdateVARJO.Buffer type$Default() { return type(VARJOMarkerTracking.XR_TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO); }
         /** Sets the specified value to the {@link XrEventDataMarkerTrackingUpdateVARJO#next} field. */
         public XrEventDataMarkerTrackingUpdateVARJO.Buffer next(@NativeType("void const *") long value) { XrEventDataMarkerTrackingUpdateVARJO.nnext(address(), value); return this; }
+        /** Sets the specified value to the {@link XrEventDataMarkerTrackingUpdateVARJO#markerId} field. */
+        public XrEventDataMarkerTrackingUpdateVARJO.Buffer markerId(@NativeType("uint64_t") long value) { XrEventDataMarkerTrackingUpdateVARJO.nmarkerId(address(), value); return this; }
+        /** Sets the specified value to the {@link XrEventDataMarkerTrackingUpdateVARJO#isActive} field. */
+        public XrEventDataMarkerTrackingUpdateVARJO.Buffer isActive(@NativeType("XrBool32") boolean value) { XrEventDataMarkerTrackingUpdateVARJO.nisActive(address(), value ? 1 : 0); return this; }
+        /** Sets the specified value to the {@code isPredicted} field. */
+        public XrEventDataMarkerTrackingUpdateVARJO.Buffer isPredicted(@NativeType("XrBool32") boolean value) { XrEventDataMarkerTrackingUpdateVARJO.nisPredicted(address(), value ? 1 : 0); return this; }
+        /** Sets the specified value to the {@link XrEventDataMarkerTrackingUpdateVARJO#time} field. */
+        public XrEventDataMarkerTrackingUpdateVARJO.Buffer time(@NativeType("XrTime") long value) { XrEventDataMarkerTrackingUpdateVARJO.ntime(address(), value); return this; }
 
     }
 

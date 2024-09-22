@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBKeyboardTracking XR_FB_keyboard_tracking} extension <b>must</b> be enabled prior to using {@link XrKeyboardSpaceCreateInfoFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBKeyboardTracking#XR_TYPE_KEYBOARD_SPACE_CREATE_INFO_FB TYPE_KEYBOARD_SPACE_CREATE_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -38,12 +38,12 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <pre><code>
  * struct XrKeyboardSpaceCreateInfoFB {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
+ *     XrStructureType type;
+ *     void * next;
  *     uint64_t {@link #trackedKeyboardId};
  * }</code></pre>
  */
-public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInfoFB> implements NativeResource {
+public class XrKeyboardSpaceCreateInfoFB extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -72,15 +72,6 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
         TRACKEDKEYBOARDID = layout.offsetof(2);
     }
 
-    protected XrKeyboardSpaceCreateInfoFB(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrKeyboardSpaceCreateInfoFB create(long address, @Nullable ByteBuffer container) {
-        return new XrKeyboardSpaceCreateInfoFB(address, container);
-    }
-
     /**
      * Creates a {@code XrKeyboardSpaceCreateInfoFB} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -94,21 +85,21 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
     /** abstract identifier describing the type of keyboard to track. */
     @NativeType("uint64_t")
     public long trackedKeyboardId() { return ntrackedKeyboardId(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrKeyboardSpaceCreateInfoFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBKeyboardTracking#XR_TYPE_KEYBOARD_SPACE_CREATE_INFO_FB TYPE_KEYBOARD_SPACE_CREATE_INFO_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBKeyboardTracking#XR_TYPE_KEYBOARD_SPACE_CREATE_INFO_FB TYPE_KEYBOARD_SPACE_CREATE_INFO_FB} value to the {@code type} field. */
     public XrKeyboardSpaceCreateInfoFB type$Default() { return type(FBKeyboardTracking.XR_TYPE_KEYBOARD_SPACE_CREATE_INFO_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrKeyboardSpaceCreateInfoFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
     /** Sets the specified value to the {@link #trackedKeyboardId} field. */
     public XrKeyboardSpaceCreateInfoFB trackedKeyboardId(@NativeType("uint64_t") long value) { ntrackedKeyboardId(address(), value); return this; }
@@ -142,29 +133,29 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
 
     /** Returns a new {@code XrKeyboardSpaceCreateInfoFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrKeyboardSpaceCreateInfoFB malloc() {
-        return new XrKeyboardSpaceCreateInfoFB(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrKeyboardSpaceCreateInfoFB.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrKeyboardSpaceCreateInfoFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrKeyboardSpaceCreateInfoFB calloc() {
-        return new XrKeyboardSpaceCreateInfoFB(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrKeyboardSpaceCreateInfoFB.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrKeyboardSpaceCreateInfoFB} instance allocated with {@link BufferUtils}. */
     public static XrKeyboardSpaceCreateInfoFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrKeyboardSpaceCreateInfoFB(memAddress(container), container);
+        return wrap(XrKeyboardSpaceCreateInfoFB.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrKeyboardSpaceCreateInfoFB} instance for the specified memory address. */
     public static XrKeyboardSpaceCreateInfoFB create(long address) {
-        return new XrKeyboardSpaceCreateInfoFB(address, null);
+        return wrap(XrKeyboardSpaceCreateInfoFB.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrKeyboardSpaceCreateInfoFB createSafe(long address) {
-        return address == NULL ? null : new XrKeyboardSpaceCreateInfoFB(address, null);
+        return address == NULL ? null : wrap(XrKeyboardSpaceCreateInfoFB.class, address);
     }
 
     /**
@@ -173,7 +164,7 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
      * @param capacity the buffer capacity
      */
     public static XrKeyboardSpaceCreateInfoFB.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -182,7 +173,7 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
      * @param capacity the buffer capacity
      */
     public static XrKeyboardSpaceCreateInfoFB.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -192,7 +183,7 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
      */
     public static XrKeyboardSpaceCreateInfoFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -202,13 +193,13 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
      * @param capacity the buffer capacity
      */
     public static XrKeyboardSpaceCreateInfoFB.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrKeyboardSpaceCreateInfoFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -217,7 +208,7 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
      * @param stack the stack from which to allocate
      */
     public static XrKeyboardSpaceCreateInfoFB malloc(MemoryStack stack) {
-        return new XrKeyboardSpaceCreateInfoFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrKeyboardSpaceCreateInfoFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -226,7 +217,7 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
      * @param stack the stack from which to allocate
      */
     public static XrKeyboardSpaceCreateInfoFB calloc(MemoryStack stack) {
-        return new XrKeyboardSpaceCreateInfoFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrKeyboardSpaceCreateInfoFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -236,7 +227,7 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
      * @param capacity the buffer capacity
      */
     public static XrKeyboardSpaceCreateInfoFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -246,7 +237,7 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
      * @param capacity the buffer capacity
      */
     public static XrKeyboardSpaceCreateInfoFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -275,9 +266,9 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
         /**
          * Creates a new {@code XrKeyboardSpaceCreateInfoFB.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrKeyboardSpaceCreateInfoFB#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrKeyboardSpaceCreateInfoFB#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -303,21 +294,21 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrKeyboardSpaceCreateInfoFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrKeyboardSpaceCreateInfoFB.ntype(address()); }
-        /** @return the value of the {@link XrKeyboardSpaceCreateInfoFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrKeyboardSpaceCreateInfoFB.nnext(address()); }
         /** @return the value of the {@link XrKeyboardSpaceCreateInfoFB#trackedKeyboardId} field. */
         @NativeType("uint64_t")
         public long trackedKeyboardId() { return XrKeyboardSpaceCreateInfoFB.ntrackedKeyboardId(address()); }
 
-        /** Sets the specified value to the {@link XrKeyboardSpaceCreateInfoFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrKeyboardSpaceCreateInfoFB.Buffer type(@NativeType("XrStructureType") int value) { XrKeyboardSpaceCreateInfoFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBKeyboardTracking#XR_TYPE_KEYBOARD_SPACE_CREATE_INFO_FB TYPE_KEYBOARD_SPACE_CREATE_INFO_FB} value to the {@link XrKeyboardSpaceCreateInfoFB#type} field. */
+        /** Sets the {@link FBKeyboardTracking#XR_TYPE_KEYBOARD_SPACE_CREATE_INFO_FB TYPE_KEYBOARD_SPACE_CREATE_INFO_FB} value to the {@code type} field. */
         public XrKeyboardSpaceCreateInfoFB.Buffer type$Default() { return type(FBKeyboardTracking.XR_TYPE_KEYBOARD_SPACE_CREATE_INFO_FB); }
-        /** Sets the specified value to the {@link XrKeyboardSpaceCreateInfoFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrKeyboardSpaceCreateInfoFB.Buffer next(@NativeType("void *") long value) { XrKeyboardSpaceCreateInfoFB.nnext(address(), value); return this; }
         /** Sets the specified value to the {@link XrKeyboardSpaceCreateInfoFB#trackedKeyboardId} field. */
         public XrKeyboardSpaceCreateInfoFB.Buffer trackedKeyboardId(@NativeType("uint64_t") long value) { XrKeyboardSpaceCreateInfoFB.ntrackedKeyboardId(address(), value); return this; }

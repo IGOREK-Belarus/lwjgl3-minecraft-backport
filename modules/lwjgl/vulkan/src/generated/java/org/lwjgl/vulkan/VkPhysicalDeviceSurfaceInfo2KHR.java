@@ -28,15 +28,18 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>If the {@code pNext} chain includes a {@link VkSurfaceFullScreenExclusiveInfoEXT} structure with its {@code fullScreenExclusive} member set to {@link EXTFullScreenExclusive#VK_FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT}, and {@code surface} was created using {@link KHRWin32Surface#vkCreateWin32SurfaceKHR CreateWin32SurfaceKHR}, a {@link VkSurfaceFullScreenExclusiveWin32InfoEXT} structure <b>must</b> be included in the {@code pNext} chain</li>
- * <li>If surface is not VK_NULL_HANDLE, and the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is not enabled, {@code surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
+ * <li>When passed as the {@code pSurfaceInfo} parameter of {@link KHRGetSurfaceCapabilities2#vkGetPhysicalDeviceSurfaceCapabilities2KHR GetPhysicalDeviceSurfaceCapabilities2KHR}, if the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is enabled and the {@code pNext} chain of the {@code pSurfaceCapabilities} parameter includes {@link VkSurfaceProtectedCapabilitiesKHR}, then {@code surface} <b>can</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}. Otherwise, {@code surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
+ * <li>When passed as the {@code pSurfaceInfo} parameter of {@link KHRGetSurfaceCapabilities2#vkGetPhysicalDeviceSurfaceFormats2KHR GetPhysicalDeviceSurfaceFormats2KHR}, if the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is enabled, then {@code surface} <b>can</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}. Otherwise, {@code surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
+ * <li>When passed as the {@code pSurfaceInfo} parameter of {@link EXTFullScreenExclusive#vkGetPhysicalDeviceSurfacePresentModes2EXT GetPhysicalDeviceSurfacePresentModes2EXT}, if the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is enabled, then {@code surface} <b>can</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}. Otherwise, {@code surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRGetSurfaceCapabilities2#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SURFACE_INFO_2_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_SURFACE_INFO_2_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkSurfaceFullScreenExclusiveInfoEXT}, {@link VkSurfaceFullScreenExclusiveWin32InfoEXT}, or {@link VkSurfacePresentModeEXT}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkSurfaceFullScreenExclusiveInfoEXT} or {@link VkSurfaceFullScreenExclusiveWin32InfoEXT}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
+ * <li>If {@code surface} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -52,7 +55,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkSurfaceKHR {@link #surface};
  * }</code></pre>
  */
-public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurfaceInfo2KHR> implements NativeResource {
+public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -81,15 +84,6 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
         SURFACE = layout.offsetof(2);
     }
 
-    protected VkPhysicalDeviceSurfaceInfo2KHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceSurfaceInfo2KHR create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceSurfaceInfo2KHR(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceSurfaceInfo2KHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -103,7 +97,7 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -123,8 +117,6 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
     public VkPhysicalDeviceSurfaceInfo2KHR pNext(VkSurfaceFullScreenExclusiveInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkSurfaceFullScreenExclusiveWin32InfoEXT} value to the {@code pNext} chain. */
     public VkPhysicalDeviceSurfaceInfo2KHR pNext(VkSurfaceFullScreenExclusiveWin32InfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkSurfacePresentModeEXT} value to the {@code pNext} chain. */
-    public VkPhysicalDeviceSurfaceInfo2KHR pNext(VkSurfacePresentModeEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #surface} field. */
     public VkPhysicalDeviceSurfaceInfo2KHR surface(@NativeType("VkSurfaceKHR") long value) { nsurface(address(), value); return this; }
 
@@ -157,29 +149,29 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
 
     /** Returns a new {@code VkPhysicalDeviceSurfaceInfo2KHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceSurfaceInfo2KHR malloc() {
-        return new VkPhysicalDeviceSurfaceInfo2KHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceSurfaceInfo2KHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceSurfaceInfo2KHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceSurfaceInfo2KHR calloc() {
-        return new VkPhysicalDeviceSurfaceInfo2KHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceSurfaceInfo2KHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceSurfaceInfo2KHR} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceSurfaceInfo2KHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceSurfaceInfo2KHR(memAddress(container), container);
+        return wrap(VkPhysicalDeviceSurfaceInfo2KHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceSurfaceInfo2KHR} instance for the specified memory address. */
     public static VkPhysicalDeviceSurfaceInfo2KHR create(long address) {
-        return new VkPhysicalDeviceSurfaceInfo2KHR(address, null);
+        return wrap(VkPhysicalDeviceSurfaceInfo2KHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceSurfaceInfo2KHR createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceSurfaceInfo2KHR(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceSurfaceInfo2KHR.class, address);
     }
 
     /**
@@ -188,7 +180,7 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSurfaceInfo2KHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -197,7 +189,7 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSurfaceInfo2KHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -207,7 +199,7 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
      */
     public static VkPhysicalDeviceSurfaceInfo2KHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -217,13 +209,13 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSurfaceInfo2KHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceSurfaceInfo2KHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -251,7 +243,7 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceSurfaceInfo2KHR malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceSurfaceInfo2KHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceSurfaceInfo2KHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -260,7 +252,7 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceSurfaceInfo2KHR calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceSurfaceInfo2KHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceSurfaceInfo2KHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -270,7 +262,7 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSurfaceInfo2KHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -280,7 +272,7 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSurfaceInfo2KHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -309,9 +301,9 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
         /**
          * Creates a new {@code VkPhysicalDeviceSurfaceInfo2KHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceSurfaceInfo2KHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceSurfaceInfo2KHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -357,8 +349,6 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
         public VkPhysicalDeviceSurfaceInfo2KHR.Buffer pNext(VkSurfaceFullScreenExclusiveInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkSurfaceFullScreenExclusiveWin32InfoEXT} value to the {@code pNext} chain. */
         public VkPhysicalDeviceSurfaceInfo2KHR.Buffer pNext(VkSurfaceFullScreenExclusiveWin32InfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkSurfacePresentModeEXT} value to the {@code pNext} chain. */
-        public VkPhysicalDeviceSurfaceInfo2KHR.Buffer pNext(VkSurfacePresentModeEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkPhysicalDeviceSurfaceInfo2KHR#surface} field. */
         public VkPhysicalDeviceSurfaceInfo2KHR.Buffer surface(@NativeType("VkSurfaceKHR") long value) { VkPhysicalDeviceSurfaceInfo2KHR.nsurface(address(), value); return this; }
 

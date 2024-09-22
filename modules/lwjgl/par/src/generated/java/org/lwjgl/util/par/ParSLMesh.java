@@ -33,7 +33,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct parsl_mesh")
-public class ParSLMesh extends Struct<ParSLMesh> {
+public class ParSLMesh extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -72,15 +72,6 @@ public class ParSLMesh extends Struct<ParSLMesh> {
         ANNOTATIONS = layout.offsetof(4);
         SPINE_LENGTHS = layout.offsetof(5);
         RANDOM_OFFSETS = layout.offsetof(6);
-    }
-
-    protected ParSLMesh(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected ParSLMesh create(long address, @Nullable ByteBuffer container) {
-        return new ParSLMesh(address, container);
     }
 
     /**
@@ -129,13 +120,13 @@ public class ParSLMesh extends Struct<ParSLMesh> {
 
     /** Returns a new {@code ParSLMesh} instance for the specified memory address. */
     public static ParSLMesh create(long address) {
-        return new ParSLMesh(address, null);
+        return wrap(ParSLMesh.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static ParSLMesh createSafe(long address) {
-        return address == NULL ? null : new ParSLMesh(address, null);
+        return address == NULL ? null : wrap(ParSLMesh.class, address);
     }
 
     /**
@@ -145,13 +136,13 @@ public class ParSLMesh extends Struct<ParSLMesh> {
      * @param capacity the buffer capacity
      */
     public static ParSLMesh.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static ParSLMesh.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -181,9 +172,9 @@ public class ParSLMesh extends Struct<ParSLMesh> {
         /**
          * Creates a new {@code ParSLMesh.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link ParSLMesh#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link ParSLMesh#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

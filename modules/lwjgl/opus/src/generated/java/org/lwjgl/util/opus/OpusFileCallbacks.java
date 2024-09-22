@@ -34,7 +34,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link OPCloseFuncI op_close_func} {@link #close$ close};
  * }</code></pre>
  */
-public class OpusFileCallbacks extends Struct<OpusFileCallbacks> implements NativeResource {
+public class OpusFileCallbacks extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -64,15 +64,6 @@ public class OpusFileCallbacks extends Struct<OpusFileCallbacks> implements Nati
         SEEK = layout.offsetof(1);
         TELL = layout.offsetof(2);
         CLOSE = layout.offsetof(3);
-    }
-
-    protected OpusFileCallbacks(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected OpusFileCallbacks create(long address, @Nullable ByteBuffer container) {
-        return new OpusFileCallbacks(address, container);
     }
 
     /**
@@ -144,29 +135,29 @@ public class OpusFileCallbacks extends Struct<OpusFileCallbacks> implements Nati
 
     /** Returns a new {@code OpusFileCallbacks} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static OpusFileCallbacks malloc() {
-        return new OpusFileCallbacks(nmemAllocChecked(SIZEOF), null);
+        return wrap(OpusFileCallbacks.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code OpusFileCallbacks} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static OpusFileCallbacks calloc() {
-        return new OpusFileCallbacks(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(OpusFileCallbacks.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code OpusFileCallbacks} instance allocated with {@link BufferUtils}. */
     public static OpusFileCallbacks create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new OpusFileCallbacks(memAddress(container), container);
+        return wrap(OpusFileCallbacks.class, memAddress(container), container);
     }
 
     /** Returns a new {@code OpusFileCallbacks} instance for the specified memory address. */
     public static OpusFileCallbacks create(long address) {
-        return new OpusFileCallbacks(address, null);
+        return wrap(OpusFileCallbacks.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static OpusFileCallbacks createSafe(long address) {
-        return address == NULL ? null : new OpusFileCallbacks(address, null);
+        return address == NULL ? null : wrap(OpusFileCallbacks.class, address);
     }
 
     /**
@@ -175,7 +166,7 @@ public class OpusFileCallbacks extends Struct<OpusFileCallbacks> implements Nati
      * @param capacity the buffer capacity
      */
     public static OpusFileCallbacks.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -184,7 +175,7 @@ public class OpusFileCallbacks extends Struct<OpusFileCallbacks> implements Nati
      * @param capacity the buffer capacity
      */
     public static OpusFileCallbacks.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -194,7 +185,7 @@ public class OpusFileCallbacks extends Struct<OpusFileCallbacks> implements Nati
      */
     public static OpusFileCallbacks.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -204,13 +195,13 @@ public class OpusFileCallbacks extends Struct<OpusFileCallbacks> implements Nati
      * @param capacity the buffer capacity
      */
     public static OpusFileCallbacks.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static OpusFileCallbacks.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -219,7 +210,7 @@ public class OpusFileCallbacks extends Struct<OpusFileCallbacks> implements Nati
      * @param stack the stack from which to allocate
      */
     public static OpusFileCallbacks malloc(MemoryStack stack) {
-        return new OpusFileCallbacks(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(OpusFileCallbacks.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -228,7 +219,7 @@ public class OpusFileCallbacks extends Struct<OpusFileCallbacks> implements Nati
      * @param stack the stack from which to allocate
      */
     public static OpusFileCallbacks calloc(MemoryStack stack) {
-        return new OpusFileCallbacks(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(OpusFileCallbacks.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -238,7 +229,7 @@ public class OpusFileCallbacks extends Struct<OpusFileCallbacks> implements Nati
      * @param capacity the buffer capacity
      */
     public static OpusFileCallbacks.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -248,7 +239,7 @@ public class OpusFileCallbacks extends Struct<OpusFileCallbacks> implements Nati
      * @param capacity the buffer capacity
      */
     public static OpusFileCallbacks.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -290,9 +281,9 @@ public class OpusFileCallbacks extends Struct<OpusFileCallbacks> implements Nati
         /**
          * Creates a new {@code OpusFileCallbacks.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link OpusFileCallbacks#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link OpusFileCallbacks#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

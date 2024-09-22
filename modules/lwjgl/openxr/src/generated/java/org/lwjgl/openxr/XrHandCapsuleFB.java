@@ -24,7 +24,7 @@ import static org.lwjgl.openxr.FBHandTrackingCapsules.*;
  * <ul>
  * <li>{@code points} are the two points defining the capsule length.</li>
  * <li>{@code radius} is the radius of the capsule.</li>
- * <li>{@code joint} is the hand joint that drives this capsule’s transform. Multiple capsules <b>may</b> be attached to the same joint.</li>
+ * <li>{@code joint} is the hand joint that drives this capsule’s transform. Multiple capsules can be attached to the same joint.</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -41,12 +41,12 @@ import static org.lwjgl.openxr.FBHandTrackingCapsules.*;
  * 
  * <pre><code>
  * struct XrHandCapsuleFB {
- *     {@link XrVector3f XrVector3f} points[XR_HAND_TRACKING_CAPSULE_POINT_COUNT_FB];
+ *     {@link XrVector3f XrVector3f} points[XR_FB_HAND_TRACKING_CAPSULE_POINT_COUNT];
  *     float radius;
  *     XrHandJointEXT joint;
  * }</code></pre>
  */
-public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
+public class XrHandCapsuleFB extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -62,7 +62,7 @@ public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
 
     static {
         Layout layout = __struct(
-            __array(XrVector3f.SIZEOF, XrVector3f.ALIGNOF, XR_HAND_TRACKING_CAPSULE_POINT_COUNT_FB),
+            __array(XrVector3f.SIZEOF, XrVector3f.ALIGNOF, XR_FB_HAND_TRACKING_CAPSULE_POINT_COUNT),
             __member(4),
             __member(4)
         );
@@ -73,15 +73,6 @@ public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
         POINTS = layout.offsetof(0);
         RADIUS = layout.offsetof(1);
         JOINT = layout.offsetof(2);
-    }
-
-    protected XrHandCapsuleFB(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrHandCapsuleFB create(long address, @Nullable ByteBuffer container) {
-        return new XrHandCapsuleFB(address, container);
     }
 
     /**
@@ -98,7 +89,7 @@ public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
     public int sizeof() { return SIZEOF; }
 
     /** @return a {@link XrVector3f}.Buffer view of the {@code points} field. */
-    @NativeType("XrVector3f[XR_HAND_TRACKING_CAPSULE_POINT_COUNT_FB]")
+    @NativeType("XrVector3f[XR_FB_HAND_TRACKING_CAPSULE_POINT_COUNT]")
     public XrVector3f.Buffer points() { return npoints(address()); }
     /** @return a {@link XrVector3f} view of the struct at the specified index of the {@code points} field. */
     public XrVector3f points(int index) { return npoints(address(), index); }
@@ -112,13 +103,13 @@ public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
 
     /** Returns a new {@code XrHandCapsuleFB} instance for the specified memory address. */
     public static XrHandCapsuleFB create(long address) {
-        return new XrHandCapsuleFB(address, null);
+        return wrap(XrHandCapsuleFB.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandCapsuleFB createSafe(long address) {
-        return address == NULL ? null : new XrHandCapsuleFB(address, null);
+        return address == NULL ? null : wrap(XrHandCapsuleFB.class, address);
     }
 
     /**
@@ -128,22 +119,22 @@ public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
      * @param capacity the buffer capacity
      */
     public static XrHandCapsuleFB.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandCapsuleFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #points}. */
-    public static XrVector3f.Buffer npoints(long struct) { return XrVector3f.create(struct + XrHandCapsuleFB.POINTS, XR_HAND_TRACKING_CAPSULE_POINT_COUNT_FB); }
+    public static XrVector3f.Buffer npoints(long struct) { return XrVector3f.create(struct + XrHandCapsuleFB.POINTS, XR_FB_HAND_TRACKING_CAPSULE_POINT_COUNT); }
     /** Unsafe version of {@link #points(int) points}. */
     public static XrVector3f npoints(long struct, int index) {
-        return XrVector3f.create(struct + XrHandCapsuleFB.POINTS + check(index, XR_HAND_TRACKING_CAPSULE_POINT_COUNT_FB) * XrVector3f.SIZEOF);
+        return XrVector3f.create(struct + XrHandCapsuleFB.POINTS + check(index, XR_FB_HAND_TRACKING_CAPSULE_POINT_COUNT) * XrVector3f.SIZEOF);
     }
     /** Unsafe version of {@link #radius}. */
     public static float nradius(long struct) { return UNSAFE.getFloat(null, struct + XrHandCapsuleFB.RADIUS); }
@@ -160,9 +151,9 @@ public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
         /**
          * Creates a new {@code XrHandCapsuleFB.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrHandCapsuleFB#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrHandCapsuleFB#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -189,7 +180,7 @@ public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
         }
 
         /** @return a {@link XrVector3f}.Buffer view of the {@code points} field. */
-        @NativeType("XrVector3f[XR_HAND_TRACKING_CAPSULE_POINT_COUNT_FB]")
+        @NativeType("XrVector3f[XR_FB_HAND_TRACKING_CAPSULE_POINT_COUNT]")
         public XrVector3f.Buffer points() { return XrHandCapsuleFB.npoints(address()); }
         /** @return a {@link XrVector3f} view of the struct at the specified index of the {@code points} field. */
         public XrVector3f points(int index) { return XrHandCapsuleFB.npoints(address(), index); }

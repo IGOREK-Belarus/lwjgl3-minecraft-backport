@@ -18,18 +18,12 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Structure specifying parameters of a newly created semaphore.
  * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If the {@code pNext} chain includes a {@link VkExportMetalObjectCreateInfoEXT} structure, its {@code exportObjectType} member <b>must</b> be {@link EXTMetalObjects#VK_EXPORT_METAL_OBJECT_TYPE_METAL_SHARED_EVENT_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_SHARED_EVENT_BIT_EXT}</li>
- * </ul>
- * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK10#VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkExportMetalObjectCreateInfoEXT}, {@link VkExportSemaphoreCreateInfo}, {@link VkExportSemaphoreWin32HandleInfoKHR}, {@link VkImportMetalSharedEventInfoEXT}, {@link VkQueryLowLatencySupportNV}, or {@link VkSemaphoreTypeCreateInfo}</li>
- * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique, with the exception of structures of type {@link VkExportMetalObjectCreateInfoEXT}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkExportSemaphoreCreateInfo}, {@link VkExportSemaphoreWin32HandleInfoKHR}, or {@link VkSemaphoreTypeCreateInfo}</li>
+ * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be 0</li>
  * </ul>
  * 
@@ -46,7 +40,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkSemaphoreCreateFlags {@link #flags};
  * }</code></pre>
  */
-public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> implements NativeResource {
+public class VkSemaphoreCreateInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -75,15 +69,6 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
         FLAGS = layout.offsetof(2);
     }
 
-    protected VkSemaphoreCreateInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkSemaphoreCreateInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkSemaphoreCreateInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkSemaphoreCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -97,7 +82,7 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -113,18 +98,12 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
     public VkSemaphoreCreateInfo sType$Default() { return sType(VK10.VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkSemaphoreCreateInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Prepends the specified {@link VkExportMetalObjectCreateInfoEXT} value to the {@code pNext} chain. */
-    public VkSemaphoreCreateInfo pNext(VkExportMetalObjectCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkExportSemaphoreCreateInfo} value to the {@code pNext} chain. */
     public VkSemaphoreCreateInfo pNext(VkExportSemaphoreCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkExportSemaphoreCreateInfoKHR} value to the {@code pNext} chain. */
     public VkSemaphoreCreateInfo pNext(VkExportSemaphoreCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkExportSemaphoreWin32HandleInfoKHR} value to the {@code pNext} chain. */
     public VkSemaphoreCreateInfo pNext(VkExportSemaphoreWin32HandleInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkImportMetalSharedEventInfoEXT} value to the {@code pNext} chain. */
-    public VkSemaphoreCreateInfo pNext(VkImportMetalSharedEventInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkQueryLowLatencySupportNV} value to the {@code pNext} chain. */
-    public VkSemaphoreCreateInfo pNext(VkQueryLowLatencySupportNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkSemaphoreTypeCreateInfo} value to the {@code pNext} chain. */
     public VkSemaphoreCreateInfo pNext(VkSemaphoreTypeCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkSemaphoreTypeCreateInfoKHR} value to the {@code pNext} chain. */
@@ -161,29 +140,29 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
 
     /** Returns a new {@code VkSemaphoreCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSemaphoreCreateInfo malloc() {
-        return new VkSemaphoreCreateInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkSemaphoreCreateInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkSemaphoreCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSemaphoreCreateInfo calloc() {
-        return new VkSemaphoreCreateInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkSemaphoreCreateInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkSemaphoreCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VkSemaphoreCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkSemaphoreCreateInfo(memAddress(container), container);
+        return wrap(VkSemaphoreCreateInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkSemaphoreCreateInfo} instance for the specified memory address. */
     public static VkSemaphoreCreateInfo create(long address) {
-        return new VkSemaphoreCreateInfo(address, null);
+        return wrap(VkSemaphoreCreateInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSemaphoreCreateInfo createSafe(long address) {
-        return address == NULL ? null : new VkSemaphoreCreateInfo(address, null);
+        return address == NULL ? null : wrap(VkSemaphoreCreateInfo.class, address);
     }
 
     /**
@@ -192,7 +171,7 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
      * @param capacity the buffer capacity
      */
     public static VkSemaphoreCreateInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -201,7 +180,7 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
      * @param capacity the buffer capacity
      */
     public static VkSemaphoreCreateInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -211,7 +190,7 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
      */
     public static VkSemaphoreCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -221,13 +200,13 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
      * @param capacity the buffer capacity
      */
     public static VkSemaphoreCreateInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSemaphoreCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -255,7 +234,7 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
      * @param stack the stack from which to allocate
      */
     public static VkSemaphoreCreateInfo malloc(MemoryStack stack) {
-        return new VkSemaphoreCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkSemaphoreCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -264,7 +243,7 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
      * @param stack the stack from which to allocate
      */
     public static VkSemaphoreCreateInfo calloc(MemoryStack stack) {
-        return new VkSemaphoreCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkSemaphoreCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -274,7 +253,7 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
      * @param capacity the buffer capacity
      */
     public static VkSemaphoreCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -284,7 +263,7 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
      * @param capacity the buffer capacity
      */
     public static VkSemaphoreCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -313,9 +292,9 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
         /**
          * Creates a new {@code VkSemaphoreCreateInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSemaphoreCreateInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkSemaphoreCreateInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -357,18 +336,12 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
         public VkSemaphoreCreateInfo.Buffer sType$Default() { return sType(VK10.VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO); }
         /** Sets the specified value to the {@link VkSemaphoreCreateInfo#pNext} field. */
         public VkSemaphoreCreateInfo.Buffer pNext(@NativeType("void const *") long value) { VkSemaphoreCreateInfo.npNext(address(), value); return this; }
-        /** Prepends the specified {@link VkExportMetalObjectCreateInfoEXT} value to the {@code pNext} chain. */
-        public VkSemaphoreCreateInfo.Buffer pNext(VkExportMetalObjectCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkExportSemaphoreCreateInfo} value to the {@code pNext} chain. */
         public VkSemaphoreCreateInfo.Buffer pNext(VkExportSemaphoreCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkExportSemaphoreCreateInfoKHR} value to the {@code pNext} chain. */
         public VkSemaphoreCreateInfo.Buffer pNext(VkExportSemaphoreCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkExportSemaphoreWin32HandleInfoKHR} value to the {@code pNext} chain. */
         public VkSemaphoreCreateInfo.Buffer pNext(VkExportSemaphoreWin32HandleInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkImportMetalSharedEventInfoEXT} value to the {@code pNext} chain. */
-        public VkSemaphoreCreateInfo.Buffer pNext(VkImportMetalSharedEventInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkQueryLowLatencySupportNV} value to the {@code pNext} chain. */
-        public VkSemaphoreCreateInfo.Buffer pNext(VkQueryLowLatencySupportNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkSemaphoreTypeCreateInfo} value to the {@code pNext} chain. */
         public VkSemaphoreCreateInfo.Buffer pNext(VkSemaphoreTypeCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkSemaphoreTypeCreateInfoKHR} value to the {@code pNext} chain. */

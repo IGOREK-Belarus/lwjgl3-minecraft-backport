@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #coverageReductionMode};
  * }</code></pre>
  */
-public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPhysicalDeviceCoverageReductionModeFeaturesNV> implements NativeResource {
+public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,15 +66,6 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
         COVERAGEREDUCTIONMODE = layout.offsetof(2);
     }
 
-    protected VkPhysicalDeviceCoverageReductionModeFeaturesNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceCoverageReductionModeFeaturesNV create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceCoverageReductionModeFeaturesNV(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceCoverageReductionModeFeaturesNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -88,13 +79,13 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports coverage reduction modes. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-coverage-reduction">Coverage Reduction</a>. */
+    /** indicates whether the implementation supports coverage reduction modes. See <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-coverage-reduction">Coverage Reduction</a>. */
     @NativeType("VkBool32")
     public boolean coverageReductionMode() { return ncoverageReductionMode(address()) != 0; }
 
@@ -136,29 +127,29 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
 
     /** Returns a new {@code VkPhysicalDeviceCoverageReductionModeFeaturesNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceCoverageReductionModeFeaturesNV malloc() {
-        return new VkPhysicalDeviceCoverageReductionModeFeaturesNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceCoverageReductionModeFeaturesNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceCoverageReductionModeFeaturesNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceCoverageReductionModeFeaturesNV calloc() {
-        return new VkPhysicalDeviceCoverageReductionModeFeaturesNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceCoverageReductionModeFeaturesNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceCoverageReductionModeFeaturesNV} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceCoverageReductionModeFeaturesNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceCoverageReductionModeFeaturesNV(memAddress(container), container);
+        return wrap(VkPhysicalDeviceCoverageReductionModeFeaturesNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceCoverageReductionModeFeaturesNV} instance for the specified memory address. */
     public static VkPhysicalDeviceCoverageReductionModeFeaturesNV create(long address) {
-        return new VkPhysicalDeviceCoverageReductionModeFeaturesNV(address, null);
+        return wrap(VkPhysicalDeviceCoverageReductionModeFeaturesNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceCoverageReductionModeFeaturesNV createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceCoverageReductionModeFeaturesNV(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceCoverageReductionModeFeaturesNV.class, address);
     }
 
     /**
@@ -167,7 +158,7 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceCoverageReductionModeFeaturesNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -176,7 +167,7 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceCoverageReductionModeFeaturesNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -186,7 +177,7 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
      */
     public static VkPhysicalDeviceCoverageReductionModeFeaturesNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -196,13 +187,13 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceCoverageReductionModeFeaturesNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceCoverageReductionModeFeaturesNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -230,7 +221,7 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceCoverageReductionModeFeaturesNV malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceCoverageReductionModeFeaturesNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceCoverageReductionModeFeaturesNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -239,7 +230,7 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceCoverageReductionModeFeaturesNV calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceCoverageReductionModeFeaturesNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceCoverageReductionModeFeaturesNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -249,7 +240,7 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceCoverageReductionModeFeaturesNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -259,7 +250,7 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceCoverageReductionModeFeaturesNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -288,9 +279,9 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
         /**
          * Creates a new {@code VkPhysicalDeviceCoverageReductionModeFeaturesNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceCoverageReductionModeFeaturesNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceCoverageReductionModeFeaturesNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

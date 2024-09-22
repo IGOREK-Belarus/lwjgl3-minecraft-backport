@@ -32,7 +32,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct XXH64_state_t")
-public class XXH64State extends Struct<XXH64State> implements NativeResource {
+public class XXH64State extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -70,15 +70,6 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
         RESERVED64 = layout.offsetof(5);
     }
 
-    protected XXH64State(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XXH64State create(long address, @Nullable ByteBuffer container) {
-        return new XXH64State(address, container);
-    }
-
     /**
      * Creates a {@code XXH64State} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -113,7 +104,7 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
     /** reserved field, needed for padding anyways */
     @NativeType("XXH32_hash_t")
     public int reserved32() { return nreserved32(address()); }
-    /** reserved field. Do not read or write to it. */
+    /** reserved field. Do not read or write to it, it may be removed. */
     @NativeType("XXH64_hash_t")
     public long reserved64() { return nreserved64(address()); }
 
@@ -121,29 +112,29 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
 
     /** Returns a new {@code XXH64State} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XXH64State malloc() {
-        return new XXH64State(nmemAllocChecked(SIZEOF), null);
+        return wrap(XXH64State.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XXH64State} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XXH64State calloc() {
-        return new XXH64State(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XXH64State.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XXH64State} instance allocated with {@link BufferUtils}. */
     public static XXH64State create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XXH64State(memAddress(container), container);
+        return wrap(XXH64State.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XXH64State} instance for the specified memory address. */
     public static XXH64State create(long address) {
-        return new XXH64State(address, null);
+        return wrap(XXH64State.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XXH64State createSafe(long address) {
-        return address == NULL ? null : new XXH64State(address, null);
+        return address == NULL ? null : wrap(XXH64State.class, address);
     }
 
     /**
@@ -152,7 +143,7 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XXH64State.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -161,7 +152,7 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XXH64State.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -171,7 +162,7 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
      */
     public static XXH64State.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -181,13 +172,13 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XXH64State.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XXH64State.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -215,7 +206,7 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XXH64State malloc(MemoryStack stack) {
-        return new XXH64State(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XXH64State.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -224,7 +215,7 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XXH64State calloc(MemoryStack stack) {
-        return new XXH64State(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XXH64State.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -234,7 +225,7 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XXH64State.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -244,7 +235,7 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XXH64State.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -280,9 +271,9 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
         /**
          * Creates a new {@code XXH64State.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XXH64State#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XXH64State#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

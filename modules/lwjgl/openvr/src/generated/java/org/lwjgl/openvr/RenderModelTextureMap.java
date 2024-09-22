@@ -26,11 +26,10 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint16_t {@link #unHeight};
  *     uint8_t const * {@link #rubTextureMapData};
  *     EVRRenderModelTextureFormat {@link #format};
- *     uint16_t unMipLevels;
  * }</code></pre>
  */
 @NativeType("struct RenderModel_TextureMap_t")
-public class RenderModelTextureMap extends Struct<RenderModelTextureMap> implements NativeResource {
+public class RenderModelTextureMap extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -43,8 +42,7 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
         UNWIDTH,
         UNHEIGHT,
         RUBTEXTUREMAPDATA,
-        FORMAT,
-        UNMIPLEVELS;
+        FORMAT;
 
     static {
         Layout layout = __struct(
@@ -52,8 +50,7 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
             __member(2),
             __member(2),
             __member(POINTER_SIZE),
-            __member(4),
-            __member(2)
+            __member(4)
         );
 
         SIZEOF = layout.getSize();
@@ -63,16 +60,6 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
         UNHEIGHT = layout.offsetof(1);
         RUBTEXTUREMAPDATA = layout.offsetof(2);
         FORMAT = layout.offsetof(3);
-        UNMIPLEVELS = layout.offsetof(4);
-    }
-
-    protected RenderModelTextureMap(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected RenderModelTextureMap create(long address, @Nullable ByteBuffer container) {
-        return new RenderModelTextureMap(address, container);
     }
 
     /**
@@ -101,40 +88,37 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
      */
     @NativeType("uint8_t const *")
     public ByteBuffer rubTextureMapData(int capacity) { return nrubTextureMapData(address(), capacity); }
-    /** one of:<br><table><tr><td>{@link VR#EVRRenderModelTextureFormat_VRRenderModelTextureFormat_RGBA8_SRGB}</td></tr><tr><td>{@link VR#EVRRenderModelTextureFormat_VRRenderModelTextureFormat_BC2}</td></tr><tr><td>{@link VR#EVRRenderModelTextureFormat_VRRenderModelTextureFormat_BC4}</td></tr><tr><td>{@link VR#EVRRenderModelTextureFormat_VRRenderModelTextureFormat_BC7}</td></tr><tr><td>{@link VR#EVRRenderModelTextureFormat_VRRenderModelTextureFormat_BC7_SRGB}</td></tr><tr><td>{@link VR#EVRRenderModelTextureFormat_VRRenderModelTextureFormat_RGBA16_FLOAT}</td></tr></table> */
+    /** one of:<br><table><tr><td>{@link VR#EVRRenderModelTextureFormat_VRRenderModelTextureFormat_RGBA8_SRGB}</td></tr><tr><td>{@link VR#EVRRenderModelTextureFormat_VRRenderModelTextureFormat_BC2}</td></tr><tr><td>{@link VR#EVRRenderModelTextureFormat_VRRenderModelTextureFormat_BC4}</td></tr><tr><td>{@link VR#EVRRenderModelTextureFormat_VRRenderModelTextureFormat_BC7}</td></tr><tr><td>{@link VR#EVRRenderModelTextureFormat_VRRenderModelTextureFormat_BC7_SRGB}</td></tr></table> */
     @NativeType("EVRRenderModelTextureFormat")
     public int format() { return nformat(address()); }
-    /** @return the value of the {@code unMipLevels} field. */
-    @NativeType("uint16_t")
-    public short unMipLevels() { return nunMipLevels(address()); }
 
     // -----------------------------------
 
     /** Returns a new {@code RenderModelTextureMap} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static RenderModelTextureMap malloc() {
-        return new RenderModelTextureMap(nmemAllocChecked(SIZEOF), null);
+        return wrap(RenderModelTextureMap.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code RenderModelTextureMap} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static RenderModelTextureMap calloc() {
-        return new RenderModelTextureMap(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(RenderModelTextureMap.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code RenderModelTextureMap} instance allocated with {@link BufferUtils}. */
     public static RenderModelTextureMap create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new RenderModelTextureMap(memAddress(container), container);
+        return wrap(RenderModelTextureMap.class, memAddress(container), container);
     }
 
     /** Returns a new {@code RenderModelTextureMap} instance for the specified memory address. */
     public static RenderModelTextureMap create(long address) {
-        return new RenderModelTextureMap(address, null);
+        return wrap(RenderModelTextureMap.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static RenderModelTextureMap createSafe(long address) {
-        return address == NULL ? null : new RenderModelTextureMap(address, null);
+        return address == NULL ? null : wrap(RenderModelTextureMap.class, address);
     }
 
     /**
@@ -143,7 +127,7 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
      * @param capacity the buffer capacity
      */
     public static RenderModelTextureMap.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -152,7 +136,7 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
      * @param capacity the buffer capacity
      */
     public static RenderModelTextureMap.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -162,7 +146,7 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
      */
     public static RenderModelTextureMap.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -172,13 +156,13 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
      * @param capacity the buffer capacity
      */
     public static RenderModelTextureMap.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static RenderModelTextureMap.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -206,7 +190,7 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
      * @param stack the stack from which to allocate
      */
     public static RenderModelTextureMap malloc(MemoryStack stack) {
-        return new RenderModelTextureMap(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(RenderModelTextureMap.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -215,7 +199,7 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
      * @param stack the stack from which to allocate
      */
     public static RenderModelTextureMap calloc(MemoryStack stack) {
-        return new RenderModelTextureMap(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(RenderModelTextureMap.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -225,7 +209,7 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
      * @param capacity the buffer capacity
      */
     public static RenderModelTextureMap.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -235,7 +219,7 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
      * @param capacity the buffer capacity
      */
     public static RenderModelTextureMap.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -248,8 +232,6 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
     public static ByteBuffer nrubTextureMapData(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + RenderModelTextureMap.RUBTEXTUREMAPDATA), capacity); }
     /** Unsafe version of {@link #format}. */
     public static int nformat(long struct) { return UNSAFE.getInt(null, struct + RenderModelTextureMap.FORMAT); }
-    /** Unsafe version of {@link #unMipLevels}. */
-    public static short nunMipLevels(long struct) { return UNSAFE.getShort(null, struct + RenderModelTextureMap.UNMIPLEVELS); }
 
     // -----------------------------------
 
@@ -261,9 +243,9 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
         /**
          * Creates a new {@code RenderModelTextureMap.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link RenderModelTextureMap#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link RenderModelTextureMap#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -305,9 +287,6 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
         /** @return the value of the {@link RenderModelTextureMap#format} field. */
         @NativeType("EVRRenderModelTextureFormat")
         public int format() { return RenderModelTextureMap.nformat(address()); }
-        /** @return the value of the {@code unMipLevels} field. */
-        @NativeType("uint16_t")
-        public short unMipLevels() { return RenderModelTextureMap.nunMipLevels(address()); }
 
     }
 

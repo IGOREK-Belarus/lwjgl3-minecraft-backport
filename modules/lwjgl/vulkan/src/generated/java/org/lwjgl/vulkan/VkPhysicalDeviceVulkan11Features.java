@@ -48,7 +48,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #shaderDrawParameters};
  * }</code></pre>
  */
-public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVulkan11Features> implements NativeResource {
+public class VkPhysicalDeviceVulkan11Features extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -110,15 +110,6 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
         SHADERDRAWPARAMETERS = layout.offsetof(13);
     }
 
-    protected VkPhysicalDeviceVulkan11Features(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceVulkan11Features create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceVulkan11Features(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceVulkan11Features} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -132,7 +123,7 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -153,10 +144,10 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
     /** specifies whether the implementation supports multiview rendering within a render pass. If this feature is not enabled, the view mask of each subpass <b>must</b> always be zero. */
     @NativeType("VkBool32")
     public boolean multiview() { return nmultiview(address()) != 0; }
-    /** specifies whether the implementation supports multiview rendering within a render pass, with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#geometry">geometry shaders</a>. If this feature is not enabled, then a pipeline compiled against a subpass with a non-zero view mask <b>must</b> not include a geometry shader. */
+    /** specifies whether the implementation supports multiview rendering within a render pass, with <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#geometry">geometry shaders</a>. If this feature is not enabled, then a pipeline compiled against a subpass with a non-zero view mask <b>must</b> not include a geometry shader. */
     @NativeType("VkBool32")
     public boolean multiviewGeometryShader() { return nmultiviewGeometryShader(address()) != 0; }
-    /** specifies whether the implementation supports multiview rendering within a render pass, with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation">tessellation shaders</a>. If this feature is not enabled, then a pipeline compiled against a subpass with a non-zero view mask <b>must</b> not include any tessellation shaders. */
+    /** specifies whether the implementation supports multiview rendering within a render pass, with <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation">tessellation shaders</a>. If this feature is not enabled, then a pipeline compiled against a subpass with a non-zero view mask <b>must</b> not include any tessellation shaders. */
     @NativeType("VkBool32")
     public boolean multiviewTessellationShader() { return nmultiviewTessellationShader(address()) != 0; }
     /** specifies whether the implementation supports the SPIR-V {@code VariablePointersStorageBuffer} capability. When this feature is not enabled, shader modules <b>must</b> not declare the {@code SPV_KHR_variable_pointers} extension or the {@code VariablePointersStorageBuffer} capability. */
@@ -165,10 +156,10 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
     /** specifies whether the implementation supports the SPIR-V {@code VariablePointers} capability. When this feature is not enabled, shader modules <b>must</b> not declare the {@code VariablePointers} capability. */
     @NativeType("VkBool32")
     public boolean variablePointers() { return nvariablePointers(address()) != 0; }
-    /** specifies whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-protected-memory">protected memory</a> is supported. */
+    /** specifies whether protected memory is supported. */
     @NativeType("VkBool32")
     public boolean protectedMemory() { return nprotectedMemory(address()) != 0; }
-    /** specifies whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>. If {@code samplerYcbcrConversion} is {@link VK10#VK_FALSE FALSE}, sampler Y′C<sub>B</sub>C<sub>R</sub> conversion is not supported, and samplers using sampler Y′C<sub>B</sub>C<sub>R</sub> conversion <b>must</b> not be used. */
+    /** specifies whether the implementation supports <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>. If {@code samplerYcbcrConversion} is {@link VK10#VK_FALSE FALSE}, sampler Y′C<sub>B</sub>C<sub>R</sub> conversion is not supported, and samplers using sampler Y′C<sub>B</sub>C<sub>R</sub> conversion <b>must</b> not be used. */
     @NativeType("VkBool32")
     public boolean samplerYcbcrConversion() { return nsamplerYcbcrConversion(address()) != 0; }
     /** specifies whether the implementation supports the SPIR-V {@code DrawParameters} capability. When this feature is not enabled, shader modules <b>must</b> not declare the {@code SPV_KHR_shader_draw_parameters} extension or the {@code DrawParameters} capability. */
@@ -257,29 +248,29 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
 
     /** Returns a new {@code VkPhysicalDeviceVulkan11Features} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceVulkan11Features malloc() {
-        return new VkPhysicalDeviceVulkan11Features(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkan11Features.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceVulkan11Features} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceVulkan11Features calloc() {
-        return new VkPhysicalDeviceVulkan11Features(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkan11Features.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceVulkan11Features} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceVulkan11Features create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceVulkan11Features(memAddress(container), container);
+        return wrap(VkPhysicalDeviceVulkan11Features.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceVulkan11Features} instance for the specified memory address. */
     public static VkPhysicalDeviceVulkan11Features create(long address) {
-        return new VkPhysicalDeviceVulkan11Features(address, null);
+        return wrap(VkPhysicalDeviceVulkan11Features.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceVulkan11Features createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceVulkan11Features(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceVulkan11Features.class, address);
     }
 
     /**
@@ -288,7 +279,7 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan11Features.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -297,7 +288,7 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan11Features.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -307,7 +298,7 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
      */
     public static VkPhysicalDeviceVulkan11Features.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -317,13 +308,13 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan11Features.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceVulkan11Features.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -332,7 +323,7 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceVulkan11Features malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceVulkan11Features(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkan11Features.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -341,7 +332,7 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceVulkan11Features calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceVulkan11Features(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceVulkan11Features.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -351,7 +342,7 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan11Features.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -361,7 +352,7 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan11Features.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -434,9 +425,9 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
         /**
          * Creates a new {@code VkPhysicalDeviceVulkan11Features.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceVulkan11Features#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceVulkan11Features#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

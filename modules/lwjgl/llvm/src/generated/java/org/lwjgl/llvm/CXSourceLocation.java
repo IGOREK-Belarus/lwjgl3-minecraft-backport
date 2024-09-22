@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     unsigned int_data;
  * }</code></pre>
  */
-public class CXSourceLocation extends Struct<CXSourceLocation> implements NativeResource {
+public class CXSourceLocation extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -53,15 +53,6 @@ public class CXSourceLocation extends Struct<CXSourceLocation> implements Native
 
         PTR_DATA = layout.offsetof(0);
         INT_DATA = layout.offsetof(1);
-    }
-
-    protected CXSourceLocation(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CXSourceLocation create(long address, @Nullable ByteBuffer container) {
-        return new CXSourceLocation(address, container);
     }
 
     /**
@@ -91,29 +82,29 @@ public class CXSourceLocation extends Struct<CXSourceLocation> implements Native
 
     /** Returns a new {@code CXSourceLocation} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CXSourceLocation malloc() {
-        return new CXSourceLocation(nmemAllocChecked(SIZEOF), null);
+        return wrap(CXSourceLocation.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code CXSourceLocation} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CXSourceLocation calloc() {
-        return new CXSourceLocation(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(CXSourceLocation.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code CXSourceLocation} instance allocated with {@link BufferUtils}. */
     public static CXSourceLocation create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new CXSourceLocation(memAddress(container), container);
+        return wrap(CXSourceLocation.class, memAddress(container), container);
     }
 
     /** Returns a new {@code CXSourceLocation} instance for the specified memory address. */
     public static CXSourceLocation create(long address) {
-        return new CXSourceLocation(address, null);
+        return wrap(CXSourceLocation.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CXSourceLocation createSafe(long address) {
-        return address == NULL ? null : new CXSourceLocation(address, null);
+        return address == NULL ? null : wrap(CXSourceLocation.class, address);
     }
 
     /**
@@ -122,7 +113,7 @@ public class CXSourceLocation extends Struct<CXSourceLocation> implements Native
      * @param capacity the buffer capacity
      */
     public static CXSourceLocation.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -131,7 +122,7 @@ public class CXSourceLocation extends Struct<CXSourceLocation> implements Native
      * @param capacity the buffer capacity
      */
     public static CXSourceLocation.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -141,7 +132,7 @@ public class CXSourceLocation extends Struct<CXSourceLocation> implements Native
      */
     public static CXSourceLocation.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -151,13 +142,13 @@ public class CXSourceLocation extends Struct<CXSourceLocation> implements Native
      * @param capacity the buffer capacity
      */
     public static CXSourceLocation.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CXSourceLocation.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -185,7 +176,7 @@ public class CXSourceLocation extends Struct<CXSourceLocation> implements Native
      * @param stack the stack from which to allocate
      */
     public static CXSourceLocation malloc(MemoryStack stack) {
-        return new CXSourceLocation(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(CXSourceLocation.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -194,7 +185,7 @@ public class CXSourceLocation extends Struct<CXSourceLocation> implements Native
      * @param stack the stack from which to allocate
      */
     public static CXSourceLocation calloc(MemoryStack stack) {
-        return new CXSourceLocation(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(CXSourceLocation.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -204,7 +195,7 @@ public class CXSourceLocation extends Struct<CXSourceLocation> implements Native
      * @param capacity the buffer capacity
      */
     public static CXSourceLocation.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -214,7 +205,7 @@ public class CXSourceLocation extends Struct<CXSourceLocation> implements Native
      * @param capacity the buffer capacity
      */
     public static CXSourceLocation.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -238,9 +229,9 @@ public class CXSourceLocation extends Struct<CXSourceLocation> implements Native
         /**
          * Creates a new {@code CXSourceLocation.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CXSourceLocation#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CXSourceLocation#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

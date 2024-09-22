@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrPath {@link #binding};
  * }</code></pre>
  */
-public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> implements NativeResource {
+public class XrActionSuggestedBinding extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -63,15 +63,6 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
         BINDING = layout.offsetof(1);
     }
 
-    protected XrActionSuggestedBinding(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrActionSuggestedBinding create(long address, @Nullable ByteBuffer container) {
-        return new XrActionSuggestedBinding(address, container);
-    }
-
     /**
      * Creates a {@code XrActionSuggestedBinding} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -88,7 +79,7 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
     /** the {@code XrAction} handle for an action */
     @NativeType("XrAction")
     public long action() { return naction(address()); }
-    /** the {@code XrPath} of a binding for the action specified in {@code action}. This path is any top level user path plus input source path, for example pathname:/user/hand/right/input/trigger/click. See <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#input-suggested-bindings">suggested bindings</a> for more details. */
+    /** the {@code XrPath} of a binding for the action specified in {@code action}. This path is any top level user path plus input source path, for example pathname:/user/hand/right/input/trigger/click. See <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#input-suggested-bindings">suggested bindings</a> for more details. */
     @NativeType("XrPath")
     public long binding() { return nbinding(address()); }
 
@@ -124,29 +115,29 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
 
     /** Returns a new {@code XrActionSuggestedBinding} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrActionSuggestedBinding malloc() {
-        return new XrActionSuggestedBinding(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrActionSuggestedBinding.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrActionSuggestedBinding} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrActionSuggestedBinding calloc() {
-        return new XrActionSuggestedBinding(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrActionSuggestedBinding.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrActionSuggestedBinding} instance allocated with {@link BufferUtils}. */
     public static XrActionSuggestedBinding create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrActionSuggestedBinding(memAddress(container), container);
+        return wrap(XrActionSuggestedBinding.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrActionSuggestedBinding} instance for the specified memory address. */
     public static XrActionSuggestedBinding create(long address) {
-        return new XrActionSuggestedBinding(address, null);
+        return wrap(XrActionSuggestedBinding.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrActionSuggestedBinding createSafe(long address) {
-        return address == NULL ? null : new XrActionSuggestedBinding(address, null);
+        return address == NULL ? null : wrap(XrActionSuggestedBinding.class, address);
     }
 
     /**
@@ -155,7 +146,7 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
      * @param capacity the buffer capacity
      */
     public static XrActionSuggestedBinding.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -164,7 +155,7 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
      * @param capacity the buffer capacity
      */
     public static XrActionSuggestedBinding.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -174,7 +165,7 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
      */
     public static XrActionSuggestedBinding.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -184,13 +175,13 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
      * @param capacity the buffer capacity
      */
     public static XrActionSuggestedBinding.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrActionSuggestedBinding.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -199,7 +190,7 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
      * @param stack the stack from which to allocate
      */
     public static XrActionSuggestedBinding malloc(MemoryStack stack) {
-        return new XrActionSuggestedBinding(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrActionSuggestedBinding.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -208,7 +199,7 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
      * @param stack the stack from which to allocate
      */
     public static XrActionSuggestedBinding calloc(MemoryStack stack) {
-        return new XrActionSuggestedBinding(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrActionSuggestedBinding.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -218,7 +209,7 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
      * @param capacity the buffer capacity
      */
     public static XrActionSuggestedBinding.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -228,7 +219,7 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
      * @param capacity the buffer capacity
      */
     public static XrActionSuggestedBinding.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -262,9 +253,9 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
         /**
          * Creates a new {@code XrActionSuggestedBinding.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrActionSuggestedBinding#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrActionSuggestedBinding#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

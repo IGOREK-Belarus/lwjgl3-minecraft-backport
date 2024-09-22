@@ -32,12 +32,12 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <pre><code>
  * struct VkPhysicalDeviceMaintenance4Features {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
+ *     VkStructureType sType;
+ *     void * pNext;
  *     VkBool32 {@link #maintenance4};
  * }</code></pre>
  */
-public class VkPhysicalDeviceMaintenance4Features extends Struct<VkPhysicalDeviceMaintenance4Features> implements NativeResource {
+public class VkPhysicalDeviceMaintenance4Features extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,15 +66,6 @@ public class VkPhysicalDeviceMaintenance4Features extends Struct<VkPhysicalDevic
         MAINTENANCE4 = layout.offsetof(2);
     }
 
-    protected VkPhysicalDeviceMaintenance4Features(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceMaintenance4Features create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceMaintenance4Features(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceMaintenance4Features} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -88,10 +79,10 @@ public class VkPhysicalDeviceMaintenance4Features extends Struct<VkPhysicalDevic
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
     /**
@@ -109,11 +100,11 @@ public class VkPhysicalDeviceMaintenance4Features extends Struct<VkPhysicalDevic
     @NativeType("VkBool32")
     public boolean maintenance4() { return nmaintenance4(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceMaintenance4Features sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES} value to the {@link #sType} field. */
+    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES} value to the {@code sType} field. */
     public VkPhysicalDeviceMaintenance4Features sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceMaintenance4Features pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
     /** Sets the specified value to the {@link #maintenance4} field. */
     public VkPhysicalDeviceMaintenance4Features maintenance4(@NativeType("VkBool32") boolean value) { nmaintenance4(address(), value ? 1 : 0); return this; }
@@ -147,29 +138,29 @@ public class VkPhysicalDeviceMaintenance4Features extends Struct<VkPhysicalDevic
 
     /** Returns a new {@code VkPhysicalDeviceMaintenance4Features} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceMaintenance4Features malloc() {
-        return new VkPhysicalDeviceMaintenance4Features(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceMaintenance4Features.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceMaintenance4Features} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceMaintenance4Features calloc() {
-        return new VkPhysicalDeviceMaintenance4Features(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceMaintenance4Features.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceMaintenance4Features} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceMaintenance4Features create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceMaintenance4Features(memAddress(container), container);
+        return wrap(VkPhysicalDeviceMaintenance4Features.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceMaintenance4Features} instance for the specified memory address. */
     public static VkPhysicalDeviceMaintenance4Features create(long address) {
-        return new VkPhysicalDeviceMaintenance4Features(address, null);
+        return wrap(VkPhysicalDeviceMaintenance4Features.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceMaintenance4Features createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceMaintenance4Features(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceMaintenance4Features.class, address);
     }
 
     /**
@@ -178,7 +169,7 @@ public class VkPhysicalDeviceMaintenance4Features extends Struct<VkPhysicalDevic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMaintenance4Features.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -187,7 +178,7 @@ public class VkPhysicalDeviceMaintenance4Features extends Struct<VkPhysicalDevic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMaintenance4Features.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -197,7 +188,7 @@ public class VkPhysicalDeviceMaintenance4Features extends Struct<VkPhysicalDevic
      */
     public static VkPhysicalDeviceMaintenance4Features.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -207,13 +198,13 @@ public class VkPhysicalDeviceMaintenance4Features extends Struct<VkPhysicalDevic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMaintenance4Features.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceMaintenance4Features.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -222,7 +213,7 @@ public class VkPhysicalDeviceMaintenance4Features extends Struct<VkPhysicalDevic
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceMaintenance4Features malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceMaintenance4Features(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceMaintenance4Features.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -231,7 +222,7 @@ public class VkPhysicalDeviceMaintenance4Features extends Struct<VkPhysicalDevic
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceMaintenance4Features calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceMaintenance4Features(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceMaintenance4Features.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -241,7 +232,7 @@ public class VkPhysicalDeviceMaintenance4Features extends Struct<VkPhysicalDevic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMaintenance4Features.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -251,7 +242,7 @@ public class VkPhysicalDeviceMaintenance4Features extends Struct<VkPhysicalDevic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMaintenance4Features.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -280,9 +271,9 @@ public class VkPhysicalDeviceMaintenance4Features extends Struct<VkPhysicalDevic
         /**
          * Creates a new {@code VkPhysicalDeviceMaintenance4Features.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceMaintenance4Features#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceMaintenance4Features#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -308,21 +299,21 @@ public class VkPhysicalDeviceMaintenance4Features extends Struct<VkPhysicalDevic
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceMaintenance4Features#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceMaintenance4Features.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMaintenance4Features#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceMaintenance4Features.npNext(address()); }
         /** @return the value of the {@link VkPhysicalDeviceMaintenance4Features#maintenance4} field. */
         @NativeType("VkBool32")
         public boolean maintenance4() { return VkPhysicalDeviceMaintenance4Features.nmaintenance4(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceMaintenance4Features#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceMaintenance4Features.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceMaintenance4Features.nsType(address(), value); return this; }
-        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES} value to the {@link VkPhysicalDeviceMaintenance4Features#sType} field. */
+        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES} value to the {@code sType} field. */
         public VkPhysicalDeviceMaintenance4Features.Buffer sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceMaintenance4Features#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceMaintenance4Features.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceMaintenance4Features.npNext(address(), value); return this; }
         /** Sets the specified value to the {@link VkPhysicalDeviceMaintenance4Features#maintenance4} field. */
         public VkPhysicalDeviceMaintenance4Features.Buffer maintenance4(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceMaintenance4Features.nmaintenance4(address(), value ? 1 : 0); return this; }

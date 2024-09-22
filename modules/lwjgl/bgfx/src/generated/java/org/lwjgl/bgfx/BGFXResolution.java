@@ -28,11 +28,10 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #reset};
  *     uint8_t {@link #numBackBuffers};
  *     uint8_t {@link #maxFrameLatency};
- *     uint8_t {@link #debugTextScale};
  * }</code></pre>
  */
 @NativeType("struct bgfx_resolution_t")
-public class BGFXResolution extends Struct<BGFXResolution> implements NativeResource {
+public class BGFXResolution extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -47,8 +46,7 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
         HEIGHT,
         RESET,
         NUMBACKBUFFERS,
-        MAXFRAMELATENCY,
-        DEBUGTEXTSCALE;
+        MAXFRAMELATENCY;
 
     static {
         Layout layout = __struct(
@@ -56,7 +54,6 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
             __member(4),
             __member(4),
             __member(4),
-            __member(1),
             __member(1),
             __member(1)
         );
@@ -70,16 +67,6 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
         RESET = layout.offsetof(3);
         NUMBACKBUFFERS = layout.offsetof(4);
         MAXFRAMELATENCY = layout.offsetof(5);
-        DEBUGTEXTSCALE = layout.offsetof(6);
-    }
-
-    protected BGFXResolution(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected BGFXResolution create(long address, @Nullable ByteBuffer container) {
-        return new BGFXResolution(address, container);
     }
 
     /**
@@ -113,9 +100,6 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
     /** maximum frame latency */
     @NativeType("uint8_t")
     public byte maxFrameLatency() { return nmaxFrameLatency(address()); }
-    /** scale factor for debug text */
-    @NativeType("uint8_t")
-    public byte debugTextScale() { return ndebugTextScale(address()); }
 
     /** Sets the specified value to the {@link #format} field. */
     public BGFXResolution format(@NativeType("bgfx_texture_format_t") int value) { nformat(address(), value); return this; }
@@ -129,8 +113,6 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
     public BGFXResolution numBackBuffers(@NativeType("uint8_t") byte value) { nnumBackBuffers(address(), value); return this; }
     /** Sets the specified value to the {@link #maxFrameLatency} field. */
     public BGFXResolution maxFrameLatency(@NativeType("uint8_t") byte value) { nmaxFrameLatency(address(), value); return this; }
-    /** Sets the specified value to the {@link #debugTextScale} field. */
-    public BGFXResolution debugTextScale(@NativeType("uint8_t") byte value) { ndebugTextScale(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public BGFXResolution set(
@@ -139,8 +121,7 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
         int height,
         int reset,
         byte numBackBuffers,
-        byte maxFrameLatency,
-        byte debugTextScale
+        byte maxFrameLatency
     ) {
         format(format);
         width(width);
@@ -148,7 +129,6 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
         reset(reset);
         numBackBuffers(numBackBuffers);
         maxFrameLatency(maxFrameLatency);
-        debugTextScale(debugTextScale);
 
         return this;
     }
@@ -169,29 +149,29 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
 
     /** Returns a new {@code BGFXResolution} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static BGFXResolution malloc() {
-        return new BGFXResolution(nmemAllocChecked(SIZEOF), null);
+        return wrap(BGFXResolution.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code BGFXResolution} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static BGFXResolution calloc() {
-        return new BGFXResolution(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(BGFXResolution.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code BGFXResolution} instance allocated with {@link BufferUtils}. */
     public static BGFXResolution create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new BGFXResolution(memAddress(container), container);
+        return wrap(BGFXResolution.class, memAddress(container), container);
     }
 
     /** Returns a new {@code BGFXResolution} instance for the specified memory address. */
     public static BGFXResolution create(long address) {
-        return new BGFXResolution(address, null);
+        return wrap(BGFXResolution.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXResolution createSafe(long address) {
-        return address == NULL ? null : new BGFXResolution(address, null);
+        return address == NULL ? null : wrap(BGFXResolution.class, address);
     }
 
     // -----------------------------------
@@ -212,7 +192,7 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static BGFXResolution malloc(MemoryStack stack) {
-        return new BGFXResolution(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(BGFXResolution.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -221,7 +201,7 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static BGFXResolution calloc(MemoryStack stack) {
-        return new BGFXResolution(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(BGFXResolution.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     // -----------------------------------
@@ -238,8 +218,6 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
     public static byte nnumBackBuffers(long struct) { return UNSAFE.getByte(null, struct + BGFXResolution.NUMBACKBUFFERS); }
     /** Unsafe version of {@link #maxFrameLatency}. */
     public static byte nmaxFrameLatency(long struct) { return UNSAFE.getByte(null, struct + BGFXResolution.MAXFRAMELATENCY); }
-    /** Unsafe version of {@link #debugTextScale}. */
-    public static byte ndebugTextScale(long struct) { return UNSAFE.getByte(null, struct + BGFXResolution.DEBUGTEXTSCALE); }
 
     /** Unsafe version of {@link #format(int) format}. */
     public static void nformat(long struct, int value) { UNSAFE.putInt(null, struct + BGFXResolution.FORMAT, value); }
@@ -253,7 +231,5 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
     public static void nnumBackBuffers(long struct, byte value) { UNSAFE.putByte(null, struct + BGFXResolution.NUMBACKBUFFERS, value); }
     /** Unsafe version of {@link #maxFrameLatency(byte) maxFrameLatency}. */
     public static void nmaxFrameLatency(long struct, byte value) { UNSAFE.putByte(null, struct + BGFXResolution.MAXFRAMELATENCY, value); }
-    /** Unsafe version of {@link #debugTextScale(byte) debugTextScale}. */
-    public static void ndebugTextScale(long struct, byte value) { UNSAFE.putByte(null, struct + BGFXResolution.DEBUGTEXTSCALE, value); }
 
 }

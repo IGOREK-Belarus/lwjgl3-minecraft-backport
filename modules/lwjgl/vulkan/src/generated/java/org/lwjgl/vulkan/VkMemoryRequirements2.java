@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkMemoryRequirements}, {@link VK11#vkGetBufferMemoryRequirements2 GetBufferMemoryRequirements2}, {@link KHRGetMemoryRequirements2#vkGetBufferMemoryRequirements2KHR GetBufferMemoryRequirements2KHR}, {@link VK13#vkGetDeviceBufferMemoryRequirements GetDeviceBufferMemoryRequirements}, {@link KHRMaintenance4#vkGetDeviceBufferMemoryRequirementsKHR GetDeviceBufferMemoryRequirementsKHR}, {@link VK13#vkGetDeviceImageMemoryRequirements GetDeviceImageMemoryRequirements}, {@link KHRMaintenance4#vkGetDeviceImageMemoryRequirementsKHR GetDeviceImageMemoryRequirementsKHR}, {@link NVDeviceGeneratedCommands#vkGetGeneratedCommandsMemoryRequirementsNV GetGeneratedCommandsMemoryRequirementsNV}, {@link VK11#vkGetImageMemoryRequirements2 GetImageMemoryRequirements2}, {@link KHRGetMemoryRequirements2#vkGetImageMemoryRequirements2KHR GetImageMemoryRequirements2KHR}, {@link NVDeviceGeneratedCommandsCompute#vkGetPipelineIndirectMemoryRequirementsNV GetPipelineIndirectMemoryRequirementsNV}</p>
+ * <p>{@link VkMemoryRequirements}, {@link VkVideoGetMemoryPropertiesKHR}, {@link VK11#vkGetBufferMemoryRequirements2 GetBufferMemoryRequirements2}, {@link KHRGetMemoryRequirements2#vkGetBufferMemoryRequirements2KHR GetBufferMemoryRequirements2KHR}, {@link VK13#vkGetDeviceBufferMemoryRequirements GetDeviceBufferMemoryRequirements}, {@link KHRMaintenance4#vkGetDeviceBufferMemoryRequirementsKHR GetDeviceBufferMemoryRequirementsKHR}, {@link VK13#vkGetDeviceImageMemoryRequirements GetDeviceImageMemoryRequirements}, {@link KHRMaintenance4#vkGetDeviceImageMemoryRequirementsKHR GetDeviceImageMemoryRequirementsKHR}, {@link NVDeviceGeneratedCommands#vkGetGeneratedCommandsMemoryRequirementsNV GetGeneratedCommandsMemoryRequirementsNV}, {@link VK11#vkGetImageMemoryRequirements2 GetImageMemoryRequirements2}, {@link KHRGetMemoryRequirements2#vkGetImageMemoryRequirements2KHR GetImageMemoryRequirements2KHR}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -39,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkMemoryRequirements VkMemoryRequirements} {@link #memoryRequirements};
  * }</code></pre>
  */
-public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> implements NativeResource {
+public class VkMemoryRequirements2 extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -68,15 +68,6 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
         MEMORYREQUIREMENTS = layout.offsetof(2);
     }
 
-    protected VkMemoryRequirements2(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkMemoryRequirements2 create(long address, @Nullable ByteBuffer container) {
-        return new VkMemoryRequirements2(address, container);
-    }
-
     /**
      * Creates a {@code VkMemoryRequirements2} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -90,7 +81,7 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -137,29 +128,29 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
 
     /** Returns a new {@code VkMemoryRequirements2} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkMemoryRequirements2 malloc() {
-        return new VkMemoryRequirements2(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkMemoryRequirements2.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkMemoryRequirements2} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkMemoryRequirements2 calloc() {
-        return new VkMemoryRequirements2(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkMemoryRequirements2.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkMemoryRequirements2} instance allocated with {@link BufferUtils}. */
     public static VkMemoryRequirements2 create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkMemoryRequirements2(memAddress(container), container);
+        return wrap(VkMemoryRequirements2.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkMemoryRequirements2} instance for the specified memory address. */
     public static VkMemoryRequirements2 create(long address) {
-        return new VkMemoryRequirements2(address, null);
+        return wrap(VkMemoryRequirements2.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMemoryRequirements2 createSafe(long address) {
-        return address == NULL ? null : new VkMemoryRequirements2(address, null);
+        return address == NULL ? null : wrap(VkMemoryRequirements2.class, address);
     }
 
     /**
@@ -168,7 +159,7 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
      * @param capacity the buffer capacity
      */
     public static VkMemoryRequirements2.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -177,7 +168,7 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
      * @param capacity the buffer capacity
      */
     public static VkMemoryRequirements2.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -187,7 +178,7 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
      */
     public static VkMemoryRequirements2.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -197,13 +188,13 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
      * @param capacity the buffer capacity
      */
     public static VkMemoryRequirements2.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMemoryRequirements2.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -231,7 +222,7 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
      * @param stack the stack from which to allocate
      */
     public static VkMemoryRequirements2 malloc(MemoryStack stack) {
-        return new VkMemoryRequirements2(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkMemoryRequirements2.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -240,7 +231,7 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
      * @param stack the stack from which to allocate
      */
     public static VkMemoryRequirements2 calloc(MemoryStack stack) {
-        return new VkMemoryRequirements2(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkMemoryRequirements2.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -250,7 +241,7 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
      * @param capacity the buffer capacity
      */
     public static VkMemoryRequirements2.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -260,7 +251,7 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
      * @param capacity the buffer capacity
      */
     public static VkMemoryRequirements2.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -287,9 +278,9 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
         /**
          * Creates a new {@code VkMemoryRequirements2.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkMemoryRequirements2#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkMemoryRequirements2#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

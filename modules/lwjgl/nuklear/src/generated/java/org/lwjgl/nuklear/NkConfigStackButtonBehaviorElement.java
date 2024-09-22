@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct nk_config_stack_button_behavior_element")
-class NkConfigStackButtonBehaviorElement extends Struct<NkConfigStackButtonBehaviorElement> {
+class NkConfigStackButtonBehaviorElement extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -47,15 +47,6 @@ class NkConfigStackButtonBehaviorElement extends Struct<NkConfigStackButtonBehav
 
         PVALUES = layout.offsetof(0);
         OLD_VALUE = layout.offsetof(1);
-    }
-
-    protected NkConfigStackButtonBehaviorElement(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected NkConfigStackButtonBehaviorElement create(long address, @Nullable ByteBuffer container) {
-        return new NkConfigStackButtonBehaviorElement(address, container);
     }
 
     /**
@@ -86,13 +77,13 @@ class NkConfigStackButtonBehaviorElement extends Struct<NkConfigStackButtonBehav
 
     /** Returns a new {@code NkConfigStackButtonBehaviorElement} instance for the specified memory address. */
     public static NkConfigStackButtonBehaviorElement create(long address) {
-        return new NkConfigStackButtonBehaviorElement(address, null);
+        return wrap(NkConfigStackButtonBehaviorElement.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkConfigStackButtonBehaviorElement createSafe(long address) {
-        return address == NULL ? null : new NkConfigStackButtonBehaviorElement(address, null);
+        return address == NULL ? null : wrap(NkConfigStackButtonBehaviorElement.class, address);
     }
 
     /**
@@ -102,13 +93,13 @@ class NkConfigStackButtonBehaviorElement extends Struct<NkConfigStackButtonBehav
      * @param capacity the buffer capacity
      */
     public static NkConfigStackButtonBehaviorElement.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkConfigStackButtonBehaviorElement.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -128,9 +119,9 @@ class NkConfigStackButtonBehaviorElement extends Struct<NkConfigStackButtonBehav
         /**
          * Creates a new {@code NkConfigStackButtonBehaviorElement.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkConfigStackButtonBehaviorElement#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link NkConfigStackButtonBehaviorElement#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

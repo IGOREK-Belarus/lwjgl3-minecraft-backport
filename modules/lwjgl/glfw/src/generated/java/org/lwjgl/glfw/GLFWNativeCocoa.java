@@ -22,8 +22,7 @@ public class GLFWNativeCocoa {
         /** Function address. */
         public static final long
             GetCocoaMonitor = apiGetFunctionAddress(GLFW.getLibrary(), "glfwGetCocoaMonitor"),
-            GetCocoaWindow  = apiGetFunctionAddress(GLFW.getLibrary(), "glfwGetCocoaWindow"),
-            GetCocoaView    = apiGetFunctionAddress(GLFW.getLibrary(), "glfwGetCocoaView");
+            GetCocoaWindow  = apiGetFunctionAddress(GLFW.getLibrary(), "glfwGetCocoaWindow");
 
     }
 
@@ -42,7 +41,7 @@ public class GLFWNativeCocoa {
      *
      * @return the {@code CGDirectDisplayID} of the specified monitor, or {@code kCGNullDirectDisplay} if an error occurred.
      *         
-     *         <p>Possible errors include {@link GLFW#GLFW_NOT_INITIALIZED NOT_INITIALIZED} and {@link GLFW#GLFW_PLATFORM_UNAVAILABLE PLATFORM_UNAVAILABLE}.</p>
+     *         <p>Possible errors include {@link GLFW#GLFW_NOT_INITIALIZED NOT_INITIALIZED}.</p>
      *
      * @since version 3.1
      */
@@ -66,37 +65,13 @@ public class GLFWNativeCocoa {
      *
      * @return the {@code NSWindow} of the specified window, or nil if an error occurred.
      *         
-     *         <p>Possible errors include {@link GLFW#GLFW_NOT_INITIALIZED NOT_INITIALIZED} and {@link GLFW#GLFW_PLATFORM_UNAVAILABLE PLATFORM_UNAVAILABLE}.</p>
+     *         <p>Possible errors include {@link GLFW#GLFW_NOT_INITIALIZED NOT_INITIALIZED}.</p>
      *
      * @since version 3.0
      */
     @NativeType("id")
     public static long glfwGetCocoaWindow(@NativeType("GLFWwindow *") long window) {
         long __functionAddress = Functions.GetCocoaWindow;
-        if (CHECKS) {
-            check(window);
-        }
-        return invokePP(window, __functionAddress);
-    }
-
-    // --- [ glfwGetCocoaView ] ---
-
-    /**
-     * Returns the {@code NSView} of the specified window.
-     * 
-     * <p>This function may be called from any thread. Access is not synchronized.</p>
-     *
-     * @param window the GLFW window
-     *
-     * @return the {@code NSView} of the specified window, or {@code nil} if an error occurred
-     *         
-     *         <p>Possible errors include {@link GLFW#GLFW_NOT_INITIALIZED NOT_INITIALIZED} and {@link GLFW#GLFW_PLATFORM_UNAVAILABLE PLATFORM_UNAVAILABLE}.</p>
-     *
-     * @since version 3.4
-     */
-    @NativeType("id")
-    public static long glfwGetCocoaView(@NativeType("GLFWwindow *") long window) {
-        long __functionAddress = Functions.GetCocoaView;
         if (CHECKS) {
             check(window);
         }

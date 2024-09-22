@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If the {@link VkPhysicalDeviceProvokingVertexFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceProvokingVertexFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
  * 
- * <p>When {@link VkPhysicalDeviceProvokingVertexFeaturesEXT} is in the {@code pNext} chain of {@link VkDeviceCreateInfo} but the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-transformFeedback">{@code transformFeedback}</a> feature is not enabled, the value of {@code transformFeedbackPreservesProvokingVertex} is ignored.</p>
+ * <p>When {@link VkPhysicalDeviceProvokingVertexFeaturesEXT} is in the {@code pNext} chain of {@link VkDeviceCreateInfo} but the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-transformFeedback">transform feedback feature</a> is not enabled, the value of {@code transformFeedbackPreservesProvokingVertex} is ignored.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -40,7 +40,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #transformFeedbackPreservesProvokingVertex};
  * }</code></pre>
  */
-public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysicalDeviceProvokingVertexFeaturesEXT> implements NativeResource {
+public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -72,15 +72,6 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
         TRANSFORMFEEDBACKPRESERVESPROVOKINGVERTEX = layout.offsetof(3);
     }
 
-    protected VkPhysicalDeviceProvokingVertexFeaturesEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceProvokingVertexFeaturesEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceProvokingVertexFeaturesEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceProvokingVertexFeaturesEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -94,7 +85,7 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -103,7 +94,7 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
     /** indicates whether the implementation supports the {@link EXTProvokingVertex#VK_PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT} provoking vertex mode ({@code VkProvokingVertexModeEXT}) for flat shading. */
     @NativeType("VkBool32")
     public boolean provokingVertexLast() { return nprovokingVertexLast(address()) != 0; }
-    /** indicates that the order of vertices within each primitive written by transform feedback will preserve the provoking vertex. This does not apply to triangle fan primitives when <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-transformFeedbackPreservesTriangleFanProvokingVertex">{@code transformFeedbackPreservesTriangleFanProvokingVertex}</a> is {@link VK10#VK_FALSE FALSE}. {@code transformFeedbackPreservesProvokingVertex} <b>must</b> be {@link VK10#VK_FALSE FALSE} when the {@link EXTTransformFeedback VK_EXT_transform_feedback} extension is not supported. */
+    /** indicates that the order of vertices within each primitive written by transform feedback will preserve the provoking vertex. This does not apply to triangle fan primitives when <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#limits-transformFeedbackPreservesTriangleFanProvokingVertex">{@code transformFeedbackPreservesTriangleFanProvokingVertex}</a> is {@link VK10#VK_FALSE FALSE}. {@code transformFeedbackPreservesProvokingVertex} <b>must</b> be {@link VK10#VK_FALSE FALSE} when the {@link EXTTransformFeedback VK_EXT_transform_feedback} extension is not supported. */
     @NativeType("VkBool32")
     public boolean transformFeedbackPreservesProvokingVertex() { return ntransformFeedbackPreservesProvokingVertex(address()) != 0; }
 
@@ -149,29 +140,29 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
 
     /** Returns a new {@code VkPhysicalDeviceProvokingVertexFeaturesEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceProvokingVertexFeaturesEXT malloc() {
-        return new VkPhysicalDeviceProvokingVertexFeaturesEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceProvokingVertexFeaturesEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceProvokingVertexFeaturesEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceProvokingVertexFeaturesEXT calloc() {
-        return new VkPhysicalDeviceProvokingVertexFeaturesEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceProvokingVertexFeaturesEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceProvokingVertexFeaturesEXT} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceProvokingVertexFeaturesEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceProvokingVertexFeaturesEXT(memAddress(container), container);
+        return wrap(VkPhysicalDeviceProvokingVertexFeaturesEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceProvokingVertexFeaturesEXT} instance for the specified memory address. */
     public static VkPhysicalDeviceProvokingVertexFeaturesEXT create(long address) {
-        return new VkPhysicalDeviceProvokingVertexFeaturesEXT(address, null);
+        return wrap(VkPhysicalDeviceProvokingVertexFeaturesEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceProvokingVertexFeaturesEXT createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceProvokingVertexFeaturesEXT(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceProvokingVertexFeaturesEXT.class, address);
     }
 
     /**
@@ -180,7 +171,7 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceProvokingVertexFeaturesEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -189,7 +180,7 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceProvokingVertexFeaturesEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -199,7 +190,7 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
      */
     public static VkPhysicalDeviceProvokingVertexFeaturesEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -209,13 +200,13 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceProvokingVertexFeaturesEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceProvokingVertexFeaturesEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -224,7 +215,7 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceProvokingVertexFeaturesEXT malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceProvokingVertexFeaturesEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceProvokingVertexFeaturesEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -233,7 +224,7 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceProvokingVertexFeaturesEXT calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceProvokingVertexFeaturesEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceProvokingVertexFeaturesEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -243,7 +234,7 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceProvokingVertexFeaturesEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -253,7 +244,7 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceProvokingVertexFeaturesEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -286,9 +277,9 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
         /**
          * Creates a new {@code VkPhysicalDeviceProvokingVertexFeaturesEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceProvokingVertexFeaturesEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceProvokingVertexFeaturesEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

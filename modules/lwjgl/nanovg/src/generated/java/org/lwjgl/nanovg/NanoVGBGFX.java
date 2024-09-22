@@ -39,17 +39,6 @@ public class NanoVGBGFX {
 
     }
 
-    /**
-     * These are additional flags on top of NVGimageFlags.
-     * 
-     * <h5>Enum values:</h5>
-     * 
-     * <ul>
-     * <li>{@link #NVG_IMAGE_NODELETE IMAGE_NODELETE} - Do not delete GL texture handle.</li>
-     * </ul>
-     */
-    public static final int NVG_IMAGE_NODELETE = 1<<16;
-
     static {
         MemoryAllocator allocator = getAllocator(Configuration.DEBUG_MEMORY_ALLOCATOR_INTERNAL.get(true));
         org_lwjgl_nanovg_setup(
@@ -69,7 +58,7 @@ public class NanoVGBGFX {
 
     public static long nnvgCreate(int _edgeaa, short _viewId, long _allocator) {
         long __functionAddress = Functions.Create;
-        return invokeCPP(_edgeaa, _viewId, _allocator, __functionAddress);
+        return invokePP(_edgeaa, _viewId, _allocator, __functionAddress);
     }
 
     @NativeType("NVGcontext *")
@@ -94,7 +83,7 @@ public class NanoVGBGFX {
         if (CHECKS) {
             check(_ctx);
         }
-        invokePCV(_ctx, _viewId, __functionAddress);
+        invokePV(_ctx, _viewId, __functionAddress);
     }
 
     public static void nvgSetViewId(@NativeType("NVGcontext *") long _ctx, @NativeType("bgfx_view_id_t") int _viewId) {
@@ -109,7 +98,7 @@ public class NanoVGBGFX {
         if (CHECKS) {
             check(_ctx);
         }
-        return invokePC(_ctx, __functionAddress);
+        return invokePS(_ctx, __functionAddress);
     }
 
     // --- [ nvgluCreateFramebuffer ] ---
@@ -155,7 +144,7 @@ public class NanoVGBGFX {
 
     public static void nnvgluSetViewFramebuffer(short _view_id, long _framebuffer) {
         long __functionAddress = Functions.luSetViewFramebuffer;
-        invokeCPV(_view_id, _framebuffer, __functionAddress);
+        invokePV(_view_id, _framebuffer, __functionAddress);
     }
 
     public static void nvgluSetViewFramebuffer(@NativeType("bgfx_view_id_t") int _view_id, @NativeType("NVGLUframebuffer *") NVGLUFramebufferBGFX _framebuffer) {
@@ -169,7 +158,7 @@ public class NanoVGBGFX {
         if (CHECKS) {
             check(_ctx);
         }
-        invokePCV(_ctx, _id, _width, _height, flags, __functionAddress);
+        invokePV(_ctx, _id, _width, _height, flags, __functionAddress);
     }
 
     // --- [ org_lwjgl_nanovg_setup ] ---

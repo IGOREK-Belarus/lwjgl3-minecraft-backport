@@ -38,11 +38,11 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>The values of {@code pCoverageModulationTable} <b>may</b> be rounded to an implementation-dependent precision, which is at least as fine as <code>1 / N</code>, and clamped to <code>[0,1]</code>.</p>
  * 
- * <p>For each color attachment with a floating-point or normalized color format, each fragment output color value is replicated to <code>M</code> values which <b>can</b> each be modulated (multiplied) by that color sample’s associated value of <code>R</code>. Which components are modulated is controlled by {@code coverageModulationMode}.</p>
+ * <p>For each color attachment with a floating point or normalized color format, each fragment output color value is replicated to <code>M</code> values which <b>can</b> each be modulated (multiplied) by that color sample’s associated value of <code>R</code>. Which components are modulated is controlled by {@code coverageModulationMode}.</p>
  * 
  * <p>If this structure is not included in the {@code pNext} chain, it is as if {@code coverageModulationMode} is {@link NVFramebufferMixedSamples#VK_COVERAGE_MODULATION_MODE_NONE_NV COVERAGE_MODULATION_MODE_NONE_NV}.</p>
  * 
- * <p>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-coverage-reduction">coverage reduction mode</a> is {@link NVCoverageReductionMode#VK_COVERAGE_REDUCTION_MODE_TRUNCATE_NV COVERAGE_REDUCTION_MODE_TRUNCATE_NV}, each color sample is associated with only a single coverage sample. In this case, it is as if {@code coverageModulationMode} is {@link NVFramebufferMixedSamples#VK_COVERAGE_MODULATION_MODE_NONE_NV COVERAGE_MODULATION_MODE_NONE_NV}.</p>
+ * <p>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-coverage-reduction">coverage reduction mode</a> is {@link NVCoverageReductionMode#VK_COVERAGE_REDUCTION_MODE_TRUNCATE_NV COVERAGE_REDUCTION_MODE_TRUNCATE_NV}, each color sample is associated with only a single coverage sample. In this case, it is as if {@code coverageModulationMode} is {@link NVFramebufferMixedSamples#VK_COVERAGE_MODULATION_MODE_NONE_NV COVERAGE_MODULATION_MODE_NONE_NV}.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
@@ -71,7 +71,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float const * {@link #pCoverageModulationTable};
  * }</code></pre>
  */
-public class VkPipelineCoverageModulationStateCreateInfoNV extends Struct<VkPipelineCoverageModulationStateCreateInfoNV> implements NativeResource {
+public class VkPipelineCoverageModulationStateCreateInfoNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -112,15 +112,6 @@ public class VkPipelineCoverageModulationStateCreateInfoNV extends Struct<VkPipe
         PCOVERAGEMODULATIONTABLE = layout.offsetof(6);
     }
 
-    protected VkPipelineCoverageModulationStateCreateInfoNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPipelineCoverageModulationStateCreateInfoNV create(long address, @Nullable ByteBuffer container) {
-        return new VkPipelineCoverageModulationStateCreateInfoNV(address, container);
-    }
-
     /**
      * Creates a {@code VkPipelineCoverageModulationStateCreateInfoNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -134,7 +125,7 @@ public class VkPipelineCoverageModulationStateCreateInfoNV extends Struct<VkPipe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -211,29 +202,29 @@ public class VkPipelineCoverageModulationStateCreateInfoNV extends Struct<VkPipe
 
     /** Returns a new {@code VkPipelineCoverageModulationStateCreateInfoNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPipelineCoverageModulationStateCreateInfoNV malloc() {
-        return new VkPipelineCoverageModulationStateCreateInfoNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPipelineCoverageModulationStateCreateInfoNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineCoverageModulationStateCreateInfoNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPipelineCoverageModulationStateCreateInfoNV calloc() {
-        return new VkPipelineCoverageModulationStateCreateInfoNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPipelineCoverageModulationStateCreateInfoNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineCoverageModulationStateCreateInfoNV} instance allocated with {@link BufferUtils}. */
     public static VkPipelineCoverageModulationStateCreateInfoNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPipelineCoverageModulationStateCreateInfoNV(memAddress(container), container);
+        return wrap(VkPipelineCoverageModulationStateCreateInfoNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPipelineCoverageModulationStateCreateInfoNV} instance for the specified memory address. */
     public static VkPipelineCoverageModulationStateCreateInfoNV create(long address) {
-        return new VkPipelineCoverageModulationStateCreateInfoNV(address, null);
+        return wrap(VkPipelineCoverageModulationStateCreateInfoNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineCoverageModulationStateCreateInfoNV createSafe(long address) {
-        return address == NULL ? null : new VkPipelineCoverageModulationStateCreateInfoNV(address, null);
+        return address == NULL ? null : wrap(VkPipelineCoverageModulationStateCreateInfoNV.class, address);
     }
 
     /**
@@ -242,7 +233,7 @@ public class VkPipelineCoverageModulationStateCreateInfoNV extends Struct<VkPipe
      * @param capacity the buffer capacity
      */
     public static VkPipelineCoverageModulationStateCreateInfoNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -251,7 +242,7 @@ public class VkPipelineCoverageModulationStateCreateInfoNV extends Struct<VkPipe
      * @param capacity the buffer capacity
      */
     public static VkPipelineCoverageModulationStateCreateInfoNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -261,7 +252,7 @@ public class VkPipelineCoverageModulationStateCreateInfoNV extends Struct<VkPipe
      */
     public static VkPipelineCoverageModulationStateCreateInfoNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -271,13 +262,13 @@ public class VkPipelineCoverageModulationStateCreateInfoNV extends Struct<VkPipe
      * @param capacity the buffer capacity
      */
     public static VkPipelineCoverageModulationStateCreateInfoNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineCoverageModulationStateCreateInfoNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -305,7 +296,7 @@ public class VkPipelineCoverageModulationStateCreateInfoNV extends Struct<VkPipe
      * @param stack the stack from which to allocate
      */
     public static VkPipelineCoverageModulationStateCreateInfoNV malloc(MemoryStack stack) {
-        return new VkPipelineCoverageModulationStateCreateInfoNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPipelineCoverageModulationStateCreateInfoNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -314,7 +305,7 @@ public class VkPipelineCoverageModulationStateCreateInfoNV extends Struct<VkPipe
      * @param stack the stack from which to allocate
      */
     public static VkPipelineCoverageModulationStateCreateInfoNV calloc(MemoryStack stack) {
-        return new VkPipelineCoverageModulationStateCreateInfoNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPipelineCoverageModulationStateCreateInfoNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -324,7 +315,7 @@ public class VkPipelineCoverageModulationStateCreateInfoNV extends Struct<VkPipe
      * @param capacity the buffer capacity
      */
     public static VkPipelineCoverageModulationStateCreateInfoNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -334,7 +325,7 @@ public class VkPipelineCoverageModulationStateCreateInfoNV extends Struct<VkPipe
      * @param capacity the buffer capacity
      */
     public static VkPipelineCoverageModulationStateCreateInfoNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -379,9 +370,9 @@ public class VkPipelineCoverageModulationStateCreateInfoNV extends Struct<VkPipe
         /**
          * Creates a new {@code VkPipelineCoverageModulationStateCreateInfoNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPipelineCoverageModulationStateCreateInfoNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPipelineCoverageModulationStateCreateInfoNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -110,7 +110,7 @@ abstract class SimpleBinding(
         writer.println("$t${t}long ${if (function has Address) RESULT else FUNCTION_ADDRESS} = Functions.${function.simpleName};")
     }
 
-    abstract fun generateFunctionSetup(writer: PrintWriter, nativeClass: NativeClass)
+    abstract fun PrintWriter.generateFunctionSetup(nativeClass: NativeClass)
 
     protected fun PrintWriter.generateFunctionsClass(nativeClass: NativeClass, javadoc: String) {
         val bindingFunctions = nativeClass.functions.filter { !it.hasExplicitFunctionAddress && !it.has<Macro>() }
@@ -130,7 +130,7 @@ abstract class SimpleBinding(
         public static final long
             ${bindingFunctions.joinToString(separator = ",\n$t$t$t", postfix = ";") {
             "${it.simpleName}${" ".repeat(alignment - it.simpleName.length)} = ${if (it has IgnoreMissing)
-                "apiGetFunctionAddressOptional($libraryExpression, ${it.functionAddress})"
+                "$libraryExpression.getFunctionAddress(${it.functionAddress})"
             else
                 "apiGetFunctionAddress($libraryExpression, ${it.functionAddress})"}"
         }}
@@ -138,31 +138,26 @@ abstract class SimpleBinding(
     }""")
     }
 }
+// TODO: Remove if KT-7859 is fixed.
+private fun SimpleBinding.generateFunctionSetup(writer: PrintWriter, nativeClass: NativeClass) = writer.generateFunctionSetup(nativeClass)
 
 /** Creates a simple APIBinding that stores the shared library and function pointers inside the binding class. The shared library is never unloaded. */
 fun simpleBinding(
     module: Module,
     libraryName: String = module.name.lowercase(),
     libraryExpression: String = "\"$libraryName\"",
-    bundledWithLWJGL: Boolean = false,
-    preamble: String? = null
+    bundledWithLWJGL: Boolean = false
 ) = object : SimpleBinding(module, libraryName.uppercase()) {
-    // TODO: Sync HARFBUZZ_BINDING if this changes
-    override fun generateFunctionSetup(writer: PrintWriter, nativeClass: NativeClass) {
+    override fun PrintWriter.generateFunctionSetup(nativeClass: NativeClass) {
         val libraryReference = libraryName.uppercase()
 
-        with(writer) {
-            if (preamble != null) {
-                println(preamble)
-            }
-            println("\n${t}private static final SharedLibrary $libraryReference = Library.loadNative(${nativeClass.className}.class, \"${module.java}\", $libraryExpression${if (bundledWithLWJGL) ", true" else ""});")
-            generateFunctionsClass(nativeClass, "\n$t/** Contains the function pointers loaded from the $libraryName {@link SharedLibrary}. */")
-            println("""
+        println("\n${t}private static final SharedLibrary $libraryReference = Library.loadNative(${nativeClass.className}.class, \"${module.java}\", $libraryExpression${if (bundledWithLWJGL) ", true" else ""});")
+        generateFunctionsClass(nativeClass, "\n$t/** Contains the function pointers loaded from the $libraryName {@link SharedLibrary}. */")
+        println("""
     /** Returns the $libraryName {@link SharedLibrary}. */
     public static SharedLibrary getLibrary() {
         return $libraryReference;
     }""")
-        }
     }
 }
 
@@ -170,8 +165,8 @@ fun simpleBinding(
 fun APIBinding.delegate(
     libraryExpression: String
 ) = object : SimpleBinding(module, libraryExpression) {
-    override fun generateFunctionSetup(writer: PrintWriter, nativeClass: NativeClass) {
-        writer.generateFunctionsClass(nativeClass, "\n$t/** Contains the function pointers loaded from {@code $libraryExpression}. */")
+    override fun PrintWriter.generateFunctionSetup(nativeClass: NativeClass) {
+        generateFunctionsClass(nativeClass, "\n$t/** Contains the function pointers loaded from {@code $libraryExpression}. */")
     }
 }
 
@@ -216,10 +211,8 @@ class NativeClass internal constructor(
 
     val link get() = "{@link ${this.className} ${this.templateName}}"
 
-    override fun processDocumentation(documentation: String, forcePackage: Boolean): String {
-        processSeeLinks("", "", forcePackage)
-        return processDocumentation(documentation, prefixConstant, prefixMethod, forcePackage = forcePackage)
-    }
+    override fun processDocumentation(documentation: String, forcePackage: Boolean): String =
+        processDocumentation(documentation, prefixConstant, prefixMethod, forcePackage = forcePackage)
 
     private val constantLinks: Map<String, String> by lazy(LazyThreadSafetyMode.NONE) {
         val map = HashMap<String, String>()
@@ -347,7 +340,7 @@ class NativeClass internal constructor(
                                         AutoSizeFactor.shl("${-value}")
                                     else
                                         AutoSizeFactor.shr("$value")
-                                } catch (_: NumberFormatException) {
+                                } catch (e: NumberFormatException) {
                                     return null
                                 }
                             }
@@ -478,12 +471,12 @@ class NativeClass internal constructor(
                     staticImports.add("org.lwjgl.system.APIUtil.*")
                 if ((binding != null && binding.apiCapabilities.ordinal >= 2) || functions.any { func ->
                         func.hasParam { param ->
-                            param.nativeType is PointerType<*> && (param.has<Check>() || func.getReferenceParam<AutoSize>(param.name).let {
+                            param.nativeType is PointerType<*> && func.getReferenceParam<AutoSize>(param.name).let {
                                 if (it == null)
-                                    (!param.has<Nullable>() || param.nativeType is CharSequenceType) && param.nativeType.elementType !is StructType
+                                    !param.has<Nullable>() && param.nativeType.elementType !is StructType
                                 else
                                     it.get<AutoSize>().reference != param.name // dependent auto-size
-                            })
+                            }
                         } || (module.arrayOverloads && func.hasArrayOverloads) || (func.has<IgnoreMissing>() && binding?.apiCapabilities != APICapabilities.JNI_CAPABILITIES)
                     })
                     staticImports.add("org.lwjgl.system.Checks.*")
@@ -844,19 +837,19 @@ class NativeClass internal constructor(
 
     operator fun NativeClass.get(functionName: String) = _functions[functionName] ?: throw IllegalArgumentException("Referenced function does not exist: $templateName.$functionName")
 
-    fun reuse(nativeClass: NativeClass, functionName: String) : Func {
-        val reference = nativeClass[functionName]
+    infix fun NativeClass.reuse(functionName: String): Func {
+        val reference = this[functionName]
 
-        val func = Reuse(nativeClass)..Func(
+        val func = Reuse(this)..Func(
             returns = reference.returns,
             simpleName = reference.simpleName,
             name = reference.name,
-            documentation = { this.convertDocumentation(nativeClass, reference.name, reference.documentation(it)) },
-            nativeClass = this,
+            documentation = { this@NativeClass.convertDocumentation(this, reference.name, reference.documentation(it)) },
+            nativeClass = this@NativeClass,
             parameters = reference.parameters
         ).copyModifiers(reference)
 
-        this._functions[functionName] = func
+        this@NativeClass._functions[functionName] = func
         return func
     }
 

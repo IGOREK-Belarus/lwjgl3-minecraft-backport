@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct nk_config_stack_user_font_element")
-class NkConfigStackUserFontElement extends Struct<NkConfigStackUserFontElement> {
+class NkConfigStackUserFontElement extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -48,15 +48,6 @@ class NkConfigStackUserFontElement extends Struct<NkConfigStackUserFontElement> 
 
         PVALUES = layout.offsetof(0);
         OLD_VALUE = layout.offsetof(1);
-    }
-
-    protected NkConfigStackUserFontElement(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected NkConfigStackUserFontElement create(long address, @Nullable ByteBuffer container) {
-        return new NkConfigStackUserFontElement(address, container);
     }
 
     /**
@@ -87,13 +78,13 @@ class NkConfigStackUserFontElement extends Struct<NkConfigStackUserFontElement> 
 
     /** Returns a new {@code NkConfigStackUserFontElement} instance for the specified memory address. */
     public static NkConfigStackUserFontElement create(long address) {
-        return new NkConfigStackUserFontElement(address, null);
+        return wrap(NkConfigStackUserFontElement.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkConfigStackUserFontElement createSafe(long address) {
-        return address == NULL ? null : new NkConfigStackUserFontElement(address, null);
+        return address == NULL ? null : wrap(NkConfigStackUserFontElement.class, address);
     }
 
     /**
@@ -103,13 +94,13 @@ class NkConfigStackUserFontElement extends Struct<NkConfigStackUserFontElement> 
      * @param capacity the buffer capacity
      */
     public static NkConfigStackUserFontElement.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkConfigStackUserFontElement.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -129,9 +120,9 @@ class NkConfigStackUserFontElement extends Struct<NkConfigStackUserFontElement> 
         /**
          * Creates a new {@code NkConfigStackUserFontElement.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkConfigStackUserFontElement#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link NkConfigStackUserFontElement#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

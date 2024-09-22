@@ -33,7 +33,7 @@ public class PointerBuffer extends CustomBuffer<PointerBuffer> implements Compar
      */
     public static PointerBuffer allocateDirect(int capacity) {
         ByteBuffer source = BufferUtils.createByteBuffer(BufferUtils.getAllocationSize(capacity, POINTER_SHIFT));
-        return new PointerBuffer(memAddress(source), source, -1, 0, capacity, capacity);
+        return wrap(PointerBuffer.class, memAddress(source), capacity, source);
     }
 
     /**
@@ -43,7 +43,7 @@ public class PointerBuffer extends CustomBuffer<PointerBuffer> implements Compar
      * @param capacity the buffer capacity, in number of pointers
      */
     public static PointerBuffer create(long address, int capacity) {
-        return new PointerBuffer(address, null, -1, 0, capacity, capacity);
+        return wrap(PointerBuffer.class, address, capacity);
     }
 
     /**
@@ -53,7 +53,7 @@ public class PointerBuffer extends CustomBuffer<PointerBuffer> implements Compar
      */
     public static PointerBuffer create(ByteBuffer source) {
         int capacity = source.remaining() >> POINTER_SHIFT;
-        return new PointerBuffer(memAddress(source), source, -1, 0, capacity, capacity);
+        return wrap(PointerBuffer.class, memAddress(source), capacity, source);
     }
 
     @Override

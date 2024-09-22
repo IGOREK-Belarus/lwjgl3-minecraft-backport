@@ -30,7 +30,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>{@code sampleLocationsPerPixel} <b>must</b> be a valid {@code VkSampleCountFlagBits} value that is set in {@link VkPhysicalDeviceSampleLocationsPropertiesEXT}{@code ::sampleLocationSampleCounts}</li>
+ * <li>{@code sampleLocationsPerPixel} <b>must</b> be a bit value that is set in {@link VkPhysicalDeviceSampleLocationsPropertiesEXT}{@code ::sampleLocationSampleCounts}</li>
  * <li>{@code sampleLocationsCount} <b>must</b> equal <code>sampleLocationsPerPixel × sampleLocationGridSize.width × sampleLocationGridSize.height</code></li>
  * </ul>
  * 
@@ -57,7 +57,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkSampleLocationEXT VkSampleLocationEXT} const * {@link #pSampleLocations};
  * }</code></pre>
  */
-public class VkSampleLocationsInfoEXT extends Struct<VkSampleLocationsInfoEXT> implements NativeResource {
+public class VkSampleLocationsInfoEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -95,15 +95,6 @@ public class VkSampleLocationsInfoEXT extends Struct<VkSampleLocationsInfoEXT> i
         PSAMPLELOCATIONS = layout.offsetof(5);
     }
 
-    protected VkSampleLocationsInfoEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkSampleLocationsInfoEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkSampleLocationsInfoEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkSampleLocationsInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -117,7 +108,7 @@ public class VkSampleLocationsInfoEXT extends Struct<VkSampleLocationsInfoEXT> i
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -184,29 +175,29 @@ public class VkSampleLocationsInfoEXT extends Struct<VkSampleLocationsInfoEXT> i
 
     /** Returns a new {@code VkSampleLocationsInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSampleLocationsInfoEXT malloc() {
-        return new VkSampleLocationsInfoEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkSampleLocationsInfoEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkSampleLocationsInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSampleLocationsInfoEXT calloc() {
-        return new VkSampleLocationsInfoEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkSampleLocationsInfoEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkSampleLocationsInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkSampleLocationsInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkSampleLocationsInfoEXT(memAddress(container), container);
+        return wrap(VkSampleLocationsInfoEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkSampleLocationsInfoEXT} instance for the specified memory address. */
     public static VkSampleLocationsInfoEXT create(long address) {
-        return new VkSampleLocationsInfoEXT(address, null);
+        return wrap(VkSampleLocationsInfoEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSampleLocationsInfoEXT createSafe(long address) {
-        return address == NULL ? null : new VkSampleLocationsInfoEXT(address, null);
+        return address == NULL ? null : wrap(VkSampleLocationsInfoEXT.class, address);
     }
 
     /**
@@ -215,7 +206,7 @@ public class VkSampleLocationsInfoEXT extends Struct<VkSampleLocationsInfoEXT> i
      * @param capacity the buffer capacity
      */
     public static VkSampleLocationsInfoEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -224,7 +215,7 @@ public class VkSampleLocationsInfoEXT extends Struct<VkSampleLocationsInfoEXT> i
      * @param capacity the buffer capacity
      */
     public static VkSampleLocationsInfoEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -234,7 +225,7 @@ public class VkSampleLocationsInfoEXT extends Struct<VkSampleLocationsInfoEXT> i
      */
     public static VkSampleLocationsInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -244,13 +235,13 @@ public class VkSampleLocationsInfoEXT extends Struct<VkSampleLocationsInfoEXT> i
      * @param capacity the buffer capacity
      */
     public static VkSampleLocationsInfoEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSampleLocationsInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -278,7 +269,7 @@ public class VkSampleLocationsInfoEXT extends Struct<VkSampleLocationsInfoEXT> i
      * @param stack the stack from which to allocate
      */
     public static VkSampleLocationsInfoEXT malloc(MemoryStack stack) {
-        return new VkSampleLocationsInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkSampleLocationsInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -287,7 +278,7 @@ public class VkSampleLocationsInfoEXT extends Struct<VkSampleLocationsInfoEXT> i
      * @param stack the stack from which to allocate
      */
     public static VkSampleLocationsInfoEXT calloc(MemoryStack stack) {
-        return new VkSampleLocationsInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkSampleLocationsInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -297,7 +288,7 @@ public class VkSampleLocationsInfoEXT extends Struct<VkSampleLocationsInfoEXT> i
      * @param capacity the buffer capacity
      */
     public static VkSampleLocationsInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -307,7 +298,7 @@ public class VkSampleLocationsInfoEXT extends Struct<VkSampleLocationsInfoEXT> i
      * @param capacity the buffer capacity
      */
     public static VkSampleLocationsInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -359,9 +350,9 @@ public class VkSampleLocationsInfoEXT extends Struct<VkSampleLocationsInfoEXT> i
         /**
          * Creates a new {@code VkSampleLocationsInfoEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSampleLocationsInfoEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkSampleLocationsInfoEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

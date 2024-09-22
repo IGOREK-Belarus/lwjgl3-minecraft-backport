@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code location} <b>must</b> be less than {@link VkPhysicalDeviceLimits}{@code ::maxVertexInputAttributes}</li>
  * <li>{@code binding} <b>must</b> be less than {@link VkPhysicalDeviceLimits}{@code ::maxVertexInputBindings}</li>
  * <li>{@code offset} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxVertexInputAttributeOffset}</li>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-buffer-view-format-features">format features</a> of {@code format} <b>must</b> contain {@link VK10#VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT FORMAT_FEATURE_VERTEX_BUFFER_BIT}</li>
+ * <li>{@code format} <b>must</b> be allowed as a vertex buffer format, as specified by the {@link VK10#VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT FORMAT_FEATURE_VERTEX_BUFFER_BIT} flag in {@link VkFormatProperties}{@code ::bufferFeatures} returned by {@code vkGetPhysicalDeviceFormatProperties}</li>
  * <li>If the {@link KHRPortabilitySubset VK_KHR_portability_subset} extension is enabled, and {@link VkPhysicalDevicePortabilitySubsetFeaturesKHR}{@code ::vertexAttributeAccessBeyondStride} is {@link VK10#VK_FALSE FALSE}, the sum of {@code offset} plus the size of the vertex attribute data described by {@code format} <b>must</b> not be greater than {@code stride} in the {@link VkVertexInputBindingDescription} referenced in {@code binding}</li>
  * </ul>
  * 
@@ -48,7 +48,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #offset};
  * }</code></pre>
  */
-public class VkVertexInputAttributeDescription extends Struct<VkVertexInputAttributeDescription> implements NativeResource {
+public class VkVertexInputAttributeDescription extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -78,15 +78,6 @@ public class VkVertexInputAttributeDescription extends Struct<VkVertexInputAttri
         BINDING = layout.offsetof(1);
         FORMAT = layout.offsetof(2);
         OFFSET = layout.offsetof(3);
-    }
-
-    protected VkVertexInputAttributeDescription(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkVertexInputAttributeDescription create(long address, @Nullable ByteBuffer container) {
-        return new VkVertexInputAttributeDescription(address, container);
     }
 
     /**
@@ -155,29 +146,29 @@ public class VkVertexInputAttributeDescription extends Struct<VkVertexInputAttri
 
     /** Returns a new {@code VkVertexInputAttributeDescription} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkVertexInputAttributeDescription malloc() {
-        return new VkVertexInputAttributeDescription(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkVertexInputAttributeDescription.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkVertexInputAttributeDescription} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkVertexInputAttributeDescription calloc() {
-        return new VkVertexInputAttributeDescription(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkVertexInputAttributeDescription.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkVertexInputAttributeDescription} instance allocated with {@link BufferUtils}. */
     public static VkVertexInputAttributeDescription create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkVertexInputAttributeDescription(memAddress(container), container);
+        return wrap(VkVertexInputAttributeDescription.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkVertexInputAttributeDescription} instance for the specified memory address. */
     public static VkVertexInputAttributeDescription create(long address) {
-        return new VkVertexInputAttributeDescription(address, null);
+        return wrap(VkVertexInputAttributeDescription.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVertexInputAttributeDescription createSafe(long address) {
-        return address == NULL ? null : new VkVertexInputAttributeDescription(address, null);
+        return address == NULL ? null : wrap(VkVertexInputAttributeDescription.class, address);
     }
 
     /**
@@ -186,7 +177,7 @@ public class VkVertexInputAttributeDescription extends Struct<VkVertexInputAttri
      * @param capacity the buffer capacity
      */
     public static VkVertexInputAttributeDescription.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -195,7 +186,7 @@ public class VkVertexInputAttributeDescription extends Struct<VkVertexInputAttri
      * @param capacity the buffer capacity
      */
     public static VkVertexInputAttributeDescription.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -205,7 +196,7 @@ public class VkVertexInputAttributeDescription extends Struct<VkVertexInputAttri
      */
     public static VkVertexInputAttributeDescription.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -215,13 +206,13 @@ public class VkVertexInputAttributeDescription extends Struct<VkVertexInputAttri
      * @param capacity the buffer capacity
      */
     public static VkVertexInputAttributeDescription.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVertexInputAttributeDescription.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -249,7 +240,7 @@ public class VkVertexInputAttributeDescription extends Struct<VkVertexInputAttri
      * @param stack the stack from which to allocate
      */
     public static VkVertexInputAttributeDescription malloc(MemoryStack stack) {
-        return new VkVertexInputAttributeDescription(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkVertexInputAttributeDescription.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -258,7 +249,7 @@ public class VkVertexInputAttributeDescription extends Struct<VkVertexInputAttri
      * @param stack the stack from which to allocate
      */
     public static VkVertexInputAttributeDescription calloc(MemoryStack stack) {
-        return new VkVertexInputAttributeDescription(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkVertexInputAttributeDescription.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -268,7 +259,7 @@ public class VkVertexInputAttributeDescription extends Struct<VkVertexInputAttri
      * @param capacity the buffer capacity
      */
     public static VkVertexInputAttributeDescription.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -278,7 +269,7 @@ public class VkVertexInputAttributeDescription extends Struct<VkVertexInputAttri
      * @param capacity the buffer capacity
      */
     public static VkVertexInputAttributeDescription.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -311,9 +302,9 @@ public class VkVertexInputAttributeDescription extends Struct<VkVertexInputAttri
         /**
          * Creates a new {@code VkVertexInputAttributeDescription.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkVertexInputAttributeDescription#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkVertexInputAttributeDescription#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -16,15 +16,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
+ * Memory access descriptor.
+ * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct CUmemAccessDesc {
- *     {@link CUmemLocation CUmemLocation} location;
- *     CUmemAccess_flags flags;
+ *     {@link CUmemLocation CUmemLocation} {@link #location};
+ *     CUmemAccess_flags {@link #flags};
  * }</code></pre>
  */
-public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeResource {
+public class CUmemAccessDesc extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -50,15 +52,6 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
         FLAGS = layout.offsetof(1);
     }
 
-    protected CUmemAccessDesc(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CUmemAccessDesc create(long address, @Nullable ByteBuffer container) {
-        return new CUmemAccessDesc(address, container);
-    }
-
     /**
      * Creates a {@code CUmemAccessDesc} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -72,17 +65,17 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return a {@link CUmemLocation} view of the {@code location} field. */
+    /** location on which the request is to change it's accessibility */
     public CUmemLocation location() { return nlocation(address()); }
-    /** @return the value of the {@code flags} field. */
+    /** {@code CUmemProt} accessibility flags to set on the request */
     @NativeType("CUmemAccess_flags")
     public int flags() { return nflags(address()); }
 
-    /** Copies the specified {@link CUmemLocation} to the {@code location} field. */
+    /** Copies the specified {@link CUmemLocation} to the {@link #location} field. */
     public CUmemAccessDesc location(CUmemLocation value) { nlocation(address(), value); return this; }
-    /** Passes the {@code location} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@link #location} field to the specified {@link java.util.function.Consumer Consumer}. */
     public CUmemAccessDesc location(java.util.function.Consumer<CUmemLocation> consumer) { consumer.accept(location()); return this; }
-    /** Sets the specified value to the {@code flags} field. */
+    /** Sets the specified value to the {@link #flags} field. */
     public CUmemAccessDesc flags(@NativeType("CUmemAccess_flags") int value) { nflags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -112,29 +105,29 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
 
     /** Returns a new {@code CUmemAccessDesc} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CUmemAccessDesc malloc() {
-        return new CUmemAccessDesc(nmemAllocChecked(SIZEOF), null);
+        return wrap(CUmemAccessDesc.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code CUmemAccessDesc} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CUmemAccessDesc calloc() {
-        return new CUmemAccessDesc(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(CUmemAccessDesc.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code CUmemAccessDesc} instance allocated with {@link BufferUtils}. */
     public static CUmemAccessDesc create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new CUmemAccessDesc(memAddress(container), container);
+        return wrap(CUmemAccessDesc.class, memAddress(container), container);
     }
 
     /** Returns a new {@code CUmemAccessDesc} instance for the specified memory address. */
     public static CUmemAccessDesc create(long address) {
-        return new CUmemAccessDesc(address, null);
+        return wrap(CUmemAccessDesc.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUmemAccessDesc createSafe(long address) {
-        return address == NULL ? null : new CUmemAccessDesc(address, null);
+        return address == NULL ? null : wrap(CUmemAccessDesc.class, address);
     }
 
     /**
@@ -143,7 +136,7 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static CUmemAccessDesc.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -152,7 +145,7 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static CUmemAccessDesc.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -162,7 +155,7 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
      */
     public static CUmemAccessDesc.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -172,13 +165,13 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static CUmemAccessDesc.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUmemAccessDesc.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -187,7 +180,7 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static CUmemAccessDesc malloc(MemoryStack stack) {
-        return new CUmemAccessDesc(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(CUmemAccessDesc.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -196,7 +189,7 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static CUmemAccessDesc calloc(MemoryStack stack) {
-        return new CUmemAccessDesc(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(CUmemAccessDesc.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -206,7 +199,7 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static CUmemAccessDesc.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -216,7 +209,7 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static CUmemAccessDesc.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -241,9 +234,9 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
         /**
          * Creates a new {@code CUmemAccessDesc.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CUmemAccessDesc#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CUmemAccessDesc#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -269,17 +262,17 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link CUmemLocation} view of the {@code location} field. */
+        /** @return a {@link CUmemLocation} view of the {@link CUmemAccessDesc#location} field. */
         public CUmemLocation location() { return CUmemAccessDesc.nlocation(address()); }
-        /** @return the value of the {@code flags} field. */
+        /** @return the value of the {@link CUmemAccessDesc#flags} field. */
         @NativeType("CUmemAccess_flags")
         public int flags() { return CUmemAccessDesc.nflags(address()); }
 
-        /** Copies the specified {@link CUmemLocation} to the {@code location} field. */
+        /** Copies the specified {@link CUmemLocation} to the {@link CUmemAccessDesc#location} field. */
         public CUmemAccessDesc.Buffer location(CUmemLocation value) { CUmemAccessDesc.nlocation(address(), value); return this; }
-        /** Passes the {@code location} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@link CUmemAccessDesc#location} field to the specified {@link java.util.function.Consumer Consumer}. */
         public CUmemAccessDesc.Buffer location(java.util.function.Consumer<CUmemLocation> consumer) { consumer.accept(location()); return this; }
-        /** Sets the specified value to the {@code flags} field. */
+        /** Sets the specified value to the {@link CUmemAccessDesc#flags} field. */
         public CUmemAccessDesc.Buffer flags(@NativeType("CUmemAccess_flags") int value) { CUmemAccessDesc.nflags(address(), value); return this; }
 
     }

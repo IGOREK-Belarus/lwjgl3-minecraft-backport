@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiViewport">{@code multiViewport}</a> feature is not enabled, {@code viewportCount} <b>must</b> be 0 or 1</li>
+ * <li>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiViewport">multiple viewports</a> feature is not enabled, {@code viewportCount} <b>must</b> be 0 or 1</li>
  * <li>{@code viewportCount} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxViewports}</li>
  * <li>If {@code shadingRateImageEnable} is {@link VK10#VK_TRUE TRUE}, {@code viewportCount} <b>must</b> be greater or equal to the {@code viewportCount} member of {@link VkPipelineViewportStateCreateInfo}</li>
  * </ul>
@@ -51,7 +51,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkShadingRatePaletteNV VkShadingRatePaletteNV} const * {@link #pShadingRatePalettes};
  * }</code></pre>
  */
-public class VkPipelineViewportShadingRateImageStateCreateInfoNV extends Struct<VkPipelineViewportShadingRateImageStateCreateInfoNV> implements NativeResource {
+public class VkPipelineViewportShadingRateImageStateCreateInfoNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -86,15 +86,6 @@ public class VkPipelineViewportShadingRateImageStateCreateInfoNV extends Struct<
         PSHADINGRATEPALETTES = layout.offsetof(4);
     }
 
-    protected VkPipelineViewportShadingRateImageStateCreateInfoNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPipelineViewportShadingRateImageStateCreateInfoNV create(long address, @Nullable ByteBuffer container) {
-        return new VkPipelineViewportShadingRateImageStateCreateInfoNV(address, container);
-    }
-
     /**
      * Creates a {@code VkPipelineViewportShadingRateImageStateCreateInfoNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -108,7 +99,7 @@ public class VkPipelineViewportShadingRateImageStateCreateInfoNV extends Struct<
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -171,29 +162,29 @@ public class VkPipelineViewportShadingRateImageStateCreateInfoNV extends Struct<
 
     /** Returns a new {@code VkPipelineViewportShadingRateImageStateCreateInfoNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPipelineViewportShadingRateImageStateCreateInfoNV malloc() {
-        return new VkPipelineViewportShadingRateImageStateCreateInfoNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPipelineViewportShadingRateImageStateCreateInfoNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineViewportShadingRateImageStateCreateInfoNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPipelineViewportShadingRateImageStateCreateInfoNV calloc() {
-        return new VkPipelineViewportShadingRateImageStateCreateInfoNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPipelineViewportShadingRateImageStateCreateInfoNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineViewportShadingRateImageStateCreateInfoNV} instance allocated with {@link BufferUtils}. */
     public static VkPipelineViewportShadingRateImageStateCreateInfoNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPipelineViewportShadingRateImageStateCreateInfoNV(memAddress(container), container);
+        return wrap(VkPipelineViewportShadingRateImageStateCreateInfoNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPipelineViewportShadingRateImageStateCreateInfoNV} instance for the specified memory address. */
     public static VkPipelineViewportShadingRateImageStateCreateInfoNV create(long address) {
-        return new VkPipelineViewportShadingRateImageStateCreateInfoNV(address, null);
+        return wrap(VkPipelineViewportShadingRateImageStateCreateInfoNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineViewportShadingRateImageStateCreateInfoNV createSafe(long address) {
-        return address == NULL ? null : new VkPipelineViewportShadingRateImageStateCreateInfoNV(address, null);
+        return address == NULL ? null : wrap(VkPipelineViewportShadingRateImageStateCreateInfoNV.class, address);
     }
 
     /**
@@ -202,7 +193,7 @@ public class VkPipelineViewportShadingRateImageStateCreateInfoNV extends Struct<
      * @param capacity the buffer capacity
      */
     public static VkPipelineViewportShadingRateImageStateCreateInfoNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -211,7 +202,7 @@ public class VkPipelineViewportShadingRateImageStateCreateInfoNV extends Struct<
      * @param capacity the buffer capacity
      */
     public static VkPipelineViewportShadingRateImageStateCreateInfoNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -221,7 +212,7 @@ public class VkPipelineViewportShadingRateImageStateCreateInfoNV extends Struct<
      */
     public static VkPipelineViewportShadingRateImageStateCreateInfoNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -231,13 +222,13 @@ public class VkPipelineViewportShadingRateImageStateCreateInfoNV extends Struct<
      * @param capacity the buffer capacity
      */
     public static VkPipelineViewportShadingRateImageStateCreateInfoNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineViewportShadingRateImageStateCreateInfoNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -265,7 +256,7 @@ public class VkPipelineViewportShadingRateImageStateCreateInfoNV extends Struct<
      * @param stack the stack from which to allocate
      */
     public static VkPipelineViewportShadingRateImageStateCreateInfoNV malloc(MemoryStack stack) {
-        return new VkPipelineViewportShadingRateImageStateCreateInfoNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPipelineViewportShadingRateImageStateCreateInfoNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -274,7 +265,7 @@ public class VkPipelineViewportShadingRateImageStateCreateInfoNV extends Struct<
      * @param stack the stack from which to allocate
      */
     public static VkPipelineViewportShadingRateImageStateCreateInfoNV calloc(MemoryStack stack) {
-        return new VkPipelineViewportShadingRateImageStateCreateInfoNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPipelineViewportShadingRateImageStateCreateInfoNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -284,7 +275,7 @@ public class VkPipelineViewportShadingRateImageStateCreateInfoNV extends Struct<
      * @param capacity the buffer capacity
      */
     public static VkPipelineViewportShadingRateImageStateCreateInfoNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -294,7 +285,7 @@ public class VkPipelineViewportShadingRateImageStateCreateInfoNV extends Struct<
      * @param capacity the buffer capacity
      */
     public static VkPipelineViewportShadingRateImageStateCreateInfoNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -331,9 +322,9 @@ public class VkPipelineViewportShadingRateImageStateCreateInfoNV extends Struct<
         /**
          * Creates a new {@code VkPipelineViewportShadingRateImageStateCreateInfoNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPipelineViewportShadingRateImageStateCreateInfoNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPipelineViewportShadingRateImageStateCreateInfoNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

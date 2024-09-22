@@ -17,19 +17,21 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
+ * Memset node parameters.
+ * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct CUDA_MEMSET_NODE_PARAMS {
- *     CUdeviceptr dst;
- *     size_t pitch;
- *     unsigned int value;
- *     unsigned int elementSize;
- *     size_t width;
- *     size_t height;
+ *     CUdeviceptr {@link #dst};
+ *     size_t {@link #pitch};
+ *     unsigned int {@link #value};
+ *     unsigned int {@link #elementSize};
+ *     size_t {@link #width};
+ *     size_t {@link #height};
  * }</code></pre>
  */
-public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> implements NativeResource {
+public class CUDA_MEMSET_NODE_PARAMS extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -67,15 +69,6 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
         HEIGHT = layout.offsetof(5);
     }
 
-    protected CUDA_MEMSET_NODE_PARAMS(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected CUDA_MEMSET_NODE_PARAMS create(long address, @Nullable ByteBuffer container) {
-        return new CUDA_MEMSET_NODE_PARAMS(address, container);
-    }
-
     /**
      * Creates a {@code CUDA_MEMSET_NODE_PARAMS} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -89,36 +82,36 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return the value of the {@code dst} field. */
+    /** Destination device pointer */
     @NativeType("CUdeviceptr")
     public long dst() { return ndst(address()); }
-    /** @return the value of the {@code pitch} field. */
+    /** Pitch of destination device pointer. Unused if height is 1 */
     @NativeType("size_t")
     public long pitch() { return npitch(address()); }
-    /** @return the value of the {@code value} field. */
+    /** Value to be set */
     @NativeType("unsigned int")
     public int value() { return nvalue(address()); }
-    /** @return the value of the {@code elementSize} field. */
+    /** Size of each element in bytes. Must be 1, 2, or 4. */
     @NativeType("unsigned int")
     public int elementSize() { return nelementSize(address()); }
-    /** @return the value of the {@code width} field. */
+    /** Width of the row in elements */
     @NativeType("size_t")
     public long width() { return nwidth(address()); }
-    /** @return the value of the {@code height} field. */
+    /** Number of rows */
     @NativeType("size_t")
     public long height() { return nheight(address()); }
 
-    /** Sets the specified value to the {@code dst} field. */
+    /** Sets the specified value to the {@link #dst} field. */
     public CUDA_MEMSET_NODE_PARAMS dst(@NativeType("CUdeviceptr") long value) { ndst(address(), value); return this; }
-    /** Sets the specified value to the {@code pitch} field. */
+    /** Sets the specified value to the {@link #pitch} field. */
     public CUDA_MEMSET_NODE_PARAMS pitch(@NativeType("size_t") long value) { npitch(address(), value); return this; }
-    /** Sets the specified value to the {@code value} field. */
+    /** Sets the specified value to the {@link #value} field. */
     public CUDA_MEMSET_NODE_PARAMS value(@NativeType("unsigned int") int value) { nvalue(address(), value); return this; }
-    /** Sets the specified value to the {@code elementSize} field. */
+    /** Sets the specified value to the {@link #elementSize} field. */
     public CUDA_MEMSET_NODE_PARAMS elementSize(@NativeType("unsigned int") int value) { nelementSize(address(), value); return this; }
-    /** Sets the specified value to the {@code width} field. */
+    /** Sets the specified value to the {@link #width} field. */
     public CUDA_MEMSET_NODE_PARAMS width(@NativeType("size_t") long value) { nwidth(address(), value); return this; }
-    /** Sets the specified value to the {@code height} field. */
+    /** Sets the specified value to the {@link #height} field. */
     public CUDA_MEMSET_NODE_PARAMS height(@NativeType("size_t") long value) { nheight(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,29 +149,29 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
 
     /** Returns a new {@code CUDA_MEMSET_NODE_PARAMS} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CUDA_MEMSET_NODE_PARAMS malloc() {
-        return new CUDA_MEMSET_NODE_PARAMS(nmemAllocChecked(SIZEOF), null);
+        return wrap(CUDA_MEMSET_NODE_PARAMS.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code CUDA_MEMSET_NODE_PARAMS} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CUDA_MEMSET_NODE_PARAMS calloc() {
-        return new CUDA_MEMSET_NODE_PARAMS(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(CUDA_MEMSET_NODE_PARAMS.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code CUDA_MEMSET_NODE_PARAMS} instance allocated with {@link BufferUtils}. */
     public static CUDA_MEMSET_NODE_PARAMS create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new CUDA_MEMSET_NODE_PARAMS(memAddress(container), container);
+        return wrap(CUDA_MEMSET_NODE_PARAMS.class, memAddress(container), container);
     }
 
     /** Returns a new {@code CUDA_MEMSET_NODE_PARAMS} instance for the specified memory address. */
     public static CUDA_MEMSET_NODE_PARAMS create(long address) {
-        return new CUDA_MEMSET_NODE_PARAMS(address, null);
+        return wrap(CUDA_MEMSET_NODE_PARAMS.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_MEMSET_NODE_PARAMS createSafe(long address) {
-        return address == NULL ? null : new CUDA_MEMSET_NODE_PARAMS(address, null);
+        return address == NULL ? null : wrap(CUDA_MEMSET_NODE_PARAMS.class, address);
     }
 
     /**
@@ -187,7 +180,7 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
      * @param capacity the buffer capacity
      */
     public static CUDA_MEMSET_NODE_PARAMS.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -196,7 +189,7 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
      * @param capacity the buffer capacity
      */
     public static CUDA_MEMSET_NODE_PARAMS.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -206,7 +199,7 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
      */
     public static CUDA_MEMSET_NODE_PARAMS.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -216,13 +209,13 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
      * @param capacity the buffer capacity
      */
     public static CUDA_MEMSET_NODE_PARAMS.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_MEMSET_NODE_PARAMS.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -250,7 +243,7 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
      * @param stack the stack from which to allocate
      */
     public static CUDA_MEMSET_NODE_PARAMS malloc(MemoryStack stack) {
-        return new CUDA_MEMSET_NODE_PARAMS(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(CUDA_MEMSET_NODE_PARAMS.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -259,7 +252,7 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
      * @param stack the stack from which to allocate
      */
     public static CUDA_MEMSET_NODE_PARAMS calloc(MemoryStack stack) {
-        return new CUDA_MEMSET_NODE_PARAMS(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(CUDA_MEMSET_NODE_PARAMS.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -269,7 +262,7 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
      * @param capacity the buffer capacity
      */
     public static CUDA_MEMSET_NODE_PARAMS.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -279,7 +272,7 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
      * @param capacity the buffer capacity
      */
     public static CUDA_MEMSET_NODE_PARAMS.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -329,9 +322,9 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
         /**
          * Creates a new {@code CUDA_MEMSET_NODE_PARAMS.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CUDA_MEMSET_NODE_PARAMS#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link CUDA_MEMSET_NODE_PARAMS#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -357,36 +350,36 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@code dst} field. */
+        /** @return the value of the {@link CUDA_MEMSET_NODE_PARAMS#dst} field. */
         @NativeType("CUdeviceptr")
         public long dst() { return CUDA_MEMSET_NODE_PARAMS.ndst(address()); }
-        /** @return the value of the {@code pitch} field. */
+        /** @return the value of the {@link CUDA_MEMSET_NODE_PARAMS#pitch} field. */
         @NativeType("size_t")
         public long pitch() { return CUDA_MEMSET_NODE_PARAMS.npitch(address()); }
-        /** @return the value of the {@code value} field. */
+        /** @return the value of the {@link CUDA_MEMSET_NODE_PARAMS#value} field. */
         @NativeType("unsigned int")
         public int value() { return CUDA_MEMSET_NODE_PARAMS.nvalue(address()); }
-        /** @return the value of the {@code elementSize} field. */
+        /** @return the value of the {@link CUDA_MEMSET_NODE_PARAMS#elementSize} field. */
         @NativeType("unsigned int")
         public int elementSize() { return CUDA_MEMSET_NODE_PARAMS.nelementSize(address()); }
-        /** @return the value of the {@code width} field. */
+        /** @return the value of the {@link CUDA_MEMSET_NODE_PARAMS#width} field. */
         @NativeType("size_t")
         public long width() { return CUDA_MEMSET_NODE_PARAMS.nwidth(address()); }
-        /** @return the value of the {@code height} field. */
+        /** @return the value of the {@link CUDA_MEMSET_NODE_PARAMS#height} field. */
         @NativeType("size_t")
         public long height() { return CUDA_MEMSET_NODE_PARAMS.nheight(address()); }
 
-        /** Sets the specified value to the {@code dst} field. */
+        /** Sets the specified value to the {@link CUDA_MEMSET_NODE_PARAMS#dst} field. */
         public CUDA_MEMSET_NODE_PARAMS.Buffer dst(@NativeType("CUdeviceptr") long value) { CUDA_MEMSET_NODE_PARAMS.ndst(address(), value); return this; }
-        /** Sets the specified value to the {@code pitch} field. */
+        /** Sets the specified value to the {@link CUDA_MEMSET_NODE_PARAMS#pitch} field. */
         public CUDA_MEMSET_NODE_PARAMS.Buffer pitch(@NativeType("size_t") long value) { CUDA_MEMSET_NODE_PARAMS.npitch(address(), value); return this; }
-        /** Sets the specified value to the {@code value} field. */
+        /** Sets the specified value to the {@link CUDA_MEMSET_NODE_PARAMS#value} field. */
         public CUDA_MEMSET_NODE_PARAMS.Buffer value(@NativeType("unsigned int") int value) { CUDA_MEMSET_NODE_PARAMS.nvalue(address(), value); return this; }
-        /** Sets the specified value to the {@code elementSize} field. */
+        /** Sets the specified value to the {@link CUDA_MEMSET_NODE_PARAMS#elementSize} field. */
         public CUDA_MEMSET_NODE_PARAMS.Buffer elementSize(@NativeType("unsigned int") int value) { CUDA_MEMSET_NODE_PARAMS.nelementSize(address(), value); return this; }
-        /** Sets the specified value to the {@code width} field. */
+        /** Sets the specified value to the {@link CUDA_MEMSET_NODE_PARAMS#width} field. */
         public CUDA_MEMSET_NODE_PARAMS.Buffer width(@NativeType("size_t") long value) { CUDA_MEMSET_NODE_PARAMS.nwidth(address(), value); return this; }
-        /** Sets the specified value to the {@code height} field. */
+        /** Sets the specified value to the {@link CUDA_MEMSET_NODE_PARAMS#height} field. */
         public CUDA_MEMSET_NODE_PARAMS.Buffer height(@NativeType("size_t") long value) { CUDA_MEMSET_NODE_PARAMS.nheight(address(), value); return this; }
 
     }

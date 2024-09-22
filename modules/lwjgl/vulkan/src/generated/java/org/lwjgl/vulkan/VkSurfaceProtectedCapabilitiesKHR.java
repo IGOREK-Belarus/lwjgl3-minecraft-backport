@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #supportsProtected};
  * }</code></pre>
  */
-public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtectedCapabilitiesKHR> implements NativeResource {
+public class VkSurfaceProtectedCapabilitiesKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,15 +66,6 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
         SUPPORTSPROTECTED = layout.offsetof(2);
     }
 
-    protected VkSurfaceProtectedCapabilitiesKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkSurfaceProtectedCapabilitiesKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkSurfaceProtectedCapabilitiesKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkSurfaceProtectedCapabilitiesKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -88,7 +79,7 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -104,14 +95,18 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
     public VkSurfaceProtectedCapabilitiesKHR sType$Default() { return sType(KHRSurfaceProtectedCapabilities.VK_STRUCTURE_TYPE_SURFACE_PROTECTED_CAPABILITIES_KHR); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkSurfaceProtectedCapabilitiesKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Sets the specified value to the {@link #supportsProtected} field. */
+    public VkSurfaceProtectedCapabilitiesKHR supportsProtected(@NativeType("VkBool32") boolean value) { nsupportsProtected(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkSurfaceProtectedCapabilitiesKHR set(
         int sType,
-        long pNext
+        long pNext,
+        boolean supportsProtected
     ) {
         sType(sType);
         pNext(pNext);
+        supportsProtected(supportsProtected);
 
         return this;
     }
@@ -132,29 +127,29 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
 
     /** Returns a new {@code VkSurfaceProtectedCapabilitiesKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSurfaceProtectedCapabilitiesKHR malloc() {
-        return new VkSurfaceProtectedCapabilitiesKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkSurfaceProtectedCapabilitiesKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkSurfaceProtectedCapabilitiesKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSurfaceProtectedCapabilitiesKHR calloc() {
-        return new VkSurfaceProtectedCapabilitiesKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkSurfaceProtectedCapabilitiesKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkSurfaceProtectedCapabilitiesKHR} instance allocated with {@link BufferUtils}. */
     public static VkSurfaceProtectedCapabilitiesKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkSurfaceProtectedCapabilitiesKHR(memAddress(container), container);
+        return wrap(VkSurfaceProtectedCapabilitiesKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkSurfaceProtectedCapabilitiesKHR} instance for the specified memory address. */
     public static VkSurfaceProtectedCapabilitiesKHR create(long address) {
-        return new VkSurfaceProtectedCapabilitiesKHR(address, null);
+        return wrap(VkSurfaceProtectedCapabilitiesKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSurfaceProtectedCapabilitiesKHR createSafe(long address) {
-        return address == NULL ? null : new VkSurfaceProtectedCapabilitiesKHR(address, null);
+        return address == NULL ? null : wrap(VkSurfaceProtectedCapabilitiesKHR.class, address);
     }
 
     /**
@@ -163,7 +158,7 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
      * @param capacity the buffer capacity
      */
     public static VkSurfaceProtectedCapabilitiesKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -172,7 +167,7 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
      * @param capacity the buffer capacity
      */
     public static VkSurfaceProtectedCapabilitiesKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -182,7 +177,7 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
      */
     public static VkSurfaceProtectedCapabilitiesKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -192,13 +187,13 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
      * @param capacity the buffer capacity
      */
     public static VkSurfaceProtectedCapabilitiesKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSurfaceProtectedCapabilitiesKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -226,7 +221,7 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
      * @param stack the stack from which to allocate
      */
     public static VkSurfaceProtectedCapabilitiesKHR malloc(MemoryStack stack) {
-        return new VkSurfaceProtectedCapabilitiesKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkSurfaceProtectedCapabilitiesKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -235,7 +230,7 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
      * @param stack the stack from which to allocate
      */
     public static VkSurfaceProtectedCapabilitiesKHR calloc(MemoryStack stack) {
-        return new VkSurfaceProtectedCapabilitiesKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkSurfaceProtectedCapabilitiesKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -245,7 +240,7 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
      * @param capacity the buffer capacity
      */
     public static VkSurfaceProtectedCapabilitiesKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -255,7 +250,7 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
      * @param capacity the buffer capacity
      */
     public static VkSurfaceProtectedCapabilitiesKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -271,6 +266,8 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
     public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfaceProtectedCapabilitiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSurfaceProtectedCapabilitiesKHR.PNEXT, value); }
+    /** Unsafe version of {@link #supportsProtected(boolean) supportsProtected}. */
+    public static void nsupportsProtected(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfaceProtectedCapabilitiesKHR.SUPPORTSPROTECTED, value); }
 
     // -----------------------------------
 
@@ -282,9 +279,9 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
         /**
          * Creates a new {@code VkSurfaceProtectedCapabilitiesKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSurfaceProtectedCapabilitiesKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkSurfaceProtectedCapabilitiesKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -326,6 +323,8 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
         public VkSurfaceProtectedCapabilitiesKHR.Buffer sType$Default() { return sType(KHRSurfaceProtectedCapabilities.VK_STRUCTURE_TYPE_SURFACE_PROTECTED_CAPABILITIES_KHR); }
         /** Sets the specified value to the {@link VkSurfaceProtectedCapabilitiesKHR#pNext} field. */
         public VkSurfaceProtectedCapabilitiesKHR.Buffer pNext(@NativeType("void const *") long value) { VkSurfaceProtectedCapabilitiesKHR.npNext(address(), value); return this; }
+        /** Sets the specified value to the {@link VkSurfaceProtectedCapabilitiesKHR#supportsProtected} field. */
+        public VkSurfaceProtectedCapabilitiesKHR.Buffer supportsProtected(@NativeType("VkBool32") boolean value) { VkSurfaceProtectedCapabilitiesKHR.nsupportsProtected(address(), value ? 1 : 0); return this; }
 
     }
 

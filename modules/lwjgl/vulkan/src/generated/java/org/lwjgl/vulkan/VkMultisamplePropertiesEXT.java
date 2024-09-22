@@ -38,7 +38,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkExtent2D VkExtent2D} {@link #maxSampleLocationGridSize};
  * }</code></pre>
  */
-public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEXT> implements NativeResource {
+public class VkMultisamplePropertiesEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -67,15 +67,6 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
         MAXSAMPLELOCATIONGRIDSIZE = layout.offsetof(2);
     }
 
-    protected VkMultisamplePropertiesEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkMultisamplePropertiesEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkMultisamplePropertiesEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkMultisamplePropertiesEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -89,7 +80,7 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -132,29 +123,29 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
 
     /** Returns a new {@code VkMultisamplePropertiesEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkMultisamplePropertiesEXT malloc() {
-        return new VkMultisamplePropertiesEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkMultisamplePropertiesEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkMultisamplePropertiesEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkMultisamplePropertiesEXT calloc() {
-        return new VkMultisamplePropertiesEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkMultisamplePropertiesEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkMultisamplePropertiesEXT} instance allocated with {@link BufferUtils}. */
     public static VkMultisamplePropertiesEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkMultisamplePropertiesEXT(memAddress(container), container);
+        return wrap(VkMultisamplePropertiesEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkMultisamplePropertiesEXT} instance for the specified memory address. */
     public static VkMultisamplePropertiesEXT create(long address) {
-        return new VkMultisamplePropertiesEXT(address, null);
+        return wrap(VkMultisamplePropertiesEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMultisamplePropertiesEXT createSafe(long address) {
-        return address == NULL ? null : new VkMultisamplePropertiesEXT(address, null);
+        return address == NULL ? null : wrap(VkMultisamplePropertiesEXT.class, address);
     }
 
     /**
@@ -163,7 +154,7 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
      * @param capacity the buffer capacity
      */
     public static VkMultisamplePropertiesEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -172,7 +163,7 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
      * @param capacity the buffer capacity
      */
     public static VkMultisamplePropertiesEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -182,7 +173,7 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
      */
     public static VkMultisamplePropertiesEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -192,13 +183,13 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
      * @param capacity the buffer capacity
      */
     public static VkMultisamplePropertiesEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMultisamplePropertiesEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -226,7 +217,7 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
      * @param stack the stack from which to allocate
      */
     public static VkMultisamplePropertiesEXT malloc(MemoryStack stack) {
-        return new VkMultisamplePropertiesEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkMultisamplePropertiesEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -235,7 +226,7 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
      * @param stack the stack from which to allocate
      */
     public static VkMultisamplePropertiesEXT calloc(MemoryStack stack) {
-        return new VkMultisamplePropertiesEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkMultisamplePropertiesEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -245,7 +236,7 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
      * @param capacity the buffer capacity
      */
     public static VkMultisamplePropertiesEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -255,7 +246,7 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
      * @param capacity the buffer capacity
      */
     public static VkMultisamplePropertiesEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -282,9 +273,9 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
         /**
          * Creates a new {@code VkMultisamplePropertiesEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkMultisamplePropertiesEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkMultisamplePropertiesEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>The {@link VkPhysicalDeviceSubgroupSizeControlFeaturesEXT} structure was added in version 2 of the {@link EXTSubgroupSizeControl VK_EXT_subgroup_size_control} extension. Version 1 implementations of this extension will not fill out the features structure but applications may assume that both {@code subgroupSizeControl} and {@code computeFullSubgroups} are supported if the extension is supported. (See also the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-requirements">Feature Requirements</a> section.) Applications are advised to add a {@link VkPhysicalDeviceSubgroupSizeControlFeaturesEXT} structure to the {@code pNext} chain of {@link VkDeviceCreateInfo} to enable the features regardless of the version of the extension supported by the implementation. If the implementation only supports version 1, it will safely ignore the {@link VkPhysicalDeviceSubgroupSizeControlFeaturesEXT} structure.</p>
+ * <p>The {@link VkPhysicalDeviceSubgroupSizeControlFeaturesEXT} structure was added in version 2 of the {@link EXTSubgroupSizeControl VK_EXT_subgroup_size_control} extension. Version 1 implementations of this extension will not fill out the features structure but applications may assume that both {@code subgroupSizeControl} and {@code computeFullSubgroups} are supported if the extension is supported. (See also the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-requirements">Feature Requirements</a> section.) Applications are advised to add a {@link VkPhysicalDeviceSubgroupSizeControlFeaturesEXT} structure to the {@code pNext} chain of {@link VkDeviceCreateInfo} to enable the features regardless of the version of the extension supported by the implementation. If the implementation only supports version 1, it will safely ignore the {@link VkPhysicalDeviceSubgroupSizeControlFeaturesEXT} structure.</p>
  * 
  * <p>Vulkan 1.3 implementations always support the features structure.</p>
  * </div>
@@ -45,7 +45,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #computeFullSubgroups};
  * }</code></pre>
  */
-public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysicalDeviceSubgroupSizeControlFeatures> implements NativeResource {
+public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -77,15 +77,6 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
         COMPUTEFULLSUBGROUPS = layout.offsetof(3);
     }
 
-    protected VkPhysicalDeviceSubgroupSizeControlFeatures(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceSubgroupSizeControlFeatures create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceSubgroupSizeControlFeatures(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceSubgroupSizeControlFeatures} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -99,7 +90,7 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -108,7 +99,7 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
     /** indicates whether the implementation supports controlling shader subgroup sizes via the {@link VK13#VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT} flag and the {@link VkPipelineShaderStageRequiredSubgroupSizeCreateInfo} structure. */
     @NativeType("VkBool32")
     public boolean subgroupSizeControl() { return nsubgroupSizeControl(address()) != 0; }
-    /** indicates whether the implementation supports requiring full subgroups in compute , mesh, or task shaders via the {@link VK13#VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT} flag. */
+    /** indicates whether the implementation supports requiring full subgroups in compute shaders via the {@link VK13#VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT} flag. */
     @NativeType("VkBool32")
     public boolean computeFullSubgroups() { return ncomputeFullSubgroups(address()) != 0; }
 
@@ -154,29 +145,29 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
 
     /** Returns a new {@code VkPhysicalDeviceSubgroupSizeControlFeatures} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceSubgroupSizeControlFeatures malloc() {
-        return new VkPhysicalDeviceSubgroupSizeControlFeatures(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceSubgroupSizeControlFeatures.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceSubgroupSizeControlFeatures} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceSubgroupSizeControlFeatures calloc() {
-        return new VkPhysicalDeviceSubgroupSizeControlFeatures(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceSubgroupSizeControlFeatures.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceSubgroupSizeControlFeatures} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceSubgroupSizeControlFeatures create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceSubgroupSizeControlFeatures(memAddress(container), container);
+        return wrap(VkPhysicalDeviceSubgroupSizeControlFeatures.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceSubgroupSizeControlFeatures} instance for the specified memory address. */
     public static VkPhysicalDeviceSubgroupSizeControlFeatures create(long address) {
-        return new VkPhysicalDeviceSubgroupSizeControlFeatures(address, null);
+        return wrap(VkPhysicalDeviceSubgroupSizeControlFeatures.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceSubgroupSizeControlFeatures createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceSubgroupSizeControlFeatures(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceSubgroupSizeControlFeatures.class, address);
     }
 
     /**
@@ -185,7 +176,7 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSubgroupSizeControlFeatures.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -194,7 +185,7 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSubgroupSizeControlFeatures.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -204,7 +195,7 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
      */
     public static VkPhysicalDeviceSubgroupSizeControlFeatures.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -214,13 +205,13 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSubgroupSizeControlFeatures.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceSubgroupSizeControlFeatures.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -229,7 +220,7 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceSubgroupSizeControlFeatures malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceSubgroupSizeControlFeatures(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceSubgroupSizeControlFeatures.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -238,7 +229,7 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceSubgroupSizeControlFeatures calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceSubgroupSizeControlFeatures(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceSubgroupSizeControlFeatures.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -248,7 +239,7 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSubgroupSizeControlFeatures.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -258,7 +249,7 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceSubgroupSizeControlFeatures.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -291,9 +282,9 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
         /**
          * Creates a new {@code VkPhysicalDeviceSubgroupSizeControlFeatures.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceSubgroupSizeControlFeatures#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceSubgroupSizeControlFeatures#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

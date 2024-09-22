@@ -20,20 +20,6 @@ val WinBase = "WinBase".nativeClass(Module.CORE_WINDOWS, nativeSubPath = "window
         "TRUE".."1"
     )
 
-    SaveLastError..HLOCAL(
-        "LocalFree",
-        "Frees the specified local memory object and invalidates its handle.",
-
-        HLOCAL("hMem", "a handle to the local memory object"),
-
-        returnDoc =
-        """
-        if the function succeeds, the return value is #NULL.
-
-        If the function fails, the return value is equal to a handle to the local memory object. To get extended error information, call #GetLastError().
-        """
-    )
-
     DWORD(
         "GetLastError",
         """
@@ -48,7 +34,7 @@ val WinBase = "WinBase".nativeClass(Module.CORE_WINDOWS, nativeSubPath = "window
 
     Code(
         nativeCall = """${t}EnvData *envData = (EnvData *)(*__env)->reserved2;
-${t}return envData == (*__env)->reserved0 ? 0 : envData->LastError;"""
+${t}return envData == NULL ? 0 : envData->LastError;"""
     )..DWORD(
         "getLastError",
         """

@@ -18,18 +18,6 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Structure specifying subpass begin information.
  * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If {@code contents} is {@link KHRMaintenance7#VK_SUBPASS_CONTENTS_INLINE_AND_SECONDARY_COMMAND_BUFFERS_KHR SUBPASS_CONTENTS_INLINE_AND_SECONDARY_COMMAND_BUFFERS_KHR}, then at least one of the following features <b>must</b> be enabled:
- * 
- * <ul>
- * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-maintenance7">{@code maintenance7}</a></li>
- * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-nestedCommandBuffer">{@code nestedCommandBuffer}</a></li>
- * </ul>
- * </li>
- * </ul>
- * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
@@ -51,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkSubpassContents {@link #contents};
  * }</code></pre>
  */
-public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements NativeResource {
+public class VkSubpassBeginInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -80,15 +68,6 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
         CONTENTS = layout.offsetof(2);
     }
 
-    protected VkSubpassBeginInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkSubpassBeginInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkSubpassBeginInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkSubpassBeginInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -102,7 +81,7 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -150,29 +129,29 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
 
     /** Returns a new {@code VkSubpassBeginInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSubpassBeginInfo malloc() {
-        return new VkSubpassBeginInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkSubpassBeginInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkSubpassBeginInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSubpassBeginInfo calloc() {
-        return new VkSubpassBeginInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkSubpassBeginInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkSubpassBeginInfo} instance allocated with {@link BufferUtils}. */
     public static VkSubpassBeginInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkSubpassBeginInfo(memAddress(container), container);
+        return wrap(VkSubpassBeginInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkSubpassBeginInfo} instance for the specified memory address. */
     public static VkSubpassBeginInfo create(long address) {
-        return new VkSubpassBeginInfo(address, null);
+        return wrap(VkSubpassBeginInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSubpassBeginInfo createSafe(long address) {
-        return address == NULL ? null : new VkSubpassBeginInfo(address, null);
+        return address == NULL ? null : wrap(VkSubpassBeginInfo.class, address);
     }
 
     /**
@@ -181,7 +160,7 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
      * @param capacity the buffer capacity
      */
     public static VkSubpassBeginInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -190,7 +169,7 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
      * @param capacity the buffer capacity
      */
     public static VkSubpassBeginInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -200,7 +179,7 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
      */
     public static VkSubpassBeginInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -210,13 +189,13 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
      * @param capacity the buffer capacity
      */
     public static VkSubpassBeginInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSubpassBeginInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -225,7 +204,7 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
      * @param stack the stack from which to allocate
      */
     public static VkSubpassBeginInfo malloc(MemoryStack stack) {
-        return new VkSubpassBeginInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkSubpassBeginInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -234,7 +213,7 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
      * @param stack the stack from which to allocate
      */
     public static VkSubpassBeginInfo calloc(MemoryStack stack) {
-        return new VkSubpassBeginInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkSubpassBeginInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -244,7 +223,7 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
      * @param capacity the buffer capacity
      */
     public static VkSubpassBeginInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -254,7 +233,7 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
      * @param capacity the buffer capacity
      */
     public static VkSubpassBeginInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -283,9 +262,9 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
         /**
          * Creates a new {@code VkSubpassBeginInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSubpassBeginInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkSubpassBeginInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

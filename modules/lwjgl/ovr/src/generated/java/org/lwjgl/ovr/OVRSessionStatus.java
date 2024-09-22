@@ -34,7 +34,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct ovrSessionStatus")
-public class OVRSessionStatus extends Struct<OVRSessionStatus> implements NativeResource {
+public class OVRSessionStatus extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -79,15 +79,6 @@ public class OVRSessionStatus extends Struct<OVRSessionStatus> implements Native
         HASINPUTFOCUS = layout.offsetof(6);
         OVERLAYPRESENT = layout.offsetof(7);
         DEPTHREQUESTED = layout.offsetof(8);
-    }
-
-    protected OVRSessionStatus(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected OVRSessionStatus create(long address, @Nullable ByteBuffer container) {
-        return new OVRSessionStatus(address, container);
     }
 
     /**
@@ -143,29 +134,29 @@ public class OVRSessionStatus extends Struct<OVRSessionStatus> implements Native
 
     /** Returns a new {@code OVRSessionStatus} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static OVRSessionStatus malloc() {
-        return new OVRSessionStatus(nmemAllocChecked(SIZEOF), null);
+        return wrap(OVRSessionStatus.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code OVRSessionStatus} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static OVRSessionStatus calloc() {
-        return new OVRSessionStatus(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(OVRSessionStatus.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code OVRSessionStatus} instance allocated with {@link BufferUtils}. */
     public static OVRSessionStatus create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new OVRSessionStatus(memAddress(container), container);
+        return wrap(OVRSessionStatus.class, memAddress(container), container);
     }
 
     /** Returns a new {@code OVRSessionStatus} instance for the specified memory address. */
     public static OVRSessionStatus create(long address) {
-        return new OVRSessionStatus(address, null);
+        return wrap(OVRSessionStatus.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static OVRSessionStatus createSafe(long address) {
-        return address == NULL ? null : new OVRSessionStatus(address, null);
+        return address == NULL ? null : wrap(OVRSessionStatus.class, address);
     }
 
     /**
@@ -174,7 +165,7 @@ public class OVRSessionStatus extends Struct<OVRSessionStatus> implements Native
      * @param capacity the buffer capacity
      */
     public static OVRSessionStatus.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -183,7 +174,7 @@ public class OVRSessionStatus extends Struct<OVRSessionStatus> implements Native
      * @param capacity the buffer capacity
      */
     public static OVRSessionStatus.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -193,7 +184,7 @@ public class OVRSessionStatus extends Struct<OVRSessionStatus> implements Native
      */
     public static OVRSessionStatus.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -203,13 +194,13 @@ public class OVRSessionStatus extends Struct<OVRSessionStatus> implements Native
      * @param capacity the buffer capacity
      */
     public static OVRSessionStatus.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static OVRSessionStatus.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -237,7 +228,7 @@ public class OVRSessionStatus extends Struct<OVRSessionStatus> implements Native
      * @param stack the stack from which to allocate
      */
     public static OVRSessionStatus malloc(MemoryStack stack) {
-        return new OVRSessionStatus(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(OVRSessionStatus.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -246,7 +237,7 @@ public class OVRSessionStatus extends Struct<OVRSessionStatus> implements Native
      * @param stack the stack from which to allocate
      */
     public static OVRSessionStatus calloc(MemoryStack stack) {
-        return new OVRSessionStatus(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(OVRSessionStatus.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -256,7 +247,7 @@ public class OVRSessionStatus extends Struct<OVRSessionStatus> implements Native
      * @param capacity the buffer capacity
      */
     public static OVRSessionStatus.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -266,7 +257,7 @@ public class OVRSessionStatus extends Struct<OVRSessionStatus> implements Native
      * @param capacity the buffer capacity
      */
     public static OVRSessionStatus.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -300,9 +291,9 @@ public class OVRSessionStatus extends Struct<OVRSessionStatus> implements Native
         /**
          * Creates a new {@code OVRSessionStatus.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link OVRSessionStatus#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link OVRSessionStatus#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

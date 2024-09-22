@@ -41,7 +41,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkAccelerationStructureNV {@link #accelerationStructure};
  * }</code></pre>
  */
-public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAccelerationStructureMemoryRequirementsInfoNV> implements NativeResource {
+public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -73,15 +73,6 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
         ACCELERATIONSTRUCTURE = layout.offsetof(3);
     }
 
-    protected VkAccelerationStructureMemoryRequirementsInfoNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkAccelerationStructureMemoryRequirementsInfoNV create(long address, @Nullable ByteBuffer container) {
-        return new VkAccelerationStructureMemoryRequirementsInfoNV(address, container);
-    }
-
     /**
      * Creates a {@code VkAccelerationStructureMemoryRequirementsInfoNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -95,7 +86,7 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -150,29 +141,29 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
 
     /** Returns a new {@code VkAccelerationStructureMemoryRequirementsInfoNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureMemoryRequirementsInfoNV malloc() {
-        return new VkAccelerationStructureMemoryRequirementsInfoNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkAccelerationStructureMemoryRequirementsInfoNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkAccelerationStructureMemoryRequirementsInfoNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureMemoryRequirementsInfoNV calloc() {
-        return new VkAccelerationStructureMemoryRequirementsInfoNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkAccelerationStructureMemoryRequirementsInfoNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkAccelerationStructureMemoryRequirementsInfoNV} instance allocated with {@link BufferUtils}. */
     public static VkAccelerationStructureMemoryRequirementsInfoNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkAccelerationStructureMemoryRequirementsInfoNV(memAddress(container), container);
+        return wrap(VkAccelerationStructureMemoryRequirementsInfoNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkAccelerationStructureMemoryRequirementsInfoNV} instance for the specified memory address. */
     public static VkAccelerationStructureMemoryRequirementsInfoNV create(long address) {
-        return new VkAccelerationStructureMemoryRequirementsInfoNV(address, null);
+        return wrap(VkAccelerationStructureMemoryRequirementsInfoNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureMemoryRequirementsInfoNV createSafe(long address) {
-        return address == NULL ? null : new VkAccelerationStructureMemoryRequirementsInfoNV(address, null);
+        return address == NULL ? null : wrap(VkAccelerationStructureMemoryRequirementsInfoNV.class, address);
     }
 
     /**
@@ -181,7 +172,7 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureMemoryRequirementsInfoNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -190,7 +181,7 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureMemoryRequirementsInfoNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -200,7 +191,7 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
      */
     public static VkAccelerationStructureMemoryRequirementsInfoNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -210,13 +201,13 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureMemoryRequirementsInfoNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureMemoryRequirementsInfoNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -244,7 +235,7 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureMemoryRequirementsInfoNV malloc(MemoryStack stack) {
-        return new VkAccelerationStructureMemoryRequirementsInfoNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkAccelerationStructureMemoryRequirementsInfoNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -253,7 +244,7 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureMemoryRequirementsInfoNV calloc(MemoryStack stack) {
-        return new VkAccelerationStructureMemoryRequirementsInfoNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkAccelerationStructureMemoryRequirementsInfoNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -263,7 +254,7 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureMemoryRequirementsInfoNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -273,7 +264,7 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureMemoryRequirementsInfoNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -306,9 +297,9 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
         /**
          * Creates a new {@code VkAccelerationStructureMemoryRequirementsInfoNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkAccelerationStructureMemoryRequirementsInfoNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkAccelerationStructureMemoryRequirementsInfoNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

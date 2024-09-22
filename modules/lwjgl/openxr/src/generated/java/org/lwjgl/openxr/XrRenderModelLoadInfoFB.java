@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBRenderModel XR_FB_render_model} extension <b>must</b> be enabled prior to using {@link XrRenderModelLoadInfoFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBRenderModel#XR_TYPE_RENDER_MODEL_LOAD_INFO_FB TYPE_RENDER_MODEL_LOAD_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -43,7 +43,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrRenderModelKeyFB {@link #modelKey};
  * }</code></pre>
  */
-public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> implements NativeResource {
+public class XrRenderModelLoadInfoFB extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -70,15 +70,6 @@ public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> imp
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
         MODELKEY = layout.offsetof(2);
-    }
-
-    protected XrRenderModelLoadInfoFB(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrRenderModelLoadInfoFB create(long address, @Nullable ByteBuffer container) {
-        return new XrRenderModelLoadInfoFB(address, container);
     }
 
     /**
@@ -142,29 +133,29 @@ public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> imp
 
     /** Returns a new {@code XrRenderModelLoadInfoFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrRenderModelLoadInfoFB malloc() {
-        return new XrRenderModelLoadInfoFB(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrRenderModelLoadInfoFB.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrRenderModelLoadInfoFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrRenderModelLoadInfoFB calloc() {
-        return new XrRenderModelLoadInfoFB(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrRenderModelLoadInfoFB.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrRenderModelLoadInfoFB} instance allocated with {@link BufferUtils}. */
     public static XrRenderModelLoadInfoFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrRenderModelLoadInfoFB(memAddress(container), container);
+        return wrap(XrRenderModelLoadInfoFB.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrRenderModelLoadInfoFB} instance for the specified memory address. */
     public static XrRenderModelLoadInfoFB create(long address) {
-        return new XrRenderModelLoadInfoFB(address, null);
+        return wrap(XrRenderModelLoadInfoFB.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrRenderModelLoadInfoFB createSafe(long address) {
-        return address == NULL ? null : new XrRenderModelLoadInfoFB(address, null);
+        return address == NULL ? null : wrap(XrRenderModelLoadInfoFB.class, address);
     }
 
     /**
@@ -173,7 +164,7 @@ public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> imp
      * @param capacity the buffer capacity
      */
     public static XrRenderModelLoadInfoFB.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -182,7 +173,7 @@ public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> imp
      * @param capacity the buffer capacity
      */
     public static XrRenderModelLoadInfoFB.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -192,7 +183,7 @@ public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> imp
      */
     public static XrRenderModelLoadInfoFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -202,13 +193,13 @@ public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> imp
      * @param capacity the buffer capacity
      */
     public static XrRenderModelLoadInfoFB.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrRenderModelLoadInfoFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -217,7 +208,7 @@ public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> imp
      * @param stack the stack from which to allocate
      */
     public static XrRenderModelLoadInfoFB malloc(MemoryStack stack) {
-        return new XrRenderModelLoadInfoFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrRenderModelLoadInfoFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -226,7 +217,7 @@ public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> imp
      * @param stack the stack from which to allocate
      */
     public static XrRenderModelLoadInfoFB calloc(MemoryStack stack) {
-        return new XrRenderModelLoadInfoFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrRenderModelLoadInfoFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -236,7 +227,7 @@ public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> imp
      * @param capacity the buffer capacity
      */
     public static XrRenderModelLoadInfoFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -246,7 +237,7 @@ public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> imp
      * @param capacity the buffer capacity
      */
     public static XrRenderModelLoadInfoFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -275,9 +266,9 @@ public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> imp
         /**
          * Creates a new {@code XrRenderModelLoadInfoFB.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrRenderModelLoadInfoFB#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrRenderModelLoadInfoFB#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

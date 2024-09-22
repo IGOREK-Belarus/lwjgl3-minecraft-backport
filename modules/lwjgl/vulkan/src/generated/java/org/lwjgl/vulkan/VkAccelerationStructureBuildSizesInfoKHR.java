@@ -40,7 +40,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkDeviceSize {@link #buildScratchSize};
  * }</code></pre>
  */
-public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerationStructureBuildSizesInfoKHR> implements NativeResource {
+public class VkAccelerationStructureBuildSizesInfoKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -75,15 +75,6 @@ public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerat
         BUILDSCRATCHSIZE = layout.offsetof(4);
     }
 
-    protected VkAccelerationStructureBuildSizesInfoKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkAccelerationStructureBuildSizesInfoKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkAccelerationStructureBuildSizesInfoKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkAccelerationStructureBuildSizesInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -97,7 +88,7 @@ public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerat
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -119,14 +110,26 @@ public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerat
     public VkAccelerationStructureBuildSizesInfoKHR sType$Default() { return sType(KHRAccelerationStructure.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkAccelerationStructureBuildSizesInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Sets the specified value to the {@link #accelerationStructureSize} field. */
+    public VkAccelerationStructureBuildSizesInfoKHR accelerationStructureSize(@NativeType("VkDeviceSize") long value) { naccelerationStructureSize(address(), value); return this; }
+    /** Sets the specified value to the {@link #updateScratchSize} field. */
+    public VkAccelerationStructureBuildSizesInfoKHR updateScratchSize(@NativeType("VkDeviceSize") long value) { nupdateScratchSize(address(), value); return this; }
+    /** Sets the specified value to the {@link #buildScratchSize} field. */
+    public VkAccelerationStructureBuildSizesInfoKHR buildScratchSize(@NativeType("VkDeviceSize") long value) { nbuildScratchSize(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkAccelerationStructureBuildSizesInfoKHR set(
         int sType,
-        long pNext
+        long pNext,
+        long accelerationStructureSize,
+        long updateScratchSize,
+        long buildScratchSize
     ) {
         sType(sType);
         pNext(pNext);
+        accelerationStructureSize(accelerationStructureSize);
+        updateScratchSize(updateScratchSize);
+        buildScratchSize(buildScratchSize);
 
         return this;
     }
@@ -147,29 +150,29 @@ public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerat
 
     /** Returns a new {@code VkAccelerationStructureBuildSizesInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureBuildSizesInfoKHR malloc() {
-        return new VkAccelerationStructureBuildSizesInfoKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkAccelerationStructureBuildSizesInfoKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkAccelerationStructureBuildSizesInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureBuildSizesInfoKHR calloc() {
-        return new VkAccelerationStructureBuildSizesInfoKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkAccelerationStructureBuildSizesInfoKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkAccelerationStructureBuildSizesInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkAccelerationStructureBuildSizesInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkAccelerationStructureBuildSizesInfoKHR(memAddress(container), container);
+        return wrap(VkAccelerationStructureBuildSizesInfoKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkAccelerationStructureBuildSizesInfoKHR} instance for the specified memory address. */
     public static VkAccelerationStructureBuildSizesInfoKHR create(long address) {
-        return new VkAccelerationStructureBuildSizesInfoKHR(address, null);
+        return wrap(VkAccelerationStructureBuildSizesInfoKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureBuildSizesInfoKHR createSafe(long address) {
-        return address == NULL ? null : new VkAccelerationStructureBuildSizesInfoKHR(address, null);
+        return address == NULL ? null : wrap(VkAccelerationStructureBuildSizesInfoKHR.class, address);
     }
 
     /**
@@ -178,7 +181,7 @@ public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerat
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureBuildSizesInfoKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -187,7 +190,7 @@ public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerat
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureBuildSizesInfoKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -197,7 +200,7 @@ public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerat
      */
     public static VkAccelerationStructureBuildSizesInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -207,13 +210,13 @@ public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerat
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureBuildSizesInfoKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureBuildSizesInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -222,7 +225,7 @@ public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerat
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureBuildSizesInfoKHR malloc(MemoryStack stack) {
-        return new VkAccelerationStructureBuildSizesInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkAccelerationStructureBuildSizesInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -231,7 +234,7 @@ public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerat
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureBuildSizesInfoKHR calloc(MemoryStack stack) {
-        return new VkAccelerationStructureBuildSizesInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkAccelerationStructureBuildSizesInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -241,7 +244,7 @@ public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerat
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureBuildSizesInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -251,7 +254,7 @@ public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerat
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureBuildSizesInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -271,6 +274,12 @@ public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerat
     public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureBuildSizesInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAccelerationStructureBuildSizesInfoKHR.PNEXT, value); }
+    /** Unsafe version of {@link #accelerationStructureSize(long) accelerationStructureSize}. */
+    public static void naccelerationStructureSize(long struct, long value) { UNSAFE.putLong(null, struct + VkAccelerationStructureBuildSizesInfoKHR.ACCELERATIONSTRUCTURESIZE, value); }
+    /** Unsafe version of {@link #updateScratchSize(long) updateScratchSize}. */
+    public static void nupdateScratchSize(long struct, long value) { UNSAFE.putLong(null, struct + VkAccelerationStructureBuildSizesInfoKHR.UPDATESCRATCHSIZE, value); }
+    /** Unsafe version of {@link #buildScratchSize(long) buildScratchSize}. */
+    public static void nbuildScratchSize(long struct, long value) { UNSAFE.putLong(null, struct + VkAccelerationStructureBuildSizesInfoKHR.BUILDSCRATCHSIZE, value); }
 
     // -----------------------------------
 
@@ -282,9 +291,9 @@ public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerat
         /**
          * Creates a new {@code VkAccelerationStructureBuildSizesInfoKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkAccelerationStructureBuildSizesInfoKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkAccelerationStructureBuildSizesInfoKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -332,6 +341,12 @@ public class VkAccelerationStructureBuildSizesInfoKHR extends Struct<VkAccelerat
         public VkAccelerationStructureBuildSizesInfoKHR.Buffer sType$Default() { return sType(KHRAccelerationStructure.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR); }
         /** Sets the specified value to the {@link VkAccelerationStructureBuildSizesInfoKHR#pNext} field. */
         public VkAccelerationStructureBuildSizesInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkAccelerationStructureBuildSizesInfoKHR.npNext(address(), value); return this; }
+        /** Sets the specified value to the {@link VkAccelerationStructureBuildSizesInfoKHR#accelerationStructureSize} field. */
+        public VkAccelerationStructureBuildSizesInfoKHR.Buffer accelerationStructureSize(@NativeType("VkDeviceSize") long value) { VkAccelerationStructureBuildSizesInfoKHR.naccelerationStructureSize(address(), value); return this; }
+        /** Sets the specified value to the {@link VkAccelerationStructureBuildSizesInfoKHR#updateScratchSize} field. */
+        public VkAccelerationStructureBuildSizesInfoKHR.Buffer updateScratchSize(@NativeType("VkDeviceSize") long value) { VkAccelerationStructureBuildSizesInfoKHR.nupdateScratchSize(address(), value); return this; }
+        /** Sets the specified value to the {@link VkAccelerationStructureBuildSizesInfoKHR#buildScratchSize} field. */
+        public VkAccelerationStructureBuildSizesInfoKHR.Buffer buildScratchSize(@NativeType("VkDeviceSize") long value) { VkAccelerationStructureBuildSizesInfoKHR.nbuildScratchSize(address(), value); return this; }
 
     }
 

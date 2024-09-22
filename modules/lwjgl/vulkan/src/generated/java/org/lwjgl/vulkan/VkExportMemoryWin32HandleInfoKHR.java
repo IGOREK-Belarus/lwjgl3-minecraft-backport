@@ -25,7 +25,7 @@ import org.lwjgl.system.windows.*;
  * 
  * <p>If {@link VkExportMemoryAllocateInfo} is not included in the same {@code pNext} chain, this structure is ignored.</p>
  * 
- * <p>If {@link VkExportMemoryAllocateInfo} is included in the {@code pNext} chain of {@link VkMemoryAllocateInfo} with a Windows {@code handleType}, but either {@link VkExportMemoryWin32HandleInfoKHR} is not included in the {@code pNext} chain, or it is included but {@code pAttributes} is set to {@code NULL}, default security descriptor values will be used, and child processes created by the application will not inherit the handle, as described in the MSDN documentation for “{@code Synchronization Object Security and Access Rights}”<sup>1</sup>. Further, if the structure is not present, the access rights used depend on the handle type.</p>
+ * <p>If {@link VkExportMemoryAllocateInfo} is included in the {@code pNext} chain of {@link VkMemoryAllocateInfo} with a Windows {@code handleType}, but either {@link VkExportMemoryWin32HandleInfoKHR} is not included in the {@code pNext} chain, or if it is but {@code pAttributes} is set to {@code NULL}, default security descriptor values will be used, and child processes created by the application will not inherit the handle, as described in the MSDN documentation for “{@code Synchronization Object Security and Access Rights}”<sup>1</sup>. Further, if the structure is not present, the access rights used depend on the handle type.</p>
  * 
  * <p>For handles of the following types:</p>
  * 
@@ -37,7 +37,7 @@ import org.lwjgl.system.windows.*;
  * 
  * <dl>
  * <dt>1</dt>
- * <dd><a href="https://docs.microsoft.com/en-us/windows/win32/sync/synchronization-object-security-and-access-rights">https://docs.microsoft.com/en-us/windows/win32/sync/synchronization-object-security-and-access-rights</a></dd>
+ * <dd><a target="_blank" href="https://docs.microsoft.com/en-us/windows/win32/sync/synchronization-object-security-and-access-rights">https://docs.microsoft.com/en-us/windows/win32/sync/synchronization-object-security-and-access-rights</a></dd>
  * </dl>
  * 
  * <h5>Valid Usage</h5>
@@ -64,7 +64,7 @@ import org.lwjgl.system.windows.*;
  *     LPCWSTR {@link #name};
  * }</code></pre>
  */
-public class VkExportMemoryWin32HandleInfoKHR extends Struct<VkExportMemoryWin32HandleInfoKHR> implements NativeResource {
+public class VkExportMemoryWin32HandleInfoKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -99,15 +99,6 @@ public class VkExportMemoryWin32HandleInfoKHR extends Struct<VkExportMemoryWin32
         NAME = layout.offsetof(4);
     }
 
-    protected VkExportMemoryWin32HandleInfoKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkExportMemoryWin32HandleInfoKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkExportMemoryWin32HandleInfoKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkExportMemoryWin32HandleInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -121,7 +112,7 @@ public class VkExportMemoryWin32HandleInfoKHR extends Struct<VkExportMemoryWin32
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -187,29 +178,29 @@ public class VkExportMemoryWin32HandleInfoKHR extends Struct<VkExportMemoryWin32
 
     /** Returns a new {@code VkExportMemoryWin32HandleInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkExportMemoryWin32HandleInfoKHR malloc() {
-        return new VkExportMemoryWin32HandleInfoKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkExportMemoryWin32HandleInfoKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkExportMemoryWin32HandleInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkExportMemoryWin32HandleInfoKHR calloc() {
-        return new VkExportMemoryWin32HandleInfoKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkExportMemoryWin32HandleInfoKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkExportMemoryWin32HandleInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkExportMemoryWin32HandleInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkExportMemoryWin32HandleInfoKHR(memAddress(container), container);
+        return wrap(VkExportMemoryWin32HandleInfoKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkExportMemoryWin32HandleInfoKHR} instance for the specified memory address. */
     public static VkExportMemoryWin32HandleInfoKHR create(long address) {
-        return new VkExportMemoryWin32HandleInfoKHR(address, null);
+        return wrap(VkExportMemoryWin32HandleInfoKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkExportMemoryWin32HandleInfoKHR createSafe(long address) {
-        return address == NULL ? null : new VkExportMemoryWin32HandleInfoKHR(address, null);
+        return address == NULL ? null : wrap(VkExportMemoryWin32HandleInfoKHR.class, address);
     }
 
     /**
@@ -218,7 +209,7 @@ public class VkExportMemoryWin32HandleInfoKHR extends Struct<VkExportMemoryWin32
      * @param capacity the buffer capacity
      */
     public static VkExportMemoryWin32HandleInfoKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -227,7 +218,7 @@ public class VkExportMemoryWin32HandleInfoKHR extends Struct<VkExportMemoryWin32
      * @param capacity the buffer capacity
      */
     public static VkExportMemoryWin32HandleInfoKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -237,7 +228,7 @@ public class VkExportMemoryWin32HandleInfoKHR extends Struct<VkExportMemoryWin32
      */
     public static VkExportMemoryWin32HandleInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -247,13 +238,13 @@ public class VkExportMemoryWin32HandleInfoKHR extends Struct<VkExportMemoryWin32
      * @param capacity the buffer capacity
      */
     public static VkExportMemoryWin32HandleInfoKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkExportMemoryWin32HandleInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -281,7 +272,7 @@ public class VkExportMemoryWin32HandleInfoKHR extends Struct<VkExportMemoryWin32
      * @param stack the stack from which to allocate
      */
     public static VkExportMemoryWin32HandleInfoKHR malloc(MemoryStack stack) {
-        return new VkExportMemoryWin32HandleInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkExportMemoryWin32HandleInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -290,7 +281,7 @@ public class VkExportMemoryWin32HandleInfoKHR extends Struct<VkExportMemoryWin32
      * @param stack the stack from which to allocate
      */
     public static VkExportMemoryWin32HandleInfoKHR calloc(MemoryStack stack) {
-        return new VkExportMemoryWin32HandleInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkExportMemoryWin32HandleInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -300,7 +291,7 @@ public class VkExportMemoryWin32HandleInfoKHR extends Struct<VkExportMemoryWin32
      * @param capacity the buffer capacity
      */
     public static VkExportMemoryWin32HandleInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -310,7 +301,7 @@ public class VkExportMemoryWin32HandleInfoKHR extends Struct<VkExportMemoryWin32
      * @param capacity the buffer capacity
      */
     public static VkExportMemoryWin32HandleInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -365,9 +356,9 @@ public class VkExportMemoryWin32HandleInfoKHR extends Struct<VkExportMemoryWin32
         /**
          * Creates a new {@code VkExportMemoryWin32HandleInfoKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkExportMemoryWin32HandleInfoKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkExportMemoryWin32HandleInfoKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

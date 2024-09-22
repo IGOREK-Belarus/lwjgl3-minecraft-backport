@@ -42,7 +42,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint64_t const * {@link #pSignalSemaphoreValues};
  * }</code></pre>
  */
-public class VkTimelineSemaphoreSubmitInfo extends Struct<VkTimelineSemaphoreSubmitInfo> implements NativeResource {
+public class VkTimelineSemaphoreSubmitInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -80,15 +80,6 @@ public class VkTimelineSemaphoreSubmitInfo extends Struct<VkTimelineSemaphoreSub
         PSIGNALSEMAPHOREVALUES = layout.offsetof(5);
     }
 
-    protected VkTimelineSemaphoreSubmitInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkTimelineSemaphoreSubmitInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkTimelineSemaphoreSubmitInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkTimelineSemaphoreSubmitInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -102,7 +93,7 @@ public class VkTimelineSemaphoreSubmitInfo extends Struct<VkTimelineSemaphoreSub
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -173,29 +164,29 @@ public class VkTimelineSemaphoreSubmitInfo extends Struct<VkTimelineSemaphoreSub
 
     /** Returns a new {@code VkTimelineSemaphoreSubmitInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkTimelineSemaphoreSubmitInfo malloc() {
-        return new VkTimelineSemaphoreSubmitInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkTimelineSemaphoreSubmitInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkTimelineSemaphoreSubmitInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkTimelineSemaphoreSubmitInfo calloc() {
-        return new VkTimelineSemaphoreSubmitInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkTimelineSemaphoreSubmitInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkTimelineSemaphoreSubmitInfo} instance allocated with {@link BufferUtils}. */
     public static VkTimelineSemaphoreSubmitInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkTimelineSemaphoreSubmitInfo(memAddress(container), container);
+        return wrap(VkTimelineSemaphoreSubmitInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkTimelineSemaphoreSubmitInfo} instance for the specified memory address. */
     public static VkTimelineSemaphoreSubmitInfo create(long address) {
-        return new VkTimelineSemaphoreSubmitInfo(address, null);
+        return wrap(VkTimelineSemaphoreSubmitInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkTimelineSemaphoreSubmitInfo createSafe(long address) {
-        return address == NULL ? null : new VkTimelineSemaphoreSubmitInfo(address, null);
+        return address == NULL ? null : wrap(VkTimelineSemaphoreSubmitInfo.class, address);
     }
 
     /**
@@ -204,7 +195,7 @@ public class VkTimelineSemaphoreSubmitInfo extends Struct<VkTimelineSemaphoreSub
      * @param capacity the buffer capacity
      */
     public static VkTimelineSemaphoreSubmitInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -213,7 +204,7 @@ public class VkTimelineSemaphoreSubmitInfo extends Struct<VkTimelineSemaphoreSub
      * @param capacity the buffer capacity
      */
     public static VkTimelineSemaphoreSubmitInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -223,7 +214,7 @@ public class VkTimelineSemaphoreSubmitInfo extends Struct<VkTimelineSemaphoreSub
      */
     public static VkTimelineSemaphoreSubmitInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -233,13 +224,13 @@ public class VkTimelineSemaphoreSubmitInfo extends Struct<VkTimelineSemaphoreSub
      * @param capacity the buffer capacity
      */
     public static VkTimelineSemaphoreSubmitInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkTimelineSemaphoreSubmitInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -248,7 +239,7 @@ public class VkTimelineSemaphoreSubmitInfo extends Struct<VkTimelineSemaphoreSub
      * @param stack the stack from which to allocate
      */
     public static VkTimelineSemaphoreSubmitInfo malloc(MemoryStack stack) {
-        return new VkTimelineSemaphoreSubmitInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkTimelineSemaphoreSubmitInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -257,7 +248,7 @@ public class VkTimelineSemaphoreSubmitInfo extends Struct<VkTimelineSemaphoreSub
      * @param stack the stack from which to allocate
      */
     public static VkTimelineSemaphoreSubmitInfo calloc(MemoryStack stack) {
-        return new VkTimelineSemaphoreSubmitInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkTimelineSemaphoreSubmitInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -267,7 +258,7 @@ public class VkTimelineSemaphoreSubmitInfo extends Struct<VkTimelineSemaphoreSub
      * @param capacity the buffer capacity
      */
     public static VkTimelineSemaphoreSubmitInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -277,7 +268,7 @@ public class VkTimelineSemaphoreSubmitInfo extends Struct<VkTimelineSemaphoreSub
      * @param capacity the buffer capacity
      */
     public static VkTimelineSemaphoreSubmitInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -318,9 +309,9 @@ public class VkTimelineSemaphoreSubmitInfo extends Struct<VkTimelineSemaphoreSub
         /**
          * Creates a new {@code VkTimelineSemaphoreSubmitInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkTimelineSemaphoreSubmitInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkTimelineSemaphoreSubmitInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

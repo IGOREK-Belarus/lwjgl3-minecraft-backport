@@ -20,7 +20,7 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_system_windows_GDI32_nChoosePixelFormat(JN
     uintptr_t pixelFormatDescriptor = (uintptr_t)pixelFormatDescriptorAddress;
     jint __result;
     UNUSED_PARAMS(__env, clazz)
-    __result = ChoosePixelFormat(hdc, pixelFormatDescriptor);
+    __result = (jint)ChoosePixelFormat(hdc, pixelFormatDescriptor);
     saveLastError();
     return __result;
 }
@@ -31,7 +31,7 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_system_windows_GDI32_nDescribePixelFormat(
     uintptr_t pixelFormatDescriptor = (uintptr_t)pixelFormatDescriptorAddress;
     jint __result;
     UNUSED_PARAMS(__env, clazz)
-    __result = DescribePixelFormat(hdc, pixelFormat, bytes, pixelFormatDescriptor);
+    __result = (jint)DescribePixelFormat(hdc, pixelFormat, bytes, pixelFormatDescriptor);
     saveLastError();
     return __result;
 }
@@ -41,7 +41,7 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_system_windows_GDI32_nGetPixelFormat(JNIEn
     uintptr_t hdc = (uintptr_t)hdcAddress;
     jint __result;
     UNUSED_PARAMS(__env, clazz)
-    __result = GetPixelFormat(hdc);
+    __result = (jint)GetPixelFormat(hdc);
     saveLastError();
     return __result;
 }
@@ -52,7 +52,7 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_system_windows_GDI32_nSetPixelFormat(JNIEn
     uintptr_t pixelFormatDescriptor = (uintptr_t)pixelFormatDescriptorAddress;
     jint __result;
     UNUSED_PARAMS(__env, clazz)
-    __result = SetPixelFormat(hdc, pixelFormat, pixelFormatDescriptor);
+    __result = (jint)SetPixelFormat(hdc, pixelFormat, pixelFormatDescriptor);
     saveLastError();
     return __result;
 }
@@ -62,7 +62,7 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_system_windows_GDI32_nSwapBuffers(JNIEnv *
     uintptr_t dc = (uintptr_t)dcAddress;
     jint __result;
     UNUSED_PARAMS(__env, clazz)
-    __result = SwapBuffers(dc);
+    __result = (jint)SwapBuffers(dc);
     saveLastError();
     return __result;
 }

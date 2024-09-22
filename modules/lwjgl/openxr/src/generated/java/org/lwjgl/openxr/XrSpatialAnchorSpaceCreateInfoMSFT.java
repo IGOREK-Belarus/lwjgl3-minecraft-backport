@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTSpatialAnchor XR_MSFT_spatial_anchor} extension <b>must</b> be enabled prior to using {@link XrSpatialAnchorSpaceCreateInfoMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTSpatialAnchor#XR_TYPE_SPATIAL_ANCHOR_SPACE_CREATE_INFO_MSFT TYPE_SPATIAL_ANCHOR_SPACE_CREATE_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code anchor} <b>must</b> be a valid {@code XrSpatialAnchorMSFT} handle</li>
  * </ul>
  * 
@@ -42,7 +42,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrPosef XrPosef} {@link #poseInAnchorSpace};
  * }</code></pre>
  */
-public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSpaceCreateInfoMSFT> implements NativeResource {
+public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -72,15 +72,6 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
         NEXT = layout.offsetof(1);
         ANCHOR = layout.offsetof(2);
         POSEINANCHORSPACE = layout.offsetof(3);
-    }
-
-    protected XrSpatialAnchorSpaceCreateInfoMSFT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrSpatialAnchorSpaceCreateInfoMSFT create(long address, @Nullable ByteBuffer container) {
-        return new XrSpatialAnchorSpaceCreateInfoMSFT(address, container);
     }
 
     /**
@@ -152,29 +143,29 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
 
     /** Returns a new {@code XrSpatialAnchorSpaceCreateInfoMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSpatialAnchorSpaceCreateInfoMSFT malloc() {
-        return new XrSpatialAnchorSpaceCreateInfoMSFT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrSpatialAnchorSpaceCreateInfoMSFT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrSpatialAnchorSpaceCreateInfoMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSpatialAnchorSpaceCreateInfoMSFT calloc() {
-        return new XrSpatialAnchorSpaceCreateInfoMSFT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrSpatialAnchorSpaceCreateInfoMSFT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrSpatialAnchorSpaceCreateInfoMSFT} instance allocated with {@link BufferUtils}. */
     public static XrSpatialAnchorSpaceCreateInfoMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrSpatialAnchorSpaceCreateInfoMSFT(memAddress(container), container);
+        return wrap(XrSpatialAnchorSpaceCreateInfoMSFT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrSpatialAnchorSpaceCreateInfoMSFT} instance for the specified memory address. */
     public static XrSpatialAnchorSpaceCreateInfoMSFT create(long address) {
-        return new XrSpatialAnchorSpaceCreateInfoMSFT(address, null);
+        return wrap(XrSpatialAnchorSpaceCreateInfoMSFT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSpatialAnchorSpaceCreateInfoMSFT createSafe(long address) {
-        return address == NULL ? null : new XrSpatialAnchorSpaceCreateInfoMSFT(address, null);
+        return address == NULL ? null : wrap(XrSpatialAnchorSpaceCreateInfoMSFT.class, address);
     }
 
     /**
@@ -183,7 +174,7 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
      * @param capacity the buffer capacity
      */
     public static XrSpatialAnchorSpaceCreateInfoMSFT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -192,7 +183,7 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
      * @param capacity the buffer capacity
      */
     public static XrSpatialAnchorSpaceCreateInfoMSFT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -202,7 +193,7 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
      */
     public static XrSpatialAnchorSpaceCreateInfoMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -212,13 +203,13 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
      * @param capacity the buffer capacity
      */
     public static XrSpatialAnchorSpaceCreateInfoMSFT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSpatialAnchorSpaceCreateInfoMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -227,7 +218,7 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
      * @param stack the stack from which to allocate
      */
     public static XrSpatialAnchorSpaceCreateInfoMSFT malloc(MemoryStack stack) {
-        return new XrSpatialAnchorSpaceCreateInfoMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrSpatialAnchorSpaceCreateInfoMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -236,7 +227,7 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
      * @param stack the stack from which to allocate
      */
     public static XrSpatialAnchorSpaceCreateInfoMSFT calloc(MemoryStack stack) {
-        return new XrSpatialAnchorSpaceCreateInfoMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrSpatialAnchorSpaceCreateInfoMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -246,7 +237,7 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
      * @param capacity the buffer capacity
      */
     public static XrSpatialAnchorSpaceCreateInfoMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -256,7 +247,7 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
      * @param capacity the buffer capacity
      */
     public static XrSpatialAnchorSpaceCreateInfoMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -298,9 +289,9 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
         /**
          * Creates a new {@code XrSpatialAnchorSpaceCreateInfoMSFT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSpatialAnchorSpaceCreateInfoMSFT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrSpatialAnchorSpaceCreateInfoMSFT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

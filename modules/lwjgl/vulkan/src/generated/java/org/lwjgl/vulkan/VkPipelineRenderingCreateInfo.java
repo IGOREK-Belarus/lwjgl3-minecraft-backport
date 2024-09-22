@@ -12,6 +12,7 @@ import java.nio.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
 
+import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
@@ -20,22 +21,30 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>When a pipeline is created without a {@code VkRenderPass}, if the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo} includes this structure, it specifies the view mask and format of attachments used for rendering. If this structure is not specified, and the pipeline does not include a {@code VkRenderPass}, {@code viewMask} and {@code colorAttachmentCount} are 0, and {@code depthAttachmentFormat} and {@code stencilAttachmentFormat} are {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}. If a graphics pipeline is created with a valid {@code VkRenderPass}, parameters of this structure are ignored.</p>
+ * <p>When a pipeline is created without a {@code VkRenderPass}, if this structure is present in the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo}, it specifies the view mask and format of attachments used for rendering. If this structure is not specified, and the pipeline does not include a {@code VkRenderPass}, {@code viewMask} and {@code colorAttachmentCount} are 0, and {@code depthAttachmentFormat} and {@code stencilAttachmentFormat} are {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}. If a graphics pipeline is created with a valid {@code VkRenderPass}, parameters of this structure are ignored.</p>
  * 
  * <p>If {@code depthAttachmentFormat}, {@code stencilAttachmentFormat}, or any element of {@code pColorAttachmentFormats} is {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it indicates that the corresponding attachment is unused within the render pass. Valid formats indicate that an attachment <b>can</b> be used - but it is still valid to set the attachment to {@code NULL} when beginning rendering.</p>
- * 
- * <p>If the render pass is going to be used with an external format resolve attachment, a {@link VkExternalFormatANDROID} structure <b>must</b> also be included in the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo}, defining the external format of the resolve attachment that will be used.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>{@code colorAttachmentCount} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxColorAttachments">{@code maxColorAttachments}</a></li>
+ * <li>If any element of {@code pColorAttachmentFormats} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it <b>must</b> be a format with <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> that includes either {@link VK10#VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT FORMAT_FEATURE_COLOR_ATTACHMENT_BIT} or {@link NVLinearColorAttachment#VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV}</li>
+ * <li>If {@code depthAttachmentFormat} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it <b>must</b> be a format that includes a depth aspect</li>
+ * <li>If {@code stencilAttachmentFormat} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it <b>must</b> be a format that includes a stencil aspect</li>
+ * <li>If {@code depthAttachmentFormat} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it <b>must</b> be a format with <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> that include {@link VK10#VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT}</li>
+ * <li>If {@code stencilAttachmentFormat} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it <b>must</b> be a format with <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> that include {@link VK10#VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT}</li>
+ * <li>If {@code depthAttachmentFormat} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} and {@code stencilAttachmentFormat} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, {@code depthAttachmentFormat} <b>must</b> equal {@code stencilAttachmentFormat}</li>
+ * <li>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview">{@code multiview}</a> feature is not enabled, {@code viewMask} <b>must</b> be 0</li>
+ * <li>The index of the most significant bit in {@code viewMask} <b>must</b> be less than <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxMultiviewViewCount">{@code maxMultiviewViewCount}</a></li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK13#VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO}</li>
+ * <li>If {@code colorAttachmentCount} is not 0, {@code pColorAttachmentFormats} <b>must</b> be a valid pointer to an array of {@code colorAttachmentCount} valid {@code VkFormat} values</li>
+ * <li>{@code depthAttachmentFormat} <b>must</b> be a valid {@code VkFormat} value</li>
+ * <li>{@code stencilAttachmentFormat} <b>must</b> be a valid {@code VkFormat} value</li>
  * </ul>
  * 
  * <h3>Layout</h3>
@@ -51,7 +60,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkFormat {@link #stencilAttachmentFormat};
  * }</code></pre>
  */
-public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCreateInfo> implements NativeResource {
+public class VkPipelineRenderingCreateInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -92,15 +101,6 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
         STENCILATTACHMENTFORMAT = layout.offsetof(6);
     }
 
-    protected VkPipelineRenderingCreateInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPipelineRenderingCreateInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkPipelineRenderingCreateInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkPipelineRenderingCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -114,7 +114,7 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -145,8 +145,6 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
     public VkPipelineRenderingCreateInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Sets the specified value to the {@link #viewMask} field. */
     public VkPipelineRenderingCreateInfo viewMask(@NativeType("uint32_t") int value) { nviewMask(address(), value); return this; }
-    /** Sets the specified value to the {@link #colorAttachmentCount} field. */
-    public VkPipelineRenderingCreateInfo colorAttachmentCount(@NativeType("uint32_t") int value) { ncolorAttachmentCount(address(), value); return this; }
     /** Sets the address of the specified {@link IntBuffer} to the {@link #pColorAttachmentFormats} field. */
     public VkPipelineRenderingCreateInfo pColorAttachmentFormats(@Nullable @NativeType("VkFormat const *") IntBuffer value) { npColorAttachmentFormats(address(), value); return this; }
     /** Sets the specified value to the {@link #depthAttachmentFormat} field. */
@@ -159,7 +157,6 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
         int sType,
         long pNext,
         int viewMask,
-        int colorAttachmentCount,
         @Nullable IntBuffer pColorAttachmentFormats,
         int depthAttachmentFormat,
         int stencilAttachmentFormat
@@ -167,7 +164,6 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
         sType(sType);
         pNext(pNext);
         viewMask(viewMask);
-        colorAttachmentCount(colorAttachmentCount);
         pColorAttachmentFormats(pColorAttachmentFormats);
         depthAttachmentFormat(depthAttachmentFormat);
         stencilAttachmentFormat(stencilAttachmentFormat);
@@ -191,29 +187,29 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
 
     /** Returns a new {@code VkPipelineRenderingCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPipelineRenderingCreateInfo malloc() {
-        return new VkPipelineRenderingCreateInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPipelineRenderingCreateInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineRenderingCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPipelineRenderingCreateInfo calloc() {
-        return new VkPipelineRenderingCreateInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPipelineRenderingCreateInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineRenderingCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VkPipelineRenderingCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPipelineRenderingCreateInfo(memAddress(container), container);
+        return wrap(VkPipelineRenderingCreateInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPipelineRenderingCreateInfo} instance for the specified memory address. */
     public static VkPipelineRenderingCreateInfo create(long address) {
-        return new VkPipelineRenderingCreateInfo(address, null);
+        return wrap(VkPipelineRenderingCreateInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineRenderingCreateInfo createSafe(long address) {
-        return address == NULL ? null : new VkPipelineRenderingCreateInfo(address, null);
+        return address == NULL ? null : wrap(VkPipelineRenderingCreateInfo.class, address);
     }
 
     /**
@@ -222,7 +218,7 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
      * @param capacity the buffer capacity
      */
     public static VkPipelineRenderingCreateInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -231,7 +227,7 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
      * @param capacity the buffer capacity
      */
     public static VkPipelineRenderingCreateInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -241,7 +237,7 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
      */
     public static VkPipelineRenderingCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -251,13 +247,13 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
      * @param capacity the buffer capacity
      */
     public static VkPipelineRenderingCreateInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineRenderingCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -266,7 +262,7 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
      * @param stack the stack from which to allocate
      */
     public static VkPipelineRenderingCreateInfo malloc(MemoryStack stack) {
-        return new VkPipelineRenderingCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPipelineRenderingCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -275,7 +271,7 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
      * @param stack the stack from which to allocate
      */
     public static VkPipelineRenderingCreateInfo calloc(MemoryStack stack) {
-        return new VkPipelineRenderingCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPipelineRenderingCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -285,7 +281,7 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
      * @param capacity the buffer capacity
      */
     public static VkPipelineRenderingCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -295,7 +291,7 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
      * @param capacity the buffer capacity
      */
     public static VkPipelineRenderingCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -324,11 +320,22 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
     /** Sets the specified value to the {@code colorAttachmentCount} field of the specified {@code struct}. */
     public static void ncolorAttachmentCount(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRenderingCreateInfo.COLORATTACHMENTCOUNT, value); }
     /** Unsafe version of {@link #pColorAttachmentFormats(IntBuffer) pColorAttachmentFormats}. */
-    public static void npColorAttachmentFormats(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkPipelineRenderingCreateInfo.PCOLORATTACHMENTFORMATS, memAddressSafe(value)); if (value != null) { ncolorAttachmentCount(struct, value.remaining()); } }
+    public static void npColorAttachmentFormats(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkPipelineRenderingCreateInfo.PCOLORATTACHMENTFORMATS, memAddressSafe(value)); ncolorAttachmentCount(struct, value == null ? 0 : value.remaining()); }
     /** Unsafe version of {@link #depthAttachmentFormat(int) depthAttachmentFormat}. */
     public static void ndepthAttachmentFormat(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRenderingCreateInfo.DEPTHATTACHMENTFORMAT, value); }
     /** Unsafe version of {@link #stencilAttachmentFormat(int) stencilAttachmentFormat}. */
     public static void nstencilAttachmentFormat(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRenderingCreateInfo.STENCILATTACHMENTFORMAT, value); }
+
+    /**
+     * Validates pointer members that should not be {@code NULL}.
+     *
+     * @param struct the struct to validate
+     */
+    public static void validate(long struct) {
+        if (ncolorAttachmentCount(struct) != 0) {
+            check(memGetAddress(struct + VkPipelineRenderingCreateInfo.PCOLORATTACHMENTFORMATS));
+        }
+    }
 
     // -----------------------------------
 
@@ -340,9 +347,9 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
         /**
          * Creates a new {@code VkPipelineRenderingCreateInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPipelineRenderingCreateInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPipelineRenderingCreateInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -399,8 +406,6 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
         public VkPipelineRenderingCreateInfo.Buffer pNext(@NativeType("void const *") long value) { VkPipelineRenderingCreateInfo.npNext(address(), value); return this; }
         /** Sets the specified value to the {@link VkPipelineRenderingCreateInfo#viewMask} field. */
         public VkPipelineRenderingCreateInfo.Buffer viewMask(@NativeType("uint32_t") int value) { VkPipelineRenderingCreateInfo.nviewMask(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPipelineRenderingCreateInfo#colorAttachmentCount} field. */
-        public VkPipelineRenderingCreateInfo.Buffer colorAttachmentCount(@NativeType("uint32_t") int value) { VkPipelineRenderingCreateInfo.ncolorAttachmentCount(address(), value); return this; }
         /** Sets the address of the specified {@link IntBuffer} to the {@link VkPipelineRenderingCreateInfo#pColorAttachmentFormats} field. */
         public VkPipelineRenderingCreateInfo.Buffer pColorAttachmentFormats(@Nullable @NativeType("VkFormat const *") IntBuffer value) { VkPipelineRenderingCreateInfo.npColorAttachmentFormats(address(), value); return this; }
         /** Sets the specified value to the {@link VkPipelineRenderingCreateInfo#depthAttachmentFormat} field. */

@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-exclusive-scissor">Exclusive Scissor Test</a> for more information.</p>
+ * <p>See <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-exclusive-scissor">Exclusive Scissor Test</a> for more information.</p>
  * 
  * <p>If the {@link VkPhysicalDeviceExclusiveScissorFeaturesNV} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceExclusiveScissorFeaturesNV} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
  * 
@@ -39,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #exclusiveScissor};
  * }</code></pre>
  */
-public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysicalDeviceExclusiveScissorFeaturesNV> implements NativeResource {
+public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -68,15 +68,6 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
         EXCLUSIVESCISSOR = layout.offsetof(2);
     }
 
-    protected VkPhysicalDeviceExclusiveScissorFeaturesNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceExclusiveScissorFeaturesNV create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceExclusiveScissorFeaturesNV(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceExclusiveScissorFeaturesNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -90,7 +81,7 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -138,29 +129,29 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
 
     /** Returns a new {@code VkPhysicalDeviceExclusiveScissorFeaturesNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceExclusiveScissorFeaturesNV malloc() {
-        return new VkPhysicalDeviceExclusiveScissorFeaturesNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceExclusiveScissorFeaturesNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceExclusiveScissorFeaturesNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceExclusiveScissorFeaturesNV calloc() {
-        return new VkPhysicalDeviceExclusiveScissorFeaturesNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceExclusiveScissorFeaturesNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceExclusiveScissorFeaturesNV} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceExclusiveScissorFeaturesNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceExclusiveScissorFeaturesNV(memAddress(container), container);
+        return wrap(VkPhysicalDeviceExclusiveScissorFeaturesNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceExclusiveScissorFeaturesNV} instance for the specified memory address. */
     public static VkPhysicalDeviceExclusiveScissorFeaturesNV create(long address) {
-        return new VkPhysicalDeviceExclusiveScissorFeaturesNV(address, null);
+        return wrap(VkPhysicalDeviceExclusiveScissorFeaturesNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceExclusiveScissorFeaturesNV createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceExclusiveScissorFeaturesNV(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceExclusiveScissorFeaturesNV.class, address);
     }
 
     /**
@@ -169,7 +160,7 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceExclusiveScissorFeaturesNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -178,7 +169,7 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceExclusiveScissorFeaturesNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -188,7 +179,7 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
      */
     public static VkPhysicalDeviceExclusiveScissorFeaturesNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -198,13 +189,13 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceExclusiveScissorFeaturesNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceExclusiveScissorFeaturesNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -232,7 +223,7 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceExclusiveScissorFeaturesNV malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceExclusiveScissorFeaturesNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceExclusiveScissorFeaturesNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -241,7 +232,7 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceExclusiveScissorFeaturesNV calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceExclusiveScissorFeaturesNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceExclusiveScissorFeaturesNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -251,7 +242,7 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceExclusiveScissorFeaturesNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -261,7 +252,7 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceExclusiveScissorFeaturesNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -290,9 +281,9 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
         /**
          * Creates a new {@code VkPhysicalDeviceExclusiveScissorFeaturesNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceExclusiveScissorFeaturesNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceExclusiveScissorFeaturesNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -21,9 +21,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>This structure defines a set of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-dependencies-memory">memory dependencies</a>, as well as <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-queue-transfers">queue family ownership transfer operations</a> and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-image-layout-transitions">image layout transitions</a>.</p>
+ * <p>This structure defines a set of <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-dependencies-memory">memory dependencies</a>, as well as <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-queue-transfers">queue family transfer operations</a> and <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-image-layout-transitions">image layout transitions</a>.</p>
  * 
- * <p>Each member of {@code pMemoryBarriers}, {@code pBufferMemoryBarriers}, and {@code pImageMemoryBarriers} defines a separate <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-dependencies-memory">memory dependency</a>.</p>
+ * <p>Each member of {@code pMemoryBarriers}, {@code pBufferMemoryBarriers}, and {@code pImageMemoryBarriers} defines a separate <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-dependencies-memory">memory dependency</a>.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -55,7 +55,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkImageMemoryBarrier2 VkImageMemoryBarrier2} const * {@link #pImageMemoryBarriers};
  * }</code></pre>
  */
-public class VkDependencyInfo extends Struct<VkDependencyInfo> implements NativeResource {
+public class VkDependencyInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -102,15 +102,6 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
         PIMAGEMEMORYBARRIERS = layout.offsetof(8);
     }
 
-    protected VkDependencyInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkDependencyInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkDependencyInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkDependencyInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -124,7 +115,7 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -205,29 +196,29 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
 
     /** Returns a new {@code VkDependencyInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDependencyInfo malloc() {
-        return new VkDependencyInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkDependencyInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkDependencyInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDependencyInfo calloc() {
-        return new VkDependencyInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkDependencyInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkDependencyInfo} instance allocated with {@link BufferUtils}. */
     public static VkDependencyInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkDependencyInfo(memAddress(container), container);
+        return wrap(VkDependencyInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkDependencyInfo} instance for the specified memory address. */
     public static VkDependencyInfo create(long address) {
-        return new VkDependencyInfo(address, null);
+        return wrap(VkDependencyInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDependencyInfo createSafe(long address) {
-        return address == NULL ? null : new VkDependencyInfo(address, null);
+        return address == NULL ? null : wrap(VkDependencyInfo.class, address);
     }
 
     /**
@@ -236,7 +227,7 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
      * @param capacity the buffer capacity
      */
     public static VkDependencyInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -245,7 +236,7 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
      * @param capacity the buffer capacity
      */
     public static VkDependencyInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -255,7 +246,7 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
      */
     public static VkDependencyInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -265,13 +256,13 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
      * @param capacity the buffer capacity
      */
     public static VkDependencyInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDependencyInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -280,7 +271,7 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
      * @param stack the stack from which to allocate
      */
     public static VkDependencyInfo malloc(MemoryStack stack) {
-        return new VkDependencyInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkDependencyInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -289,7 +280,7 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
      * @param stack the stack from which to allocate
      */
     public static VkDependencyInfo calloc(MemoryStack stack) {
-        return new VkDependencyInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkDependencyInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -299,7 +290,7 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
      * @param capacity the buffer capacity
      */
     public static VkDependencyInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -309,7 +300,7 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
      * @param capacity the buffer capacity
      */
     public static VkDependencyInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -379,9 +370,9 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
         /**
          * Creates a new {@code VkDependencyInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDependencyInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkDependencyInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

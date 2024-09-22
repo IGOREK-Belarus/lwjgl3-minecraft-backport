@@ -35,15 +35,13 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link NkVec2 struct nk_vec2} touch_padding;
  *     float spacing;
  *     float border;
- *     float color_factor;
- *     float disabled_factor;
  *     {@link NkHandle nk_handle} userdata;
  *     {@link NkDrawBeginCallbackI nk_draw_begin} draw_begin;
  *     {@link NkDrawEndCallbackI nk_draw_end} draw_end;
  * }</code></pre>
  */
 @NativeType("struct nk_style_toggle")
-public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResource {
+public class NkStyleToggle extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -68,8 +66,6 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
         TOUCH_PADDING,
         SPACING,
         BORDER,
-        COLOR_FACTOR,
-        DISABLED_FACTOR,
         USERDATA,
         DRAW_BEGIN,
         DRAW_END;
@@ -89,8 +85,6 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
             __member(4),
             __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
             __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
-            __member(4),
-            __member(4),
             __member(4),
             __member(4),
             __member(NkHandle.SIZEOF, NkHandle.ALIGNOF),
@@ -116,20 +110,9 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
         TOUCH_PADDING = layout.offsetof(12);
         SPACING = layout.offsetof(13);
         BORDER = layout.offsetof(14);
-        COLOR_FACTOR = layout.offsetof(15);
-        DISABLED_FACTOR = layout.offsetof(16);
-        USERDATA = layout.offsetof(17);
-        DRAW_BEGIN = layout.offsetof(18);
-        DRAW_END = layout.offsetof(19);
-    }
-
-    protected NkStyleToggle(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected NkStyleToggle create(long address, @Nullable ByteBuffer container) {
-        return new NkStyleToggle(address, container);
+        USERDATA = layout.offsetof(15);
+        DRAW_BEGIN = layout.offsetof(16);
+        DRAW_END = layout.offsetof(17);
     }
 
     /**
@@ -188,10 +171,6 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
     public float spacing() { return nspacing(address()); }
     /** @return the value of the {@code border} field. */
     public float border() { return nborder(address()); }
-    /** @return the value of the {@code color_factor} field. */
-    public float color_factor() { return ncolor_factor(address()); }
-    /** @return the value of the {@code disabled_factor} field. */
-    public float disabled_factor() { return ndisabled_factor(address()); }
     /** @return a {@link NkHandle} view of the {@code userdata} field. */
     @NativeType("nk_handle")
     public NkHandle userdata() { return nuserdata(address()); }
@@ -258,10 +237,6 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
     public NkStyleToggle spacing(float value) { nspacing(address(), value); return this; }
     /** Sets the specified value to the {@code border} field. */
     public NkStyleToggle border(float value) { nborder(address(), value); return this; }
-    /** Sets the specified value to the {@code color_factor} field. */
-    public NkStyleToggle color_factor(float value) { ncolor_factor(address(), value); return this; }
-    /** Sets the specified value to the {@code disabled_factor} field. */
-    public NkStyleToggle disabled_factor(float value) { ndisabled_factor(address(), value); return this; }
     /** Copies the specified {@link NkHandle} to the {@code userdata} field. */
     public NkStyleToggle userdata(@NativeType("nk_handle") NkHandle value) { nuserdata(address(), value); return this; }
     /** Passes the {@code userdata} field to the specified {@link java.util.function.Consumer Consumer}. */
@@ -288,8 +263,6 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
         NkVec2 touch_padding,
         float spacing,
         float border,
-        float color_factor,
-        float disabled_factor,
         NkHandle userdata,
         NkDrawBeginCallbackI draw_begin,
         NkDrawEndCallbackI draw_end
@@ -309,8 +282,6 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
         touch_padding(touch_padding);
         spacing(spacing);
         border(border);
-        color_factor(color_factor);
-        disabled_factor(disabled_factor);
         userdata(userdata);
         draw_begin(draw_begin);
         draw_end(draw_end);
@@ -334,29 +305,29 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
 
     /** Returns a new {@code NkStyleToggle} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static NkStyleToggle malloc() {
-        return new NkStyleToggle(nmemAllocChecked(SIZEOF), null);
+        return wrap(NkStyleToggle.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code NkStyleToggle} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static NkStyleToggle calloc() {
-        return new NkStyleToggle(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(NkStyleToggle.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code NkStyleToggle} instance allocated with {@link BufferUtils}. */
     public static NkStyleToggle create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new NkStyleToggle(memAddress(container), container);
+        return wrap(NkStyleToggle.class, memAddress(container), container);
     }
 
     /** Returns a new {@code NkStyleToggle} instance for the specified memory address. */
     public static NkStyleToggle create(long address) {
-        return new NkStyleToggle(address, null);
+        return wrap(NkStyleToggle.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkStyleToggle createSafe(long address) {
-        return address == NULL ? null : new NkStyleToggle(address, null);
+        return address == NULL ? null : wrap(NkStyleToggle.class, address);
     }
 
     /**
@@ -365,7 +336,7 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static NkStyleToggle.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -374,7 +345,7 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static NkStyleToggle.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -384,7 +355,7 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
      */
     public static NkStyleToggle.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -394,13 +365,13 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static NkStyleToggle.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkStyleToggle.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -428,7 +399,7 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
      * @param stack the stack from which to allocate
      */
     public static NkStyleToggle malloc(MemoryStack stack) {
-        return new NkStyleToggle(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(NkStyleToggle.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -437,7 +408,7 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
      * @param stack the stack from which to allocate
      */
     public static NkStyleToggle calloc(MemoryStack stack) {
-        return new NkStyleToggle(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(NkStyleToggle.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -447,7 +418,7 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static NkStyleToggle.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -457,7 +428,7 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
      * @param capacity the buffer capacity
      */
     public static NkStyleToggle.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -492,10 +463,6 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
     public static float nspacing(long struct) { return UNSAFE.getFloat(null, struct + NkStyleToggle.SPACING); }
     /** Unsafe version of {@link #border}. */
     public static float nborder(long struct) { return UNSAFE.getFloat(null, struct + NkStyleToggle.BORDER); }
-    /** Unsafe version of {@link #color_factor}. */
-    public static float ncolor_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleToggle.COLOR_FACTOR); }
-    /** Unsafe version of {@link #disabled_factor}. */
-    public static float ndisabled_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleToggle.DISABLED_FACTOR); }
     /** Unsafe version of {@link #userdata}. */
     public static NkHandle nuserdata(long struct) { return NkHandle.create(struct + NkStyleToggle.USERDATA); }
     /** Unsafe version of {@link #draw_begin}. */
@@ -533,10 +500,6 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
     public static void nspacing(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleToggle.SPACING, value); }
     /** Unsafe version of {@link #border(float) border}. */
     public static void nborder(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleToggle.BORDER, value); }
-    /** Unsafe version of {@link #color_factor(float) color_factor}. */
-    public static void ncolor_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleToggle.COLOR_FACTOR, value); }
-    /** Unsafe version of {@link #disabled_factor(float) disabled_factor}. */
-    public static void ndisabled_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleToggle.DISABLED_FACTOR, value); }
     /** Unsafe version of {@link #userdata(NkHandle) userdata}. */
     public static void nuserdata(long struct, NkHandle value) { memCopy(value.address(), struct + NkStyleToggle.USERDATA, NkHandle.SIZEOF); }
     /** Unsafe version of {@link #draw_begin(NkDrawBeginCallbackI) draw_begin}. */
@@ -554,9 +517,9 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
         /**
          * Creates a new {@code NkStyleToggle.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkStyleToggle#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link NkStyleToggle#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -625,10 +588,6 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
         public float spacing() { return NkStyleToggle.nspacing(address()); }
         /** @return the value of the {@code border} field. */
         public float border() { return NkStyleToggle.nborder(address()); }
-        /** @return the value of the {@code color_factor} field. */
-        public float color_factor() { return NkStyleToggle.ncolor_factor(address()); }
-        /** @return the value of the {@code disabled_factor} field. */
-        public float disabled_factor() { return NkStyleToggle.ndisabled_factor(address()); }
         /** @return a {@link NkHandle} view of the {@code userdata} field. */
         @NativeType("nk_handle")
         public NkHandle userdata() { return NkStyleToggle.nuserdata(address()); }
@@ -695,10 +654,6 @@ public class NkStyleToggle extends Struct<NkStyleToggle> implements NativeResour
         public NkStyleToggle.Buffer spacing(float value) { NkStyleToggle.nspacing(address(), value); return this; }
         /** Sets the specified value to the {@code border} field. */
         public NkStyleToggle.Buffer border(float value) { NkStyleToggle.nborder(address(), value); return this; }
-        /** Sets the specified value to the {@code color_factor} field. */
-        public NkStyleToggle.Buffer color_factor(float value) { NkStyleToggle.ncolor_factor(address(), value); return this; }
-        /** Sets the specified value to the {@code disabled_factor} field. */
-        public NkStyleToggle.Buffer disabled_factor(float value) { NkStyleToggle.ndisabled_factor(address(), value); return this; }
         /** Copies the specified {@link NkHandle} to the {@code userdata} field. */
         public NkStyleToggle.Buffer userdata(@NativeType("nk_handle") NkHandle value) { NkStyleToggle.nuserdata(address(), value); return this; }
         /** Passes the {@code userdata} field to the specified {@link java.util.function.Consumer Consumer}. */

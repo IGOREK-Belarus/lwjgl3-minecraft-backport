@@ -20,18 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>The queue returned by {@code vkGetDeviceQueue2} <b>must</b> have the same {@code flags} value from this structure as that used at device creation time in a {@link VkDeviceQueueCreateInfo} structure.</p>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>Normally, if you create both protected-capable and non-protected-capable queues with the same family, they are treated as separate lists of queues and {@code queueIndex} is relative to the start of the list of queues specified by both {@code queueFamilyIndex} and {@code flags}. However, for historical reasons, some implementations may exhibit different behavior. These divergent implementations instead concatenate the lists of queues and treat {@code queueIndex} as relative to the start of the first list of queues with the given {@code queueFamilyIndex}. This only matters in cases where an application has created both protected-capable and non-protected-capable queues from the same queue family.</p>
- * 
- * <p>For such divergent implementations, the maximum value of {@code queueIndex} is equal to the sum of {@link VkDeviceQueueCreateInfo}{@code ::queueCount} minus one, for all {@link VkDeviceQueueCreateInfo} structures that share a common {@code queueFamilyIndex}.</p>
- * 
- * <p>Such implementations will return {@code NULL} for either the protected or unprotected queues when calling {@code vkGetDeviceQueue2} with {@code queueIndex} in the range zero to {@link VkDeviceQueueCreateInfo}{@code ::queueCount} minus one. In cases where these implementations returned {@code NULL}, the corresponding queues are instead located in the extended range described in the preceding two paragraphs.</p>
- * 
- * <p>This behavior will not be observed on any driver that has passed Vulkan conformance test suite version 1.3.3.0, or any subsequent version. This information can be found by querying {@link VkPhysicalDeviceDriverProperties}{@code ::conformanceVersion}.</p>
- * </div>
+ * <p>The queue returned by {@code vkGetDeviceQueue2} <b>must</b> have the same {@code flags} value from this structure as that used at device creation time in a {@link VkDeviceQueueCreateInfo} structure. If no matching {@code flags} were specified at device creation time, then the handle returned in {@code pQueue} <b>must</b> be {@code NULL}.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
@@ -64,7 +53,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #queueIndex};
  * }</code></pre>
  */
-public class VkDeviceQueueInfo2 extends Struct<VkDeviceQueueInfo2> implements NativeResource {
+public class VkDeviceQueueInfo2 extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -99,15 +88,6 @@ public class VkDeviceQueueInfo2 extends Struct<VkDeviceQueueInfo2> implements Na
         QUEUEINDEX = layout.offsetof(4);
     }
 
-    protected VkDeviceQueueInfo2(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkDeviceQueueInfo2 create(long address, @Nullable ByteBuffer container) {
-        return new VkDeviceQueueInfo2(address, container);
-    }
-
     /**
      * Creates a {@code VkDeviceQueueInfo2} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -121,7 +101,7 @@ public class VkDeviceQueueInfo2 extends Struct<VkDeviceQueueInfo2> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. The {@code pNext} chain of {@link VkDeviceQueueInfo2} <b>can</b> be used to provide additional device queue parameters to {@code vkGetDeviceQueue2}. */
@@ -133,7 +113,7 @@ public class VkDeviceQueueInfo2 extends Struct<VkDeviceQueueInfo2> implements Na
     /** the index of the queue family to which the queue belongs. */
     @NativeType("uint32_t")
     public int queueFamilyIndex() { return nqueueFamilyIndex(address()); }
-    /** the index of the queue to retrieve from within the set of queues that share both the queue family and flags specified. */
+    /** the index within this queue family of the queue to retrieve. */
     @NativeType("uint32_t")
     public int queueIndex() { return nqueueIndex(address()); }
 
@@ -183,29 +163,29 @@ public class VkDeviceQueueInfo2 extends Struct<VkDeviceQueueInfo2> implements Na
 
     /** Returns a new {@code VkDeviceQueueInfo2} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDeviceQueueInfo2 malloc() {
-        return new VkDeviceQueueInfo2(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkDeviceQueueInfo2.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceQueueInfo2} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDeviceQueueInfo2 calloc() {
-        return new VkDeviceQueueInfo2(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkDeviceQueueInfo2.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkDeviceQueueInfo2} instance allocated with {@link BufferUtils}. */
     public static VkDeviceQueueInfo2 create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkDeviceQueueInfo2(memAddress(container), container);
+        return wrap(VkDeviceQueueInfo2.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkDeviceQueueInfo2} instance for the specified memory address. */
     public static VkDeviceQueueInfo2 create(long address) {
-        return new VkDeviceQueueInfo2(address, null);
+        return wrap(VkDeviceQueueInfo2.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceQueueInfo2 createSafe(long address) {
-        return address == NULL ? null : new VkDeviceQueueInfo2(address, null);
+        return address == NULL ? null : wrap(VkDeviceQueueInfo2.class, address);
     }
 
     /**
@@ -214,7 +194,7 @@ public class VkDeviceQueueInfo2 extends Struct<VkDeviceQueueInfo2> implements Na
      * @param capacity the buffer capacity
      */
     public static VkDeviceQueueInfo2.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -223,7 +203,7 @@ public class VkDeviceQueueInfo2 extends Struct<VkDeviceQueueInfo2> implements Na
      * @param capacity the buffer capacity
      */
     public static VkDeviceQueueInfo2.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -233,7 +213,7 @@ public class VkDeviceQueueInfo2 extends Struct<VkDeviceQueueInfo2> implements Na
      */
     public static VkDeviceQueueInfo2.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -243,13 +223,13 @@ public class VkDeviceQueueInfo2 extends Struct<VkDeviceQueueInfo2> implements Na
      * @param capacity the buffer capacity
      */
     public static VkDeviceQueueInfo2.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceQueueInfo2.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -277,7 +257,7 @@ public class VkDeviceQueueInfo2 extends Struct<VkDeviceQueueInfo2> implements Na
      * @param stack the stack from which to allocate
      */
     public static VkDeviceQueueInfo2 malloc(MemoryStack stack) {
-        return new VkDeviceQueueInfo2(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkDeviceQueueInfo2.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -286,7 +266,7 @@ public class VkDeviceQueueInfo2 extends Struct<VkDeviceQueueInfo2> implements Na
      * @param stack the stack from which to allocate
      */
     public static VkDeviceQueueInfo2 calloc(MemoryStack stack) {
-        return new VkDeviceQueueInfo2(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkDeviceQueueInfo2.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -296,7 +276,7 @@ public class VkDeviceQueueInfo2 extends Struct<VkDeviceQueueInfo2> implements Na
      * @param capacity the buffer capacity
      */
     public static VkDeviceQueueInfo2.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -306,7 +286,7 @@ public class VkDeviceQueueInfo2 extends Struct<VkDeviceQueueInfo2> implements Na
      * @param capacity the buffer capacity
      */
     public static VkDeviceQueueInfo2.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -343,9 +323,9 @@ public class VkDeviceQueueInfo2 extends Struct<VkDeviceQueueInfo2> implements Na
         /**
          * Creates a new {@code VkDeviceQueueInfo2.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDeviceQueueInfo2#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkDeviceQueueInfo2#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

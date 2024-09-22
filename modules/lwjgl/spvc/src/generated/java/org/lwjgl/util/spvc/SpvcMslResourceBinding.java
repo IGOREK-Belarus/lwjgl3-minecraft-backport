@@ -16,9 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Deprecated, use {@link SpvcMslResourceBinding2}.
- * 
- * <p>Matches the binding index of a MSL resource for a binding within a descriptor set.</p>
+ * Matches the binding index of a MSL resource for a binding within a descriptor set.
  * 
  * <p>Taken together, the {@code stage}, {@code desc_set} and {@code binding} combine to form a reference to a resource descriptor used in a particular
  * shading stage. If using MSL 2.0 argument buffers, the descriptor set is not marked as a discrete descriptor set, and (for iOS only) the resource is not
@@ -39,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct spvc_msl_resource_binding")
-public class SpvcMslResourceBinding extends Struct<SpvcMslResourceBinding> implements NativeResource {
+public class SpvcMslResourceBinding extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -75,15 +73,6 @@ public class SpvcMslResourceBinding extends Struct<SpvcMslResourceBinding> imple
         MSL_BUFFER = layout.offsetof(3);
         MSL_TEXTURE = layout.offsetof(4);
         MSL_SAMPLER = layout.offsetof(5);
-    }
-
-    protected SpvcMslResourceBinding(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected SpvcMslResourceBinding create(long address, @Nullable ByteBuffer container) {
-        return new SpvcMslResourceBinding(address, container);
     }
 
     /**
@@ -166,29 +155,29 @@ public class SpvcMslResourceBinding extends Struct<SpvcMslResourceBinding> imple
 
     /** Returns a new {@code SpvcMslResourceBinding} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static SpvcMslResourceBinding malloc() {
-        return new SpvcMslResourceBinding(nmemAllocChecked(SIZEOF), null);
+        return wrap(SpvcMslResourceBinding.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code SpvcMslResourceBinding} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static SpvcMslResourceBinding calloc() {
-        return new SpvcMslResourceBinding(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(SpvcMslResourceBinding.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code SpvcMslResourceBinding} instance allocated with {@link BufferUtils}. */
     public static SpvcMslResourceBinding create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new SpvcMslResourceBinding(memAddress(container), container);
+        return wrap(SpvcMslResourceBinding.class, memAddress(container), container);
     }
 
     /** Returns a new {@code SpvcMslResourceBinding} instance for the specified memory address. */
     public static SpvcMslResourceBinding create(long address) {
-        return new SpvcMslResourceBinding(address, null);
+        return wrap(SpvcMslResourceBinding.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static SpvcMslResourceBinding createSafe(long address) {
-        return address == NULL ? null : new SpvcMslResourceBinding(address, null);
+        return address == NULL ? null : wrap(SpvcMslResourceBinding.class, address);
     }
 
     /**
@@ -197,7 +186,7 @@ public class SpvcMslResourceBinding extends Struct<SpvcMslResourceBinding> imple
      * @param capacity the buffer capacity
      */
     public static SpvcMslResourceBinding.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -206,7 +195,7 @@ public class SpvcMslResourceBinding extends Struct<SpvcMslResourceBinding> imple
      * @param capacity the buffer capacity
      */
     public static SpvcMslResourceBinding.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -216,7 +205,7 @@ public class SpvcMslResourceBinding extends Struct<SpvcMslResourceBinding> imple
      */
     public static SpvcMslResourceBinding.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -226,13 +215,13 @@ public class SpvcMslResourceBinding extends Struct<SpvcMslResourceBinding> imple
      * @param capacity the buffer capacity
      */
     public static SpvcMslResourceBinding.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static SpvcMslResourceBinding.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -241,7 +230,7 @@ public class SpvcMslResourceBinding extends Struct<SpvcMslResourceBinding> imple
      * @param stack the stack from which to allocate
      */
     public static SpvcMslResourceBinding malloc(MemoryStack stack) {
-        return new SpvcMslResourceBinding(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(SpvcMslResourceBinding.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -250,7 +239,7 @@ public class SpvcMslResourceBinding extends Struct<SpvcMslResourceBinding> imple
      * @param stack the stack from which to allocate
      */
     public static SpvcMslResourceBinding calloc(MemoryStack stack) {
-        return new SpvcMslResourceBinding(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(SpvcMslResourceBinding.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -260,7 +249,7 @@ public class SpvcMslResourceBinding extends Struct<SpvcMslResourceBinding> imple
      * @param capacity the buffer capacity
      */
     public static SpvcMslResourceBinding.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -270,7 +259,7 @@ public class SpvcMslResourceBinding extends Struct<SpvcMslResourceBinding> imple
      * @param capacity the buffer capacity
      */
     public static SpvcMslResourceBinding.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -311,9 +300,9 @@ public class SpvcMslResourceBinding extends Struct<SpvcMslResourceBinding> imple
         /**
          * Creates a new {@code SpvcMslResourceBinding.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link SpvcMslResourceBinding#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link SpvcMslResourceBinding#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

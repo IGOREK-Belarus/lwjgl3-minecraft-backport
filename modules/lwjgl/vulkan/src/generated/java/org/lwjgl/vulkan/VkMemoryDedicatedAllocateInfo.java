@@ -22,11 +22,11 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>At least one of {@code image} and {@code buffer} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
- * <li>If {@code image} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and the memory is not an imported Android Hardware Buffer , {@link VkMemoryAllocateInfo}{@code ::allocationSize} <b>must</b> equal the {@link VkMemoryRequirements}{@code ::size} of the image</li>
+ * <li>If {@code image} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@link VkMemoryAllocateInfo}{@code ::allocationSize} <b>must</b> equal the {@link VkMemoryRequirements}{@code ::size} of the image</li>
  * <li>If {@code image} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code image} <b>must</b> have been created without {@link VK10#VK_IMAGE_CREATE_SPARSE_BINDING_BIT IMAGE_CREATE_SPARSE_BINDING_BIT} set in {@link VkImageCreateInfo}{@code ::flags}</li>
- * <li>If {@code buffer} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and the memory is not an imported Android Hardware Buffer , {@link VkMemoryAllocateInfo}{@code ::allocationSize} <b>must</b> equal the {@link VkMemoryRequirements}{@code ::size} of the buffer</li>
+ * <li>If {@code buffer} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@link VkMemoryAllocateInfo}{@code ::allocationSize} <b>must</b> equal the {@link VkMemoryRequirements}{@code ::size} of the buffer</li>
  * <li>If {@code buffer} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code buffer} <b>must</b> have been created without {@link VK10#VK_BUFFER_CREATE_SPARSE_BINDING_BIT BUFFER_CREATE_SPARSE_BINDING_BIT} set in {@link VkBufferCreateInfo}{@code ::flags}</li>
- * <li>If {@code image} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and {@link VkMemoryAllocateInfo} defines a memory import operation with handle type {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT}, {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT}, {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_BIT EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_BIT}, {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_KMT_BIT EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_KMT_BIT}, {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_HEAP_BIT EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_HEAP_BIT}, or {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT}, and the external handle was created by the Vulkan API, then the memory being imported <b>must</b> also be a dedicated image allocation and {@code image} <b>must</b> be identical to the image associated with the imported memory</li>
+ * <li>If {@code image} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and {@link VkMemoryAllocateInfo} defines a memory import operation with handle type {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT}, {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT}, {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_BIT EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_BIT}, {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_KMT_BIT EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_KMT_BIT}, {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_HEAP_BIT EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_HEAP_BIT}, or {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT}, and the external handle was created by the Vulkan API, then the memory being imported <b>must</b> also be a dedicated image allocation and {@code image} must be identical to the image associated with the imported memory</li>
  * <li>If {@code buffer} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and {@link VkMemoryAllocateInfo} defines a memory import operation with handle type {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT}, {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT}, {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_BIT EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_BIT}, {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_KMT_BIT EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_KMT_BIT}, {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_HEAP_BIT EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_HEAP_BIT}, or {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT}, and the external handle was created by the Vulkan API, then the memory being imported <b>must</b> also be a dedicated buffer allocation and {@code buffer} <b>must</b> be identical to the buffer associated with the imported memory</li>
  * <li>If {@code image} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and {@link VkMemoryAllocateInfo} defines a memory import operation with handle type {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT}, the memory being imported <b>must</b> also be a dedicated image allocation and {@code image} <b>must</b> be identical to the image associated with the imported memory</li>
  * <li>If {@code buffer} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and {@link VkMemoryAllocateInfo} defines a memory import operation with handle type {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT}, the memory being imported <b>must</b> also be a dedicated buffer allocation and {@code buffer} <b>must</b> be identical to the buffer associated with the imported memory</li>
@@ -52,7 +52,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBuffer {@link #buffer};
  * }</code></pre>
  */
-public class VkMemoryDedicatedAllocateInfo extends Struct<VkMemoryDedicatedAllocateInfo> implements NativeResource {
+public class VkMemoryDedicatedAllocateInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -84,15 +84,6 @@ public class VkMemoryDedicatedAllocateInfo extends Struct<VkMemoryDedicatedAlloc
         BUFFER = layout.offsetof(3);
     }
 
-    protected VkMemoryDedicatedAllocateInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkMemoryDedicatedAllocateInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkMemoryDedicatedAllocateInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkMemoryDedicatedAllocateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -106,7 +97,7 @@ public class VkMemoryDedicatedAllocateInfo extends Struct<VkMemoryDedicatedAlloc
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -161,29 +152,29 @@ public class VkMemoryDedicatedAllocateInfo extends Struct<VkMemoryDedicatedAlloc
 
     /** Returns a new {@code VkMemoryDedicatedAllocateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkMemoryDedicatedAllocateInfo malloc() {
-        return new VkMemoryDedicatedAllocateInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkMemoryDedicatedAllocateInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkMemoryDedicatedAllocateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkMemoryDedicatedAllocateInfo calloc() {
-        return new VkMemoryDedicatedAllocateInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkMemoryDedicatedAllocateInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkMemoryDedicatedAllocateInfo} instance allocated with {@link BufferUtils}. */
     public static VkMemoryDedicatedAllocateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkMemoryDedicatedAllocateInfo(memAddress(container), container);
+        return wrap(VkMemoryDedicatedAllocateInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkMemoryDedicatedAllocateInfo} instance for the specified memory address. */
     public static VkMemoryDedicatedAllocateInfo create(long address) {
-        return new VkMemoryDedicatedAllocateInfo(address, null);
+        return wrap(VkMemoryDedicatedAllocateInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMemoryDedicatedAllocateInfo createSafe(long address) {
-        return address == NULL ? null : new VkMemoryDedicatedAllocateInfo(address, null);
+        return address == NULL ? null : wrap(VkMemoryDedicatedAllocateInfo.class, address);
     }
 
     /**
@@ -192,7 +183,7 @@ public class VkMemoryDedicatedAllocateInfo extends Struct<VkMemoryDedicatedAlloc
      * @param capacity the buffer capacity
      */
     public static VkMemoryDedicatedAllocateInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -201,7 +192,7 @@ public class VkMemoryDedicatedAllocateInfo extends Struct<VkMemoryDedicatedAlloc
      * @param capacity the buffer capacity
      */
     public static VkMemoryDedicatedAllocateInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -211,7 +202,7 @@ public class VkMemoryDedicatedAllocateInfo extends Struct<VkMemoryDedicatedAlloc
      */
     public static VkMemoryDedicatedAllocateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -221,13 +212,13 @@ public class VkMemoryDedicatedAllocateInfo extends Struct<VkMemoryDedicatedAlloc
      * @param capacity the buffer capacity
      */
     public static VkMemoryDedicatedAllocateInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMemoryDedicatedAllocateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -255,7 +246,7 @@ public class VkMemoryDedicatedAllocateInfo extends Struct<VkMemoryDedicatedAlloc
      * @param stack the stack from which to allocate
      */
     public static VkMemoryDedicatedAllocateInfo malloc(MemoryStack stack) {
-        return new VkMemoryDedicatedAllocateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkMemoryDedicatedAllocateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -264,7 +255,7 @@ public class VkMemoryDedicatedAllocateInfo extends Struct<VkMemoryDedicatedAlloc
      * @param stack the stack from which to allocate
      */
     public static VkMemoryDedicatedAllocateInfo calloc(MemoryStack stack) {
-        return new VkMemoryDedicatedAllocateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkMemoryDedicatedAllocateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -274,7 +265,7 @@ public class VkMemoryDedicatedAllocateInfo extends Struct<VkMemoryDedicatedAlloc
      * @param capacity the buffer capacity
      */
     public static VkMemoryDedicatedAllocateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -284,7 +275,7 @@ public class VkMemoryDedicatedAllocateInfo extends Struct<VkMemoryDedicatedAlloc
      * @param capacity the buffer capacity
      */
     public static VkMemoryDedicatedAllocateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -317,9 +308,9 @@ public class VkMemoryDedicatedAllocateInfo extends Struct<VkMemoryDedicatedAlloc
         /**
          * Creates a new {@code VkMemoryDedicatedAllocateInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkMemoryDedicatedAllocateInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkMemoryDedicatedAllocateInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -39,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkDisplayPowerStateEXT {@link #powerState};
  * }</code></pre>
  */
-public class VkDisplayPowerInfoEXT extends Struct<VkDisplayPowerInfoEXT> implements NativeResource {
+public class VkDisplayPowerInfoEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -68,15 +68,6 @@ public class VkDisplayPowerInfoEXT extends Struct<VkDisplayPowerInfoEXT> impleme
         POWERSTATE = layout.offsetof(2);
     }
 
-    protected VkDisplayPowerInfoEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkDisplayPowerInfoEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkDisplayPowerInfoEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkDisplayPowerInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -90,7 +81,7 @@ public class VkDisplayPowerInfoEXT extends Struct<VkDisplayPowerInfoEXT> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -138,29 +129,29 @@ public class VkDisplayPowerInfoEXT extends Struct<VkDisplayPowerInfoEXT> impleme
 
     /** Returns a new {@code VkDisplayPowerInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDisplayPowerInfoEXT malloc() {
-        return new VkDisplayPowerInfoEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkDisplayPowerInfoEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkDisplayPowerInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDisplayPowerInfoEXT calloc() {
-        return new VkDisplayPowerInfoEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkDisplayPowerInfoEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkDisplayPowerInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkDisplayPowerInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkDisplayPowerInfoEXT(memAddress(container), container);
+        return wrap(VkDisplayPowerInfoEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkDisplayPowerInfoEXT} instance for the specified memory address. */
     public static VkDisplayPowerInfoEXT create(long address) {
-        return new VkDisplayPowerInfoEXT(address, null);
+        return wrap(VkDisplayPowerInfoEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDisplayPowerInfoEXT createSafe(long address) {
-        return address == NULL ? null : new VkDisplayPowerInfoEXT(address, null);
+        return address == NULL ? null : wrap(VkDisplayPowerInfoEXT.class, address);
     }
 
     /**
@@ -169,7 +160,7 @@ public class VkDisplayPowerInfoEXT extends Struct<VkDisplayPowerInfoEXT> impleme
      * @param capacity the buffer capacity
      */
     public static VkDisplayPowerInfoEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -178,7 +169,7 @@ public class VkDisplayPowerInfoEXT extends Struct<VkDisplayPowerInfoEXT> impleme
      * @param capacity the buffer capacity
      */
     public static VkDisplayPowerInfoEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -188,7 +179,7 @@ public class VkDisplayPowerInfoEXT extends Struct<VkDisplayPowerInfoEXT> impleme
      */
     public static VkDisplayPowerInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -198,13 +189,13 @@ public class VkDisplayPowerInfoEXT extends Struct<VkDisplayPowerInfoEXT> impleme
      * @param capacity the buffer capacity
      */
     public static VkDisplayPowerInfoEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDisplayPowerInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -232,7 +223,7 @@ public class VkDisplayPowerInfoEXT extends Struct<VkDisplayPowerInfoEXT> impleme
      * @param stack the stack from which to allocate
      */
     public static VkDisplayPowerInfoEXT malloc(MemoryStack stack) {
-        return new VkDisplayPowerInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkDisplayPowerInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -241,7 +232,7 @@ public class VkDisplayPowerInfoEXT extends Struct<VkDisplayPowerInfoEXT> impleme
      * @param stack the stack from which to allocate
      */
     public static VkDisplayPowerInfoEXT calloc(MemoryStack stack) {
-        return new VkDisplayPowerInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkDisplayPowerInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -251,7 +242,7 @@ public class VkDisplayPowerInfoEXT extends Struct<VkDisplayPowerInfoEXT> impleme
      * @param capacity the buffer capacity
      */
     public static VkDisplayPowerInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -261,7 +252,7 @@ public class VkDisplayPowerInfoEXT extends Struct<VkDisplayPowerInfoEXT> impleme
      * @param capacity the buffer capacity
      */
     public static VkDisplayPowerInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -290,9 +281,9 @@ public class VkDisplayPowerInfoEXT extends Struct<VkDisplayPowerInfoEXT> impleme
         /**
          * Creates a new {@code VkDisplayPowerInfoEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDisplayPowerInfoEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkDisplayPowerInfoEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

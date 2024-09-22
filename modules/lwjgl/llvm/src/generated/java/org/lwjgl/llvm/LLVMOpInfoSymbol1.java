@@ -38,7 +38,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct LLVMOpInfoSymbol1")
-public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements NativeResource {
+public class LLVMOpInfoSymbol1 extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -65,15 +65,6 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
         PRESENT = layout.offsetof(0);
         NAME = layout.offsetof(1);
         VALUE = layout.offsetof(2);
-    }
-
-    protected LLVMOpInfoSymbol1(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected LLVMOpInfoSymbol1 create(long address, @Nullable ByteBuffer container) {
-        return new LLVMOpInfoSymbol1(address, container);
     }
 
     /**
@@ -140,29 +131,29 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
 
     /** Returns a new {@code LLVMOpInfoSymbol1} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static LLVMOpInfoSymbol1 malloc() {
-        return new LLVMOpInfoSymbol1(nmemAllocChecked(SIZEOF), null);
+        return wrap(LLVMOpInfoSymbol1.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code LLVMOpInfoSymbol1} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static LLVMOpInfoSymbol1 calloc() {
-        return new LLVMOpInfoSymbol1(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(LLVMOpInfoSymbol1.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code LLVMOpInfoSymbol1} instance allocated with {@link BufferUtils}. */
     public static LLVMOpInfoSymbol1 create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new LLVMOpInfoSymbol1(memAddress(container), container);
+        return wrap(LLVMOpInfoSymbol1.class, memAddress(container), container);
     }
 
     /** Returns a new {@code LLVMOpInfoSymbol1} instance for the specified memory address. */
     public static LLVMOpInfoSymbol1 create(long address) {
-        return new LLVMOpInfoSymbol1(address, null);
+        return wrap(LLVMOpInfoSymbol1.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static LLVMOpInfoSymbol1 createSafe(long address) {
-        return address == NULL ? null : new LLVMOpInfoSymbol1(address, null);
+        return address == NULL ? null : wrap(LLVMOpInfoSymbol1.class, address);
     }
 
     /**
@@ -171,7 +162,7 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
      * @param capacity the buffer capacity
      */
     public static LLVMOpInfoSymbol1.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -180,7 +171,7 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
      * @param capacity the buffer capacity
      */
     public static LLVMOpInfoSymbol1.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -190,7 +181,7 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
      */
     public static LLVMOpInfoSymbol1.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -200,13 +191,13 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
      * @param capacity the buffer capacity
      */
     public static LLVMOpInfoSymbol1.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static LLVMOpInfoSymbol1.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -234,7 +225,7 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
      * @param stack the stack from which to allocate
      */
     public static LLVMOpInfoSymbol1 malloc(MemoryStack stack) {
-        return new LLVMOpInfoSymbol1(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(LLVMOpInfoSymbol1.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -243,7 +234,7 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
      * @param stack the stack from which to allocate
      */
     public static LLVMOpInfoSymbol1 calloc(MemoryStack stack) {
-        return new LLVMOpInfoSymbol1(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(LLVMOpInfoSymbol1.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -253,7 +244,7 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
      * @param capacity the buffer capacity
      */
     public static LLVMOpInfoSymbol1.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -263,7 +254,7 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
      * @param capacity the buffer capacity
      */
     public static LLVMOpInfoSymbol1.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -297,9 +288,9 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
         /**
          * Creates a new {@code LLVMOpInfoSymbol1.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link LLVMOpInfoSymbol1#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link LLVMOpInfoSymbol1#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -34,12 +34,10 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float indent;
  *     {@link NkVec2 struct nk_vec2} padding;
  *     {@link NkVec2 struct nk_vec2} spacing;
- *     float color_factor;
- *     float disabled_factor;
  * }</code></pre>
  */
 @NativeType("struct nk_style_tab")
-public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
+public class NkStyleTab extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -62,9 +60,7 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
         ROUNDING,
         INDENT,
         PADDING,
-        SPACING,
-        COLOR_FACTOR,
-        DISABLED_FACTOR;
+        SPACING;
 
     static {
         Layout layout = __struct(
@@ -81,9 +77,7 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
             __member(4),
             __member(4),
             __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
-            __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
-            __member(4),
-            __member(4)
+            __member(NkVec2.SIZEOF, NkVec2.ALIGNOF)
         );
 
         SIZEOF = layout.getSize();
@@ -103,17 +97,6 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
         INDENT = layout.offsetof(11);
         PADDING = layout.offsetof(12);
         SPACING = layout.offsetof(13);
-        COLOR_FACTOR = layout.offsetof(14);
-        DISABLED_FACTOR = layout.offsetof(15);
-    }
-
-    protected NkStyleTab(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected NkStyleTab create(long address, @Nullable ByteBuffer container) {
-        return new NkStyleTab(address, container);
     }
 
     /**
@@ -168,10 +151,6 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
     /** @return a {@link NkVec2} view of the {@code spacing} field. */
     @NativeType("struct nk_vec2")
     public NkVec2 spacing() { return nspacing(address()); }
-    /** @return the value of the {@code color_factor} field. */
-    public float color_factor() { return ncolor_factor(address()); }
-    /** @return the value of the {@code disabled_factor} field. */
-    public float disabled_factor() { return ndisabled_factor(address()); }
 
     /** Copies the specified {@link NkStyleItem} to the {@code background} field. */
     public NkStyleTab background(@NativeType("struct nk_style_item") NkStyleItem value) { nbackground(address(), value); return this; }
@@ -219,10 +198,6 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
     public NkStyleTab spacing(@NativeType("struct nk_vec2") NkVec2 value) { nspacing(address(), value); return this; }
     /** Passes the {@code spacing} field to the specified {@link java.util.function.Consumer Consumer}. */
     public NkStyleTab spacing(java.util.function.Consumer<NkVec2> consumer) { consumer.accept(spacing()); return this; }
-    /** Sets the specified value to the {@code color_factor} field. */
-    public NkStyleTab color_factor(float value) { ncolor_factor(address(), value); return this; }
-    /** Sets the specified value to the {@code disabled_factor} field. */
-    public NkStyleTab disabled_factor(float value) { ndisabled_factor(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public NkStyleTab set(
@@ -239,9 +214,7 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
         float rounding,
         float indent,
         NkVec2 padding,
-        NkVec2 spacing,
-        float color_factor,
-        float disabled_factor
+        NkVec2 spacing
     ) {
         background(background);
         border_color(border_color);
@@ -257,8 +230,6 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
         indent(indent);
         padding(padding);
         spacing(spacing);
-        color_factor(color_factor);
-        disabled_factor(disabled_factor);
 
         return this;
     }
@@ -279,29 +250,29 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
 
     /** Returns a new {@code NkStyleTab} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static NkStyleTab malloc() {
-        return new NkStyleTab(nmemAllocChecked(SIZEOF), null);
+        return wrap(NkStyleTab.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code NkStyleTab} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static NkStyleTab calloc() {
-        return new NkStyleTab(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(NkStyleTab.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code NkStyleTab} instance allocated with {@link BufferUtils}. */
     public static NkStyleTab create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new NkStyleTab(memAddress(container), container);
+        return wrap(NkStyleTab.class, memAddress(container), container);
     }
 
     /** Returns a new {@code NkStyleTab} instance for the specified memory address. */
     public static NkStyleTab create(long address) {
-        return new NkStyleTab(address, null);
+        return wrap(NkStyleTab.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkStyleTab createSafe(long address) {
-        return address == NULL ? null : new NkStyleTab(address, null);
+        return address == NULL ? null : wrap(NkStyleTab.class, address);
     }
 
     /**
@@ -310,7 +281,7 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkStyleTab.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -319,7 +290,7 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkStyleTab.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -329,7 +300,7 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
      */
     public static NkStyleTab.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -339,13 +310,13 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkStyleTab.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkStyleTab.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -373,7 +344,7 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static NkStyleTab malloc(MemoryStack stack) {
-        return new NkStyleTab(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(NkStyleTab.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -382,7 +353,7 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static NkStyleTab calloc(MemoryStack stack) {
-        return new NkStyleTab(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(NkStyleTab.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -392,7 +363,7 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkStyleTab.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -402,7 +373,7 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkStyleTab.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -435,10 +406,6 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
     public static NkVec2 npadding(long struct) { return NkVec2.create(struct + NkStyleTab.PADDING); }
     /** Unsafe version of {@link #spacing}. */
     public static NkVec2 nspacing(long struct) { return NkVec2.create(struct + NkStyleTab.SPACING); }
-    /** Unsafe version of {@link #color_factor}. */
-    public static float ncolor_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleTab.COLOR_FACTOR); }
-    /** Unsafe version of {@link #disabled_factor}. */
-    public static float ndisabled_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleTab.DISABLED_FACTOR); }
 
     /** Unsafe version of {@link #background(NkStyleItem) background}. */
     public static void nbackground(long struct, NkStyleItem value) { memCopy(value.address(), struct + NkStyleTab.BACKGROUND, NkStyleItem.SIZEOF); }
@@ -468,10 +435,6 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
     public static void npadding(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleTab.PADDING, NkVec2.SIZEOF); }
     /** Unsafe version of {@link #spacing(NkVec2) spacing}. */
     public static void nspacing(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleTab.SPACING, NkVec2.SIZEOF); }
-    /** Unsafe version of {@link #color_factor(float) color_factor}. */
-    public static void ncolor_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleTab.COLOR_FACTOR, value); }
-    /** Unsafe version of {@link #disabled_factor(float) disabled_factor}. */
-    public static void ndisabled_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleTab.DISABLED_FACTOR, value); }
 
     // -----------------------------------
 
@@ -483,9 +446,9 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
         /**
          * Creates a new {@code NkStyleTab.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkStyleTab#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link NkStyleTab#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -550,10 +513,6 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
         /** @return a {@link NkVec2} view of the {@code spacing} field. */
         @NativeType("struct nk_vec2")
         public NkVec2 spacing() { return NkStyleTab.nspacing(address()); }
-        /** @return the value of the {@code color_factor} field. */
-        public float color_factor() { return NkStyleTab.ncolor_factor(address()); }
-        /** @return the value of the {@code disabled_factor} field. */
-        public float disabled_factor() { return NkStyleTab.ndisabled_factor(address()); }
 
         /** Copies the specified {@link NkStyleItem} to the {@code background} field. */
         public NkStyleTab.Buffer background(@NativeType("struct nk_style_item") NkStyleItem value) { NkStyleTab.nbackground(address(), value); return this; }
@@ -601,10 +560,6 @@ public class NkStyleTab extends Struct<NkStyleTab> implements NativeResource {
         public NkStyleTab.Buffer spacing(@NativeType("struct nk_vec2") NkVec2 value) { NkStyleTab.nspacing(address(), value); return this; }
         /** Passes the {@code spacing} field to the specified {@link java.util.function.Consumer Consumer}. */
         public NkStyleTab.Buffer spacing(java.util.function.Consumer<NkVec2> consumer) { consumer.accept(spacing()); return this; }
-        /** Sets the specified value to the {@code color_factor} field. */
-        public NkStyleTab.Buffer color_factor(float value) { NkStyleTab.ncolor_factor(address(), value); return this; }
-        /** Sets the specified value to the {@code disabled_factor} field. */
-        public NkStyleTab.Buffer disabled_factor(float value) { NkStyleTab.ndisabled_factor(address(), value); return this; }
 
     }
 

@@ -43,7 +43,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkDeviceOrHostAddressConstKHR VkDeviceOrHostAddressConstKHR} {@link #vertexData};
  * }</code></pre>
  */
-public class VkAccelerationStructureGeometryMotionTrianglesDataNV extends Struct<VkAccelerationStructureGeometryMotionTrianglesDataNV> implements NativeResource {
+public class VkAccelerationStructureGeometryMotionTrianglesDataNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -72,15 +72,6 @@ public class VkAccelerationStructureGeometryMotionTrianglesDataNV extends Struct
         VERTEXDATA = layout.offsetof(2);
     }
 
-    protected VkAccelerationStructureGeometryMotionTrianglesDataNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkAccelerationStructureGeometryMotionTrianglesDataNV create(long address, @Nullable ByteBuffer container) {
-        return new VkAccelerationStructureGeometryMotionTrianglesDataNV(address, container);
-    }
-
     /**
      * Creates a {@code VkAccelerationStructureGeometryMotionTrianglesDataNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -94,7 +85,7 @@ public class VkAccelerationStructureGeometryMotionTrianglesDataNV extends Struct
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -143,29 +134,29 @@ public class VkAccelerationStructureGeometryMotionTrianglesDataNV extends Struct
 
     /** Returns a new {@code VkAccelerationStructureGeometryMotionTrianglesDataNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureGeometryMotionTrianglesDataNV malloc() {
-        return new VkAccelerationStructureGeometryMotionTrianglesDataNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkAccelerationStructureGeometryMotionTrianglesDataNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkAccelerationStructureGeometryMotionTrianglesDataNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureGeometryMotionTrianglesDataNV calloc() {
-        return new VkAccelerationStructureGeometryMotionTrianglesDataNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkAccelerationStructureGeometryMotionTrianglesDataNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkAccelerationStructureGeometryMotionTrianglesDataNV} instance allocated with {@link BufferUtils}. */
     public static VkAccelerationStructureGeometryMotionTrianglesDataNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkAccelerationStructureGeometryMotionTrianglesDataNV(memAddress(container), container);
+        return wrap(VkAccelerationStructureGeometryMotionTrianglesDataNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkAccelerationStructureGeometryMotionTrianglesDataNV} instance for the specified memory address. */
     public static VkAccelerationStructureGeometryMotionTrianglesDataNV create(long address) {
-        return new VkAccelerationStructureGeometryMotionTrianglesDataNV(address, null);
+        return wrap(VkAccelerationStructureGeometryMotionTrianglesDataNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureGeometryMotionTrianglesDataNV createSafe(long address) {
-        return address == NULL ? null : new VkAccelerationStructureGeometryMotionTrianglesDataNV(address, null);
+        return address == NULL ? null : wrap(VkAccelerationStructureGeometryMotionTrianglesDataNV.class, address);
     }
 
     /**
@@ -174,7 +165,7 @@ public class VkAccelerationStructureGeometryMotionTrianglesDataNV extends Struct
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureGeometryMotionTrianglesDataNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -183,7 +174,7 @@ public class VkAccelerationStructureGeometryMotionTrianglesDataNV extends Struct
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureGeometryMotionTrianglesDataNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -193,7 +184,7 @@ public class VkAccelerationStructureGeometryMotionTrianglesDataNV extends Struct
      */
     public static VkAccelerationStructureGeometryMotionTrianglesDataNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -203,13 +194,13 @@ public class VkAccelerationStructureGeometryMotionTrianglesDataNV extends Struct
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureGeometryMotionTrianglesDataNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureGeometryMotionTrianglesDataNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -218,7 +209,7 @@ public class VkAccelerationStructureGeometryMotionTrianglesDataNV extends Struct
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureGeometryMotionTrianglesDataNV malloc(MemoryStack stack) {
-        return new VkAccelerationStructureGeometryMotionTrianglesDataNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkAccelerationStructureGeometryMotionTrianglesDataNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -227,7 +218,7 @@ public class VkAccelerationStructureGeometryMotionTrianglesDataNV extends Struct
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureGeometryMotionTrianglesDataNV calloc(MemoryStack stack) {
-        return new VkAccelerationStructureGeometryMotionTrianglesDataNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkAccelerationStructureGeometryMotionTrianglesDataNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -237,7 +228,7 @@ public class VkAccelerationStructureGeometryMotionTrianglesDataNV extends Struct
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureGeometryMotionTrianglesDataNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -247,7 +238,7 @@ public class VkAccelerationStructureGeometryMotionTrianglesDataNV extends Struct
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureGeometryMotionTrianglesDataNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -276,9 +267,9 @@ public class VkAccelerationStructureGeometryMotionTrianglesDataNV extends Struct
         /**
          * Creates a new {@code VkAccelerationStructureGeometryMotionTrianglesDataNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkAccelerationStructureGeometryMotionTrianglesDataNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkAccelerationStructureGeometryMotionTrianglesDataNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

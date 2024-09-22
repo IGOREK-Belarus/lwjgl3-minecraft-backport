@@ -11,9 +11,7 @@ import openxr.*
 val EXT_hand_tracking = "EXTHandTracking".nativeClassXR("EXT_hand_tracking", type = "instance", postfix = "EXT") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_EXT_hand_tracking">XR_EXT_hand_tracking</a> extension.
-
-        This extension enables applications to locate the individual joints of hand tracking inputs. It enables applications to render hands in XR experiences and interact with virtual objects using hand joints.
+        The $templateName extension.
         """
 
     IntConstant(
@@ -158,7 +156,7 @@ val EXT_hand_tracking = "EXTHandTracking".nativeClassXR("EXT_hand_tracking", typ
             </ul></dd>
         </dl>
 
-        If the system does not support hand tracking, runtime <b>must</b> return #ERROR_FEATURE_UNSUPPORTED from #CreateHandTrackerEXT(). In this case, the runtime <b>must</b> return #FALSE for ##XrSystemHandTrackingPropertiesEXT{@code ::supportsHandTracking} when the function #GetSystemProperties() is called, so that the application <b>can</b> avoid creating a hand tracker.
+        If the system does not support hand tracking, runtime <b>must</b> return #ERROR_FEATURE_UNSUPPORTED from #CreateHandTrackerEXT(). In this case, the runtime <b>must</b> return #FALSE for {@code supportsHandTracking} in ##XrSystemHandTrackingPropertiesEXT when the function #GetSystemProperties() is called, so that the application <b>can</b> avoid creating a hand tracker.
 
         <h5>See Also</h5>
         ##XrHandTrackerCreateInfoEXT

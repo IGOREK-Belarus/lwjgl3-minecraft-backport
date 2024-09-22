@@ -52,13 +52,15 @@ public final class CL {
     public static void create() {
         SharedLibrary CL;
         switch (Platform.get()) {
-            case FREEBSD:
             case LINUX:
             case WINDOWS:
                 CL = Library.loadNative(CL.class, "org.lwjgl.opencl", Configuration.OPENCL_LIBRARY_NAME, "OpenCL");
                 break;
             case MACOSX:
-                CL = Library.loadNative(CL.class, "org.lwjgl.opencl", Configuration.OPENCL_LIBRARY_NAME, "/System/Library/Frameworks/OpenCL.framework/Versions/Current/OpenCL");
+                String override = Configuration.OPENCL_LIBRARY_NAME.get();
+                CL = override != null
+                    ? Library.loadNative(CL.class, "org.lwjgl.opencl", override)
+                    : MacOSXLibrary.getWithIdentifier("com.apple.opencl");
                 break;
             default:
                 throw new IllegalStateException();
@@ -163,7 +165,7 @@ public final class CL {
             if (address == NULL) {
                 address = library.getFunctionAddress(functionName);
                 if (address == NULL && Checks.DEBUG_FUNCTIONS) {
-                    apiLogMissing("CL", functionName);
+                    apiLog("Failed to locate address for CL function " + memASCII(functionName));
                 }
             }
 
@@ -327,13 +329,13 @@ public final class CL {
     }
 
     private static void addCLVersions(int MAJOR, int MINOR, Set<String> supportedExtensions, String postfix, int[][] versions) {
-        for (int M = 1; M <= min(MAJOR, versions.length); M++) {
-            for (int m : versions[M - 1]) {
-                if (M == MAJOR && MINOR < m) {
+        for (int major = 1; major <= min(MAJOR, versions.length); major++) {
+            for (int minor : versions[major - 1]) {
+                if (major == MAJOR && MINOR < minor) {
                     break;
                 }
 
-                supportedExtensions.add("OpenCL" + M + m + postfix);
+                supportedExtensions.add(String.format("OpenCL%d%d%s", major, minor, postfix));
             }
         }
     }

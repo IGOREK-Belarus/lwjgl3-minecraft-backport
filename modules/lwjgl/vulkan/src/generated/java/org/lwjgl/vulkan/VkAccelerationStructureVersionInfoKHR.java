@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>{@code pVersionData} is a <em>pointer</em> to an array of 2×{@link VK10#VK_UUID_SIZE UUID_SIZE} {@code uint8_t} values instead of two {@link VK10#VK_UUID_SIZE UUID_SIZE} arrays as the expected use case for this member is to be pointed at the header of a previously serialized acceleration structure (via {@link KHRAccelerationStructure#vkCmdCopyAccelerationStructureToMemoryKHR CmdCopyAccelerationStructureToMemoryKHR} or {@link KHRAccelerationStructure#vkCopyAccelerationStructureToMemoryKHR CopyAccelerationStructureToMemoryKHR}) that is loaded in memory. Using arrays would necessitate extra memory copies of the UUIDs.</p>
+ * <p>{@code pVersionData} is a <em>pointer</em> to an array of 2*{@link VK10#VK_UUID_SIZE UUID_SIZE} {@code uint8_t} values instead of two {@link VK10#VK_UUID_SIZE UUID_SIZE} arrays as the expected use case for this member is to be pointed at the header of an previously serialized acceleration structure (via {@link KHRAccelerationStructure#vkCmdCopyAccelerationStructureToMemoryKHR CmdCopyAccelerationStructureToMemoryKHR} or {@link KHRAccelerationStructure#vkCopyAccelerationStructureToMemoryKHR CopyAccelerationStructureToMemoryKHR}) that is loaded in memory. Using arrays would necessitate extra memory copies of the UUIDs.</p>
  * </div>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -47,7 +47,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint8_t const * {@link #pVersionData};
  * }</code></pre>
  */
-public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAccelerationStructureVersionInfoKHR> implements NativeResource {
+public class VkAccelerationStructureVersionInfoKHR extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -76,15 +76,6 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
         PVERSIONDATA = layout.offsetof(2);
     }
 
-    protected VkAccelerationStructureVersionInfoKHR(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkAccelerationStructureVersionInfoKHR create(long address, @Nullable ByteBuffer container) {
-        return new VkAccelerationStructureVersionInfoKHR(address, container);
-    }
-
     /**
      * Creates a {@code VkAccelerationStructureVersionInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -98,7 +89,7 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -150,29 +141,29 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
 
     /** Returns a new {@code VkAccelerationStructureVersionInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureVersionInfoKHR malloc() {
-        return new VkAccelerationStructureVersionInfoKHR(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkAccelerationStructureVersionInfoKHR.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkAccelerationStructureVersionInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureVersionInfoKHR calloc() {
-        return new VkAccelerationStructureVersionInfoKHR(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkAccelerationStructureVersionInfoKHR.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkAccelerationStructureVersionInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkAccelerationStructureVersionInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkAccelerationStructureVersionInfoKHR(memAddress(container), container);
+        return wrap(VkAccelerationStructureVersionInfoKHR.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkAccelerationStructureVersionInfoKHR} instance for the specified memory address. */
     public static VkAccelerationStructureVersionInfoKHR create(long address) {
-        return new VkAccelerationStructureVersionInfoKHR(address, null);
+        return wrap(VkAccelerationStructureVersionInfoKHR.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureVersionInfoKHR createSafe(long address) {
-        return address == NULL ? null : new VkAccelerationStructureVersionInfoKHR(address, null);
+        return address == NULL ? null : wrap(VkAccelerationStructureVersionInfoKHR.class, address);
     }
 
     /**
@@ -181,7 +172,7 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureVersionInfoKHR.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -190,7 +181,7 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureVersionInfoKHR.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -200,7 +191,7 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
      */
     public static VkAccelerationStructureVersionInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -210,13 +201,13 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureVersionInfoKHR.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureVersionInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -225,7 +216,7 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureVersionInfoKHR malloc(MemoryStack stack) {
-        return new VkAccelerationStructureVersionInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkAccelerationStructureVersionInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -234,7 +225,7 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureVersionInfoKHR calloc(MemoryStack stack) {
-        return new VkAccelerationStructureVersionInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkAccelerationStructureVersionInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -244,7 +235,7 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureVersionInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -254,7 +245,7 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureVersionInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -292,9 +283,9 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
         /**
          * Creates a new {@code VkAccelerationStructureVersionInfoKHR.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkAccelerationStructureVersionInfoKHR#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkAccelerationStructureVersionInfoKHR#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

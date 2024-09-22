@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_COMPOSITION_LAYER_PROJECTION_VIEW TYPE_COMPOSITION_LAYER_PROJECTION_VIEW}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrCompositionLayerDepthInfoKHR}, {@link XrCompositionLayerSpaceWarpInfoFB}</li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrCompositionLayerDepthInfoKHR}, {@link XrCompositionLayerSpaceWarpInfoFB}</li>
  * <li>{@code subImage} <b>must</b> be a valid {@link XrSwapchainSubImage} structure</li>
  * </ul>
  * 
@@ -45,7 +45,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrSwapchainSubImage XrSwapchainSubImage} {@link #subImage};
  * }</code></pre>
  */
-public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerProjectionView> implements NativeResource {
+public class XrCompositionLayerProjectionView extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -80,15 +80,6 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
         SUBIMAGE = layout.offsetof(4);
     }
 
-    protected XrCompositionLayerProjectionView(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrCompositionLayerProjectionView create(long address, @Nullable ByteBuffer container) {
-        return new XrCompositionLayerProjectionView(address, container);
-    }
-
     /**
      * Creates a {@code XrCompositionLayerProjectionView} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -112,7 +103,7 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
     public XrPosef pose() { return npose(address()); }
     /** the {@link XrFovf} for this projection element. */
     public XrFovf fov() { return nfov(address()); }
-    /** the image layer {@link XrSwapchainSubImage} to use. The swapchain <b>must</b> have been created with a {@link XrSwapchainCreateInfo}{@code ::faceCount} of 1. */
+    /** the image layer {@link XrSwapchainSubImage} to use. */
     public XrSwapchainSubImage subImage() { return nsubImage(address()); }
 
     /** Sets the specified value to the {@link #type} field. */
@@ -171,29 +162,29 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
 
     /** Returns a new {@code XrCompositionLayerProjectionView} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrCompositionLayerProjectionView malloc() {
-        return new XrCompositionLayerProjectionView(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrCompositionLayerProjectionView.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrCompositionLayerProjectionView} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrCompositionLayerProjectionView calloc() {
-        return new XrCompositionLayerProjectionView(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrCompositionLayerProjectionView.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrCompositionLayerProjectionView} instance allocated with {@link BufferUtils}. */
     public static XrCompositionLayerProjectionView create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrCompositionLayerProjectionView(memAddress(container), container);
+        return wrap(XrCompositionLayerProjectionView.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrCompositionLayerProjectionView} instance for the specified memory address. */
     public static XrCompositionLayerProjectionView create(long address) {
-        return new XrCompositionLayerProjectionView(address, null);
+        return wrap(XrCompositionLayerProjectionView.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrCompositionLayerProjectionView createSafe(long address) {
-        return address == NULL ? null : new XrCompositionLayerProjectionView(address, null);
+        return address == NULL ? null : wrap(XrCompositionLayerProjectionView.class, address);
     }
 
     /**
@@ -202,7 +193,7 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerProjectionView.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -211,7 +202,7 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerProjectionView.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -221,7 +212,7 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
      */
     public static XrCompositionLayerProjectionView.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -231,13 +222,13 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerProjectionView.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrCompositionLayerProjectionView.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -246,7 +237,7 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
      * @param stack the stack from which to allocate
      */
     public static XrCompositionLayerProjectionView malloc(MemoryStack stack) {
-        return new XrCompositionLayerProjectionView(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrCompositionLayerProjectionView.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -255,7 +246,7 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
      * @param stack the stack from which to allocate
      */
     public static XrCompositionLayerProjectionView calloc(MemoryStack stack) {
-        return new XrCompositionLayerProjectionView(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrCompositionLayerProjectionView.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -265,7 +256,7 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerProjectionView.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -275,7 +266,7 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerProjectionView.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -321,9 +312,9 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
         /**
          * Creates a new {@code XrCompositionLayerProjectionView.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrCompositionLayerProjectionView#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrCompositionLayerProjectionView#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct sockaddr")
-public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
+public class Sockaddr extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -52,15 +52,6 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
 
         SA_FAMILY = layout.offsetof(0);
         SA_DATA = layout.offsetof(1);
-    }
-
-    protected Sockaddr(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected Sockaddr create(long address, @Nullable ByteBuffer container) {
-        return new Sockaddr(address, container);
     }
 
     /**
@@ -120,29 +111,29 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
 
     /** Returns a new {@code Sockaddr} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static Sockaddr malloc() {
-        return new Sockaddr(nmemAllocChecked(SIZEOF), null);
+        return wrap(Sockaddr.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code Sockaddr} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static Sockaddr calloc() {
-        return new Sockaddr(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(Sockaddr.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code Sockaddr} instance allocated with {@link BufferUtils}. */
     public static Sockaddr create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new Sockaddr(memAddress(container), container);
+        return wrap(Sockaddr.class, memAddress(container), container);
     }
 
     /** Returns a new {@code Sockaddr} instance for the specified memory address. */
     public static Sockaddr create(long address) {
-        return new Sockaddr(address, null);
+        return wrap(Sockaddr.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static Sockaddr createSafe(long address) {
-        return address == NULL ? null : new Sockaddr(address, null);
+        return address == NULL ? null : wrap(Sockaddr.class, address);
     }
 
     /**
@@ -151,7 +142,7 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static Sockaddr.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -160,7 +151,7 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static Sockaddr.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -170,7 +161,7 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
      */
     public static Sockaddr.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -180,13 +171,13 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static Sockaddr.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static Sockaddr.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -195,7 +186,7 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static Sockaddr malloc(MemoryStack stack) {
-        return new Sockaddr(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(Sockaddr.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -204,7 +195,7 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static Sockaddr calloc(MemoryStack stack) {
-        return new Sockaddr(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(Sockaddr.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -214,7 +205,7 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static Sockaddr.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -224,7 +215,7 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static Sockaddr.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -260,9 +251,9 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
         /**
          * Creates a new {@code Sockaddr.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link Sockaddr#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link Sockaddr#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

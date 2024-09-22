@@ -37,7 +37,6 @@ val nanosvg = "NanoSVG".nativeClass(Module.NANOVG, prefix = "NSVG") {
     EnumConstant(
         "NSVGpaintType",
 
-        "PAINT_UNDEF".."-1",
         "PAINT_NONE".."0",
         "PAINT_COLOR".."1",
         "PAINT_LINEAR_GRADIENT".."2",

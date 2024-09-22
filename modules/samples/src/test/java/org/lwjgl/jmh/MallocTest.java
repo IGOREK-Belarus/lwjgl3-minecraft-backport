@@ -1,6 +1,6 @@
 /*
  * Copyright LWJGL. All rights reserved.
- * License terms: https://www.lwjgl.org/license
+ * License terms: http://lwjgl.org/license.php
  */
 package org.lwjgl.jmh;
 

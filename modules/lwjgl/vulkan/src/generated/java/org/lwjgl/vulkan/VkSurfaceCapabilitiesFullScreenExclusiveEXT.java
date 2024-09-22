@@ -39,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 fullScreenExclusiveSupported;
  * }</code></pre>
  */
-public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfaceCapabilitiesFullScreenExclusiveEXT> implements NativeResource {
+public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -68,15 +68,6 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
         FULLSCREENEXCLUSIVESUPPORTED = layout.offsetof(2);
     }
 
-    protected VkSurfaceCapabilitiesFullScreenExclusiveEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkSurfaceCapabilitiesFullScreenExclusiveEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkSurfaceCapabilitiesFullScreenExclusiveEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkSurfaceCapabilitiesFullScreenExclusiveEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -90,7 +81,7 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -106,14 +97,18 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
     public VkSurfaceCapabilitiesFullScreenExclusiveEXT sType$Default() { return sType(EXTFullScreenExclusive.VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkSurfaceCapabilitiesFullScreenExclusiveEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
+    /** Sets the specified value to the {@code fullScreenExclusiveSupported} field. */
+    public VkSurfaceCapabilitiesFullScreenExclusiveEXT fullScreenExclusiveSupported(@NativeType("VkBool32") boolean value) { nfullScreenExclusiveSupported(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkSurfaceCapabilitiesFullScreenExclusiveEXT set(
         int sType,
-        long pNext
+        long pNext,
+        boolean fullScreenExclusiveSupported
     ) {
         sType(sType);
         pNext(pNext);
+        fullScreenExclusiveSupported(fullScreenExclusiveSupported);
 
         return this;
     }
@@ -134,29 +129,29 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
 
     /** Returns a new {@code VkSurfaceCapabilitiesFullScreenExclusiveEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSurfaceCapabilitiesFullScreenExclusiveEXT malloc() {
-        return new VkSurfaceCapabilitiesFullScreenExclusiveEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkSurfaceCapabilitiesFullScreenExclusiveEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkSurfaceCapabilitiesFullScreenExclusiveEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSurfaceCapabilitiesFullScreenExclusiveEXT calloc() {
-        return new VkSurfaceCapabilitiesFullScreenExclusiveEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkSurfaceCapabilitiesFullScreenExclusiveEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkSurfaceCapabilitiesFullScreenExclusiveEXT} instance allocated with {@link BufferUtils}. */
     public static VkSurfaceCapabilitiesFullScreenExclusiveEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkSurfaceCapabilitiesFullScreenExclusiveEXT(memAddress(container), container);
+        return wrap(VkSurfaceCapabilitiesFullScreenExclusiveEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkSurfaceCapabilitiesFullScreenExclusiveEXT} instance for the specified memory address. */
     public static VkSurfaceCapabilitiesFullScreenExclusiveEXT create(long address) {
-        return new VkSurfaceCapabilitiesFullScreenExclusiveEXT(address, null);
+        return wrap(VkSurfaceCapabilitiesFullScreenExclusiveEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSurfaceCapabilitiesFullScreenExclusiveEXT createSafe(long address) {
-        return address == NULL ? null : new VkSurfaceCapabilitiesFullScreenExclusiveEXT(address, null);
+        return address == NULL ? null : wrap(VkSurfaceCapabilitiesFullScreenExclusiveEXT.class, address);
     }
 
     /**
@@ -165,7 +160,7 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
      * @param capacity the buffer capacity
      */
     public static VkSurfaceCapabilitiesFullScreenExclusiveEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -174,7 +169,7 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
      * @param capacity the buffer capacity
      */
     public static VkSurfaceCapabilitiesFullScreenExclusiveEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -184,7 +179,7 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
      */
     public static VkSurfaceCapabilitiesFullScreenExclusiveEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -194,13 +189,13 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
      * @param capacity the buffer capacity
      */
     public static VkSurfaceCapabilitiesFullScreenExclusiveEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSurfaceCapabilitiesFullScreenExclusiveEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -228,7 +223,7 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
      * @param stack the stack from which to allocate
      */
     public static VkSurfaceCapabilitiesFullScreenExclusiveEXT malloc(MemoryStack stack) {
-        return new VkSurfaceCapabilitiesFullScreenExclusiveEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkSurfaceCapabilitiesFullScreenExclusiveEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -237,7 +232,7 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
      * @param stack the stack from which to allocate
      */
     public static VkSurfaceCapabilitiesFullScreenExclusiveEXT calloc(MemoryStack stack) {
-        return new VkSurfaceCapabilitiesFullScreenExclusiveEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkSurfaceCapabilitiesFullScreenExclusiveEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -247,7 +242,7 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
      * @param capacity the buffer capacity
      */
     public static VkSurfaceCapabilitiesFullScreenExclusiveEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -257,7 +252,7 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
      * @param capacity the buffer capacity
      */
     public static VkSurfaceCapabilitiesFullScreenExclusiveEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -273,6 +268,8 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
     public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfaceCapabilitiesFullScreenExclusiveEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSurfaceCapabilitiesFullScreenExclusiveEXT.PNEXT, value); }
+    /** Unsafe version of {@link #fullScreenExclusiveSupported(boolean) fullScreenExclusiveSupported}. */
+    public static void nfullScreenExclusiveSupported(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfaceCapabilitiesFullScreenExclusiveEXT.FULLSCREENEXCLUSIVESUPPORTED, value); }
 
     // -----------------------------------
 
@@ -284,9 +281,9 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
         /**
          * Creates a new {@code VkSurfaceCapabilitiesFullScreenExclusiveEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSurfaceCapabilitiesFullScreenExclusiveEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkSurfaceCapabilitiesFullScreenExclusiveEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -328,6 +325,8 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
         public VkSurfaceCapabilitiesFullScreenExclusiveEXT.Buffer sType$Default() { return sType(EXTFullScreenExclusive.VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT); }
         /** Sets the specified value to the {@link VkSurfaceCapabilitiesFullScreenExclusiveEXT#pNext} field. */
         public VkSurfaceCapabilitiesFullScreenExclusiveEXT.Buffer pNext(@NativeType("void *") long value) { VkSurfaceCapabilitiesFullScreenExclusiveEXT.npNext(address(), value); return this; }
+        /** Sets the specified value to the {@code fullScreenExclusiveSupported} field. */
+        public VkSurfaceCapabilitiesFullScreenExclusiveEXT.Buffer fullScreenExclusiveSupported(@NativeType("VkBool32") boolean value) { VkSurfaceCapabilitiesFullScreenExclusiveEXT.nfullScreenExclusiveSupported(address(), value ? 1 : 0); return this; }
 
     }
 

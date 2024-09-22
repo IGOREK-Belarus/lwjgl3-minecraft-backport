@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #dedicatedAllocationImageAliasing};
  * }</code></pre>
  */
-public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends Struct<VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV> implements NativeResource {
+public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,15 +66,6 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
         DEDICATEDALLOCATIONIMAGEALIASING = layout.offsetof(2);
     }
 
-    protected VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -88,7 +79,7 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -136,29 +127,29 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
 
     /** Returns a new {@code VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV malloc() {
-        return new VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV calloc() {
-        return new VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV(memAddress(container), container);
+        return wrap(VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV} instance for the specified memory address. */
     public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV create(long address) {
-        return new VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV(address, null);
+        return wrap(VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.class, address);
     }
 
     /**
@@ -167,7 +158,7 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -176,7 +167,7 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -186,7 +177,7 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
      */
     public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -196,13 +187,13 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -230,7 +221,7 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -239,7 +230,7 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -249,7 +240,7 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -259,7 +250,7 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -288,9 +279,9 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
         /**
          * Creates a new {@code VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

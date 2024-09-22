@@ -20,9 +20,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If the {@link EXTDiscardRectangles#VK_DYNAMIC_STATE_DISCARD_RECTANGLE_EXT DYNAMIC_STATE_DISCARD_RECTANGLE_EXT} dynamic state is enabled for a pipeline, the {@code pDiscardRectangles} member is ignored. If the {@link EXTDiscardRectangles#VK_DYNAMIC_STATE_DISCARD_RECTANGLE_ENABLE_EXT DYNAMIC_STATE_DISCARD_RECTANGLE_ENABLE_EXT} dynamic state is not enabled for the pipeline the presence of this structure in the {@link VkGraphicsPipelineCreateInfo} chain, and a {@code discardRectangleCount} greater than zero, implicitly enables discard rectangles in the pipeline, otherwise discard rectangles <b>must</b> enabled or disabled by {@link EXTDiscardRectangles#vkCmdSetDiscardRectangleEnableEXT CmdSetDiscardRectangleEnableEXT}. If the {@link EXTDiscardRectangles#VK_DYNAMIC_STATE_DISCARD_RECTANGLE_MODE_EXT DYNAMIC_STATE_DISCARD_RECTANGLE_MODE_EXT} dynamic state is enabled for the pipeline, the {@code discardRectangleMode} member is ignored, and the discard rectangle mode <b>must</b> be set by {@link EXTDiscardRectangles#vkCmdSetDiscardRectangleModeEXT CmdSetDiscardRectangleModeEXT}.</p>
+ * <p>If the {@link EXTDiscardRectangles#VK_DYNAMIC_STATE_DISCARD_RECTANGLE_EXT DYNAMIC_STATE_DISCARD_RECTANGLE_EXT} dynamic state is enabled for a pipeline, the {@code pDiscardRectangles} member is ignored.</p>
  * 
- * <p>When this structure is included in the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo}, it defines parameters of the discard rectangle test. If the {@link EXTDiscardRectangles#VK_DYNAMIC_STATE_DISCARD_RECTANGLE_EXT DYNAMIC_STATE_DISCARD_RECTANGLE_EXT} dynamic state is not enabled, and this structure is not included in the {@code pNext} chain, it is equivalent to specifying this structure with a {@code discardRectangleCount} of 0.</p>
+ * <p>When this structure is included in the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo}, it defines parameters of the discard rectangle test. If this structure is not included in the {@code pNext} chain, it is equivalent to specifying this structure with a {@code discardRectangleCount} of 0.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
@@ -54,7 +54,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkRect2D VkRect2D} const * {@link #pDiscardRectangles};
  * }</code></pre>
  */
-public class VkPipelineDiscardRectangleStateCreateInfoEXT extends Struct<VkPipelineDiscardRectangleStateCreateInfoEXT> implements NativeResource {
+public class VkPipelineDiscardRectangleStateCreateInfoEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -92,15 +92,6 @@ public class VkPipelineDiscardRectangleStateCreateInfoEXT extends Struct<VkPipel
         PDISCARDRECTANGLES = layout.offsetof(5);
     }
 
-    protected VkPipelineDiscardRectangleStateCreateInfoEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPipelineDiscardRectangleStateCreateInfoEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkPipelineDiscardRectangleStateCreateInfoEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkPipelineDiscardRectangleStateCreateInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -114,7 +105,7 @@ public class VkPipelineDiscardRectangleStateCreateInfoEXT extends Struct<VkPipel
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -184,29 +175,29 @@ public class VkPipelineDiscardRectangleStateCreateInfoEXT extends Struct<VkPipel
 
     /** Returns a new {@code VkPipelineDiscardRectangleStateCreateInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPipelineDiscardRectangleStateCreateInfoEXT malloc() {
-        return new VkPipelineDiscardRectangleStateCreateInfoEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPipelineDiscardRectangleStateCreateInfoEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineDiscardRectangleStateCreateInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPipelineDiscardRectangleStateCreateInfoEXT calloc() {
-        return new VkPipelineDiscardRectangleStateCreateInfoEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPipelineDiscardRectangleStateCreateInfoEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineDiscardRectangleStateCreateInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkPipelineDiscardRectangleStateCreateInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPipelineDiscardRectangleStateCreateInfoEXT(memAddress(container), container);
+        return wrap(VkPipelineDiscardRectangleStateCreateInfoEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPipelineDiscardRectangleStateCreateInfoEXT} instance for the specified memory address. */
     public static VkPipelineDiscardRectangleStateCreateInfoEXT create(long address) {
-        return new VkPipelineDiscardRectangleStateCreateInfoEXT(address, null);
+        return wrap(VkPipelineDiscardRectangleStateCreateInfoEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineDiscardRectangleStateCreateInfoEXT createSafe(long address) {
-        return address == NULL ? null : new VkPipelineDiscardRectangleStateCreateInfoEXT(address, null);
+        return address == NULL ? null : wrap(VkPipelineDiscardRectangleStateCreateInfoEXT.class, address);
     }
 
     /**
@@ -215,7 +206,7 @@ public class VkPipelineDiscardRectangleStateCreateInfoEXT extends Struct<VkPipel
      * @param capacity the buffer capacity
      */
     public static VkPipelineDiscardRectangleStateCreateInfoEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -224,7 +215,7 @@ public class VkPipelineDiscardRectangleStateCreateInfoEXT extends Struct<VkPipel
      * @param capacity the buffer capacity
      */
     public static VkPipelineDiscardRectangleStateCreateInfoEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -234,7 +225,7 @@ public class VkPipelineDiscardRectangleStateCreateInfoEXT extends Struct<VkPipel
      */
     public static VkPipelineDiscardRectangleStateCreateInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -244,13 +235,13 @@ public class VkPipelineDiscardRectangleStateCreateInfoEXT extends Struct<VkPipel
      * @param capacity the buffer capacity
      */
     public static VkPipelineDiscardRectangleStateCreateInfoEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineDiscardRectangleStateCreateInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -278,7 +269,7 @@ public class VkPipelineDiscardRectangleStateCreateInfoEXT extends Struct<VkPipel
      * @param stack the stack from which to allocate
      */
     public static VkPipelineDiscardRectangleStateCreateInfoEXT malloc(MemoryStack stack) {
-        return new VkPipelineDiscardRectangleStateCreateInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPipelineDiscardRectangleStateCreateInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -287,7 +278,7 @@ public class VkPipelineDiscardRectangleStateCreateInfoEXT extends Struct<VkPipel
      * @param stack the stack from which to allocate
      */
     public static VkPipelineDiscardRectangleStateCreateInfoEXT calloc(MemoryStack stack) {
-        return new VkPipelineDiscardRectangleStateCreateInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPipelineDiscardRectangleStateCreateInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -297,7 +288,7 @@ public class VkPipelineDiscardRectangleStateCreateInfoEXT extends Struct<VkPipel
      * @param capacity the buffer capacity
      */
     public static VkPipelineDiscardRectangleStateCreateInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -307,7 +298,7 @@ public class VkPipelineDiscardRectangleStateCreateInfoEXT extends Struct<VkPipel
      * @param capacity the buffer capacity
      */
     public static VkPipelineDiscardRectangleStateCreateInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -348,9 +339,9 @@ public class VkPipelineDiscardRectangleStateCreateInfoEXT extends Struct<VkPipel
         /**
          * Creates a new {@code VkPipelineDiscardRectangleStateCreateInfoEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPipelineDiscardRectangleStateCreateInfoEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPipelineDiscardRectangleStateCreateInfoEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

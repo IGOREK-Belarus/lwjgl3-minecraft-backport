@@ -36,7 +36,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkPipelineShaderStageCreateInfo}, {@link VkShaderCreateInfoEXT}, {@link VkSpecializationMapEntry}</p>
+ * <p>{@link VkPipelineShaderStageCreateInfo}, {@link VkSpecializationMapEntry}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -48,7 +48,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     void const * {@link #pData};
  * }</code></pre>
  */
-public class VkSpecializationInfo extends Struct<VkSpecializationInfo> implements NativeResource {
+public class VkSpecializationInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -80,15 +80,6 @@ public class VkSpecializationInfo extends Struct<VkSpecializationInfo> implement
         PDATA = layout.offsetof(3);
     }
 
-    protected VkSpecializationInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkSpecializationInfo create(long address, @Nullable ByteBuffer container) {
-        return new VkSpecializationInfo(address, container);
-    }
-
     /**
      * Creates a {@code VkSpecializationInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -105,7 +96,7 @@ public class VkSpecializationInfo extends Struct<VkSpecializationInfo> implement
     /** the number of entries in the {@code pMapEntries} array. */
     @NativeType("uint32_t")
     public int mapEntryCount() { return nmapEntryCount(address()); }
-    /** a pointer to an array of {@link VkSpecializationMapEntry} structures, which map constant IDs to offsets in {@code pData}. */
+    /** a pointer to an array of {@link VkSpecializationMapEntry} structures which map constant IDs to offsets in {@code pData}. */
     @Nullable
     @NativeType("VkSpecializationMapEntry const *")
     public VkSpecializationMapEntry.Buffer pMapEntries() { return npMapEntries(address()); }
@@ -149,29 +140,29 @@ public class VkSpecializationInfo extends Struct<VkSpecializationInfo> implement
 
     /** Returns a new {@code VkSpecializationInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSpecializationInfo malloc() {
-        return new VkSpecializationInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkSpecializationInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkSpecializationInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSpecializationInfo calloc() {
-        return new VkSpecializationInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkSpecializationInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkSpecializationInfo} instance allocated with {@link BufferUtils}. */
     public static VkSpecializationInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkSpecializationInfo(memAddress(container), container);
+        return wrap(VkSpecializationInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkSpecializationInfo} instance for the specified memory address. */
     public static VkSpecializationInfo create(long address) {
-        return new VkSpecializationInfo(address, null);
+        return wrap(VkSpecializationInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSpecializationInfo createSafe(long address) {
-        return address == NULL ? null : new VkSpecializationInfo(address, null);
+        return address == NULL ? null : wrap(VkSpecializationInfo.class, address);
     }
 
     /**
@@ -180,7 +171,7 @@ public class VkSpecializationInfo extends Struct<VkSpecializationInfo> implement
      * @param capacity the buffer capacity
      */
     public static VkSpecializationInfo.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -189,7 +180,7 @@ public class VkSpecializationInfo extends Struct<VkSpecializationInfo> implement
      * @param capacity the buffer capacity
      */
     public static VkSpecializationInfo.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -199,7 +190,7 @@ public class VkSpecializationInfo extends Struct<VkSpecializationInfo> implement
      */
     public static VkSpecializationInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -209,13 +200,13 @@ public class VkSpecializationInfo extends Struct<VkSpecializationInfo> implement
      * @param capacity the buffer capacity
      */
     public static VkSpecializationInfo.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSpecializationInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -243,7 +234,7 @@ public class VkSpecializationInfo extends Struct<VkSpecializationInfo> implement
      * @param stack the stack from which to allocate
      */
     public static VkSpecializationInfo malloc(MemoryStack stack) {
-        return new VkSpecializationInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkSpecializationInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -252,7 +243,7 @@ public class VkSpecializationInfo extends Struct<VkSpecializationInfo> implement
      * @param stack the stack from which to allocate
      */
     public static VkSpecializationInfo calloc(MemoryStack stack) {
-        return new VkSpecializationInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkSpecializationInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -262,7 +253,7 @@ public class VkSpecializationInfo extends Struct<VkSpecializationInfo> implement
      * @param capacity the buffer capacity
      */
     public static VkSpecializationInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -272,7 +263,7 @@ public class VkSpecializationInfo extends Struct<VkSpecializationInfo> implement
      * @param capacity the buffer capacity
      */
     public static VkSpecializationInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -319,9 +310,9 @@ public class VkSpecializationInfo extends Struct<VkSpecializationInfo> implement
         /**
          * Creates a new {@code VkSpecializationInfo.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSpecializationInfo#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkSpecializationInfo#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -27,14 +27,14 @@ import static org.lwjgl.openxr.MSFTControllerModel.*;
  * 
  * <p>If there are multiple nodes in the glTF file matches the condition above, the first matching node using depth-first traversal in the glTF scene <b>should</b> be animated and the rest <b>should</b> be ignored.</p>
  * 
- * <p>The runtime <b>must</b> not return any {@code nodeName} or {@code parentNodeName} that does not match any glTF nodes in the corresponding controller model.</p>
+ * <p>The runtime <b>must</b> not return any {@code nodeName} or {@code parentName} that doesn’t match any gltTF nodes in the corresponding controller model.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>The {@link MSFTControllerModel XR_MSFT_controller_model} extension <b>must</b> be enabled prior to using {@link XrControllerModelNodePropertiesMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTControllerModel#XR_TYPE_CONTROLLER_MODEL_NODE_PROPERTIES_MSFT TYPE_CONTROLLER_MODEL_NODE_PROPERTIES_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code parentNodeName} <b>must</b> be a null-terminated UTF-8 string whose length is less than or equal to {@link MSFTControllerModel#XR_MAX_CONTROLLER_MODEL_NODE_NAME_SIZE_MSFT MAX_CONTROLLER_MODEL_NODE_NAME_SIZE_MSFT}</li>
  * <li>{@code nodeName} <b>must</b> be a null-terminated UTF-8 string whose length is less than or equal to {@link MSFTControllerModel#XR_MAX_CONTROLLER_MODEL_NODE_NAME_SIZE_MSFT MAX_CONTROLLER_MODEL_NODE_NAME_SIZE_MSFT}</li>
  * </ul>
@@ -53,7 +53,7 @@ import static org.lwjgl.openxr.MSFTControllerModel.*;
  *     char {@link #nodeName}[XR_MAX_CONTROLLER_MODEL_NODE_NAME_SIZE_MSFT];
  * }</code></pre>
  */
-public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerModelNodePropertiesMSFT> implements NativeResource {
+public class XrControllerModelNodePropertiesMSFT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -83,15 +83,6 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
         NEXT = layout.offsetof(1);
         PARENTNODENAME = layout.offsetof(2);
         NODENAME = layout.offsetof(3);
-    }
-
-    protected XrControllerModelNodePropertiesMSFT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrControllerModelNodePropertiesMSFT create(long address, @Nullable ByteBuffer container) {
-        return new XrControllerModelNodePropertiesMSFT(address, container);
     }
 
     /**
@@ -168,29 +159,29 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
 
     /** Returns a new {@code XrControllerModelNodePropertiesMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrControllerModelNodePropertiesMSFT malloc() {
-        return new XrControllerModelNodePropertiesMSFT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrControllerModelNodePropertiesMSFT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrControllerModelNodePropertiesMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrControllerModelNodePropertiesMSFT calloc() {
-        return new XrControllerModelNodePropertiesMSFT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrControllerModelNodePropertiesMSFT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrControllerModelNodePropertiesMSFT} instance allocated with {@link BufferUtils}. */
     public static XrControllerModelNodePropertiesMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrControllerModelNodePropertiesMSFT(memAddress(container), container);
+        return wrap(XrControllerModelNodePropertiesMSFT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrControllerModelNodePropertiesMSFT} instance for the specified memory address. */
     public static XrControllerModelNodePropertiesMSFT create(long address) {
-        return new XrControllerModelNodePropertiesMSFT(address, null);
+        return wrap(XrControllerModelNodePropertiesMSFT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrControllerModelNodePropertiesMSFT createSafe(long address) {
-        return address == NULL ? null : new XrControllerModelNodePropertiesMSFT(address, null);
+        return address == NULL ? null : wrap(XrControllerModelNodePropertiesMSFT.class, address);
     }
 
     /**
@@ -199,7 +190,7 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
      * @param capacity the buffer capacity
      */
     public static XrControllerModelNodePropertiesMSFT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -208,7 +199,7 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
      * @param capacity the buffer capacity
      */
     public static XrControllerModelNodePropertiesMSFT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -218,7 +209,7 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
      */
     public static XrControllerModelNodePropertiesMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -228,13 +219,13 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
      * @param capacity the buffer capacity
      */
     public static XrControllerModelNodePropertiesMSFT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrControllerModelNodePropertiesMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -243,7 +234,7 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
      * @param stack the stack from which to allocate
      */
     public static XrControllerModelNodePropertiesMSFT malloc(MemoryStack stack) {
-        return new XrControllerModelNodePropertiesMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrControllerModelNodePropertiesMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -252,7 +243,7 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
      * @param stack the stack from which to allocate
      */
     public static XrControllerModelNodePropertiesMSFT calloc(MemoryStack stack) {
-        return new XrControllerModelNodePropertiesMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrControllerModelNodePropertiesMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -262,7 +253,7 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
      * @param capacity the buffer capacity
      */
     public static XrControllerModelNodePropertiesMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -272,7 +263,7 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
      * @param capacity the buffer capacity
      */
     public static XrControllerModelNodePropertiesMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -321,9 +312,9 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
         /**
          * Creates a new {@code XrControllerModelNodePropertiesMSFT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrControllerModelNodePropertiesMSFT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrControllerModelNodePropertiesMSFT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

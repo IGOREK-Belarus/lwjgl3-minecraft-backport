@@ -11,11 +11,6 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 
-/**
- * This module contains routines used to initialize the LLVM system.
- * 
- * <p>Removed in LLVM 17.</p>
- */
 public class LLVMInitialization {
 
     /** Contains the function pointers loaded from {@code LLVMCore.getLibrary()}. */
@@ -28,12 +23,12 @@ public class LLVMInitialization {
             InitializeCore                   = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMInitializeCore"),
             InitializeTransformUtils         = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMInitializeTransformUtils"),
             InitializeScalarOpts             = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMInitializeScalarOpts"),
-            InitializeObjCARCOpts            = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMInitializeObjCARCOpts"),
+            InitializeObjCARCOpts            = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMInitializeObjCARCOpts"),
             InitializeVectorization          = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMInitializeVectorization"),
-            InitializeInstCombine            = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMInitializeInstCombine"),
-            InitializeAggressiveInstCombiner = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMInitializeAggressiveInstCombiner"),
+            InitializeInstCombine            = LLVMCore.getLibrary().getFunctionAddress("LLVMInitializeInstCombine"),
+            InitializeAggressiveInstCombiner = LLVMCore.getLibrary().getFunctionAddress("LLVMInitializeAggressiveInstCombiner"),
             InitializeIPO                    = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMInitializeIPO"),
-            InitializeInstrumentation        = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMInitializeInstrumentation"),
+            InitializeInstrumentation        = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMInitializeInstrumentation"),
             InitializeAnalysis               = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMInitializeAnalysis"),
             InitializeIPA                    = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMInitializeIPA"),
             InitializeCodeGen                = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMInitializeCodeGen"),
@@ -80,7 +75,6 @@ public class LLVMInitialization {
     public static void LLVMInitializeObjCARCOpts(@NativeType("LLVMPassRegistryRef") long R) {
         long __functionAddress = Functions.InitializeObjCARCOpts;
         if (CHECKS) {
-            check(__functionAddress);
             check(R);
         }
         invokePV(R, __functionAddress);
@@ -133,7 +127,6 @@ public class LLVMInitialization {
     public static void LLVMInitializeInstrumentation(@NativeType("LLVMPassRegistryRef") long R) {
         long __functionAddress = Functions.InitializeInstrumentation;
         if (CHECKS) {
-            check(__functionAddress);
             check(R);
         }
         invokePV(R, __functionAddress);

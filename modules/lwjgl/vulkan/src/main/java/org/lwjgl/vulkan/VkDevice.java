@@ -71,15 +71,10 @@ public class VkDevice extends DispatchableHandleDevice {
         return new VKCapabilitiesDevice(functionName -> {
             long address = callPPP(handle, memAddress(functionName), GetDeviceProcAddr);
             if (address == NULL && Checks.DEBUG_FUNCTIONS) {
-                apiLogMissing("VK device", functionName);
+                apiLog("Failed to locate address for VK device function " + memASCII(functionName));
             }
             return address;
         }, physicalDevice.getCapabilities(), apiVersion, VK.getEnabledExtensionSet(apiVersion, ci.ppEnabledExtensionNames()));
-    }
-
-    @Override
-    public VKCapabilitiesInstance getCapabilitiesInstance() {
-        return getPhysicalDevice().getCapabilities();
     }
 
 }

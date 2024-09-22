@@ -57,13 +57,13 @@ public class LLVMExecutionEngine {
             GetPointerToGlobal              = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMGetPointerToGlobal"),
             GetGlobalValueAddress           = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMGetGlobalValueAddress"),
             GetFunctionAddress              = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMGetFunctionAddress"),
-            ExecutionEngineGetErrMsg        = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMExecutionEngineGetErrMsg"),
+            ExecutionEngineGetErrMsg        = LLVMCore.getLibrary().getFunctionAddress("LLVMExecutionEngineGetErrMsg"),
             CreateSimpleMCJITMemoryManager  = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMCreateSimpleMCJITMemoryManager"),
             DisposeMCJITMemoryManager       = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMDisposeMCJITMemoryManager"),
-            CreateGDBRegistrationListener   = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMCreateGDBRegistrationListener"),
-            CreateIntelJITEventListener     = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMCreateIntelJITEventListener"),
-            CreateOProfileJITEventListener  = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMCreateOProfileJITEventListener"),
-            CreatePerfJITEventListener      = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMCreatePerfJITEventListener");
+            CreateGDBRegistrationListener   = LLVMCore.getLibrary().getFunctionAddress("LLVMCreateGDBRegistrationListener"),
+            CreateIntelJITEventListener     = LLVMCore.getLibrary().getFunctionAddress("LLVMCreateIntelJITEventListener"),
+            CreateOProfileJITEventListener  = LLVMCore.getLibrary().getFunctionAddress("LLVMCreateOProfileJITEventListener"),
+            CreatePerfJITEventListener      = LLVMCore.getLibrary().getFunctionAddress("LLVMCreatePerfJITEventListener");
 
     }
 

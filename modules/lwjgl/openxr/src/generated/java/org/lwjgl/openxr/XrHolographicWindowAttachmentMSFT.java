@@ -32,7 +32,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTHolographicWindowAttachment XR_MSFT_holographic_window_attachment} extension <b>must</b> be enabled prior to using {@link XrHolographicWindowAttachmentMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTHolographicWindowAttachment#XR_TYPE_HOLOGRAPHIC_WINDOW_ATTACHMENT_MSFT TYPE_HOLOGRAPHIC_WINDOW_ATTACHMENT_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code holographicSpace} <b>must</b> be a pointer to an {@code IUnknown} value</li>
  * <li>{@code coreWindow} <b>must</b> be a pointer to an {@code IUnknown} value</li>
  * </ul>
@@ -51,7 +51,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     IUnknown * {@link #coreWindow};
  * }</code></pre>
  */
-public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindowAttachmentMSFT> implements NativeResource {
+public class XrHolographicWindowAttachmentMSFT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -81,15 +81,6 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
         NEXT = layout.offsetof(1);
         HOLOGRAPHICSPACE = layout.offsetof(2);
         COREWINDOW = layout.offsetof(3);
-    }
-
-    protected XrHolographicWindowAttachmentMSFT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrHolographicWindowAttachmentMSFT create(long address, @Nullable ByteBuffer container) {
-        return new XrHolographicWindowAttachmentMSFT(address, container);
     }
 
     /**
@@ -160,29 +151,29 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
 
     /** Returns a new {@code XrHolographicWindowAttachmentMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrHolographicWindowAttachmentMSFT malloc() {
-        return new XrHolographicWindowAttachmentMSFT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrHolographicWindowAttachmentMSFT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrHolographicWindowAttachmentMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrHolographicWindowAttachmentMSFT calloc() {
-        return new XrHolographicWindowAttachmentMSFT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrHolographicWindowAttachmentMSFT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrHolographicWindowAttachmentMSFT} instance allocated with {@link BufferUtils}. */
     public static XrHolographicWindowAttachmentMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrHolographicWindowAttachmentMSFT(memAddress(container), container);
+        return wrap(XrHolographicWindowAttachmentMSFT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrHolographicWindowAttachmentMSFT} instance for the specified memory address. */
     public static XrHolographicWindowAttachmentMSFT create(long address) {
-        return new XrHolographicWindowAttachmentMSFT(address, null);
+        return wrap(XrHolographicWindowAttachmentMSFT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHolographicWindowAttachmentMSFT createSafe(long address) {
-        return address == NULL ? null : new XrHolographicWindowAttachmentMSFT(address, null);
+        return address == NULL ? null : wrap(XrHolographicWindowAttachmentMSFT.class, address);
     }
 
     /**
@@ -191,7 +182,7 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
      * @param capacity the buffer capacity
      */
     public static XrHolographicWindowAttachmentMSFT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -200,7 +191,7 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
      * @param capacity the buffer capacity
      */
     public static XrHolographicWindowAttachmentMSFT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -210,7 +201,7 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
      */
     public static XrHolographicWindowAttachmentMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -220,13 +211,13 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
      * @param capacity the buffer capacity
      */
     public static XrHolographicWindowAttachmentMSFT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHolographicWindowAttachmentMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -235,7 +226,7 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
      * @param stack the stack from which to allocate
      */
     public static XrHolographicWindowAttachmentMSFT malloc(MemoryStack stack) {
-        return new XrHolographicWindowAttachmentMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrHolographicWindowAttachmentMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -244,7 +235,7 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
      * @param stack the stack from which to allocate
      */
     public static XrHolographicWindowAttachmentMSFT calloc(MemoryStack stack) {
-        return new XrHolographicWindowAttachmentMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrHolographicWindowAttachmentMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -254,7 +245,7 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
      * @param capacity the buffer capacity
      */
     public static XrHolographicWindowAttachmentMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -264,7 +255,7 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
      * @param capacity the buffer capacity
      */
     public static XrHolographicWindowAttachmentMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -307,9 +298,9 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
         /**
          * Creates a new {@code XrHolographicWindowAttachmentMSFT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrHolographicWindowAttachmentMSFT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrHolographicWindowAttachmentMSFT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

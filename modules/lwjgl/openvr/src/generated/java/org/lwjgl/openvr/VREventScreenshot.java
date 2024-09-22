@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct VREvent_Screenshot_t")
-public class VREventScreenshot extends Struct<VREventScreenshot> {
+public class VREventScreenshot extends Struct {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -47,15 +47,6 @@ public class VREventScreenshot extends Struct<VREventScreenshot> {
 
         HANDLE = layout.offsetof(0);
         TYPE = layout.offsetof(1);
-    }
-
-    protected VREventScreenshot(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VREventScreenshot create(long address, @Nullable ByteBuffer container) {
-        return new VREventScreenshot(address, container);
     }
 
     /**
@@ -82,13 +73,13 @@ public class VREventScreenshot extends Struct<VREventScreenshot> {
 
     /** Returns a new {@code VREventScreenshot} instance for the specified memory address. */
     public static VREventScreenshot create(long address) {
-        return new VREventScreenshot(address, null);
+        return wrap(VREventScreenshot.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventScreenshot createSafe(long address) {
-        return address == NULL ? null : new VREventScreenshot(address, null);
+        return address == NULL ? null : wrap(VREventScreenshot.class, address);
     }
 
     /**
@@ -98,13 +89,13 @@ public class VREventScreenshot extends Struct<VREventScreenshot> {
      * @param capacity the buffer capacity
      */
     public static VREventScreenshot.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventScreenshot.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -124,9 +115,9 @@ public class VREventScreenshot extends Struct<VREventScreenshot> {
         /**
          * Creates a new {@code VREventScreenshot.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VREventScreenshot#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VREventScreenshot#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct ovrBoundaryLookAndFeel")
-public class OVRBoundaryLookAndFeel extends Struct<OVRBoundaryLookAndFeel> implements NativeResource {
+public class OVRBoundaryLookAndFeel extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -47,15 +47,6 @@ public class OVRBoundaryLookAndFeel extends Struct<OVRBoundaryLookAndFeel> imple
         ALIGNOF = layout.getAlignment();
 
         COLOR = layout.offsetof(0);
-    }
-
-    protected OVRBoundaryLookAndFeel(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected OVRBoundaryLookAndFeel create(long address, @Nullable ByteBuffer container) {
-        return new OVRBoundaryLookAndFeel(address, container);
     }
 
     /**
@@ -96,29 +87,29 @@ public class OVRBoundaryLookAndFeel extends Struct<OVRBoundaryLookAndFeel> imple
 
     /** Returns a new {@code OVRBoundaryLookAndFeel} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static OVRBoundaryLookAndFeel malloc() {
-        return new OVRBoundaryLookAndFeel(nmemAllocChecked(SIZEOF), null);
+        return wrap(OVRBoundaryLookAndFeel.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code OVRBoundaryLookAndFeel} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static OVRBoundaryLookAndFeel calloc() {
-        return new OVRBoundaryLookAndFeel(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(OVRBoundaryLookAndFeel.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code OVRBoundaryLookAndFeel} instance allocated with {@link BufferUtils}. */
     public static OVRBoundaryLookAndFeel create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new OVRBoundaryLookAndFeel(memAddress(container), container);
+        return wrap(OVRBoundaryLookAndFeel.class, memAddress(container), container);
     }
 
     /** Returns a new {@code OVRBoundaryLookAndFeel} instance for the specified memory address. */
     public static OVRBoundaryLookAndFeel create(long address) {
-        return new OVRBoundaryLookAndFeel(address, null);
+        return wrap(OVRBoundaryLookAndFeel.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static OVRBoundaryLookAndFeel createSafe(long address) {
-        return address == NULL ? null : new OVRBoundaryLookAndFeel(address, null);
+        return address == NULL ? null : wrap(OVRBoundaryLookAndFeel.class, address);
     }
 
     /**
@@ -127,7 +118,7 @@ public class OVRBoundaryLookAndFeel extends Struct<OVRBoundaryLookAndFeel> imple
      * @param capacity the buffer capacity
      */
     public static OVRBoundaryLookAndFeel.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -136,7 +127,7 @@ public class OVRBoundaryLookAndFeel extends Struct<OVRBoundaryLookAndFeel> imple
      * @param capacity the buffer capacity
      */
     public static OVRBoundaryLookAndFeel.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -146,7 +137,7 @@ public class OVRBoundaryLookAndFeel extends Struct<OVRBoundaryLookAndFeel> imple
      */
     public static OVRBoundaryLookAndFeel.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -156,13 +147,13 @@ public class OVRBoundaryLookAndFeel extends Struct<OVRBoundaryLookAndFeel> imple
      * @param capacity the buffer capacity
      */
     public static OVRBoundaryLookAndFeel.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static OVRBoundaryLookAndFeel.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -190,7 +181,7 @@ public class OVRBoundaryLookAndFeel extends Struct<OVRBoundaryLookAndFeel> imple
      * @param stack the stack from which to allocate
      */
     public static OVRBoundaryLookAndFeel malloc(MemoryStack stack) {
-        return new OVRBoundaryLookAndFeel(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(OVRBoundaryLookAndFeel.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -199,7 +190,7 @@ public class OVRBoundaryLookAndFeel extends Struct<OVRBoundaryLookAndFeel> imple
      * @param stack the stack from which to allocate
      */
     public static OVRBoundaryLookAndFeel calloc(MemoryStack stack) {
-        return new OVRBoundaryLookAndFeel(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(OVRBoundaryLookAndFeel.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -209,7 +200,7 @@ public class OVRBoundaryLookAndFeel extends Struct<OVRBoundaryLookAndFeel> imple
      * @param capacity the buffer capacity
      */
     public static OVRBoundaryLookAndFeel.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -219,7 +210,7 @@ public class OVRBoundaryLookAndFeel extends Struct<OVRBoundaryLookAndFeel> imple
      * @param capacity the buffer capacity
      */
     public static OVRBoundaryLookAndFeel.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -240,9 +231,9 @@ public class OVRBoundaryLookAndFeel extends Struct<OVRBoundaryLookAndFeel> imple
         /**
          * Creates a new {@code OVRBoundaryLookAndFeel.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link OVRBoundaryLookAndFeel#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link OVRBoundaryLookAndFeel#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

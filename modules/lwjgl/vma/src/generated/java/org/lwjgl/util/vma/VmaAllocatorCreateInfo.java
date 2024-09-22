@@ -38,7 +38,7 @@ import org.lwjgl.vulkan.*;
  *     VkExternalMemoryHandleTypeFlagsKHR const * {@link #pTypeExternalMemoryHandleTypes};
  * }</code></pre>
  */
-public class VmaAllocatorCreateInfo extends Struct<VmaAllocatorCreateInfo> implements NativeResource {
+public class VmaAllocatorCreateInfo extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -91,15 +91,6 @@ public class VmaAllocatorCreateInfo extends Struct<VmaAllocatorCreateInfo> imple
         PTYPEEXTERNALMEMORYHANDLETYPES = layout.offsetof(10);
     }
 
-    protected VmaAllocatorCreateInfo(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VmaAllocatorCreateInfo create(long address, @Nullable ByteBuffer container) {
-        return new VmaAllocatorCreateInfo(address, container);
-    }
-
     /**
      * Creates a {@code VmaAllocatorCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -113,7 +104,7 @@ public class VmaAllocatorCreateInfo extends Struct<VmaAllocatorCreateInfo> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** flags for created allocator. Use {@code VmaAllocatorCreateFlagBits} enum. One of:<br><table><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_EXTERNALLY_SYNCHRONIZED_BIT ALLOCATOR_CREATE_EXTERNALLY_SYNCHRONIZED_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_KHR_DEDICATED_ALLOCATION_BIT ALLOCATOR_CREATE_KHR_DEDICATED_ALLOCATION_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_KHR_BIND_MEMORY2_BIT ALLOCATOR_CREATE_KHR_BIND_MEMORY2_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_EXT_MEMORY_BUDGET_BIT ALLOCATOR_CREATE_EXT_MEMORY_BUDGET_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_AMD_DEVICE_COHERENT_MEMORY_BIT ALLOCATOR_CREATE_AMD_DEVICE_COHERENT_MEMORY_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_BUFFER_DEVICE_ADDRESS_BIT ALLOCATOR_CREATE_BUFFER_DEVICE_ADDRESS_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_EXT_MEMORY_PRIORITY_BIT ALLOCATOR_CREATE_EXT_MEMORY_PRIORITY_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_KHR_MAINTENANCE4_BIT ALLOCATOR_CREATE_KHR_MAINTENANCE4_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_KHR_MAINTENANCE5_BIT ALLOCATOR_CREATE_KHR_MAINTENANCE5_BIT}</td></tr></table> */
+    /** flags for created allocator. Use {@code VmaAllocatorCreateFlagBits} enum. One of:<br><table><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_EXTERNALLY_SYNCHRONIZED_BIT ALLOCATOR_CREATE_EXTERNALLY_SYNCHRONIZED_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_KHR_DEDICATED_ALLOCATION_BIT ALLOCATOR_CREATE_KHR_DEDICATED_ALLOCATION_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_KHR_BIND_MEMORY2_BIT ALLOCATOR_CREATE_KHR_BIND_MEMORY2_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_EXT_MEMORY_BUDGET_BIT ALLOCATOR_CREATE_EXT_MEMORY_BUDGET_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_AMD_DEVICE_COHERENT_MEMORY_BIT ALLOCATOR_CREATE_AMD_DEVICE_COHERENT_MEMORY_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_BUFFER_DEVICE_ADDRESS_BIT ALLOCATOR_CREATE_BUFFER_DEVICE_ADDRESS_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATOR_CREATE_EXT_MEMORY_PRIORITY_BIT ALLOCATOR_CREATE_EXT_MEMORY_PRIORITY_BIT}</td></tr></table> */
     @NativeType("VmaAllocatorCreateFlags")
     public int flags() { return nflags(address()); }
     /** Vulkan physical device. It must be valid throughout whole lifetime of created allocator. */
@@ -169,17 +160,14 @@ public class VmaAllocatorCreateInfo extends Struct<VmaAllocatorCreateInfo> imple
     @NativeType("VkInstance")
     public long instance() { return ninstance(address()); }
     /**
-     * Vulkan version that the application uses. (optional)
+     * the highest version of Vulkan that the application is designed to use. (optional)
      * 
      * <p>It must be a value in the format as created by macro {@code VK_MAKE_VERSION} or a constant like: {@code VK_API_VERSION_1_1},
-     * {@code VK_API_VERSION_1_0}. The patch version number specified is ignored. Only the major and minor versions are considered. Only versions 1.0, 1.1,
-     * 1.2 and 1.3 are supported by the current implementation.</p>
+     * {@code VK_API_VERSION_1_0}. The patch version number specified is ignored. Only the major and minor versions are considered. It must be less or equal
+     * (preferably equal) to value as passed to {@code vkCreateInstance} as {@code VkApplicationInfo::apiVersion}. Only versions 1.0, 1.1, 1.2 and 1.3 are
+     * supported by the current implementation.</p>
      * 
      * <p>Leaving it initialized to zero is equivalent to {@code VK_API_VERSION_1_0}.</p>
-     * 
-     * <p>It must match the Vulkan version used by the application and supported on the selected physical device, so it must be no higher than
-     * {@code VkApplicationInfo::apiVersion} passed to {@code vkCreateInstance} and no higher than {@code VkPhysicalDeviceProperties::apiVersion} found on the
-     * physical device used.</p>
      */
     @NativeType("uint32_t")
     public int vulkanApiVersion() { return nvulkanApiVersion(address()); }
@@ -266,29 +254,29 @@ public class VmaAllocatorCreateInfo extends Struct<VmaAllocatorCreateInfo> imple
 
     /** Returns a new {@code VmaAllocatorCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VmaAllocatorCreateInfo malloc() {
-        return new VmaAllocatorCreateInfo(nmemAllocChecked(SIZEOF), null);
+        return wrap(VmaAllocatorCreateInfo.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VmaAllocatorCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VmaAllocatorCreateInfo calloc() {
-        return new VmaAllocatorCreateInfo(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VmaAllocatorCreateInfo.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VmaAllocatorCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VmaAllocatorCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VmaAllocatorCreateInfo(memAddress(container), container);
+        return wrap(VmaAllocatorCreateInfo.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VmaAllocatorCreateInfo} instance for the specified memory address. */
     public static VmaAllocatorCreateInfo create(long address) {
-        return new VmaAllocatorCreateInfo(address, null);
+        return wrap(VmaAllocatorCreateInfo.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VmaAllocatorCreateInfo createSafe(long address) {
-        return address == NULL ? null : new VmaAllocatorCreateInfo(address, null);
+        return address == NULL ? null : wrap(VmaAllocatorCreateInfo.class, address);
     }
 
     // -----------------------------------
@@ -309,7 +297,7 @@ public class VmaAllocatorCreateInfo extends Struct<VmaAllocatorCreateInfo> imple
      * @param stack the stack from which to allocate
      */
     public static VmaAllocatorCreateInfo malloc(MemoryStack stack) {
-        return new VmaAllocatorCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VmaAllocatorCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -318,7 +306,7 @@ public class VmaAllocatorCreateInfo extends Struct<VmaAllocatorCreateInfo> imple
      * @param stack the stack from which to allocate
      */
     public static VmaAllocatorCreateInfo calloc(MemoryStack stack) {
-        return new VmaAllocatorCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VmaAllocatorCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     // -----------------------------------

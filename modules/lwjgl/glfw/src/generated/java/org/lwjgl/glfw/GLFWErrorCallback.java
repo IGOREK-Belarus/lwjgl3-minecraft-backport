@@ -101,24 +101,14 @@ public abstract class GLFWErrorCallback extends Callback implements GLFWErrorCal
             public void invoke(int error, long description) {
                 String msg = getDescription(description);
 
-                StringBuilder sb = new StringBuilder(512);
-                sb
-                    .append("[LWJGL] ")
-                    .append(ERROR_CODES.get(error))
-                    .append(" error\n")
-                    .append("\tDescription : ")
-                    .append(msg)
-                    .append("\n")
-                    .append("\tStacktrace  :\n");
-
+                stream.printf("[LWJGL] %s error\n", ERROR_CODES.get(error));
+                stream.println("\tDescription : " + msg);
+                stream.println("\tStacktrace  :");
                 StackTraceElement[] stack = Thread.currentThread().getStackTrace();
-                for (int i = 4; i < stack.length; i++) {
-                    sb.append("\t\t");
-                    sb.append(stack[i]);
-                    sb.append("\n");
+                for ( int i = 4; i < stack.length; i++ ) {
+                    stream.print("\t\t");
+                    stream.println(stack[i].toString());
                 }
-
-                stream.print(sb);
             }
         };
     }

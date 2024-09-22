@@ -20,27 +20,22 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If the {@code pNext} chain of {@link VkSubpassDescription2} includes a {@link VkSubpassDescriptionDepthStencilResolve} structure, then that structure describes <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-resolve-operations">multisample resolve operations</a> for the depth/stencil attachment in a subpass. If this structure is not included in the {@code pNext} chain of {@link VkSubpassDescription2}, or if it is and either {@code pDepthStencilResolveAttachment} is {@code NULL} or its attachment index is {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, it indicates that no depth/stencil resolve attachment will be used in the subpass.</p>
+ * <p>If {@code pDepthStencilResolveAttachment} is {@code NULL}, or if its attachment index is {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, it indicates that no depth/stencil resolve attachment will be used in the subpass.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
  * <li>If {@code pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, {@code pDepthStencilAttachment} <b>must</b> not be {@code NULL} or have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}</li>
+ * <li>If {@code pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, {@code depthResolveMode} and {@code stencilResolveMode} <b>must</b> not both be {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}</li>
  * <li>If {@code pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, {@code pDepthStencilAttachment} <b>must</b> not have a sample count of {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT}</li>
  * <li>If {@code pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, {@code pDepthStencilResolveAttachment} <b>must</b> have a sample count of {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT}</li>
- * <li>If {@code pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} then it <b>must</b> have an image format whose <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> contain {@link VK10#VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT}</li>
- * <li>If {@code pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and {@code VkFormat} of {@code pDepthStencilResolveAttachment} has a depth component, then the {@code VkFormat} of {@code pDepthStencilAttachment} <b>must</b> have a depth component with the same number of bits and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-numericformat">numeric format</a></li>
- * <li>If {@code pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, and {@code VkFormat} of {@code pDepthStencilResolveAttachment} has a stencil component, then the {@code VkFormat} of {@code pDepthStencilAttachment} <b>must</b> have a stencil component with the same number of bits and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-numericformat">numeric format</a></li>
- * <li>If {@code pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, {@code depthResolveMode} and {@code stencilResolveMode} <b>must</b> not both be {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}</li>
+ * <li>If {@code pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} then it <b>must</b> have an image format whose <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> contain {@link VK10#VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT}</li>
+ * <li>If {@code pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and {@code VkFormat} of {@code pDepthStencilResolveAttachment} has a depth component, then the {@code VkFormat} of {@code pDepthStencilAttachment} <b>must</b> have a depth component with the same number of bits and numerical type</li>
+ * <li>If {@code pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, and {@code VkFormat} of {@code pDepthStencilResolveAttachment} has a stencil component, then the {@code VkFormat} of {@code pDepthStencilAttachment} <b>must</b> have a stencil component with the same number of bits and numerical type</li>
  * <li>If {@code pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and the {@code VkFormat} of {@code pDepthStencilResolveAttachment} has a depth component, then the value of {@code depthResolveMode} <b>must</b> be one of the bits set in {@link VkPhysicalDeviceDepthStencilResolveProperties}{@code ::supportedDepthResolveModes} or {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}</li>
  * <li>If {@code pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and the {@code VkFormat} of {@code pDepthStencilResolveAttachment} has a stencil component, then the value of {@code stencilResolveMode} <b>must</b> be one of the bits set in {@link VkPhysicalDeviceDepthStencilResolveProperties}{@code ::supportedStencilResolveModes} or {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}</li>
  * <li>If {@code pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, the {@code VkFormat} of {@code pDepthStencilResolveAttachment} has both depth and stencil components, {@link VkPhysicalDeviceDepthStencilResolveProperties}{@code ::independentResolve} is {@link VK10#VK_FALSE FALSE}, and {@link VkPhysicalDeviceDepthStencilResolveProperties}{@code ::independentResolveNone} is {@link VK10#VK_FALSE FALSE}, then the values of {@code depthResolveMode} and {@code stencilResolveMode} <b>must</b> be identical</li>
  * <li>If {@code pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, the {@code VkFormat} of {@code pDepthStencilResolveAttachment} has both depth and stencil components, {@link VkPhysicalDeviceDepthStencilResolveProperties}{@code ::independentResolve} is {@link VK10#VK_FALSE FALSE} and {@link VkPhysicalDeviceDepthStencilResolveProperties}{@code ::independentResolveNone} is {@link VK10#VK_TRUE TRUE}, then the values of {@code depthResolveMode} and {@code stencilResolveMode} <b>must</b> be identical or one of them <b>must</b> be {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}</li>
- * <li>If the {@code pNext} chain of {@link VkSubpassDescription2} includes a {@link VkMultisampledRenderToSingleSampledInfoEXT} structure, the {@code multisampledRenderToSingleSampledEnable} field is {@link VK10#VK_TRUE TRUE}, and {@code pDepthStencilAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, {@code depthResolveMode} and {@code stencilResolveMode} <b>must</b> not both be {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}</li>
- * <li>If the {@code pNext} chain of {@link VkSubpassDescription2} includes a {@link VkMultisampledRenderToSingleSampledInfoEXT} structure whose {@code multisampledRenderToSingleSampledEnable} field is {@link VK10#VK_TRUE TRUE}, and {@code pDepthStencilAttachment} is not {@code NULL}, does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, and has a {@code VkFormat} that has a depth component, then the value of {@code depthResolveMode} <b>must</b> be one of the bits set in {@link VkPhysicalDeviceDepthStencilResolveProperties}{@code ::supportedDepthResolveModes} or {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}</li>
- * <li>If the {@code pNext} chain of {@link VkSubpassDescription2} includes a {@link VkMultisampledRenderToSingleSampledInfoEXT} structure whose {@code multisampledRenderToSingleSampledEnable} field is {@link VK10#VK_TRUE TRUE}, and {@code pDepthStencilAttachment} is not {@code NULL}, does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, and has a {@code VkFormat} with a stencil component, then the value of {@code stencilResolveMode} <b>must</b> be one of the bits set in {@link VkPhysicalDeviceDepthStencilResolveProperties}{@code ::supportedStencilResolveModes} or {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}</li>
- * <li>If the {@code pNext} chain of {@link VkSubpassDescription2} includes a {@link VkMultisampledRenderToSingleSampledInfoEXT} structure whose {@code multisampledRenderToSingleSampledEnable} field is {@link VK10#VK_TRUE TRUE}, {@code pDepthStencilAttachment} is not {@code NULL}, does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, and has a {@code VkFormat} with both depth and stencil components, and both {@link VkPhysicalDeviceDepthStencilResolveProperties}{@code ::independentResolve} and {@link VkPhysicalDeviceDepthStencilResolveProperties}{@code ::independentResolveNone} are {@link VK10#VK_FALSE FALSE}, then the values of {@code depthResolveMode} and {@code stencilResolveMode} <b>must</b> be identical</li>
- * <li>If the {@code pNext} chain of {@link VkSubpassDescription2} includes a {@link VkMultisampledRenderToSingleSampledInfoEXT} structure whose {@code multisampledRenderToSingleSampledEnable} field is {@link VK10#VK_TRUE TRUE}, {@code pDepthStencilAttachment} is not {@code NULL}, does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, and has a {@code VkFormat} with both depth and stencil components, {@link VkPhysicalDeviceDepthStencilResolveProperties}{@code ::independentResolve} is {@link VK10#VK_FALSE FALSE}, and {@link VkPhysicalDeviceDepthStencilResolveProperties}{@code ::independentResolveNone} is {@link VK10#VK_TRUE TRUE}, then the values of {@code depthResolveMode} and {@code stencilResolveMode} <b>must</b> be identical or one of them <b>must</b> be {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -65,7 +60,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkAttachmentReference2 VkAttachmentReference2} const * {@link #pDepthStencilResolveAttachment};
  * }</code></pre>
  */
-public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDescriptionDepthStencilResolve> implements NativeResource {
+public class VkSubpassDescriptionDepthStencilResolve extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -100,15 +95,6 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
         PDEPTHSTENCILRESOLVEATTACHMENT = layout.offsetof(4);
     }
 
-    protected VkSubpassDescriptionDepthStencilResolve(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkSubpassDescriptionDepthStencilResolve create(long address, @Nullable ByteBuffer container) {
-        return new VkSubpassDescriptionDepthStencilResolve(address, container);
-    }
-
     /**
      * Creates a {@code VkSubpassDescriptionDepthStencilResolve} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -122,7 +108,7 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -185,29 +171,29 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
 
     /** Returns a new {@code VkSubpassDescriptionDepthStencilResolve} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSubpassDescriptionDepthStencilResolve malloc() {
-        return new VkSubpassDescriptionDepthStencilResolve(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkSubpassDescriptionDepthStencilResolve.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkSubpassDescriptionDepthStencilResolve} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSubpassDescriptionDepthStencilResolve calloc() {
-        return new VkSubpassDescriptionDepthStencilResolve(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkSubpassDescriptionDepthStencilResolve.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkSubpassDescriptionDepthStencilResolve} instance allocated with {@link BufferUtils}. */
     public static VkSubpassDescriptionDepthStencilResolve create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkSubpassDescriptionDepthStencilResolve(memAddress(container), container);
+        return wrap(VkSubpassDescriptionDepthStencilResolve.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkSubpassDescriptionDepthStencilResolve} instance for the specified memory address. */
     public static VkSubpassDescriptionDepthStencilResolve create(long address) {
-        return new VkSubpassDescriptionDepthStencilResolve(address, null);
+        return wrap(VkSubpassDescriptionDepthStencilResolve.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSubpassDescriptionDepthStencilResolve createSafe(long address) {
-        return address == NULL ? null : new VkSubpassDescriptionDepthStencilResolve(address, null);
+        return address == NULL ? null : wrap(VkSubpassDescriptionDepthStencilResolve.class, address);
     }
 
     /**
@@ -216,7 +202,7 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
      * @param capacity the buffer capacity
      */
     public static VkSubpassDescriptionDepthStencilResolve.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -225,7 +211,7 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
      * @param capacity the buffer capacity
      */
     public static VkSubpassDescriptionDepthStencilResolve.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -235,7 +221,7 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
      */
     public static VkSubpassDescriptionDepthStencilResolve.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -245,13 +231,13 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
      * @param capacity the buffer capacity
      */
     public static VkSubpassDescriptionDepthStencilResolve.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSubpassDescriptionDepthStencilResolve.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -260,7 +246,7 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
      * @param stack the stack from which to allocate
      */
     public static VkSubpassDescriptionDepthStencilResolve malloc(MemoryStack stack) {
-        return new VkSubpassDescriptionDepthStencilResolve(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkSubpassDescriptionDepthStencilResolve.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -269,7 +255,7 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
      * @param stack the stack from which to allocate
      */
     public static VkSubpassDescriptionDepthStencilResolve calloc(MemoryStack stack) {
-        return new VkSubpassDescriptionDepthStencilResolve(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkSubpassDescriptionDepthStencilResolve.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -279,7 +265,7 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
      * @param capacity the buffer capacity
      */
     public static VkSubpassDescriptionDepthStencilResolve.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -289,7 +275,7 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
      * @param capacity the buffer capacity
      */
     public static VkSubpassDescriptionDepthStencilResolve.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -326,9 +312,9 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
         /**
          * Creates a new {@code VkSubpassDescriptionDepthStencilResolve.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSubpassDescriptionDepthStencilResolve#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkSubpassDescriptionDepthStencilResolve#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

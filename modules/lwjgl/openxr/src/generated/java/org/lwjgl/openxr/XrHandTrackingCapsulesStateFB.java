@@ -26,7 +26,7 @@ import static org.lwjgl.openxr.FBHandTrackingCapsules.*;
  * <ul>
  * <li>The {@link FBHandTrackingCapsules XR_FB_hand_tracking_capsules} extension <b>must</b> be enabled prior to using {@link XrHandTrackingCapsulesStateFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBHandTrackingCapsules#XR_TYPE_HAND_TRACKING_CAPSULES_STATE_FB TYPE_HAND_TRACKING_CAPSULES_STATE_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -39,10 +39,10 @@ import static org.lwjgl.openxr.FBHandTrackingCapsules.*;
  * struct XrHandTrackingCapsulesStateFB {
  *     XrStructureType {@link #type};
  *     void * {@link #next};
- *     {@link XrHandCapsuleFB XrHandCapsuleFB} {@link #capsules}[XR_HAND_TRACKING_CAPSULE_COUNT_FB];
+ *     {@link XrHandCapsuleFB XrHandCapsuleFB} {@link #capsules}[XR_FB_HAND_TRACKING_CAPSULE_COUNT];
  * }</code></pre>
  */
-public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsulesStateFB> implements NativeResource {
+public class XrHandTrackingCapsulesStateFB extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -60,7 +60,7 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
         Layout layout = __struct(
             __member(4),
             __member(POINTER_SIZE),
-            __array(XrHandCapsuleFB.SIZEOF, XrHandCapsuleFB.ALIGNOF, XR_HAND_TRACKING_CAPSULE_COUNT_FB)
+            __array(XrHandCapsuleFB.SIZEOF, XrHandCapsuleFB.ALIGNOF, XR_FB_HAND_TRACKING_CAPSULE_COUNT)
         );
 
         SIZEOF = layout.getSize();
@@ -69,15 +69,6 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
         CAPSULES = layout.offsetof(2);
-    }
-
-    protected XrHandTrackingCapsulesStateFB(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrHandTrackingCapsulesStateFB create(long address, @Nullable ByteBuffer container) {
-        return new XrHandTrackingCapsulesStateFB(address, container);
     }
 
     /**
@@ -100,7 +91,7 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
     @NativeType("void *")
     public long next() { return nnext(address()); }
     /** an array of capsules. */
-    @NativeType("XrHandCapsuleFB[XR_HAND_TRACKING_CAPSULE_COUNT_FB]")
+    @NativeType("XrHandCapsuleFB[XR_FB_HAND_TRACKING_CAPSULE_COUNT]")
     public XrHandCapsuleFB.Buffer capsules() { return ncapsules(address()); }
     /** an array of capsules. */
     public XrHandCapsuleFB capsules(int index) { return ncapsules(address(), index); }
@@ -139,29 +130,29 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
 
     /** Returns a new {@code XrHandTrackingCapsulesStateFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrHandTrackingCapsulesStateFB malloc() {
-        return new XrHandTrackingCapsulesStateFB(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrHandTrackingCapsulesStateFB.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrHandTrackingCapsulesStateFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrHandTrackingCapsulesStateFB calloc() {
-        return new XrHandTrackingCapsulesStateFB(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrHandTrackingCapsulesStateFB.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrHandTrackingCapsulesStateFB} instance allocated with {@link BufferUtils}. */
     public static XrHandTrackingCapsulesStateFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrHandTrackingCapsulesStateFB(memAddress(container), container);
+        return wrap(XrHandTrackingCapsulesStateFB.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrHandTrackingCapsulesStateFB} instance for the specified memory address. */
     public static XrHandTrackingCapsulesStateFB create(long address) {
-        return new XrHandTrackingCapsulesStateFB(address, null);
+        return wrap(XrHandTrackingCapsulesStateFB.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandTrackingCapsulesStateFB createSafe(long address) {
-        return address == NULL ? null : new XrHandTrackingCapsulesStateFB(address, null);
+        return address == NULL ? null : wrap(XrHandTrackingCapsulesStateFB.class, address);
     }
 
     /**
@@ -170,7 +161,7 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
      * @param capacity the buffer capacity
      */
     public static XrHandTrackingCapsulesStateFB.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -179,7 +170,7 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
      * @param capacity the buffer capacity
      */
     public static XrHandTrackingCapsulesStateFB.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -189,7 +180,7 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
      */
     public static XrHandTrackingCapsulesStateFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -199,13 +190,13 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
      * @param capacity the buffer capacity
      */
     public static XrHandTrackingCapsulesStateFB.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandTrackingCapsulesStateFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -214,7 +205,7 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
      * @param stack the stack from which to allocate
      */
     public static XrHandTrackingCapsulesStateFB malloc(MemoryStack stack) {
-        return new XrHandTrackingCapsulesStateFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrHandTrackingCapsulesStateFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -223,7 +214,7 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
      * @param stack the stack from which to allocate
      */
     public static XrHandTrackingCapsulesStateFB calloc(MemoryStack stack) {
-        return new XrHandTrackingCapsulesStateFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrHandTrackingCapsulesStateFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -233,7 +224,7 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
      * @param capacity the buffer capacity
      */
     public static XrHandTrackingCapsulesStateFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -243,7 +234,7 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
      * @param capacity the buffer capacity
      */
     public static XrHandTrackingCapsulesStateFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -253,10 +244,10 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrHandTrackingCapsulesStateFB.NEXT); }
     /** Unsafe version of {@link #capsules}. */
-    public static XrHandCapsuleFB.Buffer ncapsules(long struct) { return XrHandCapsuleFB.create(struct + XrHandTrackingCapsulesStateFB.CAPSULES, XR_HAND_TRACKING_CAPSULE_COUNT_FB); }
+    public static XrHandCapsuleFB.Buffer ncapsules(long struct) { return XrHandCapsuleFB.create(struct + XrHandTrackingCapsulesStateFB.CAPSULES, XR_FB_HAND_TRACKING_CAPSULE_COUNT); }
     /** Unsafe version of {@link #capsules(int) capsules}. */
     public static XrHandCapsuleFB ncapsules(long struct, int index) {
-        return XrHandCapsuleFB.create(struct + XrHandTrackingCapsulesStateFB.CAPSULES + check(index, XR_HAND_TRACKING_CAPSULE_COUNT_FB) * XrHandCapsuleFB.SIZEOF);
+        return XrHandCapsuleFB.create(struct + XrHandTrackingCapsulesStateFB.CAPSULES + check(index, XR_FB_HAND_TRACKING_CAPSULE_COUNT) * XrHandCapsuleFB.SIZEOF);
     }
 
     /** Unsafe version of {@link #type(int) type}. */
@@ -274,9 +265,9 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
         /**
          * Creates a new {@code XrHandTrackingCapsulesStateFB.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrHandTrackingCapsulesStateFB#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrHandTrackingCapsulesStateFB#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -309,7 +300,7 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
         @NativeType("void *")
         public long next() { return XrHandTrackingCapsulesStateFB.nnext(address()); }
         /** @return a {@link XrHandCapsuleFB}.Buffer view of the {@link XrHandTrackingCapsulesStateFB#capsules} field. */
-        @NativeType("XrHandCapsuleFB[XR_HAND_TRACKING_CAPSULE_COUNT_FB]")
+        @NativeType("XrHandCapsuleFB[XR_FB_HAND_TRACKING_CAPSULE_COUNT]")
         public XrHandCapsuleFB.Buffer capsules() { return XrHandTrackingCapsulesStateFB.ncapsules(address()); }
         /** @return a {@link XrHandCapsuleFB} view of the struct at the specified index of the {@link XrHandTrackingCapsulesStateFB#capsules} field. */
         public XrHandCapsuleFB capsules(int index) { return XrHandTrackingCapsulesStateFB.ncapsules(address(), index); }

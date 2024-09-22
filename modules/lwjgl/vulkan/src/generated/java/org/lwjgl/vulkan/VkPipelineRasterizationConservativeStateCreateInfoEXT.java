@@ -18,17 +18,6 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Structure specifying conservative raster state.
  * 
- * <h5>Description</h5>
- * 
- * <p>If this structure is not included in the {@code pNext} chain, {@code conservativeRasterizationMode} is considered to be {@link EXTConservativeRasterization#VK_CONSERVATIVE_RASTERIZATION_MODE_DISABLED_EXT CONSERVATIVE_RASTERIZATION_MODE_DISABLED_EXT}, and conservative rasterization is disabled.</p>
- * 
- * <p>Polygon rasterization <b>can</b> be made conservative by setting {@code conservativeRasterizationMode} to {@link EXTConservativeRasterization#VK_CONSERVATIVE_RASTERIZATION_MODE_OVERESTIMATE_EXT CONSERVATIVE_RASTERIZATION_MODE_OVERESTIMATE_EXT} or {@link EXTConservativeRasterization#VK_CONSERVATIVE_RASTERIZATION_MODE_UNDERESTIMATE_EXT CONSERVATIVE_RASTERIZATION_MODE_UNDERESTIMATE_EXT} in {@link VkPipelineRasterizationConservativeStateCreateInfoEXT}.</p>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-conservativePointAndLineRasterization">{@code conservativePointAndLineRasterization}</a> is supported, conservative rasterization can be applied to line and point primitives, otherwise it must be disabled.</p>
- * </div>
- * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
@@ -54,7 +43,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float {@link #extraPrimitiveOverestimationSize};
  * }</code></pre>
  */
-public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struct<VkPipelineRasterizationConservativeStateCreateInfoEXT> implements NativeResource {
+public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -89,15 +78,6 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
         EXTRAPRIMITIVEOVERESTIMATIONSIZE = layout.offsetof(4);
     }
 
-    protected VkPipelineRasterizationConservativeStateCreateInfoEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPipelineRasterizationConservativeStateCreateInfoEXT create(long address, @Nullable ByteBuffer container) {
-        return new VkPipelineRasterizationConservativeStateCreateInfoEXT(address, container);
-    }
-
     /**
      * Creates a {@code VkPipelineRasterizationConservativeStateCreateInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -111,7 +91,7 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -123,7 +103,7 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
     /** the conservative rasterization mode to use. */
     @NativeType("VkConservativeRasterizationModeEXT")
     public int conservativeRasterizationMode() { return nconservativeRasterizationMode(address()); }
-    /** the extra size in pixels to increase the generating primitive during conservative rasterization at each of its edges in {@code X} and {@code Y} equally in screen space beyond the base overestimation specified in {@link VkPhysicalDeviceConservativeRasterizationPropertiesEXT}{@code ::primitiveOverestimationSize}. If {@code conservativeRasterizationMode} is not {@link EXTConservativeRasterization#VK_CONSERVATIVE_RASTERIZATION_MODE_OVERESTIMATE_EXT CONSERVATIVE_RASTERIZATION_MODE_OVERESTIMATE_EXT}, this value is ignored. */
+    /** the extra size in pixels to increase the generating primitive during conservative rasterization at each of its edges in {@code X} and {@code Y} equally in screen space beyond the base overestimation specified in {@link VkPhysicalDeviceConservativeRasterizationPropertiesEXT}{@code ::primitiveOverestimationSize}. */
     public float extraPrimitiveOverestimationSize() { return nextraPrimitiveOverestimationSize(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
@@ -172,29 +152,29 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
 
     /** Returns a new {@code VkPipelineRasterizationConservativeStateCreateInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPipelineRasterizationConservativeStateCreateInfoEXT malloc() {
-        return new VkPipelineRasterizationConservativeStateCreateInfoEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPipelineRasterizationConservativeStateCreateInfoEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineRasterizationConservativeStateCreateInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPipelineRasterizationConservativeStateCreateInfoEXT calloc() {
-        return new VkPipelineRasterizationConservativeStateCreateInfoEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPipelineRasterizationConservativeStateCreateInfoEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPipelineRasterizationConservativeStateCreateInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkPipelineRasterizationConservativeStateCreateInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPipelineRasterizationConservativeStateCreateInfoEXT(memAddress(container), container);
+        return wrap(VkPipelineRasterizationConservativeStateCreateInfoEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPipelineRasterizationConservativeStateCreateInfoEXT} instance for the specified memory address. */
     public static VkPipelineRasterizationConservativeStateCreateInfoEXT create(long address) {
-        return new VkPipelineRasterizationConservativeStateCreateInfoEXT(address, null);
+        return wrap(VkPipelineRasterizationConservativeStateCreateInfoEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineRasterizationConservativeStateCreateInfoEXT createSafe(long address) {
-        return address == NULL ? null : new VkPipelineRasterizationConservativeStateCreateInfoEXT(address, null);
+        return address == NULL ? null : wrap(VkPipelineRasterizationConservativeStateCreateInfoEXT.class, address);
     }
 
     /**
@@ -203,7 +183,7 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
      * @param capacity the buffer capacity
      */
     public static VkPipelineRasterizationConservativeStateCreateInfoEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -212,7 +192,7 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
      * @param capacity the buffer capacity
      */
     public static VkPipelineRasterizationConservativeStateCreateInfoEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -222,7 +202,7 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
      */
     public static VkPipelineRasterizationConservativeStateCreateInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -232,13 +212,13 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
      * @param capacity the buffer capacity
      */
     public static VkPipelineRasterizationConservativeStateCreateInfoEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineRasterizationConservativeStateCreateInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -266,7 +246,7 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
      * @param stack the stack from which to allocate
      */
     public static VkPipelineRasterizationConservativeStateCreateInfoEXT malloc(MemoryStack stack) {
-        return new VkPipelineRasterizationConservativeStateCreateInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPipelineRasterizationConservativeStateCreateInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -275,7 +255,7 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
      * @param stack the stack from which to allocate
      */
     public static VkPipelineRasterizationConservativeStateCreateInfoEXT calloc(MemoryStack stack) {
-        return new VkPipelineRasterizationConservativeStateCreateInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPipelineRasterizationConservativeStateCreateInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -285,7 +265,7 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
      * @param capacity the buffer capacity
      */
     public static VkPipelineRasterizationConservativeStateCreateInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -295,7 +275,7 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
      * @param capacity the buffer capacity
      */
     public static VkPipelineRasterizationConservativeStateCreateInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -332,9 +312,9 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
         /**
          * Creates a new {@code VkPipelineRasterizationConservativeStateCreateInfoEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPipelineRasterizationConservativeStateCreateInfoEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPipelineRasterizationConservativeStateCreateInfoEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -27,12 +27,10 @@ import static org.lwjgl.system.MemoryStack.*;
  *     unsigned int headerSize;
  *     unsigned int dictID;
  *     unsigned int checksumFlag;
- *     unsigned _reserved1;
- *     unsigned _reserved2;
  * }</code></pre>
  */
 @NativeType("struct ZSTD_frameHeader")
-public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeResource {
+public class ZSTDFrameHeader extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -48,16 +46,12 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
         FRAMETYPE,
         HEADERSIZE,
         DICTID,
-        CHECKSUMFLAG,
-        _RESERVED1,
-        _RESERVED2;
+        CHECKSUMFLAG;
 
     static {
         Layout layout = __struct(
             __member(8),
             __member(8),
-            __member(4),
-            __member(4),
             __member(4),
             __member(4),
             __member(4),
@@ -75,17 +69,6 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
         HEADERSIZE = layout.offsetof(4);
         DICTID = layout.offsetof(5);
         CHECKSUMFLAG = layout.offsetof(6);
-        _RESERVED1 = layout.offsetof(7);
-        _RESERVED2 = layout.offsetof(8);
-    }
-
-    protected ZSTDFrameHeader(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected ZSTDFrameHeader create(long address, @Nullable ByteBuffer container) {
-        return new ZSTDFrameHeader(address, container);
     }
 
     /**
@@ -127,29 +110,29 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
 
     /** Returns a new {@code ZSTDFrameHeader} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static ZSTDFrameHeader malloc() {
-        return new ZSTDFrameHeader(nmemAllocChecked(SIZEOF), null);
+        return wrap(ZSTDFrameHeader.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code ZSTDFrameHeader} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static ZSTDFrameHeader calloc() {
-        return new ZSTDFrameHeader(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(ZSTDFrameHeader.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code ZSTDFrameHeader} instance allocated with {@link BufferUtils}. */
     public static ZSTDFrameHeader create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new ZSTDFrameHeader(memAddress(container), container);
+        return wrap(ZSTDFrameHeader.class, memAddress(container), container);
     }
 
     /** Returns a new {@code ZSTDFrameHeader} instance for the specified memory address. */
     public static ZSTDFrameHeader create(long address) {
-        return new ZSTDFrameHeader(address, null);
+        return wrap(ZSTDFrameHeader.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static ZSTDFrameHeader createSafe(long address) {
-        return address == NULL ? null : new ZSTDFrameHeader(address, null);
+        return address == NULL ? null : wrap(ZSTDFrameHeader.class, address);
     }
 
     /**
@@ -158,7 +141,7 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static ZSTDFrameHeader.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -167,7 +150,7 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static ZSTDFrameHeader.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -177,7 +160,7 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
      */
     public static ZSTDFrameHeader.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -187,13 +170,13 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static ZSTDFrameHeader.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static ZSTDFrameHeader.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     // -----------------------------------
@@ -221,7 +204,7 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static ZSTDFrameHeader malloc(MemoryStack stack) {
-        return new ZSTDFrameHeader(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(ZSTDFrameHeader.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -230,7 +213,7 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static ZSTDFrameHeader calloc(MemoryStack stack) {
-        return new ZSTDFrameHeader(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(ZSTDFrameHeader.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -240,7 +223,7 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static ZSTDFrameHeader.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -250,7 +233,7 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
      * @param capacity the buffer capacity
      */
     public static ZSTDFrameHeader.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -269,8 +252,6 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
     public static int ndictID(long struct) { return UNSAFE.getInt(null, struct + ZSTDFrameHeader.DICTID); }
     /** Unsafe version of {@link #checksumFlag}. */
     public static int nchecksumFlag(long struct) { return UNSAFE.getInt(null, struct + ZSTDFrameHeader.CHECKSUMFLAG); }
-    public static int n_reserved1(long struct) { return UNSAFE.getInt(null, struct + ZSTDFrameHeader._RESERVED1); }
-    public static int n_reserved2(long struct) { return UNSAFE.getInt(null, struct + ZSTDFrameHeader._RESERVED2); }
 
     // -----------------------------------
 
@@ -282,9 +263,9 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
         /**
          * Creates a new {@code ZSTDFrameHeader.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link ZSTDFrameHeader#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link ZSTDFrameHeader#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

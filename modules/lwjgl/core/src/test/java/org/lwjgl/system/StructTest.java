@@ -8,9 +8,6 @@ import org.lwjgl.*;
 import org.lwjgl.system.jni.*;
 import org.testng.annotations.*;
 
-import javax.annotation.*;
-import java.nio.*;
-
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.testng.Assert.*;
@@ -18,9 +15,7 @@ import static org.testng.Assert.*;
 @Test
 public class StructTest {
 
-    @SuppressWarnings("rawtypes")
     public void testLayout() {
-        //noinspection ResultOfObjectAllocationIgnored
         new Struct(-1L, null) {
             {
                 Layout layout;
@@ -163,10 +158,6 @@ public class StructTest {
             @Override public int sizeof() {
                 return 0;
             }
-
-            @Override protected Struct create(long address, @Nullable ByteBuffer container) {
-                throw new UnsupportedOperationException();
-            }
         };
     }
 
@@ -180,7 +171,6 @@ public class StructTest {
             JNINativeMethod.calloc(stack);
         }
 
-        //noinspection ResultOfObjectAllocationIgnored
         expectThrows(IllegalArgumentException.class, () -> new JNINativeMethod(BufferUtils.createByteBuffer(4)));
     }
 

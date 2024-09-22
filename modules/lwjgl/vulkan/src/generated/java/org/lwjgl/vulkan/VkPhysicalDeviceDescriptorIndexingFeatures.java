@@ -56,7 +56,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #runtimeDescriptorArray};
  * }</code></pre>
  */
-public class VkPhysicalDeviceDescriptorIndexingFeatures extends Struct<VkPhysicalDeviceDescriptorIndexingFeatures> implements NativeResource {
+public class VkPhysicalDeviceDescriptorIndexingFeatures extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -142,15 +142,6 @@ public class VkPhysicalDeviceDescriptorIndexingFeatures extends Struct<VkPhysica
         RUNTIMEDESCRIPTORARRAY = layout.offsetof(21);
     }
 
-    protected VkPhysicalDeviceDescriptorIndexingFeatures(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected VkPhysicalDeviceDescriptorIndexingFeatures create(long address, @Nullable ByteBuffer container) {
-        return new VkPhysicalDeviceDescriptorIndexingFeatures(address, container);
-    }
-
     /**
      * Creates a {@code VkPhysicalDeviceDescriptorIndexingFeatures} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -164,19 +155,19 @@ public class VkPhysicalDeviceDescriptorIndexingFeatures extends Struct<VkPhysica
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** the type of this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether arrays of input attachments <b>can</b> be indexed by integer expressions that are dynamically uniform within either the subgroup or the invocation group in shader code. If this feature is not enabled, resources with a descriptor type of {@link VK10#VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT DESCRIPTOR_TYPE_INPUT_ATTACHMENT} <b>must</b> be indexed only by constant integral expressions when aggregated into arrays in shader code. This also indicates whether shader modules <b>can</b> declare the {@code InputAttachmentArrayDynamicIndexing} capability. */
+    /** indicates whether arrays of input attachments <b>can</b> be indexed by dynamically uniform integer expressions in shader code. If this feature is not enabled, resources with a descriptor type of {@link VK10#VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT DESCRIPTOR_TYPE_INPUT_ATTACHMENT} <b>must</b> be indexed only by constant integral expressions when aggregated into arrays in shader code. This also indicates whether shader modules <b>can</b> declare the {@code InputAttachmentArrayDynamicIndexing} capability. */
     @NativeType("VkBool32")
     public boolean shaderInputAttachmentArrayDynamicIndexing() { return nshaderInputAttachmentArrayDynamicIndexing(address()) != 0; }
-    /** indicates whether arrays of uniform texel buffers <b>can</b> be indexed by integer expressions that are dynamically uniform within either the subgroup or the invocation group in shader code. If this feature is not enabled, resources with a descriptor type of {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER} <b>must</b> be indexed only by constant integral expressions when aggregated into arrays in shader code. This also indicates whether shader modules <b>can</b> declare the {@code UniformTexelBufferArrayDynamicIndexing} capability. */
+    /** indicates whether arrays of uniform texel buffers <b>can</b> be indexed by dynamically uniform integer expressions in shader code. If this feature is not enabled, resources with a descriptor type of {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER} <b>must</b> be indexed only by constant integral expressions when aggregated into arrays in shader code. This also indicates whether shader modules <b>can</b> declare the {@code UniformTexelBufferArrayDynamicIndexing} capability. */
     @NativeType("VkBool32")
     public boolean shaderUniformTexelBufferArrayDynamicIndexing() { return nshaderUniformTexelBufferArrayDynamicIndexing(address()) != 0; }
-    /** indicates whether arrays of storage texel buffers <b>can</b> be indexed by integer expressions that are dynamically uniform within either the subgroup or the invocation group in shader code. If this feature is not enabled, resources with a descriptor type of {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER} <b>must</b> be indexed only by constant integral expressions when aggregated into arrays in shader code. This also indicates whether shader modules <b>can</b> declare the {@code StorageTexelBufferArrayDynamicIndexing} capability. */
+    /** indicates whether arrays of storage texel buffers <b>can</b> be indexed by dynamically uniform integer expressions in shader code. If this feature is not enabled, resources with a descriptor type of {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER} <b>must</b> be indexed only by constant integral expressions when aggregated into arrays in shader code. This also indicates whether shader modules <b>can</b> declare the {@code StorageTexelBufferArrayDynamicIndexing} capability. */
     @NativeType("VkBool32")
     public boolean shaderStorageTexelBufferArrayDynamicIndexing() { return nshaderStorageTexelBufferArrayDynamicIndexing(address()) != 0; }
     /** indicates whether arrays of uniform buffers <b>can</b> be indexed by non-uniform integer expressions in shader code. If this feature is not enabled, resources with a descriptor type of {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER} or {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC} <b>must</b> not be indexed by non-uniform integer expressions when aggregated into arrays in shader code. This also indicates whether shader modules <b>can</b> declare the {@code UniformBufferArrayNonUniformIndexing} capability. */
@@ -345,29 +336,29 @@ public class VkPhysicalDeviceDescriptorIndexingFeatures extends Struct<VkPhysica
 
     /** Returns a new {@code VkPhysicalDeviceDescriptorIndexingFeatures} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceDescriptorIndexingFeatures malloc() {
-        return new VkPhysicalDeviceDescriptorIndexingFeatures(nmemAllocChecked(SIZEOF), null);
+        return wrap(VkPhysicalDeviceDescriptorIndexingFeatures.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceDescriptorIndexingFeatures} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceDescriptorIndexingFeatures calloc() {
-        return new VkPhysicalDeviceDescriptorIndexingFeatures(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceDescriptorIndexingFeatures.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code VkPhysicalDeviceDescriptorIndexingFeatures} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceDescriptorIndexingFeatures create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new VkPhysicalDeviceDescriptorIndexingFeatures(memAddress(container), container);
+        return wrap(VkPhysicalDeviceDescriptorIndexingFeatures.class, memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceDescriptorIndexingFeatures} instance for the specified memory address. */
     public static VkPhysicalDeviceDescriptorIndexingFeatures create(long address) {
-        return new VkPhysicalDeviceDescriptorIndexingFeatures(address, null);
+        return wrap(VkPhysicalDeviceDescriptorIndexingFeatures.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceDescriptorIndexingFeatures createSafe(long address) {
-        return address == NULL ? null : new VkPhysicalDeviceDescriptorIndexingFeatures(address, null);
+        return address == NULL ? null : wrap(VkPhysicalDeviceDescriptorIndexingFeatures.class, address);
     }
 
     /**
@@ -376,7 +367,7 @@ public class VkPhysicalDeviceDescriptorIndexingFeatures extends Struct<VkPhysica
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDescriptorIndexingFeatures.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -385,7 +376,7 @@ public class VkPhysicalDeviceDescriptorIndexingFeatures extends Struct<VkPhysica
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDescriptorIndexingFeatures.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -395,7 +386,7 @@ public class VkPhysicalDeviceDescriptorIndexingFeatures extends Struct<VkPhysica
      */
     public static VkPhysicalDeviceDescriptorIndexingFeatures.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -405,13 +396,13 @@ public class VkPhysicalDeviceDescriptorIndexingFeatures extends Struct<VkPhysica
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDescriptorIndexingFeatures.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceDescriptorIndexingFeatures.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -420,7 +411,7 @@ public class VkPhysicalDeviceDescriptorIndexingFeatures extends Struct<VkPhysica
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceDescriptorIndexingFeatures malloc(MemoryStack stack) {
-        return new VkPhysicalDeviceDescriptorIndexingFeatures(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(VkPhysicalDeviceDescriptorIndexingFeatures.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -429,7 +420,7 @@ public class VkPhysicalDeviceDescriptorIndexingFeatures extends Struct<VkPhysica
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceDescriptorIndexingFeatures calloc(MemoryStack stack) {
-        return new VkPhysicalDeviceDescriptorIndexingFeatures(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(VkPhysicalDeviceDescriptorIndexingFeatures.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -439,7 +430,7 @@ public class VkPhysicalDeviceDescriptorIndexingFeatures extends Struct<VkPhysica
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDescriptorIndexingFeatures.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -449,7 +440,7 @@ public class VkPhysicalDeviceDescriptorIndexingFeatures extends Struct<VkPhysica
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDescriptorIndexingFeatures.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -554,9 +545,9 @@ public class VkPhysicalDeviceDescriptorIndexingFeatures extends Struct<VkPhysica
         /**
          * Creates a new {@code VkPhysicalDeviceDescriptorIndexingFeatures.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceDescriptorIndexingFeatures#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link VkPhysicalDeviceDescriptorIndexingFeatures#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

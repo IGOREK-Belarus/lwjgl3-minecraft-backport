@@ -24,9 +24,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link EXTDebugUtils XR_EXT_debug_utils} extension <b>must</b> be enabled prior to using {@link XrDebugUtilsMessengerCallbackDataEXT}</li>
  * <li>{@code type} <b>must</b> be {@link EXTDebugUtils#XR_TYPE_DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT TYPE_DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>If {@code messageId} is not {@code NULL}, {@code messageId} <b>must</b> be a null-terminated UTF-8 string</li>
- * <li>If {@code functionName} is not {@code NULL}, {@code functionName} <b>must</b> be a null-terminated UTF-8 string</li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code messageId} <b>must</b> be a null-terminated UTF-8 string</li>
+ * <li>{@code functionName} <b>must</b> be a null-terminated UTF-8 string</li>
  * <li>{@code message} <b>must</b> be a null-terminated UTF-8 string</li>
  * </ul>
  * 
@@ -58,7 +58,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrDebugUtilsLabelEXT XrDebugUtilsLabelEXT} * {@link #sessionLabels};
  * }</code></pre>
  */
-public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMessengerCallbackDataEXT> implements NativeResource {
+public class XrDebugUtilsMessengerCallbackDataEXT extends Struct implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -105,15 +105,6 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
         SESSIONLABELS = layout.offsetof(8);
     }
 
-    protected XrDebugUtilsMessengerCallbackDataEXT(long address, @Nullable ByteBuffer container) {
-        super(address, container);
-    }
-
-    @Override
-    protected XrDebugUtilsMessengerCallbackDataEXT create(long address, @Nullable ByteBuffer container) {
-        return new XrDebugUtilsMessengerCallbackDataEXT(address, container);
-    }
-
     /**
      * Creates a {@code XrDebugUtilsMessengerCallbackDataEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -134,19 +125,15 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
     @NativeType("void const *")
     public long next() { return nnext(address()); }
     /** a {@code NULL} terminated string that identifies the message in a unique way. If the callback is triggered by a validation layer, this string corresponds the Valid Usage ID (VUID) that can be used to jump to the appropriate location in the OpenXR specification. This value <b>may</b> be {@code NULL} if no unique message identifier is associated with the message. */
-    @Nullable
     @NativeType("char const *")
     public ByteBuffer messageId() { return nmessageId(address()); }
     /** a {@code NULL} terminated string that identifies the message in a unique way. If the callback is triggered by a validation layer, this string corresponds the Valid Usage ID (VUID) that can be used to jump to the appropriate location in the OpenXR specification. This value <b>may</b> be {@code NULL} if no unique message identifier is associated with the message. */
-    @Nullable
     @NativeType("char const *")
     public String messageIdString() { return nmessageIdString(address()); }
     /** a {@code NULL} terminated string that identifies the OpenXR function that was executing at the time the message callback was triggered. This value <b>may</b> be {@code NULL} in cases where it is difficult to determine the originating OpenXR function. */
-    @Nullable
     @NativeType("char const *")
     public ByteBuffer functionName() { return nfunctionName(address()); }
     /** a {@code NULL} terminated string that identifies the OpenXR function that was executing at the time the message callback was triggered. This value <b>may</b> be {@code NULL} in cases where it is difficult to determine the originating OpenXR function. */
-    @Nullable
     @NativeType("char const *")
     public String functionNameString() { return nfunctionNameString(address()); }
     /** a {@code NULL} terminated string detailing the trigger conditions. */
@@ -158,14 +145,18 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
     /** a count of items contained in the {@code objects} array. This may be 0. */
     @NativeType("uint32_t")
     public int objectCount() { return nobjectCount(address()); }
-    /** {@code NULL} or a pointer to an array of {@link XrDebugUtilsObjectNameInfoEXT} objects related to the detected issue. The array is roughly in order of importance, but the 0th element is always guaranteed to be the most important object for this message. */
+    /** a pointer to an array of {@link XrDebugUtilsObjectNameInfoEXT} objects related to the detected issue. The array is roughly in order or importance, but the 0th element is always guaranteed to be the most important object for this message. */
     @Nullable
     @NativeType("XrDebugUtilsObjectNameInfoEXT *")
     public XrDebugUtilsObjectNameInfoEXT.Buffer objects() { return nobjects(address()); }
     /** a count of items contained in the {@code sessionLabels} array. This may be 0. */
     @NativeType("uint32_t")
     public int sessionLabelCount() { return nsessionLabelCount(address()); }
-    /** {@code NULL} or a pointer to an array of {@link XrDebugUtilsLabelEXT} active in the current {@code XrSession} at the time the callback was triggered. Refer to <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#ext_debug_utils-session-labels">ext_debug_utils-session-labels</a> for more information. */
+    /**
+     * a pointer to an array of {@link XrDebugUtilsLabelEXT} objects related to the detected issue. The array is roughly in order or importance, but the 0th element is always guaranteed to be the most important object for this message.
+     * 
+     * <p>NULL or a pointer to an array of {@link XrDebugUtilsLabelEXT} active in the current {@code XrSession} at the time the callback was triggered. Refer to <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session-labels">Session Labels</a> for more information.</p>
+     */
     @Nullable
     @NativeType("XrDebugUtilsLabelEXT *")
     public XrDebugUtilsLabelEXT.Buffer sessionLabels() { return nsessionLabels(address()); }
@@ -177,9 +168,9 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
     /** Sets the specified value to the {@link #next} field. */
     public XrDebugUtilsMessengerCallbackDataEXT next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
     /** Sets the address of the specified encoded string to the {@link #messageId} field. */
-    public XrDebugUtilsMessengerCallbackDataEXT messageId(@Nullable @NativeType("char const *") ByteBuffer value) { nmessageId(address(), value); return this; }
+    public XrDebugUtilsMessengerCallbackDataEXT messageId(@NativeType("char const *") ByteBuffer value) { nmessageId(address(), value); return this; }
     /** Sets the address of the specified encoded string to the {@link #functionName} field. */
-    public XrDebugUtilsMessengerCallbackDataEXT functionName(@Nullable @NativeType("char const *") ByteBuffer value) { nfunctionName(address(), value); return this; }
+    public XrDebugUtilsMessengerCallbackDataEXT functionName(@NativeType("char const *") ByteBuffer value) { nfunctionName(address(), value); return this; }
     /** Sets the address of the specified encoded string to the {@link #message} field. */
     public XrDebugUtilsMessengerCallbackDataEXT message(@NativeType("char const *") ByteBuffer value) { nmessage(address(), value); return this; }
     /** Sets the specified value to the {@link #objectCount} field. */
@@ -195,8 +186,8 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
     public XrDebugUtilsMessengerCallbackDataEXT set(
         int type,
         long next,
-        @Nullable ByteBuffer messageId,
-        @Nullable ByteBuffer functionName,
+        ByteBuffer messageId,
+        ByteBuffer functionName,
         ByteBuffer message,
         int objectCount,
         @Nullable XrDebugUtilsObjectNameInfoEXT.Buffer objects,
@@ -232,29 +223,29 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
 
     /** Returns a new {@code XrDebugUtilsMessengerCallbackDataEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrDebugUtilsMessengerCallbackDataEXT malloc() {
-        return new XrDebugUtilsMessengerCallbackDataEXT(nmemAllocChecked(SIZEOF), null);
+        return wrap(XrDebugUtilsMessengerCallbackDataEXT.class, nmemAllocChecked(SIZEOF));
     }
 
     /** Returns a new {@code XrDebugUtilsMessengerCallbackDataEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrDebugUtilsMessengerCallbackDataEXT calloc() {
-        return new XrDebugUtilsMessengerCallbackDataEXT(nmemCallocChecked(1, SIZEOF), null);
+        return wrap(XrDebugUtilsMessengerCallbackDataEXT.class, nmemCallocChecked(1, SIZEOF));
     }
 
     /** Returns a new {@code XrDebugUtilsMessengerCallbackDataEXT} instance allocated with {@link BufferUtils}. */
     public static XrDebugUtilsMessengerCallbackDataEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new XrDebugUtilsMessengerCallbackDataEXT(memAddress(container), container);
+        return wrap(XrDebugUtilsMessengerCallbackDataEXT.class, memAddress(container), container);
     }
 
     /** Returns a new {@code XrDebugUtilsMessengerCallbackDataEXT} instance for the specified memory address. */
     public static XrDebugUtilsMessengerCallbackDataEXT create(long address) {
-        return new XrDebugUtilsMessengerCallbackDataEXT(address, null);
+        return wrap(XrDebugUtilsMessengerCallbackDataEXT.class, address);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrDebugUtilsMessengerCallbackDataEXT createSafe(long address) {
-        return address == NULL ? null : new XrDebugUtilsMessengerCallbackDataEXT(address, null);
+        return address == NULL ? null : wrap(XrDebugUtilsMessengerCallbackDataEXT.class, address);
     }
 
     /**
@@ -263,7 +254,7 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
      * @param capacity the buffer capacity
      */
     public static XrDebugUtilsMessengerCallbackDataEXT.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -272,7 +263,7 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
      * @param capacity the buffer capacity
      */
     public static XrDebugUtilsMessengerCallbackDataEXT.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -282,7 +273,7 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
      */
     public static XrDebugUtilsMessengerCallbackDataEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
+        return wrap(Buffer.class, memAddress(container), capacity, container);
     }
 
     /**
@@ -292,13 +283,13 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
      * @param capacity the buffer capacity
      */
     public static XrDebugUtilsMessengerCallbackDataEXT.Buffer create(long address, int capacity) {
-        return new Buffer(address, capacity);
+        return wrap(Buffer.class, address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrDebugUtilsMessengerCallbackDataEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : new Buffer(address, capacity);
+        return address == NULL ? null : wrap(Buffer.class, address, capacity);
     }
 
     /**
@@ -307,7 +298,7 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
      * @param stack the stack from which to allocate
      */
     public static XrDebugUtilsMessengerCallbackDataEXT malloc(MemoryStack stack) {
-        return new XrDebugUtilsMessengerCallbackDataEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
+        return wrap(XrDebugUtilsMessengerCallbackDataEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
     }
 
     /**
@@ -316,7 +307,7 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
      * @param stack the stack from which to allocate
      */
     public static XrDebugUtilsMessengerCallbackDataEXT calloc(MemoryStack stack) {
-        return new XrDebugUtilsMessengerCallbackDataEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+        return wrap(XrDebugUtilsMessengerCallbackDataEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
     }
 
     /**
@@ -326,7 +317,7 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
      * @param capacity the buffer capacity
      */
     public static XrDebugUtilsMessengerCallbackDataEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -336,7 +327,7 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
      * @param capacity the buffer capacity
      */
     public static XrDebugUtilsMessengerCallbackDataEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -346,13 +337,13 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.NEXT); }
     /** Unsafe version of {@link #messageId}. */
-    @Nullable public static ByteBuffer nmessageId(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.MESSAGEID)); }
+    public static ByteBuffer nmessageId(long struct) { return memByteBufferNT1(memGetAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.MESSAGEID)); }
     /** Unsafe version of {@link #messageIdString}. */
-    @Nullable public static String nmessageIdString(long struct) { return memUTF8Safe(memGetAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.MESSAGEID)); }
+    public static String nmessageIdString(long struct) { return memUTF8(memGetAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.MESSAGEID)); }
     /** Unsafe version of {@link #functionName}. */
-    @Nullable public static ByteBuffer nfunctionName(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.FUNCTIONNAME)); }
+    public static ByteBuffer nfunctionName(long struct) { return memByteBufferNT1(memGetAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.FUNCTIONNAME)); }
     /** Unsafe version of {@link #functionNameString}. */
-    @Nullable public static String nfunctionNameString(long struct) { return memUTF8Safe(memGetAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.FUNCTIONNAME)); }
+    public static String nfunctionNameString(long struct) { return memUTF8(memGetAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.FUNCTIONNAME)); }
     /** Unsafe version of {@link #message}. */
     public static ByteBuffer nmessage(long struct) { return memByteBufferNT1(memGetAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.MESSAGE)); }
     /** Unsafe version of {@link #messageString}. */
@@ -371,14 +362,14 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.NEXT, value); }
     /** Unsafe version of {@link #messageId(ByteBuffer) messageId}. */
-    public static void nmessageId(long struct, @Nullable ByteBuffer value) {
-        if (CHECKS) { checkNT1Safe(value); }
-        memPutAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.MESSAGEID, memAddressSafe(value));
+    public static void nmessageId(long struct, ByteBuffer value) {
+        if (CHECKS) { checkNT1(value); }
+        memPutAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.MESSAGEID, memAddress(value));
     }
     /** Unsafe version of {@link #functionName(ByteBuffer) functionName}. */
-    public static void nfunctionName(long struct, @Nullable ByteBuffer value) {
-        if (CHECKS) { checkNT1Safe(value); }
-        memPutAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.FUNCTIONNAME, memAddressSafe(value));
+    public static void nfunctionName(long struct, ByteBuffer value) {
+        if (CHECKS) { checkNT1(value); }
+        memPutAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.FUNCTIONNAME, memAddress(value));
     }
     /** Unsafe version of {@link #message(ByteBuffer) message}. */
     public static void nmessage(long struct, ByteBuffer value) {
@@ -400,6 +391,8 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
      * @param struct the struct to validate
      */
     public static void validate(long struct) {
+        check(memGetAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.MESSAGEID));
+        check(memGetAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.FUNCTIONNAME));
         check(memGetAddress(struct + XrDebugUtilsMessengerCallbackDataEXT.MESSAGE));
     }
 
@@ -413,9 +406,9 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
         /**
          * Creates a new {@code XrDebugUtilsMessengerCallbackDataEXT.Buffer} instance backed by the specified container.
          *
-         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrDebugUtilsMessengerCallbackDataEXT#SIZEOF}, and its mark will be undefined.</p>
+         * by {@link XrDebugUtilsMessengerCallbackDataEXT#SIZEOF}, and its mark will be undefined.
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -448,19 +441,15 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
         @NativeType("void const *")
         public long next() { return XrDebugUtilsMessengerCallbackDataEXT.nnext(address()); }
         /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link XrDebugUtilsMessengerCallbackDataEXT#messageId} field. */
-        @Nullable
         @NativeType("char const *")
         public ByteBuffer messageId() { return XrDebugUtilsMessengerCallbackDataEXT.nmessageId(address()); }
         /** @return the null-terminated string pointed to by the {@link XrDebugUtilsMessengerCallbackDataEXT#messageId} field. */
-        @Nullable
         @NativeType("char const *")
         public String messageIdString() { return XrDebugUtilsMessengerCallbackDataEXT.nmessageIdString(address()); }
         /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link XrDebugUtilsMessengerCallbackDataEXT#functionName} field. */
-        @Nullable
         @NativeType("char const *")
         public ByteBuffer functionName() { return XrDebugUtilsMessengerCallbackDataEXT.nfunctionName(address()); }
         /** @return the null-terminated string pointed to by the {@link XrDebugUtilsMessengerCallbackDataEXT#functionName} field. */
-        @Nullable
         @NativeType("char const *")
         public String functionNameString() { return XrDebugUtilsMessengerCallbackDataEXT.nfunctionNameString(address()); }
         /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link XrDebugUtilsMessengerCallbackDataEXT#message} field. */
@@ -491,9 +480,9 @@ public class XrDebugUtilsMessengerCallbackDataEXT extends Struct<XrDebugUtilsMes
         /** Sets the specified value to the {@link XrDebugUtilsMessengerCallbackDataEXT#next} field. */
         public XrDebugUtilsMessengerCallbackDataEXT.Buffer next(@NativeType("void const *") long value) { XrDebugUtilsMessengerCallbackDataEXT.nnext(address(), value); return this; }
         /** Sets the address of the specified encoded string to the {@link XrDebugUtilsMessengerCallbackDataEXT#messageId} field. */
-        public XrDebugUtilsMessengerCallbackDataEXT.Buffer messageId(@Nullable @NativeType("char const *") ByteBuffer value) { XrDebugUtilsMessengerCallbackDataEXT.nmessageId(address(), value); return this; }
+        public XrDebugUtilsMessengerCallbackDataEXT.Buffer messageId(@NativeType("char const *") ByteBuffer value) { XrDebugUtilsMessengerCallbackDataEXT.nmessageId(address(), value); return this; }
         /** Sets the address of the specified encoded string to the {@link XrDebugUtilsMessengerCallbackDataEXT#functionName} field. */
-        public XrDebugUtilsMessengerCallbackDataEXT.Buffer functionName(@Nullable @NativeType("char const *") ByteBuffer value) { XrDebugUtilsMessengerCallbackDataEXT.nfunctionName(address(), value); return this; }
+        public XrDebugUtilsMessengerCallbackDataEXT.Buffer functionName(@NativeType("char const *") ByteBuffer value) { XrDebugUtilsMessengerCallbackDataEXT.nfunctionName(address(), value); return this; }
         /** Sets the address of the specified encoded string to the {@link XrDebugUtilsMessengerCallbackDataEXT#message} field. */
         public XrDebugUtilsMessengerCallbackDataEXT.Buffer message(@NativeType("char const *") ByteBuffer value) { XrDebugUtilsMessengerCallbackDataEXT.nmessage(address(), value); return this; }
         /** Sets the specified value to the {@link XrDebugUtilsMessengerCallbackDataEXT#objectCount} field. */
