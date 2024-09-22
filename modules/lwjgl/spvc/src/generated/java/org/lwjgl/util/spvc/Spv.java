@@ -947,8 +947,6 @@ public final class Spv {
      * <li>{@link #SpvDecorationMaxByteOffsetId DecorationMaxByteOffsetId}</li>
      * <li>{@link #SpvDecorationNoSignedWrap DecorationNoSignedWrap}</li>
      * <li>{@link #SpvDecorationNoUnsignedWrap DecorationNoUnsignedWrap}</li>
-     * <li>{@link #SpvDecorationWeightTextureQCOM DecorationWeightTextureQCOM}</li>
-     * <li>{@link #SpvDecorationBlockMatchTextureQCOM DecorationBlockMatchTextureQCOM}</li>
      * <li>{@link #SpvDecorationExplicitInterpAMD DecorationExplicitInterpAMD}</li>
      * <li>{@link #SpvDecorationOverrideCoverageNV DecorationOverrideCoverageNV}</li>
      * <li>{@link #SpvDecorationPassthroughNV DecorationPassthroughNV}</li>
@@ -1065,8 +1063,6 @@ public final class Spv {
         SpvDecorationMaxByteOffsetId                    = 47,
         SpvDecorationNoSignedWrap                       = 4469,
         SpvDecorationNoUnsignedWrap                     = 4470,
-        SpvDecorationWeightTextureQCOM                  = 4487,
-        SpvDecorationBlockMatchTextureQCOM              = 4488,
         SpvDecorationExplicitInterpAMD                  = 4999,
         SpvDecorationOverrideCoverageNV                 = 5248,
         SpvDecorationPassthroughNV                      = 5250,
@@ -1931,9 +1927,6 @@ public final class Spv {
      * <li>{@link #SpvCapabilityRayQueryKHR CapabilityRayQueryKHR}</li>
      * <li>{@link #SpvCapabilityRayTraversalPrimitiveCullingKHR CapabilityRayTraversalPrimitiveCullingKHR}</li>
      * <li>{@link #SpvCapabilityRayTracingKHR CapabilityRayTracingKHR}</li>
-     * <li>{@link #SpvCapabilityTextureSampleWeightedQCOM CapabilityTextureSampleWeightedQCOM}</li>
-     * <li>{@link #SpvCapabilityTextureBoxFilterQCOM CapabilityTextureBoxFilterQCOM}</li>
-     * <li>{@link #SpvCapabilityTextureBlockMatchQCOM CapabilityTextureBlockMatchQCOM}</li>
      * <li>{@link #SpvCapabilityFloat16ImageAMD CapabilityFloat16ImageAMD}</li>
      * <li>{@link #SpvCapabilityImageGatherBiasLodAMD CapabilityImageGatherBiasLodAMD}</li>
      * <li>{@link #SpvCapabilityFragmentMaskAMD CapabilityFragmentMaskAMD}</li>
@@ -2163,9 +2156,6 @@ public final class Spv {
         SpvCapabilityRayQueryKHR                                  = 4472,
         SpvCapabilityRayTraversalPrimitiveCullingKHR              = 4478,
         SpvCapabilityRayTracingKHR                                = 4479,
-        SpvCapabilityTextureSampleWeightedQCOM                    = 4484,
-        SpvCapabilityTextureBoxFilterQCOM                         = 4485,
-        SpvCapabilityTextureBlockMatchQCOM                        = 4486,
         SpvCapabilityFloat16ImageAMD                              = 5008,
         SpvCapabilityImageGatherBiasLodAMD                        = 5009,
         SpvCapabilityFragmentMaskAMD                              = 5010,
@@ -2924,10 +2914,6 @@ public final class Spv {
      * <li>{@link #SpvOpRayQueryConfirmIntersectionKHR OpRayQueryConfirmIntersectionKHR}</li>
      * <li>{@link #SpvOpRayQueryProceedKHR OpRayQueryProceedKHR}</li>
      * <li>{@link #SpvOpRayQueryGetIntersectionTypeKHR OpRayQueryGetIntersectionTypeKHR}</li>
-     * <li>{@link #SpvOpImageSampleWeightedQCOM OpImageSampleWeightedQCOM}</li>
-     * <li>{@link #SpvOpImageBoxFilterQCOM OpImageBoxFilterQCOM}</li>
-     * <li>{@link #SpvOpImageBlockMatchSSDQCOM OpImageBlockMatchSSDQCOM}</li>
-     * <li>{@link #SpvOpImageBlockMatchSADQCOM OpImageBlockMatchSADQCOM}</li>
      * <li>{@link #SpvOpGroupIAddNonUniformAMD OpGroupIAddNonUniformAMD}</li>
      * <li>{@link #SpvOpGroupFAddNonUniformAMD OpGroupFAddNonUniformAMD}</li>
      * <li>{@link #SpvOpGroupFMinNonUniformAMD OpGroupFMinNonUniformAMD}</li>
@@ -3602,10 +3588,6 @@ public final class Spv {
         SpvOpRayQueryConfirmIntersectionKHR                                        = 4476,
         SpvOpRayQueryProceedKHR                                                    = 4477,
         SpvOpRayQueryGetIntersectionTypeKHR                                        = 4479,
-        SpvOpImageSampleWeightedQCOM                                               = 4480,
-        SpvOpImageBoxFilterQCOM                                                    = 4481,
-        SpvOpImageBlockMatchSSDQCOM                                                = 4482,
-        SpvOpImageBlockMatchSADQCOM                                                = 4483,
         SpvOpGroupIAddNonUniformAMD                                                = 5000,
         SpvOpGroupFAddNonUniformAMD                                                = 5001,
         SpvOpGroupFMinNonUniformAMD                                                = 5002,

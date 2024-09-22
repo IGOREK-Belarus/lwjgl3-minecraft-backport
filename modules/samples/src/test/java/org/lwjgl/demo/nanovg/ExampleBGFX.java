@@ -161,7 +161,6 @@ public final class ExampleBGFX extends Demo {
                     .reset(DEMO_MSAA ? BGFX_RESET_MSAA_X8 : BGFX_RESET_NONE));
 
             switch (Platform.get()) {
-                case FREEBSD:
                 case LINUX:
                     init.platformData()
                         .ndt(GLFWNativeX11.glfwGetX11Display())

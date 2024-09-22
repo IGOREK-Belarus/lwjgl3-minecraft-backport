@@ -17,9 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Custom heap memory allocator.
- * 
- * <p>This describes a custom heap memory allocator for GLFW. To set an allocator, pass it to {@link GLFW#glfwInitAllocator InitAllocator} before initializing the library.</p>
+ * A custom memory allocator that can be set with {@link GLFW#glfwInitAllocator InitAllocator}.
  * 
  * <h3>Layout</h3>
  * 
@@ -88,16 +86,16 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the memory allocation function */
+    /** the memory allocation callback */
     @NativeType("GLFWallocatefun")
     public GLFWAllocateCallback allocate() { return nallocate(address()); }
-    /** the memory reallocation function */
+    /** the memory reallocation callback */
     @NativeType("GLFWreallocatefun")
     public GLFWReallocateCallback reallocate() { return nreallocate(address()); }
-    /** the memory deallocation function */
+    /** the memory deallocation callback */
     @NativeType("GLFWdeallocatefun")
     public GLFWDeallocateCallback deallocate() { return ndeallocate(address()); }
-    /** the user pointer for this custom allocator. This value will be passed to the allocator functions. */
+    /** a user-defined pointer that will be passed to the callbacks */
     @NativeType("void *")
     public long user() { return nuser(address()); }
 

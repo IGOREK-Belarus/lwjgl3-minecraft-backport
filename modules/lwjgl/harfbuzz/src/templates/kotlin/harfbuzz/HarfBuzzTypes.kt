@@ -8,9 +8,8 @@ import org.lwjgl.generator.*
 import java.io.*
 
 val HARFBUZZ_BINDING = object : SimpleBinding(Module.HARFBUZZ, "HARFBUZZ") {
-    override fun generateFunctionSetup(writer: PrintWriter, nativeClass: NativeClass) {
-        with(writer) {
-            println(
+    override fun PrintWriter.generateFunctionSetup(nativeClass: NativeClass) {
+        println(
             """
 ${t}private static final SharedLibrary HARFBUZZ;
 ${t}static {
@@ -37,13 +36,12 @@ $t$t}
 
 $t${t}HARFBUZZ = library;
 $t}""")
-            generateFunctionsClass(nativeClass, "\n$t/** Contains the function pointers loaded from the harfbuzz {@link SharedLibrary}. */")
-            println("""
+        generateFunctionsClass(nativeClass, "\n$t/** Contains the function pointers loaded from the harfbuzz {@link SharedLibrary}. */")
+        println("""
     /** Returns the harfbuzz {@link SharedLibrary}. */
     public static SharedLibrary getLibrary() {
         return HARFBUZZ;
     }""")
-        }
     }
 }
 val HARFBUZZ_BINDING_DELEGATE = HARFBUZZ_BINDING.delegate("HarfBuzz.getLibrary()")

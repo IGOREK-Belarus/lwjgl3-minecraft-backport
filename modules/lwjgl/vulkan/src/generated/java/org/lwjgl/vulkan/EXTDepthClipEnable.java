@@ -10,6 +10,8 @@ package org.lwjgl.vulkan;
  * 
  * <p>This is useful for translating DX content which assumes depth clamping is always enabled, but depth clip can be controlled by the DepthClipEnable rasterization state (D3D12_RASTERIZER_DESC).</p>
  * 
+ * <h5>VK_EXT_depth_clip_enable</h5>
+ * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_depth_clip_enable}</dd>

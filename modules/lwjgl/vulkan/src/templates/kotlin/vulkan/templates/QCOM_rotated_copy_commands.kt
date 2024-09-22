@@ -15,6 +15,7 @@ val QCOM_rotated_copy_commands = "QCOMRotatedCopyCommands".nativeClassVK("QCOM_r
 
         This extension adds an extension structure to the following commands: vkCmdBlitImage2KHR, vkCmdCopyImageToBuffer2KHR and vkCmdCopyBufferToImage2KHR
 
+        <h5>VK_QCOM_rotated_copy_commands</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_QCOM_rotated_copy_commands}</dd>
@@ -26,32 +27,30 @@ val QCOM_rotated_copy_commands = "QCOMRotatedCopyCommands".nativeClassVK("QCOM_r
             <dd>334</dd>
 
             <dt><b>Revision</b></dt>
-            <dd>2</dd>
+            <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRCopyCommands2 VK_KHR_copy_commands2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3">Version 1.3</a></dd>
+            <dd>{@link KHRSwapchain VK_KHR_swapchain} and {@link KHRCopyCommands2 VK_KHR_copy_commands2}</dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Matthew Netsch <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_QCOM_rotated_copy_commands]%20@mnetsch%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_QCOM_rotated_copy_commands%20extension*">mnetsch</a></li>
+                <li>Jeff Leger <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_QCOM_rotated_copy_commands]%20@jackohound%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_QCOM_rotated_copy_commands%20extension*">jackohound</a></li>
             </ul></dd>
         </dl>
 
         <h5>Other Extension Metadata</h5>
         <dl>
             <dt><b>Last Modified Date</b></dt>
-            <dd>2023-12-13</dd>
+            <dd>2020-09-18</dd>
 
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
-                <li>This extension interacts with {@link KHRSwapchain VK_KHR_swapchain}</li>
-                <li>This extension interacts with {@link KHRSurface VK_KHR_surface}</li>
+                <li>None</li>
             </ul></dd>
 
             <dt><b>Contributors</b></dt>
             <dd><ul>
                 <li>Jeff Leger, Qualcomm Technologies, Inc.</li>
-                <li>Matthew Netsch, Qualcomm Technologies, Inc.</li>
             </ul></dd>
         </dl>
         """
@@ -59,7 +58,7 @@ val QCOM_rotated_copy_commands = "QCOMRotatedCopyCommands".nativeClassVK("QCOM_r
     IntConstant(
         "The extension specification version.",
 
-        "QCOM_ROTATED_COPY_COMMANDS_SPEC_VERSION".."2"
+        "QCOM_ROTATED_COPY_COMMANDS_SPEC_VERSION".."1"
     )
 
     StringConstant(

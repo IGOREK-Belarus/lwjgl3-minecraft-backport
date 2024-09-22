@@ -17,7 +17,7 @@ import static org.lwjgl.system.libffi.LibFFI.*;
  * 
  * <pre><code>
  * void (*{@link #invoke}) (
- *     YGNodeConstRef node
+ *     YGNodeRef node
  * )</code></pre>
  */
 @FunctionalInterface
@@ -40,6 +40,6 @@ public interface YGDirtiedFuncI extends CallbackI {
         );
     }
 
-    void invoke(@NativeType("YGNodeConstRef") long node);
+    void invoke(@NativeType("YGNodeRef") long node);
 
 }

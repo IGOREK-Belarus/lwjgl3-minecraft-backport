@@ -18,10 +18,6 @@ val opus_int32 = IntegerType("opus_int32", PrimitiveMapping.INT)
 
 val OpusEncoder = "OpusEncoder".opaque
 val OpusDecoder = "OpusDecoder".opaque
-
-val OpusDREDDecoder = "OpusDREDDecoder".opaque
-val OpusDRED = "OpusDRED".opaque
-
 val OpusRepacketizer = "OpusRepacketizer".opaque
 
 val OpusMSEncoder = "OpusMSEncoder".opaque

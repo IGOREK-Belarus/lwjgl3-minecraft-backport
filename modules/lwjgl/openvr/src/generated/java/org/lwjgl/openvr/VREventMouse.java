@@ -23,7 +23,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     float {@link #x};
  *     float y;
  *     uint32_t {@link #button};
- *     uint32_t {@link #cursorIndex};
  * }</code></pre>
  */
 @NativeType("struct VREvent_Mouse_t")
@@ -39,12 +38,10 @@ public class VREventMouse extends Struct<VREventMouse> {
     public static final int
         X,
         Y,
-        BUTTON,
-        CURSORINDEX;
+        BUTTON;
 
     static {
         Layout layout = __struct(
-            __member(4),
             __member(4),
             __member(4),
             __member(4)
@@ -56,7 +53,6 @@ public class VREventMouse extends Struct<VREventMouse> {
         X = layout.offsetof(0);
         Y = layout.offsetof(1);
         BUTTON = layout.offsetof(2);
-        CURSORINDEX = layout.offsetof(3);
     }
 
     protected VREventMouse(long address, @Nullable ByteBuffer container) {
@@ -88,9 +84,6 @@ public class VREventMouse extends Struct<VREventMouse> {
     /** one of:<br><table><tr><td>{@link VR#EVRMouseButton_VRMouseButton_Left}</td><td>{@link VR#EVRMouseButton_VRMouseButton_Right}</td></tr><tr><td>{@link VR#EVRMouseButton_VRMouseButton_Middle}</td></tr></table> */
     @NativeType("uint32_t")
     public int button() { return nbutton(address()); }
-    /** if from an event triggered by cursor input on an overlay that supports multiple cursors, this is the index of which tracked cursor the event is for */
-    @NativeType("uint32_t")
-    public int cursorIndex() { return ncursorIndex(address()); }
 
     // -----------------------------------
 
@@ -129,8 +122,6 @@ public class VREventMouse extends Struct<VREventMouse> {
     public static float ny(long struct) { return UNSAFE.getFloat(null, struct + VREventMouse.Y); }
     /** Unsafe version of {@link #button}. */
     public static int nbutton(long struct) { return UNSAFE.getInt(null, struct + VREventMouse.BUTTON); }
-    /** Unsafe version of {@link #cursorIndex}. */
-    public static int ncursorIndex(long struct) { return UNSAFE.getInt(null, struct + VREventMouse.CURSORINDEX); }
 
     // -----------------------------------
 
@@ -177,9 +168,6 @@ public class VREventMouse extends Struct<VREventMouse> {
         /** @return the value of the {@link VREventMouse#button} field. */
         @NativeType("uint32_t")
         public int button() { return VREventMouse.nbutton(address()); }
-        /** @return the value of the {@link VREventMouse#cursorIndex} field. */
-        @NativeType("uint32_t")
-        public int cursorIndex() { return VREventMouse.ncursorIndex(address()); }
 
     }
 

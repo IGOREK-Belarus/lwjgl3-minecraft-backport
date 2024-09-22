@@ -10,8 +10,6 @@
 #include "arch/x86/lib.h"
 #elif defined(__aarch64__)
 #include "arch/aarch64/lib.h"
-#elif defined(__riscv) && __riscv_xlen == 64
-#include "arch/riscv64/lib.h"
 #else
 /*
  * We don't have nolibc support for this arch. Must use libc!

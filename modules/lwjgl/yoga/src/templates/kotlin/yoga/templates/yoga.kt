@@ -8,7 +8,8 @@ import org.lwjgl.generator.*
 import yoga.*
 
 val yoga = "Yoga".nativeClass(Module.YOGA, prefix = "YG", prefixConstant = "YG", prefixMethod = "YG") {
-    nativeDirective("""
+    nativeDirective("""#define FB_ASSERTIONS_ENABLED 0
+#define YG_ASSERT(X, message)
 DISABLE_WARNINGS()
 #include <yoga/Yoga.h>
 ENABLE_WARNINGS()""")
@@ -16,158 +17,55 @@ ENABLE_WARNINGS()""")
     cpp = true
     documentation =
         """
-        Native bindings to ${url("https://www.yogalayout.dev/", "Yoga")}.
+        Native bindings to ${url("https://facebook.github.io/yoga/", "Yoga")}.
 
-        Yoga is an embeddable layout system used in popular UI frameworks like React Native. Yoga itself is not a UI framework, and does not do any drawing
-        itself. Yoga's only responsibility is determining the size and position of boxes.
+        Yoga is an open-source, cross-platform layout library that implements Flexbox. Yoga’s focus is on creating an expressive layout library, not
+        implementing all of CSS. Therefore, there are no plans to include support for tables, floats, or similar CSS concepts. Yoga also does not support
+        styling properties that have no impact on layout, such as color or background properties.
 
-        Yoga supports a familiar subset of CSS, mostly focused on Flexbox. This gives users a familiar model, and enables sharing code between native platforms
-        and the browser.
+        <h3>Yoga vs Flexbox</h3>
 
-        Yoga is written in C++, with a public C API. This allows Yoga to be used by a wide variety of languages, via both offficial and unofficial bindings.
+        Yoga aims to be compatible with Flexbox according to the w3 specification. However, Yoga was not developed to strictly adhere to the specification;
+        thus, there are aspects where Yoga differs.
+
+        <h3>Default values</h3>
+
+        Yoga has chosen to change the default values of some properties to better fit mobile layout use cases. The following CSS block describes the
+        differences in default values from the Flexbox w3 specification:
+        ${codeBlock("""
+div {
+  box-sizing: border-box;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-shrink: 0;
+  align-content: flex-start;
+
+  border-width: 0px;
+  margin: 0px;
+  padding: 0px;
+  min-width: 0px;
+}""")}
+
+        <h3>Right-to-Left</h3>
+
+        We believe that Right-to-Left (RTL) should be a first class citizen when it comes to layout. Therefore, Yoga implements non-standard RTL support for
+        margin, padding, border, and position properties. This enables specifying these properties as start instead of left and end instead of right.
+
+        <h3>Yoga-specific properties</h3>
+
+        The goal of Yoga is to be a library which makes layout easy. Of course, implementing Flexbox, a common and well-liked system, helps meet this goal.
+        However, there are areas where we think Yoga can evolve beyond Flexbox and provide developers with tools not included in the Flexbox w3 specification.
+        Currently Yoga has added one such property, AspectRatio, to solve a common problem we saw in many UIs.
         """
 
-    // YGConfig.h
+    FloatConstant(
+        "",
 
-    YGConfigRef(
-        "ConfigNew",
-        """
-        Allocates a set of configuration options.
-
-        The configuration may be applied to multiple nodes (i.e. a single global config), or can be applied more granularly per-node.
-        """,
-
-        void()
+        "Undefined".."Float.NaN"
     )
-
-    void(
-        "ConfigFree",
-        "Frees the associated Yoga configuration.",
-
-        YGConfigRef("config", "")
-    )
-
-    YGConfigConstRef(
-        "ConfigGetDefault",
-        "Returns the default config values set by Yoga.",
-
-        void()
-    )
-
-    void(
-        "ConfigSetUseWebDefaults",
-        """
-        Yoga by default creates new nodes with style defaults different from flexbox on web (e.g. #FlexDirectionColumn and #PositionTypeRelative).
-
-        {@code UseWebDefaults} instructs Yoga to instead use a default style consistent with the web.
-        """,
-
-        YGConfigRef("config", ""),
-        bool("enabled", "")
-    )
-    bool(
-        "ConfigGetUseWebDefaults",
-        "Whether the configuration is set to use web defaults.",
-
-        YGConfigConstRef("config", "")
-    )
-
-    void(
-        "ConfigSetPointScaleFactor",
-        """
-        Yoga will by default round final layout positions and dimensions to the nearst point.
-
-        {@code pointScaleFactor} controls the density of the grid used for layout rounding (e.g. to round to the closest display pixel).
- 
-        May be set to 0.0f to avoid rounding the layout results.
-        """,
-
-        YGConfigRef("config", ""),
-        float("pixelsInPoint", "")
-    )
-    float(
-        "ConfigGetPointScaleFactor",
-        "Get the currently set point scale factor.",
-
-        YGConfigConstRef("config", "")
-    )
-
-    void(
-        "ConfigSetErrata",
-        """
-        Configures how Yoga balances W3C conformance vs compatibility with layouts created against earlier versions of Yoga.
-
-        By default Yoga will prioritize W3C conformance. {@code Errata} may be set to ask Yoga to produce specific incorrect behaviors. E.g.
-        {@code YGConfigSetErrata(config, YGErrataStretchFlexBasis)}.
-
-        {@code YGErrata} is a bitmask, and multiple errata may be set at once. Predefined constants exist for convenience:
-        ${ol(
-            "#ErrataNone: No errata",
-            "#ErrataClassic: Match layout behaviors of Yoga 1.x",
-            "#ErrataAll: Match layout behaviors of Yoga 1.x, including {@code UseLegacyStretchBehaviour}"
-        )}
-         """,
-
-        YGConfigRef("config", ""),
-        YGErrata("errata", "")
-    )
-    YGErrata(
-        "ConfigGetErrata",
-        "Get the currently set errata.",
-
-        YGConfigConstRef("config", "")
-    )
-
-    void(
-        "ConfigSetLogger",
-        "Set a custom log function for to use when logging diagnostics or fatal errors.",
-
-        YGConfigRef("config", ""),
-        nullable..YGLogger("logger", "")
-    )
-
-    void(
-        "ConfigSetContext",
-        "Sets an arbitrary context pointer on the config which may be read from during callbacks.",
-
-        YGConfigRef("config", ""),
-        nullable..opaque_p("context", "")
-    )
-    opaque_p(
-        "ConfigGetContext",
-        "Gets the currently set context.",
-
-        YGConfigConstRef("config", "")
-    )
-
-    void(
-        "ConfigSetExperimentalFeatureEnabled",
-        "Enable an experimental/unsupported feature in Yoga.",
-
-        YGConfigRef("config", ""),
-        YGExperimentalFeature("feature", "", "ExperimentalFeature\\w+"),
-        bool("enabled", "")
-    )
-    bool(
-        "ConfigIsExperimentalFeatureEnabled",
-        "Whether an experimental feature is set.",
-
-        YGConfigConstRef("config", ""),
-        YGExperimentalFeature("feature", "", "ExperimentalFeature\\w+")
-    )
-
-    void(
-        "ConfigSetCloneNodeFunc",
-        """
-        Sets a callback, called during layout, to create a new mutable Yoga node if Yoga must write to it and its owner is not its parent observed during
-        layout.
-        """,
-
-        YGConfigRef("config", ""),
-        nullable..YGCloneNodeFunc("callback", "")
-    )
-
-    // YGEnums.h
 
     EnumConstant(
         "YGAlign",
@@ -179,8 +77,7 @@ ENABLE_WARNINGS()""")
         "AlignStretch".enum,
         "AlignBaseline".enum,
         "AlignSpaceBetween".enum,
-        "AlignSpaceAround".enum,
-        "AlignSpaceEvenly".enum
+        "AlignSpaceAround".enum
     )
 
     EnumConstant(
@@ -224,8 +121,6 @@ ENABLE_WARNINGS()""")
 
         "ErrataNone".enum("", "0"),
         "ErrataStretchFlexBasis".enum("", "1"),
-        "ErrataAbsolutePositioningIncorrect".enum("", "2"),
-        "ErrataAbsolutePercentAgainstInnerSize".enum("", "4"),
         "ErrataAll".enum("", "2147483647"),
         "ErrataClassic".enum("", "2147483646")
     )
@@ -233,16 +128,9 @@ ENABLE_WARNINGS()""")
     EnumConstant(
         "YGExperimentalFeature",
 
-        "ExperimentalFeatureWebFlexBasis".enum
-    )
-
-    EnumConstant(
-        "YGFlexDirection",
-
-        "FlexDirectionColumn".enum,
-        "FlexDirectionColumnReverse".enum,
-        "FlexDirectionRow".enum,
-        "FlexDirectionRowReverse".enum
+        "ExperimentalFeatureWebFlexBasis".enum,
+        "ExperimentalFeatureAbsolutePercentageAgainstPaddingEdge".enum,
+        "ExperimentalFeatureFixJNILocalRefOverflows".enum
     )
 
     val Gutters = EnumConstant(
@@ -252,6 +140,15 @@ ENABLE_WARNINGS()""")
         "GutterRow".enum,
         "GutterAll".enum
     ).javaDocLinks
+
+    EnumConstant(
+        "YGFlexDirection",
+
+        "FlexDirectionColumn".enum,
+        "FlexDirectionColumnReverse".enum,
+        "FlexDirectionRow".enum,
+        "FlexDirectionRowReverse".enum
+    )
 
     EnumConstant(
         "YGJustify",
@@ -323,516 +220,546 @@ ENABLE_WARNINGS()""")
         "WrapReverse".enum
     )
 
-    // YGNode.h
-
-    YGNodeRef(
-        "NodeNew",
-        "Heap allocates and returns a new Yoga node using Yoga settings.",
-
-        void()
-    )
+    YGNodeRef("NodeNew", "", void())
 
     YGNodeRef(
         "NodeNewWithConfig",
-        "Heap allocates and returns a new Yoga node, with customized settings.",
+        "",
 
-        YGConfigConstRef("config", "")
+        YGConfigRef("config", "")
     )
 
     YGNodeRef(
         "NodeClone",
-        """
-        Returns a mutable copy of an existing node, with the same context and children, but no owner set.
+        "",
 
-        Does not call the function set by #ConfigSetCloneNodeFunc().
-        """,
-
-        YGNodeConstRef("node", "")
+        YGNodeRef("node", "")
     )
+
+    val node = YGNodeRef("node", "")
+    val constNode = YGNodeConstRef("node", "")
 
     void(
         "NodeFree",
-        "Frees the Yoga node, disconnecting it from its owner and children.",
+        "",
 
-        YGNodeRef("node", "")
+        node
+    )
+
+    void(
+        "NodeFreeRecursiveWithCleanupFunc",
+        "",
+
+        node,
+        YGNodeCleanupFunc("cleanup", "")
     )
 
     void(
         "NodeFreeRecursive",
-        "Frees the subtree of Yoga nodes rooted at the given node.",
+        "",
 
-        YGNodeRef("node", "")
-    )
-
-    void(
-        "NodeFinalize",
-        """
-        Frees the Yoga node without disconnecting it from its owner or children.
-
-        Allows garbage collecting Yoga nodes in parallel when the entire tree is unreachable.
-        """,
-
-        YGNodeRef("node", "")
+        node
     )
 
     void(
         "NodeReset",
-        "Resets the node to its default state.",
+        "",
+
+        node
+    )
+
+    void(
+        "NodeInsertChild",
+        "",
+
+        node,
+        YGNodeRef("child", ""),
+        uint32_t("index", "")
+    )
+
+    void(
+        "NodeSwapChild",
+        "",
+
+        node,
+        YGNodeRef("child", ""),
+        uint32_t("index", "")
+    )
+
+    void(
+        "NodeRemoveChild",
+        "",
+
+        node,
+        YGNodeRef("child", "")
+    )
+
+    void(
+        "NodeRemoveAllChildren",
+        "",
+
+        YGNodeRef("node", "")
+    )
+
+    YGNodeRef(
+        "NodeGetChild",
+        "",
+
+        node,
+        uint32_t("index", "")
+    )
+
+    YGNodeRef(
+        "NodeGetOwner",
+        "",
+
+        node
+    )
+
+    YGNodeRef(
+        "NodeGetParent",
+        "",
+
+        node
+    )
+
+    uint32_t(
+        "NodeGetChildCount",
+        "",
+
+        node
+    )
+
+    void(
+        "NodeSetChildren",
+        "",
+
+        YGNodeRef("owner", ""),
+        YGNodeRef.const.p("children", ""),
+        AutoSize("children")..uint32_t("count", "")
+    )
+
+    void(
+        "NodeSetIsReferenceBaseline",
+        "",
+
+        YGNodeRef("node", ""),
+        bool("isReferenceBaseline", "")
+    )
+
+    bool(
+        "NodeIsReferenceBaseline",
+        "",
 
         YGNodeRef("node", "")
     )
 
     void(
         "NodeCalculateLayout",
-        """
-        Calculates the layout of the tree rooted at the given node.
+        "",
 
-        Layout results may be read after calling {@code YGNodeCalculateLayout()} using functions like #NodeLayoutGetLeft(), #NodeLayoutGetTop(), etc.
-
-        #NodeGetHasNewLayout() may be read to know if the layout of the node or its subtrees may have changed since the last time {@code YGNodeCalculate()} was
-        called.
-        """,
-
-        YGNodeRef("node", ""),
+        node,
         float("availableWidth", ""),
         float("availableHeight", ""),
         YGDirection("ownerDirection", "", "Direction\\w+")
     )
 
-    bool(
-        "NodeGetHasNewLayout",
-        """
-        Whether the given node may have new layout results.
-
-        Must be reset by calling #NodeSetHasNewLayout().
-        """,
-
-        YGNodeConstRef("node", "")
-    )
-    void(
-        "NodeSetHasNewLayout",
-        "Sets whether a nodes layout is considered new.",
-
-        YGNodeRef("node", ""),
-        bool("hasNewLayout", "")
-    )
-
-    bool(
-        "NodeIsDirty",
-        "Whether the node's layout results are dirty due to it or its children changing.",
-
-        YGNodeConstRef("node", "")
-    )
     void(
         "NodeMarkDirty",
-        "Marks a node with custom measure function as dirty.",
+        """
+        Marks a node as dirty.
 
-        YGNodeRef("node", "")
+        Only valid for nodes with a custom measure function set.
+
+        Yoga knows when to mark all other nodes as dirty but because nodes with measure functions depend on information not known to Yoga they must perform
+        this dirty marking manually.
+        """,
+
+        node
     )
 
     void(
-        "NodeSetDirtiedFunc",
-        "Called when a change is made to the Yoga tree which dirties this node.",
+        "NodeMarkDirtyAndPropagateToDescendants",
+        """
+        Marks the current node and all its descendants as dirty.
 
-        YGNodeRef("node", ""),
-        nullable..YGDirtiedFunc("dirtiedFunc", "")
-    )
-    YGDirtiedFunc(
-        "NodeGetDirtiedFunc",
-        "Returns a dirtied func if set.",
+        Intended to be used for Yoga benchmarks. Don't use in production, as calling #NodeCalculateLayout() will cause the recalculation of each and every
+        node.
+        """,
 
-        YGNodeConstRef("node", "")
+        node
     )
 
-    void(
-        "NodeInsertChild",
-        "Inserts a child node at the given index.",
+    bool(
+        "FloatIsUndefined",
+        "",
 
-        YGNodeRef("node", ""),
-        YGNodeRef("child", ""),
-        size_t("index", "")
+        float("value", "")
     )
 
-    void(
-        "NodeSwapChild",
-        "Replaces the child node at a given index with a new one.",
+    bool(
+        "NodeCanUseCachedMeasurement",
+        "",
 
-        YGNodeRef("node", ""),
-        YGNodeRef("child", ""),
-        size_t("index", "")
-    )
-
-    void(
-        "NodeRemoveChild",
-        "Removes the given child node.",
-
-        YGNodeRef("node", ""),
-        YGNodeRef("child", "")
-    )
-
-    void(
-        "NodeRemoveAllChildren",
-        "Removes all children nodes.",
-
-        YGNodeRef("node", "")
-    )
-
-    void(
-        "NodeSetChildren",
-        "Sets children according to the given list of nodes.",
-
-        YGNodeRef("owner", ""),
-        YGNodeRef.const.p("children", ""),
-        AutoSize("children")..size_t("count", "")
-    )
-
-    YGNodeRef(
-        "NodeGetChild",
-        "Get the child node at a given index.",
-
-        YGNodeRef("node", ""),
-        size_t("index", "")
-    )
-
-    size_t(
-        "NodeGetChildCount",
-        "The number of child nodes.",
-
-        YGNodeConstRef("node", "")
-    )
-
-    YGNodeRef(
-        "NodeGetOwner",
-        "Get the parent/owner currently set for a node.",
-
-        YGNodeRef("node", "")
-    )
-
-    YGNodeRef(
-        "NodeGetParent",
-        "Get the parent/owner currently set for a node.",
-
-        YGNodeRef("node", "")
-    )
-
-    void(
-        "NodeSetConfig",
-        "Set a new config for the node after creation.",
-
-        YGNodeRef("node", ""),
+        YGMeasureMode("widthMode", "", "MeasureMode\\w+"),
+        float("width", ""),
+        YGMeasureMode("heightMode", ""),
+        float("height", ""),
+        YGMeasureMode("lastWidthMode", ""),
+        float("lastWidth", ""),
+        YGMeasureMode("lastHeightMode", ""),
+        float("lastHeight", ""),
+        float("lastComputedWidth", ""),
+        float("lastComputedHeight", ""),
+        float("marginRow", ""),
+        float("marginColumn", ""),
         YGConfigRef("config", "")
     )
-    YGConfigRef(
-        "NodeGetConfig",
-        "Get the config currently set on the node.",
-
-        YGNodeRef("node", "")
-    )
-
-    void(
-        "NodeSetContext",
-        "Sets extra data on the Yoga node which may be read from during callbacks.",
-
-        YGNodeRef("node", ""),
-        nullable..opaque_p("context", "")
-    )
-    opaque_p(
-        "NodeGetContext",
-        "Returns the context or #NULL if no context has been set.",
-
-        YGNodeRef("node", "")
-    )
-
-    void(
-        "NodeSetMeasureFunc",
-        """
-        Allows providing custom measurements for a Yoga leaf node (usually for measuring text).
-
-        #NodeMarkDirty() must be set if content effecting the measurements of the node changes.
-        """,
-
-        YGNodeRef("node", ""),
-        nullable..YGMeasureFunc("measureFunc", "")
-    )
-    bool(
-        "NodeHasMeasureFunc",
-        "Whether a measure function is set.",
-
-        YGNodeConstRef("node", "")
-    )
-
-    void(
-        "NodeSetBaselineFunc",
-        "Set a custom function for determining the text baseline for use in baseline alignment.",
-
-        YGNodeRef("node", ""),
-        nullable..YGBaselineFunc("baselineFunc", "")
-    )
-    bool(
-        "NodeHasBaselineFunc",
-        "Whether a baseline function is set.",
-
-        YGNodeConstRef("node", "")
-    )
-
-    void(
-        "NodeSetIsReferenceBaseline",
-        "Sets this node should be considered the reference baseline among siblings.",
-
-        YGNodeRef("node", ""),
-        bool("isReferenceBaseline", "")
-    )
-    bool(
-        "NodeIsReferenceBaseline",
-        "Whether this node is set as the reference baseline.",
-
-        YGNodeConstRef("node", "")
-    )
-
-    void(
-        "NodeSetNodeType",
-        "Sets whether a leaf node's layout results may be truncated during layout rounding.",
-
-        YGNodeRef("node", ""),
-        YGNodeType("nodeType", "")
-    )
-    YGNodeType(
-        "NodeGetNodeType",
-        "Whether a leaf node's layout results may be truncated during layout rounding.",
-
-        YGNodeConstRef("node", "")
-    )
-
-    void(
-        "NodeSetAlwaysFormsContainingBlock",
-        """
-        Make it so that this node will always form a containing block for any descendant nodes.
-
-        This is useful for when a node has a property outside of Yoga that will form a containing block. For example, transforms or some of the others listed
-        in ${url("https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block", "Layout and the containing block")}.
-        """,
-
-        YGNodeRef("node", ""),
-        bool("alwaysFormsContainingBlock", "")
-    )
-
-    bool(
-        "NodeGetAlwaysFormsContainingBlock",
-        """
-        Whether the node will always form a containing block for any descendant.
-
-        This can happen in situation where the client implements something like a transform that can affect containing blocks but is not handled by Yoga
-        directly.
-        """,
-
-        YGNodeConstRef("node", "")
-    )
-
-    // YGNodeLayout.h
-
-    float("NodeLayoutGetLeft", "", YGNodeRef("node", ""))
-    float("NodeLayoutGetTop", "", YGNodeRef("node", ""))
-    float("NodeLayoutGetRight", "", YGNodeRef("node", ""))
-    float("NodeLayoutGetBottom", "", YGNodeRef("node", ""))
-    float("NodeLayoutGetWidth", "", YGNodeRef("node", ""))
-    float("NodeLayoutGetHeight", "", YGNodeRef("node", ""))
-    YGDirection("NodeLayoutGetDirection", "", YGNodeRef("node", ""))
-    bool("NodeLayoutGetHadOverflow", "", YGNodeRef("node", ""))
-
-    float(
-        "NodeLayoutGetMargin",
-        """
-        Gets the computed value for these nodess after performing layout.
-
-        If they were set using point values then the returned value will be the same as #NodeStyleGetMargin()). However if they were set using a percentage
-        value then the returned value is the computed value used during layout.
-        """,
-
-        YGNodeRef("node", ""),
-        YGEdge("edge", "", Edges)
-    )
-
-    float(
-        "NodeLayoutGetBorder",
-        """
-        Gets the computed value for these nodes after performing layout.
-
-        If they were set using point values then the returned value will be the same as #NodeStyleGetBorder(). However if they were set using a percentage
-        value then the returned value is the computed value used during layout.
-        """,
-
-        YGNodeRef("node", ""),
-        YGEdge("edge", "", Edges)
-    )
-
-    float(
-        "NodeLayoutGetPadding",
-        """
-        Gets the computed value for these nodes after performing layout.
-
-        If they were set using point values then the returned value will be the same as #NodeStyleGetPadding(). However if they were set using a percentage
-        value then the returned value is the computed value used during layout.
-        """,
-
-        YGNodeRef("node", ""),
-        YGEdge("edge", "", Edges)
-    )
-
-    // YGNodeStyle.h
 
     void(
         "NodeCopyStyle",
         "",
 
         YGNodeRef("dstNode", ""),
-        YGNodeConstRef("srcNode", "")
+        YGNodeRef("srcNode", "")
+    )
+
+    opaque_p(
+        "NodeGetContext",
+        "",
+
+        node
+    )
+    void(
+        "NodeSetContext",
+        "",
+
+        node,
+        opaque_p("context", "")
+    )
+
+    YGConfigRef(
+        "NodeGetConfig",
+        "",
+
+        node
+    )
+
+    void(
+        "NodeSetConfig",
+        "",
+
+        node,
+        YGConfigRef("config", "")
+    )
+
+    void(
+        "ConfigSetPrintTreeFlag",
+        "",
+
+        YGConfigRef("config", ""),
+        bool("enabled", "")
+    )
+
+    bool(
+        "NodeHasMeasureFunc",
+        "",
+
+        node
+    )
+    void(
+        "NodeSetMeasureFunc",
+        "",
+
+        node,
+        nullable..YGMeasureFunc("measureFunc", "")
+    )
+
+    bool(
+        "NodeHasBaselineFunc",
+        "",
+
+        node
+    )
+    void(
+        "NodeSetBaselineFunc",
+        "",
+
+        node,
+        nullable..YGBaselineFunc("baselineFunc", "")
+    )
+
+    YGDirtiedFunc(
+        "NodeGetDirtiedFunc",
+        "",
+
+        node
+    )
+    void(
+        "NodeSetDirtiedFunc",
+        "",
+
+        node,
+        nullable..YGDirtiedFunc("dirtiedFunc", "")
+    )
+
+    void(
+        "NodeSetPrintFunc",
+        "",
+
+        node,
+        nullable..YGPrintFunc("printFunc", "")
+    )
+
+    bool(
+        "NodeGetHasNewLayout",
+        "",
+
+        node
+    )
+    void(
+        "NodeSetHasNewLayout",
+        "",
+
+        node,
+        bool("hasNewLayout", "")
+    )
+
+    YGNodeType(
+        "NodeGetNodeType",
+        "",
+
+        node
+    )
+    void(
+        "NodeSetNodeType",
+        "",
+
+        node,
+        YGNodeType("nodeType", "")
+    )
+
+    bool(
+        "NodeIsDirty",
+        "",
+
+        node
     )
 
     void(
         "NodeStyleSetDirection",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGDirection("direction", "", "Direction\\w+")
     )
-    YGDirection("NodeStyleGetDirection", "", YGNodeConstRef("node", ""))
+    YGDirection(
+        "NodeStyleGetDirection",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetFlexDirection",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGFlexDirection("flexDirection", "", "FlexDirection\\w+")
     )
-    YGFlexDirection("NodeStyleGetFlexDirection", "", YGNodeConstRef("node", "")
+    YGFlexDirection(
+        "NodeStyleGetFlexDirection",
+        "",
+
+        constNode
     )
 
     void(
         "NodeStyleSetJustifyContent",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGJustify("justifyContent", "", "Justify\\w+")
     )
-    YGJustify("NodeStyleGetJustifyContent", "", YGNodeConstRef("node", ""))
+    YGJustify(
+        "NodeStyleGetJustifyContent",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetAlignContent",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGAlign("alignContent", "", "Align\\w+")
     )
-    YGAlign("NodeStyleGetAlignContent", "", YGNodeConstRef("node", ""))
+    YGAlign(
+        "NodeStyleGetAlignContent",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetAlignItems",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGAlign("alignItems", "", "Align\\w+")
     )
-    YGAlign("NodeStyleGetAlignItems", "", YGNodeConstRef("node", ""))
+    YGAlign(
+        "NodeStyleGetAlignItems",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetAlignSelf",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGAlign("alignSelf", "", "Align\\w+")
     )
-    YGAlign("NodeStyleGetAlignSelf", "", YGNodeConstRef("node", ""))
+    YGAlign(
+        "NodeStyleGetAlignSelf",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetPositionType",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGPositionType("positionType", "", "PositionType\\w+")
     )
-    YGPositionType("NodeStyleGetPositionType", "", YGNodeConstRef("node", ""))
+    YGPositionType(
+        "NodeStyleGetPositionType",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetFlexWrap",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGWrap("flexWrap", "", "Wrap\\w+")
     )
-    YGWrap("NodeStyleGetFlexWrap", "", YGNodeConstRef("node", ""))
+    YGWrap(
+        "NodeStyleGetFlexWrap",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetOverflow",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGOverflow("overflow", "", "Overflow\\w+")
     )
-    YGOverflow("NodeStyleGetOverflow", "", YGNodeConstRef("node", ""))
+    YGOverflow(
+        "NodeStyleGetOverflow",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetDisplay",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGDisplay("display", "", "Display\\w+")
     )
-    YGDisplay("NodeStyleGetDisplay", "", YGNodeConstRef("node", ""))
+    YGDisplay(
+        "NodeStyleGetDisplay",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetFlex",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("flex", "")
     )
-    float("NodeStyleGetFlex", "", YGNodeConstRef("node", ""))
+    float(
+        "NodeStyleGetFlex",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetFlexGrow",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("flexGrow", "")
     )
-    float("NodeStyleGetFlexGrow", "", YGNodeConstRef("node", ""))
+    float(
+        "NodeStyleGetFlexGrow",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetFlexShrink",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("flexShrink", "")
     )
-    float("NodeStyleGetFlexShrink", "", YGNodeConstRef("node", ""))
+    float(
+        "NodeStyleGetFlexShrink",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetFlexBasis",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("flexBasis", "")
     )
     void(
         "NodeStyleSetFlexBasisPercent",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("flexBasis", "")
     )
     void(
         "NodeStyleSetFlexBasisAuto",
         "",
 
-        YGNodeRef("node", "")
+        node
     )
-    YGValue("NodeStyleGetFlexBasis", "", YGNodeConstRef("node", ""))
+    YGValue(
+        "NodeStyleGetFlexBasis",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetPosition",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGEdge("edge", "", Edges),
         float("position", "")
     )
@@ -840,7 +767,7 @@ ENABLE_WARNINGS()""")
         "NodeStyleSetPositionPercent",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGEdge("edge", "", Edges),
         float("position", "")
     )
@@ -848,7 +775,7 @@ ENABLE_WARNINGS()""")
         "NodeStyleGetPosition",
         "",
 
-        YGNodeConstRef("node", ""),
+        constNode,
         YGEdge("edge", "", Edges)
     )
 
@@ -856,7 +783,7 @@ ENABLE_WARNINGS()""")
         "NodeStyleSetMargin",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGEdge("edge", "", Edges),
         float("margin", "")
     )
@@ -864,7 +791,7 @@ ENABLE_WARNINGS()""")
         "NodeStyleSetMarginPercent",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGEdge("edge", "", Edges),
         float("margin", "")
     )
@@ -872,14 +799,14 @@ ENABLE_WARNINGS()""")
         "NodeStyleSetMarginAuto",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGEdge("edge", "", Edges)
     )
     YGValue(
         "NodeStyleGetMargin",
         "",
 
-        YGNodeConstRef("node", ""),
+        constNode,
         YGEdge("edge", "", Edges)
     )
 
@@ -887,7 +814,7 @@ ENABLE_WARNINGS()""")
         "NodeStyleSetPadding",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGEdge("edge", "", Edges),
         float("padding", "")
     )
@@ -895,7 +822,7 @@ ENABLE_WARNINGS()""")
         "NodeStyleSetPaddingPercent",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGEdge("edge", "", Edges),
         float("padding", "")
     )
@@ -903,7 +830,7 @@ ENABLE_WARNINGS()""")
         "NodeStyleGetPadding",
         "",
 
-        YGNodeConstRef("node", ""),
+        constNode,
         YGEdge("edge", "", Edges)
     )
 
@@ -911,7 +838,7 @@ ENABLE_WARNINGS()""")
         "NodeStyleSetBorder",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         YGEdge("edge", "", Edges),
         float("border", "")
     )
@@ -919,7 +846,7 @@ ENABLE_WARNINGS()""")
         "NodeStyleGetBorder",
         "",
 
-        YGNodeConstRef("node", ""),
+        constNode,
         YGEdge("edge", "", Edges)
     )
 
@@ -927,15 +854,7 @@ ENABLE_WARNINGS()""")
         "NodeStyleSetGap",
         "",
 
-        YGNodeRef("node", ""),
-        YGGutter("gutter", "", Gutters),
-        float("gapLength", "")
-    )
-    void(
-        "NodeStyleSetGapPercent",
-        "",
-
-        YGNodeRef("node", ""),
+        node,
         YGGutter("gutter", "", Gutters),
         float("gapLength", "")
     )
@@ -943,7 +862,7 @@ ENABLE_WARNINGS()""")
         "NodeStyleGetGap",
         "",
 
-        YGNodeConstRef("node", ""),
+        constNode,
         YGGutter("gutter", "", Gutters)
     )
 
@@ -951,166 +870,389 @@ ENABLE_WARNINGS()""")
         "NodeStyleSetWidth",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("width", "")
     )
     void(
         "NodeStyleSetWidthPercent",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("width", "")
     )
     void(
         "NodeStyleSetWidthAuto",
         "",
 
-        YGNodeRef("node", "")
+        node
     )
-    YGValue("NodeStyleGetWidth", "", YGNodeConstRef("node", ""))
+    YGValue(
+        "NodeStyleGetWidth",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetHeight",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("height", "")
     )
     void(
         "NodeStyleSetHeightPercent",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("height", "")
     )
     void(
         "NodeStyleSetHeightAuto",
         "",
 
-        YGNodeRef("node", "")
+        node
     )
-    YGValue("NodeStyleGetHeight", "", YGNodeConstRef("node", ""))
+    YGValue(
+        "NodeStyleGetHeight",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetMinWidth",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("minWidth", "")
     )
     void(
         "NodeStyleSetMinWidthPercent",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("minWidth", "")
     )
-    YGValue("NodeStyleGetMinWidth", "", YGNodeConstRef("node", ""))
+    YGValue(
+        "NodeStyleGetMinWidth",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetMinHeight",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("minHeight", "")
     )
     void(
         "NodeStyleSetMinHeightPercent",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("minHeight", "")
     )
-    YGValue("NodeStyleGetMinHeight", "", YGNodeConstRef("node", ""))
+    YGValue(
+        "NodeStyleGetMinHeight",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetMaxWidth",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("maxWidth", "")
     )
     void(
         "NodeStyleSetMaxWidthPercent",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("maxWidth", "")
     )
-    YGValue("NodeStyleGetMaxWidth", "", YGNodeConstRef("node", ""))
+    YGValue(
+        "NodeStyleGetMaxWidth",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetMaxHeight",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("maxHeight", "")
     )
     void(
         "NodeStyleSetMaxHeightPercent",
         "",
 
-        YGNodeRef("node", ""),
+        node,
         float("maxHeight", "")
     )
-    YGValue("NodeStyleGetMaxHeight", "", YGNodeConstRef("node", ""))
+    YGValue(
+        "NodeStyleGetMaxHeight",
+        "",
+
+        constNode
+    )
 
     void(
         "NodeStyleSetAspectRatio",
+        """
+        Aspect ratio controls the size of the undefined dimension of a node.
+
+        Aspect ratio is encoded as a floating point value width/height. e.g. A value of 2 leads to a node with a width twice the size of its height while a
+        value of 0.5 gives the opposite effect.
+        ${ul(
+            "On a node with a set width/height aspect ratio controls the size of the unset dimension",
+            "On a node with a set flex basis aspect ratio controls the size of the node in the cross axis if unset",
+            "On a node with a measure function aspect ratio works as though the measure function measures the flex basis",
+            "On a node with flex grow/shrink aspect ratio controls the size of the node in the cross axis if unset",
+            "Aspect ratio takes min/max dimensions into account"
+        )}
+        """,
+
+        node,
+        float("aspectRatio", "")
+    )
+    float(
+        "NodeStyleGetAspectRatio",
+        "",
+
+        constNode
+    )
+
+    float(
+        "NodeLayoutGetLeft",
+        "",
+
+        node
+    )
+    float(
+        "NodeLayoutGetTop",
+        "",
+
+        node
+    )
+    float(
+        "NodeLayoutGetRight",
+        "",
+
+        node
+    )
+    float(
+        "NodeLayoutGetBottom",
+        "",
+
+        node
+    )
+    float(
+        "NodeLayoutGetWidth",
+        "",
+
+        node
+    )
+    float(
+        "NodeLayoutGetHeight",
+        "",
+
+        node
+    )
+    YGDirection(
+        "NodeLayoutGetDirection",
+        "",
+
+        node
+    )
+    bool(
+        "NodeLayoutGetHadOverflow",
+        "",
+
+        node
+    )
+
+    float(
+        "NodeLayoutGetMargin",
+        """
+        Gets the computed value for this nodes after performing layout. If they were set using point values then the returned value will be the same as
+        {@code YGNodeStyleGetMargin}. However if they were set using a percentage value then the returned value is the computed value used during layout.
+        """,
+
+        node,
+        YGEdge("edge", "", Edges)
+    )
+    float(
+        "NodeLayoutGetBorder",
+        """
+        Gets the computed value for this nodes after performing layout. If they were set using point values then the returned value will be the same as
+        {@code YGNodeStyleGetBorder}. However if they were set using a percentage value then the returned value is the computed value used during layout.
+        """,
+
+        node,
+        YGEdge("edge", "", Edges)
+    )
+    float(
+        "NodeLayoutGetPadding",
+        """
+        Gets the computed value for this nodes after performing layout. If they were set using point values then the returned value will be the same as
+        {@code YGNodeStyleGetPadding}. However if they were set using a percentage value then the returned value is the computed value used during layout.
+        """,
+
+        node,
+        YGEdge("edge", "", Edges)
+    )
+
+    void(
+        "ConfigSetLogger",
+        "",
+
+        YGConfigRef("config", ""),
+        nullable..YGLogger("logger", "")
+    )
+
+    void(
+        "Assert",
+        "",
+
+        bool("condition", ""),
+        charUTF8.const.p("message", "")
+    )
+
+    void(
+        "AssertWithNode",
         "",
 
         YGNodeRef("node", ""),
-        float("aspectRatio", "")
+        bool("condition", ""),
+        charUTF8.const.p("message", "")
     )
-    float("NodeStyleGetAspectRatio", "", YGNodeConstRef("node", ""))
 
-    // YGPixelGrid.h
+    void(
+        "AssertWithConfig",
+        "",
+
+        YGConfigRef("config", ""),
+        bool("condition", ""),
+        charUTF8.const.p("message", "")
+    )
+
+    void(
+        "ConfigSetPointScaleFactor",
+        "Set this to number of pixels in 1 point to round calculation results. If you want to avoid rounding set {@code PointScaleFactor} to 0.",
+
+        YGConfigRef("config", ""),
+        float("pixelsInPoint", "")
+    )
+
+    float(
+        "ConfigGetPointScaleFactor",
+        "",
+
+        YGConfigRef("config", "")
+    )
+
+    YGConfigRef("ConfigNew", "", void())
+
+    void("ConfigFree",
+        "",
+        YGConfigRef("config", "")
+    )
+
+    void(
+        "ConfigCopy",
+        "",
+
+        YGConfigRef("dest", ""),
+        YGConfigRef("src", "")
+    )
+
+    int32_t("ConfigGetInstanceCount", "", void())
+
+    void(
+        "ConfigSetExperimentalFeatureEnabled",
+        "",
+
+        YGConfigRef("config", ""),
+        YGExperimentalFeature("feature", "", "ExperimentalFeature\\w+"),
+        bool("enabled", "")
+    )
+    bool(
+        "ConfigIsExperimentalFeatureEnabled",
+        "",
+
+        YGConfigRef("config", ""),
+        YGExperimentalFeature("feature", "", "ExperimentalFeature\\w+")
+    )
+
+    void(
+        "ConfigSetUseWebDefaults",
+        "Using the web defaults is the preferred configuration for new projects. Usage of non web defaults should be considered as legacy.",
+
+        YGConfigRef("config", ""),
+        bool("enabled", "")
+    )
+    bool(
+        "ConfigGetUseWebDefaults",
+        "",
+
+        YGConfigRef("config", "")
+    )
+
+    void(
+        "ConfigSetCloneNodeFunc",
+        "",
+
+        YGConfigRef("config", ""),
+        nullable..YGCloneNodeFunc("callback", "") // const function pointer in Yoga sources
+    )
+
+    YGConfigRef("ConfigGetDefault", "", void())
+
+    void(
+        "ConfigSetContext",
+        "",
+
+        YGConfigRef("config", ""),
+        opaque_p("context", "")
+    )
+    opaque_p(
+        "ConfigGetContext",
+        "",
+
+        YGConfigRef("config", "")
+    )
+
+    void(
+        "ConfigSetErrata",
+        "",
+
+        YGConfigRef("config", ""),
+        YGErrata("errata", "")
+    )
+
+    YGErrata(
+        "ConfigGetErrata",
+        "",
+
+        YGConfigRef("config", "")
+    )
 
     float(
         "RoundValueToPixelGrid",
-        "Rounds a point value to the nearest whole pixel, given a {@code pointScaleFactor} describing pixel density.",
+        "",
 
         double("value", ""),
         double("pointScaleFactor", ""),
         bool("forceCeil", ""),
-        bool("forceFloor", ""),
-
-        returnDoc = "the rounded value in points"
-    )
-
-    // YGValue.h
-
-    FloatConstant(
-        "",
-
-        "Undefined".."Float.NaN"
-    )
-
-    // Pre-defined YGValue structs
-
-    macro..YGValue(
-        "ValueAuto",
-        "Constant for a dimension of \"auto\".",
-
-        void()
-    )
-    macro..YGValue(
-        "ValueUndefined",
-        "Constant for a dimension which is not defined.",
-        void()
-    )
-    macro..YGValue(
-        "ValueZero",
-        "Constant for a dimension that is zero-length.",
-
-        void()
-    )
-
-    bool(
-        "FloatIsUndefined",
-        "Whether a dimension represented as a float is defined.",
-
-        float("value", "")
+        bool("forceFloor", "")
     )
 
     // Enums
@@ -1130,7 +1272,6 @@ ENABLE_WARNINGS()""")
     YG_TYPE_TO_STRING(YGDirection)
     YG_TYPE_TO_STRING(YGDisplay)
     YG_TYPE_TO_STRING(YGEdge)
-    YG_TYPE_TO_STRING(YGErrata)
     YG_TYPE_TO_STRING(YGExperimentalFeature)
     YG_TYPE_TO_STRING(YGFlexDirection)
     YG_TYPE_TO_STRING(YGGutter)
@@ -1143,4 +1284,9 @@ ENABLE_WARNINGS()""")
     YG_TYPE_TO_STRING(YGUnit)
     YG_TYPE_TO_STRING(YGWrap)
 
+    // Pre-defined YGValue structs
+
+    macro..YGValue("ValueAuto", "", void())
+    macro..YGValue("ValueUndefined", "", void())
+    macro..YGValue("ValueZero", "", void())
 }

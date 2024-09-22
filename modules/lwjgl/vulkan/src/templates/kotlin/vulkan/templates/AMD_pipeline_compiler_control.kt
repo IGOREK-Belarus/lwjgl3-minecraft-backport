@@ -16,6 +16,7 @@ val AMD_pipeline_compiler_control = "AMDPipelineCompilerControl".nativeClassVK("
         <h5>Examples</h5>
         None.
 
+        <h5>VK_AMD_pipeline_compiler_control</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_AMD_pipeline_compiler_control}</dd>

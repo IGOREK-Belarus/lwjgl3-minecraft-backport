@@ -415,7 +415,6 @@ val FMOD_ADVANCEDSETTINGS = struct(Module.FMOD, "FMOD_ADVANCEDSETTINGS") {
     unsigned_int("randomSeed", "")
     int("maxConvolutionThreads", "")
     int("maxOpusCodecs", "")
-    int("maxSpatialObjects", "")
 }
 
 val FMOD_TAG = struct(Module.FMOD, "FMOD_TAG") {

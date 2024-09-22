@@ -30,7 +30,7 @@ import static org.lwjgl.system.libffi.LibFFI.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkDeviceDeviceMemoryReportCreateInfoEXT}, {@link VkDeviceMemoryReportCallbackDataEXT}</p>
+ * <p>{@link VkDeviceDeviceMemoryReportCreateInfoEXT}</p>
  */
 @FunctionalInterface
 @NativeType("PFN_vkDeviceMemoryReportCallbackEXT")

@@ -11,15 +11,7 @@ val FMODStudio = "FMODStudio".nativeClass(
     Module.FMOD,
     prefix = "FMOD_STUDIO",
     prefixMethod = "FMOD_Studio_",
-    binding = simpleBinding(
-        Module.FMOD,
-        libraryName = "FMODSTUDIO",
-        libraryExpression = "Configuration.FMOD_STUDIO_LIBRARY_NAME, \"fmodstudio\"",
-        preamble = """
-    static {
-        // Make sure fmod is loaded first, fmodstudio depends on it.
-        FMOD.getLibrary();
-    }""")
+    binding = simpleBinding(Module.FMOD, libraryName = "FMODSTUDIO", libraryExpression = "Configuration.FMOD_STUDIO_LIBRARY_NAME, \"fmodstudio\"")
 ) {
 
     IntConstant("", "LOAD_MEMORY_ALIGNMENT".."32")

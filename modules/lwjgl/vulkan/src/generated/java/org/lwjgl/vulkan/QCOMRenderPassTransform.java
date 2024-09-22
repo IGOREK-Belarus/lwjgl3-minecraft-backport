@@ -33,6 +33,8 @@ package org.lwjgl.vulkan;
  * <li>If this extension is used with {@link QCOMTileProperties VK_QCOM_tile_properties}, then {@link QCOMTileProperties#vkGetFramebufferTilePropertiesQCOM GetFramebufferTilePropertiesQCOM} and {@link QCOMTileProperties#vkGetDynamicRenderingTilePropertiesQCOM GetDynamicRenderingTilePropertiesQCOM} return tile properties in the rotated coordinate space.</li>
  * </ul>
  * 
+ * <h5>VK_QCOM_render_pass_transform</h5>
+ * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_QCOM_render_pass_transform}</dd>
@@ -41,10 +43,12 @@ package org.lwjgl.vulkan;
  * <dt><b>Registered Extension Number</b></dt>
  * <dd>283</dd>
  * <dt><b>Revision</b></dt>
- * <dd>4</dd>
+ * <dd>3</dd>
+ * <dt><b>Extension and Version Dependencies</b></dt>
+ * <dd>{@link KHRSwapchain VK_KHR_swapchain} and {@link KHRSurface VK_KHR_surface}</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Matthew Netsch <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_QCOM_render_pass_transform]%20@mnetsch%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_QCOM_render_pass_transform%20extension*">mnetsch</a></li>
+ * <li>Jeff Leger <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_QCOM_render_pass_transform]%20@jackohound%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_QCOM_render_pass_transform%20extension*">jackohound</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -52,11 +56,10 @@ package org.lwjgl.vulkan;
  * 
  * <dl>
  * <dt><b>Last Modified Date</b></dt>
- * <dd>2023-12-13</dd>
+ * <dd>2022-07-21</dd>
  * <dt><b>Interactions and External Dependencies</b></dt>
  * <dd><ul>
- * <li>This extension interacts with {@link KHRSwapchain VK_KHR_swapchain}</li>
- * <li>This extension interacts with {@link KHRSurface VK_KHR_surface}</li>
+ * <li>This extension requires {@link KHRSwapchain VK_KHR_swapchain}</li>
  * <li>This extension interacts with {@link EXTFragmentDensityMap VK_EXT_fragment_density_map}</li>
  * <li>This extension interacts with {@link KHRFragmentShadingRate VK_KHR_fragment_shading_rate}</li>
  * <li>This extension interacts with {@link QCOMTileProperties VK_QCOM_tile_properties}</li>
@@ -66,14 +69,13 @@ package org.lwjgl.vulkan;
  * <li>Jeff Leger, Qualcomm Technologies, Inc.</li>
  * <li>Brandon Light, Qualcomm Technologies, Inc.</li>
  * <li>Matthew Netsch, Qualcomm Technologies, Inc.</li>
- * <li>Arpit Agarwal, Qualcomm Technologies, Inc.</li>
  * </ul></dd>
  * </dl>
  */
 public final class QCOMRenderPassTransform {
 
     /** The extension specification version. */
-    public static final int VK_QCOM_RENDER_PASS_TRANSFORM_SPEC_VERSION = 4;
+    public static final int VK_QCOM_RENDER_PASS_TRANSFORM_SPEC_VERSION = 3;
 
     /** The extension name. */
     public static final String VK_QCOM_RENDER_PASS_TRANSFORM_EXTENSION_NAME = "VK_QCOM_render_pass_transform";

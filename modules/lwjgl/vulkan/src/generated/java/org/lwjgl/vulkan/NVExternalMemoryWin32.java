@@ -153,6 +153,8 @@ import org.lwjgl.system.windows.*;
  *     // Get the external memory opaque FD handle
  *     vkGetMemoryWin32HandleNV(device, memory, &amp;memoryHnd);</code></pre>
  * 
+ * <h5>VK_NV_external_memory_win32</h5>
+ * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_NV_external_memory_win32}</dd>
@@ -164,7 +166,7 @@ import org.lwjgl.system.windows.*;
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
  * <dd>{@link NVExternalMemory VK_NV_external_memory}</dd>
- * <dt><b>Deprecation State</b></dt>
+ * <dt><b>Deprecation state</b></dt>
  * <dd><ul>
  * <li><em>Deprecated</em> by {@link KHRExternalMemoryWin32 VK_KHR_external_memory_win32} extension</li>
  * </ul></dd>

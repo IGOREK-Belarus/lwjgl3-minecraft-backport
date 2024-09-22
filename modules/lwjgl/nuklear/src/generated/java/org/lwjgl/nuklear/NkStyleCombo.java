@@ -39,8 +39,6 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link NkVec2 struct nk_vec2} content_padding;
  *     {@link NkVec2 struct nk_vec2} button_padding;
  *     {@link NkVec2 struct nk_vec2} spacing;
- *     float color_factor;
- *     float disabled_factor;
  * }</code></pre>
  */
 @NativeType("struct nk_style_combo")
@@ -72,9 +70,7 @@ public class NkStyleCombo extends Struct<NkStyleCombo> implements NativeResource
         ROUNDING,
         CONTENT_PADDING,
         BUTTON_PADDING,
-        SPACING,
-        COLOR_FACTOR,
-        DISABLED_FACTOR;
+        SPACING;
 
     static {
         Layout layout = __struct(
@@ -96,9 +92,7 @@ public class NkStyleCombo extends Struct<NkStyleCombo> implements NativeResource
             __member(4),
             __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
             __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
-            __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
-            __member(4),
-            __member(4)
+            __member(NkVec2.SIZEOF, NkVec2.ALIGNOF)
         );
 
         SIZEOF = layout.getSize();
@@ -123,8 +117,6 @@ public class NkStyleCombo extends Struct<NkStyleCombo> implements NativeResource
         CONTENT_PADDING = layout.offsetof(16);
         BUTTON_PADDING = layout.offsetof(17);
         SPACING = layout.offsetof(18);
-        COLOR_FACTOR = layout.offsetof(19);
-        DISABLED_FACTOR = layout.offsetof(20);
     }
 
     protected NkStyleCombo(long address, @Nullable ByteBuffer container) {
@@ -204,10 +196,6 @@ public class NkStyleCombo extends Struct<NkStyleCombo> implements NativeResource
     /** @return a {@link NkVec2} view of the {@code spacing} field. */
     @NativeType("struct nk_vec2")
     public NkVec2 spacing() { return nspacing(address()); }
-    /** @return the value of the {@code color_factor} field. */
-    public float color_factor() { return ncolor_factor(address()); }
-    /** @return the value of the {@code disabled_factor} field. */
-    public float disabled_factor() { return ndisabled_factor(address()); }
 
     /** Copies the specified {@link NkStyleItem} to the {@code normal} field. */
     public NkStyleCombo normal(@NativeType("struct nk_style_item") NkStyleItem value) { nnormal(address(), value); return this; }
@@ -275,10 +263,6 @@ public class NkStyleCombo extends Struct<NkStyleCombo> implements NativeResource
     public NkStyleCombo spacing(@NativeType("struct nk_vec2") NkVec2 value) { nspacing(address(), value); return this; }
     /** Passes the {@code spacing} field to the specified {@link java.util.function.Consumer Consumer}. */
     public NkStyleCombo spacing(java.util.function.Consumer<NkVec2> consumer) { consumer.accept(spacing()); return this; }
-    /** Sets the specified value to the {@code color_factor} field. */
-    public NkStyleCombo color_factor(float value) { ncolor_factor(address(), value); return this; }
-    /** Sets the specified value to the {@code disabled_factor} field. */
-    public NkStyleCombo disabled_factor(float value) { ndisabled_factor(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public NkStyleCombo set(
@@ -300,9 +284,7 @@ public class NkStyleCombo extends Struct<NkStyleCombo> implements NativeResource
         float rounding,
         NkVec2 content_padding,
         NkVec2 button_padding,
-        NkVec2 spacing,
-        float color_factor,
-        float disabled_factor
+        NkVec2 spacing
     ) {
         normal(normal);
         hover(hover);
@@ -323,8 +305,6 @@ public class NkStyleCombo extends Struct<NkStyleCombo> implements NativeResource
         content_padding(content_padding);
         button_padding(button_padding);
         spacing(spacing);
-        color_factor(color_factor);
-        disabled_factor(disabled_factor);
 
         return this;
     }
@@ -511,10 +491,6 @@ public class NkStyleCombo extends Struct<NkStyleCombo> implements NativeResource
     public static NkVec2 nbutton_padding(long struct) { return NkVec2.create(struct + NkStyleCombo.BUTTON_PADDING); }
     /** Unsafe version of {@link #spacing}. */
     public static NkVec2 nspacing(long struct) { return NkVec2.create(struct + NkStyleCombo.SPACING); }
-    /** Unsafe version of {@link #color_factor}. */
-    public static float ncolor_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleCombo.COLOR_FACTOR); }
-    /** Unsafe version of {@link #disabled_factor}. */
-    public static float ndisabled_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleCombo.DISABLED_FACTOR); }
 
     /** Unsafe version of {@link #normal(NkStyleItem) normal}. */
     public static void nnormal(long struct, NkStyleItem value) { memCopy(value.address(), struct + NkStyleCombo.NORMAL, NkStyleItem.SIZEOF); }
@@ -554,10 +530,6 @@ public class NkStyleCombo extends Struct<NkStyleCombo> implements NativeResource
     public static void nbutton_padding(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleCombo.BUTTON_PADDING, NkVec2.SIZEOF); }
     /** Unsafe version of {@link #spacing(NkVec2) spacing}. */
     public static void nspacing(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleCombo.SPACING, NkVec2.SIZEOF); }
-    /** Unsafe version of {@link #color_factor(float) color_factor}. */
-    public static void ncolor_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleCombo.COLOR_FACTOR, value); }
-    /** Unsafe version of {@link #disabled_factor(float) disabled_factor}. */
-    public static void ndisabled_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleCombo.DISABLED_FACTOR, value); }
 
     // -----------------------------------
 
@@ -652,10 +624,6 @@ public class NkStyleCombo extends Struct<NkStyleCombo> implements NativeResource
         /** @return a {@link NkVec2} view of the {@code spacing} field. */
         @NativeType("struct nk_vec2")
         public NkVec2 spacing() { return NkStyleCombo.nspacing(address()); }
-        /** @return the value of the {@code color_factor} field. */
-        public float color_factor() { return NkStyleCombo.ncolor_factor(address()); }
-        /** @return the value of the {@code disabled_factor} field. */
-        public float disabled_factor() { return NkStyleCombo.ndisabled_factor(address()); }
 
         /** Copies the specified {@link NkStyleItem} to the {@code normal} field. */
         public NkStyleCombo.Buffer normal(@NativeType("struct nk_style_item") NkStyleItem value) { NkStyleCombo.nnormal(address(), value); return this; }
@@ -723,10 +691,6 @@ public class NkStyleCombo extends Struct<NkStyleCombo> implements NativeResource
         public NkStyleCombo.Buffer spacing(@NativeType("struct nk_vec2") NkVec2 value) { NkStyleCombo.nspacing(address(), value); return this; }
         /** Passes the {@code spacing} field to the specified {@link java.util.function.Consumer Consumer}. */
         public NkStyleCombo.Buffer spacing(java.util.function.Consumer<NkVec2> consumer) { consumer.accept(spacing()); return this; }
-        /** Sets the specified value to the {@code color_factor} field. */
-        public NkStyleCombo.Buffer color_factor(float value) { NkStyleCombo.ncolor_factor(address(), value); return this; }
-        /** Sets the specified value to the {@code disabled_factor} field. */
-        public NkStyleCombo.Buffer disabled_factor(float value) { NkStyleCombo.ndisabled_factor(address(), value); return this; }
 
     }
 

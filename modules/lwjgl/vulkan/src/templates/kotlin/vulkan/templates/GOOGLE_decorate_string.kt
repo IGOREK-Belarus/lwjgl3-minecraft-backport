@@ -13,6 +13,7 @@ val GOOGLE_decorate_string = "GOOGLEDecorateString".nativeClassVK("GOOGLE_decora
         """
         The {@code VK_GOOGLE_decorate_string} extension allows use of the {@code SPV_GOOGLE_decorate_string} extension in SPIR-V shader modules.
 
+        <h5>VK_GOOGLE_decorate_string</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_GOOGLE_decorate_string}</dd>
@@ -25,11 +26,6 @@ val GOOGLE_decorate_string = "GOOGLEDecorateString".nativeClassVK("GOOGLE_decora
 
             <dt><b>Revision</b></dt>
             <dd>1</dd>
-
-            <dt><b>SPIR-V Dependencies</b></dt>
-            <dd><ul>
-                <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/GOOGLE/SPV_GOOGLE_decorate_string.html">SPV_GOOGLE_decorate_string</a></li>
-            </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -44,6 +40,11 @@ val GOOGLE_decorate_string = "GOOGLEDecorateString".nativeClassVK("GOOGLE_decora
 
             <dt><b>IP Status</b></dt>
             <dd>No known IP claims.</dd>
+
+            <dt><b>Interactions and External Dependencies</b></dt>
+            <dd><ul>
+                <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/GOOGLE/SPV_GOOGLE_decorate_string.html">{@code SPV_GOOGLE_decorate_string}</a></li>
+            </ul></dd>
 
             <dt><b>Contributors</b></dt>
             <dd><ul>

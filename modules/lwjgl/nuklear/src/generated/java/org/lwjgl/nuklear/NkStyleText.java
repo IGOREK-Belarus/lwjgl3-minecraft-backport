@@ -22,8 +22,6 @@ import static org.lwjgl.system.MemoryStack.*;
  * struct nk_style_text {
  *     {@link NkColor struct nk_color} color;
  *     {@link NkVec2 struct nk_vec2} padding;
- *     float color_factor;
- *     float disabled_factor;
  * }</code></pre>
  */
 @NativeType("struct nk_style_text")
@@ -38,16 +36,12 @@ public class NkStyleText extends Struct<NkStyleText> implements NativeResource {
     /** The struct member offsets. */
     public static final int
         COLOR,
-        PADDING,
-        COLOR_FACTOR,
-        DISABLED_FACTOR;
+        PADDING;
 
     static {
         Layout layout = __struct(
             __member(NkColor.SIZEOF, NkColor.ALIGNOF),
-            __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
-            __member(4),
-            __member(4)
+            __member(NkVec2.SIZEOF, NkVec2.ALIGNOF)
         );
 
         SIZEOF = layout.getSize();
@@ -55,8 +49,6 @@ public class NkStyleText extends Struct<NkStyleText> implements NativeResource {
 
         COLOR = layout.offsetof(0);
         PADDING = layout.offsetof(1);
-        COLOR_FACTOR = layout.offsetof(2);
-        DISABLED_FACTOR = layout.offsetof(3);
     }
 
     protected NkStyleText(long address, @Nullable ByteBuffer container) {
@@ -87,10 +79,6 @@ public class NkStyleText extends Struct<NkStyleText> implements NativeResource {
     /** @return a {@link NkVec2} view of the {@code padding} field. */
     @NativeType("struct nk_vec2")
     public NkVec2 padding() { return npadding(address()); }
-    /** @return the value of the {@code color_factor} field. */
-    public float color_factor() { return ncolor_factor(address()); }
-    /** @return the value of the {@code disabled_factor} field. */
-    public float disabled_factor() { return ndisabled_factor(address()); }
 
     /** Copies the specified {@link NkColor} to the {@code color} field. */
     public NkStyleText color(@NativeType("struct nk_color") NkColor value) { ncolor(address(), value); return this; }
@@ -100,22 +88,14 @@ public class NkStyleText extends Struct<NkStyleText> implements NativeResource {
     public NkStyleText padding(@NativeType("struct nk_vec2") NkVec2 value) { npadding(address(), value); return this; }
     /** Passes the {@code padding} field to the specified {@link java.util.function.Consumer Consumer}. */
     public NkStyleText padding(java.util.function.Consumer<NkVec2> consumer) { consumer.accept(padding()); return this; }
-    /** Sets the specified value to the {@code color_factor} field. */
-    public NkStyleText color_factor(float value) { ncolor_factor(address(), value); return this; }
-    /** Sets the specified value to the {@code disabled_factor} field. */
-    public NkStyleText disabled_factor(float value) { ndisabled_factor(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public NkStyleText set(
         NkColor color,
-        NkVec2 padding,
-        float color_factor,
-        float disabled_factor
+        NkVec2 padding
     ) {
         color(color);
         padding(padding);
-        color_factor(color_factor);
-        disabled_factor(disabled_factor);
 
         return this;
     }
@@ -268,19 +248,11 @@ public class NkStyleText extends Struct<NkStyleText> implements NativeResource {
     public static NkColor ncolor(long struct) { return NkColor.create(struct + NkStyleText.COLOR); }
     /** Unsafe version of {@link #padding}. */
     public static NkVec2 npadding(long struct) { return NkVec2.create(struct + NkStyleText.PADDING); }
-    /** Unsafe version of {@link #color_factor}. */
-    public static float ncolor_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleText.COLOR_FACTOR); }
-    /** Unsafe version of {@link #disabled_factor}. */
-    public static float ndisabled_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleText.DISABLED_FACTOR); }
 
     /** Unsafe version of {@link #color(NkColor) color}. */
     public static void ncolor(long struct, NkColor value) { memCopy(value.address(), struct + NkStyleText.COLOR, NkColor.SIZEOF); }
     /** Unsafe version of {@link #padding(NkVec2) padding}. */
     public static void npadding(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleText.PADDING, NkVec2.SIZEOF); }
-    /** Unsafe version of {@link #color_factor(float) color_factor}. */
-    public static void ncolor_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleText.COLOR_FACTOR, value); }
-    /** Unsafe version of {@link #disabled_factor(float) disabled_factor}. */
-    public static void ndisabled_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleText.DISABLED_FACTOR, value); }
 
     // -----------------------------------
 
@@ -326,10 +298,6 @@ public class NkStyleText extends Struct<NkStyleText> implements NativeResource {
         /** @return a {@link NkVec2} view of the {@code padding} field. */
         @NativeType("struct nk_vec2")
         public NkVec2 padding() { return NkStyleText.npadding(address()); }
-        /** @return the value of the {@code color_factor} field. */
-        public float color_factor() { return NkStyleText.ncolor_factor(address()); }
-        /** @return the value of the {@code disabled_factor} field. */
-        public float disabled_factor() { return NkStyleText.ndisabled_factor(address()); }
 
         /** Copies the specified {@link NkColor} to the {@code color} field. */
         public NkStyleText.Buffer color(@NativeType("struct nk_color") NkColor value) { NkStyleText.ncolor(address(), value); return this; }
@@ -339,10 +307,6 @@ public class NkStyleText extends Struct<NkStyleText> implements NativeResource {
         public NkStyleText.Buffer padding(@NativeType("struct nk_vec2") NkVec2 value) { NkStyleText.npadding(address(), value); return this; }
         /** Passes the {@code padding} field to the specified {@link java.util.function.Consumer Consumer}. */
         public NkStyleText.Buffer padding(java.util.function.Consumer<NkVec2> consumer) { consumer.accept(padding()); return this; }
-        /** Sets the specified value to the {@code color_factor} field. */
-        public NkStyleText.Buffer color_factor(float value) { NkStyleText.ncolor_factor(address(), value); return this; }
-        /** Sets the specified value to the {@code disabled_factor} field. */
-        public NkStyleText.Buffer disabled_factor(float value) { NkStyleText.ndisabled_factor(address(), value); return this; }
 
     }
 

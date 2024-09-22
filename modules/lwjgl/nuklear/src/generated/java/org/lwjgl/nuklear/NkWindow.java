@@ -33,7 +33,6 @@ import static org.lwjgl.nuklear.Nuklear.*;
  *     {@link NkPopupState struct nk_popup_state} popup;
  *     {@link NkEditState struct nk_edit_state} edit;
  *     unsigned int scrolled;
- *     nk_bool widgets_disabled;
  *     struct nk_table * tables;
  *     unsigned int table_count;
  *     {@link NkWindow struct nk_window} * next;
@@ -65,7 +64,6 @@ public class NkWindow extends Struct<NkWindow> {
         POPUP,
         EDIT,
         SCROLLED,
-        WIDGETS_DISABLED,
         TABLES,
         TABLE_COUNT,
         NEXT,
@@ -87,7 +85,6 @@ public class NkWindow extends Struct<NkWindow> {
             __member(NkPopupState.SIZEOF, NkPopupState.ALIGNOF),
             __member(NkEditState.SIZEOF, NkEditState.ALIGNOF),
             __member(4),
-            __member(1),
             __member(POINTER_SIZE),
             __member(4),
             __member(POINTER_SIZE),
@@ -111,12 +108,11 @@ public class NkWindow extends Struct<NkWindow> {
         POPUP = layout.offsetof(10);
         EDIT = layout.offsetof(11);
         SCROLLED = layout.offsetof(12);
-        WIDGETS_DISABLED = layout.offsetof(13);
-        TABLES = layout.offsetof(14);
-        TABLE_COUNT = layout.offsetof(15);
-        NEXT = layout.offsetof(16);
-        PREV = layout.offsetof(17);
-        PARENT = layout.offsetof(18);
+        TABLES = layout.offsetof(13);
+        TABLE_COUNT = layout.offsetof(14);
+        NEXT = layout.offsetof(15);
+        PREV = layout.offsetof(16);
+        PARENT = layout.offsetof(17);
     }
 
     protected NkWindow(long address, @Nullable ByteBuffer container) {
@@ -182,9 +178,6 @@ public class NkWindow extends Struct<NkWindow> {
     /** @return the value of the {@code scrolled} field. */
     @NativeType("unsigned int")
     public int scrolled() { return nscrolled(address()); }
-    /** @return the value of the {@code widgets_disabled} field. */
-    @NativeType("nk_bool")
-    public boolean widgets_disabled() { return nwidgets_disabled(address()); }
     /** @return the value of the {@code tables} field. */
     @NativeType("struct nk_table *")
     public long tables() { return ntables(address()); }
@@ -260,8 +253,6 @@ public class NkWindow extends Struct<NkWindow> {
     public static NkEditState nedit(long struct) { return NkEditState.create(struct + NkWindow.EDIT); }
     /** Unsafe version of {@link #scrolled}. */
     public static int nscrolled(long struct) { return UNSAFE.getInt(null, struct + NkWindow.SCROLLED); }
-    /** Unsafe version of {@link #widgets_disabled}. */
-    public static boolean nwidgets_disabled(long struct) { return UNSAFE.getByte(null, struct + NkWindow.WIDGETS_DISABLED) != 0; }
     /** Unsafe version of {@link #tables}. */
     public static long ntables(long struct) { return memGetAddress(struct + NkWindow.TABLES); }
     /** Unsafe version of {@link #table_count}. */
@@ -352,9 +343,6 @@ public class NkWindow extends Struct<NkWindow> {
         /** @return the value of the {@code scrolled} field. */
         @NativeType("unsigned int")
         public int scrolled() { return NkWindow.nscrolled(address()); }
-        /** @return the value of the {@code widgets_disabled} field. */
-        @NativeType("nk_bool")
-        public boolean widgets_disabled() { return NkWindow.nwidgets_disabled(address()); }
         /** @return the value of the {@code tables} field. */
         @NativeType("struct nk_table *")
         public long tables() { return NkWindow.ntables(address()); }

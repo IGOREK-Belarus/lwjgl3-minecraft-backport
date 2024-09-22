@@ -13,12 +13,7 @@ val LLVMInitialization = "LLVMInitialization".nativeClass(
     prefixMethod = "LLVM",
     binding = LLVM_BINDING_DELEGATE
 ) {
-    documentation =
-        """
-        This module contains routines used to initialize the LLVM system.
-
-        Removed in LLVM 17.
-        """
+    documentation = ""
 
     void("InitializeCore", "", LLVMPassRegistryRef("R", ""))
     void("InitializeTransformUtils", "", LLVMPassRegistryRef("R", ""))

@@ -17,6 +17,8 @@ package org.lwjgl.vulkan;
  * 
  * <p>When {@link #VK_BORDER_COLOR_FLOAT_CUSTOM_EXT BORDER_COLOR_FLOAT_CUSTOM_EXT} or {@link #VK_BORDER_COLOR_INT_CUSTOM_EXT BORDER_COLOR_INT_CUSTOM_EXT} is used, applications must provide a {@link VkSamplerCustomBorderColorCreateInfoEXT} in the {@code pNext} chain for {@link VkSamplerCreateInfo}.</p>
  * 
+ * <h5>VK_EXT_custom_border_color</h5>
+ * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_custom_border_color}</dd>

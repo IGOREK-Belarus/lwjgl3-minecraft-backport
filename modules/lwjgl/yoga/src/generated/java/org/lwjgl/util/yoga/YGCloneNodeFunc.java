@@ -16,8 +16,8 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <pre><code>
  * YGNodeRef (*{@link #invoke}) (
- *     YGNodeConstRef oldNode,
- *     YGNodeConstRef owner,
+ *     YGNodeRef oldNode,
+ *     YGNodeRef owner,
  *     int childIndex
  * )</code></pre>
  */

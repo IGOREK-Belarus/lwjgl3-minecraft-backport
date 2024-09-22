@@ -38,7 +38,7 @@ import static org.lwjgl.system.libffi.LibFFI.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkDebugUtilsMessengerCallbackDataEXT}, {@link VkDebugUtilsMessengerCreateInfoEXT}</p>
+ * <p>{@link VkDebugUtilsMessengerCreateInfoEXT}</p>
  */
 @FunctionalInterface
 @NativeType("PFN_vkDebugUtilsMessengerCallbackEXT")

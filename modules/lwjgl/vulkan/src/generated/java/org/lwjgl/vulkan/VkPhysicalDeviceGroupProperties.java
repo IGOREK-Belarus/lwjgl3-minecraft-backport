@@ -288,7 +288,7 @@ public class VkPhysicalDeviceGroupProperties extends Struct<VkPhysicalDeviceGrou
     /** Unsafe version of {@link #physicalDeviceCount}. */
     public static int nphysicalDeviceCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceGroupProperties.PHYSICALDEVICECOUNT); }
     /** Unsafe version of {@link #physicalDevices}. */
-    public static PointerBuffer nphysicalDevices(long struct) { return memPointerBuffer(struct + VkPhysicalDeviceGroupProperties.PHYSICALDEVICES, nphysicalDeviceCount(struct)); }
+    public static PointerBuffer nphysicalDevices(long struct) { return memPointerBuffer(struct + VkPhysicalDeviceGroupProperties.PHYSICALDEVICES, VK_MAX_DEVICE_GROUP_SIZE); }
     /** Unsafe version of {@link #physicalDevices(int) physicalDevices}. */
     public static long nphysicalDevices(long struct, int index) {
         return memGetAddress(struct + VkPhysicalDeviceGroupProperties.PHYSICALDEVICES + check(index, VK_MAX_DEVICE_GROUP_SIZE) * POINTER_SIZE);

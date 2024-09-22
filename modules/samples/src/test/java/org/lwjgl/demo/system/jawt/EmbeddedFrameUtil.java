@@ -5,7 +5,8 @@
 package org.lwjgl.demo.system.jawt;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.jawt.*;
+import org.lwjgl.system.jawt.JAWT;
+import org.lwjgl.system.macosx.*;
 
 import java.awt.*;
 import java.lang.reflect.*;
@@ -14,7 +15,9 @@ import java.util.regex.*;
 import static org.lwjgl.glfw.GLFWNativeCocoa.*;
 import static org.lwjgl.glfw.GLFWNativeWin32.*;
 import static org.lwjgl.glfw.GLFWNativeX11.*;
+import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.jawt.JAWTFunctions.*;
+import static org.lwjgl.system.macosx.ObjCRuntime.*;
 
 final class EmbeddedFrameUtil {
 
@@ -33,7 +36,7 @@ final class EmbeddedFrameUtil {
         JAVA_VERSION = Integer.parseInt(m.group(1));
 
         awt = JAWT.calloc();
-        awt.version(JAVA_VERSION < 9 ? JAWT_VERSION_1_7 : JAWT_VERSION_9);
+        awt.version(JAVA_VERSION < 9 ? JAWT_VERSION_1_4 : JAWT_VERSION_9);
         if (!JAWT_GetAWT(awt)) {
             throw new RuntimeException("GetAWT failed");
         }
@@ -44,7 +47,6 @@ final class EmbeddedFrameUtil {
 
     private static String getEmbeddedFrameImpl() {
         switch (Platform.get()) {
-            case FREEBSD:
             case LINUX:
                 return "sun.awt.X11.XEmbeddedFrame";
             case MACOSX:
@@ -58,11 +60,11 @@ final class EmbeddedFrameUtil {
 
     private static long getEmbeddedFrameHandle(long window) {
         switch (Platform.get()) {
-            case FREEBSD:
             case LINUX:
                 return glfwGetX11Window(window);
             case MACOSX:
-                return glfwGetCocoaView(window);
+                long objc_msgSend = ObjCRuntime.getLibrary().getFunctionAddress("objc_msgSend");
+                return invokePPP(glfwGetCocoaWindow(window), sel_getUid("contentView"), objc_msgSend);
             case WINDOWS:
                 return glfwGetWin32Window(window);
             default:
@@ -82,7 +84,7 @@ final class EmbeddedFrameUtil {
                 throw new RuntimeException(e);
             }
         } else {
-            return nJAWT_CreateEmbeddedFrame(getEmbeddedFrameHandle(window), awt.CreateEmbeddedFrame());
+            return nJAWT_CreateEmbeddedFrame(awt.CreateEmbeddedFrame(), getEmbeddedFrameHandle(window));
         }
     }
 

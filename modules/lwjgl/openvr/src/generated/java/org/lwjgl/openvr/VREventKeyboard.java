@@ -11,6 +11,7 @@ import java.nio.*;
 
 import org.lwjgl.system.*;
 
+import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
@@ -22,7 +23,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * struct VREvent_Keyboard_t {
  *     char {@link #cNewInput}[8];
  *     uint64_t {@link #uUserValue};
- *     uint64_t {@link #overlayHandle};
  * }</code></pre>
  */
 @NativeType("struct VREvent_Keyboard_t")
@@ -37,13 +37,11 @@ public class VREventKeyboard extends Struct<VREventKeyboard> {
     /** The struct member offsets. */
     public static final int
         CNEWINPUT,
-        UUSERVALUE,
-        OVERLAYHANDLE;
+        UUSERVALUE;
 
     static {
         Layout layout = __struct(
             __array(1, 8),
-            __member(8),
             __member(8)
         );
 
@@ -52,7 +50,6 @@ public class VREventKeyboard extends Struct<VREventKeyboard> {
 
         CNEWINPUT = layout.offsetof(0);
         UUSERVALUE = layout.offsetof(1);
-        OVERLAYHANDLE = layout.offsetof(2);
     }
 
     protected VREventKeyboard(long address, @Nullable ByteBuffer container) {
@@ -77,18 +74,15 @@ public class VREventKeyboard extends Struct<VREventKeyboard> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** 7 bytes of utf8 + null */
+    /** up to 8 bytes of new input */
     @NativeType("char[8]")
     public ByteBuffer cNewInput() { return ncNewInput(address()); }
-    /** 7 bytes of utf8 + null */
-    @NativeType("char[8]")
-    public String cNewInputString() { return ncNewInputString(address()); }
-    /** caller specified opaque token */
+    /** up to 8 bytes of new input */
+    @NativeType("char")
+    public byte cNewInput(int index) { return ncNewInput(address(), index); }
+    /** possible flags about the new input */
     @NativeType("uint64_t")
     public long uUserValue() { return nuUserValue(address()); }
-    /** {@code VROverlayHandle_t} */
-    @NativeType("uint64_t")
-    public long overlayHandle() { return noverlayHandle(address()); }
 
     // -----------------------------------
 
@@ -123,12 +117,12 @@ public class VREventKeyboard extends Struct<VREventKeyboard> {
 
     /** Unsafe version of {@link #cNewInput}. */
     public static ByteBuffer ncNewInput(long struct) { return memByteBuffer(struct + VREventKeyboard.CNEWINPUT, 8); }
-    /** Unsafe version of {@link #cNewInputString}. */
-    public static String ncNewInputString(long struct) { return memUTF8(struct + VREventKeyboard.CNEWINPUT); }
+    /** Unsafe version of {@link #cNewInput(int) cNewInput}. */
+    public static byte ncNewInput(long struct, int index) {
+        return UNSAFE.getByte(null, struct + VREventKeyboard.CNEWINPUT + check(index, 8) * 1);
+    }
     /** Unsafe version of {@link #uUserValue}. */
     public static long nuUserValue(long struct) { return UNSAFE.getLong(null, struct + VREventKeyboard.UUSERVALUE); }
-    /** Unsafe version of {@link #overlayHandle}. */
-    public static long noverlayHandle(long struct) { return UNSAFE.getLong(null, struct + VREventKeyboard.OVERLAYHANDLE); }
 
     // -----------------------------------
 
@@ -171,15 +165,12 @@ public class VREventKeyboard extends Struct<VREventKeyboard> {
         /** @return a {@link ByteBuffer} view of the {@link VREventKeyboard#cNewInput} field. */
         @NativeType("char[8]")
         public ByteBuffer cNewInput() { return VREventKeyboard.ncNewInput(address()); }
-        /** @return the null-terminated string stored in the {@link VREventKeyboard#cNewInput} field. */
-        @NativeType("char[8]")
-        public String cNewInputString() { return VREventKeyboard.ncNewInputString(address()); }
+        /** @return the value at the specified index of the {@link VREventKeyboard#cNewInput} field. */
+        @NativeType("char")
+        public byte cNewInput(int index) { return VREventKeyboard.ncNewInput(address(), index); }
         /** @return the value of the {@link VREventKeyboard#uUserValue} field. */
         @NativeType("uint64_t")
         public long uUserValue() { return VREventKeyboard.nuUserValue(address()); }
-        /** @return the value of the {@link VREventKeyboard#overlayHandle} field. */
-        @NativeType("uint64_t")
-        public long overlayHandle() { return VREventKeyboard.noverlayHandle(address()); }
 
     }
 

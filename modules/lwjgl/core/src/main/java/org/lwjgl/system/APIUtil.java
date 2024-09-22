@@ -5,7 +5,6 @@
 package org.lwjgl.system;
 
 import org.lwjgl.*;
-import org.lwjgl.system.freebsd.*;
 import org.lwjgl.system.libffi.*;
 import org.lwjgl.system.linux.*;
 import org.lwjgl.system.macosx.*;
@@ -23,6 +22,7 @@ import java.util.stream.*;
 
 import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryStack.*;
+import static org.lwjgl.system.MemoryUtil.wrap;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
@@ -122,14 +122,12 @@ public final class APIUtil {
 
     public static SharedLibrary apiCreateLibrary(String name) {
         switch (Platform.get()) {
-            case FREEBSD:
-                return new FreeBSDLibrary(name);
+            case WINDOWS:
+                return new WindowsLibrary(name);
             case LINUX:
                 return new LinuxLibrary(name);
             case MACOSX:
                 return MacOSXLibrary.create(name);
-            case WINDOWS:
-                return new WindowsLibrary(name);
             default:
                 throw new IllegalStateException();
         }

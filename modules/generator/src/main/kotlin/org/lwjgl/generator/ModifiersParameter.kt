@@ -71,12 +71,12 @@ class AutoSizeFactor(
     fun scale(operand: String) = if (expression === OPERAND)
         operator.replace(OPERAND, operand)
     else
-        "$operand $operator ${if (expression.contains(' ')) "($expression)" else expression}"
+        "$operand $operator $expression"
 
     fun scaleInv(operand: String) = if (expression === OPERAND)
         operatorInv.replace(OPERAND, operand)
     else
-        "$operand $operatorInv ${if (expression.contains(' ')) "($expression)" else expression}"
+        "$operand $operatorInv $expression"
 }
 
 class AutoSize(

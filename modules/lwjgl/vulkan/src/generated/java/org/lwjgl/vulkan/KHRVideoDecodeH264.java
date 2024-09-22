@@ -13,6 +13,8 @@ package org.lwjgl.vulkan;
  * <p>This extension was promoted to {@code KHR} from the provisional extension {@code VK_EXT_video_decode_h264}.</p>
  * </div>
  * 
+ * <h5>VK_KHR_video_decode_h264</h5>
+ * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_KHR_video_decode_h264}</dd>
@@ -21,7 +23,7 @@ package org.lwjgl.vulkan;
  * <dt><b>Registered Extension Number</b></dt>
  * <dd>41</dd>
  * <dt><b>Revision</b></dt>
- * <dd>9</dd>
+ * <dd>8</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
  * <dd>{@link KHRVideoDecodeQueue VK_KHR_video_decode_queue}</dd>
  * <dt><b>Contact</b></dt>
@@ -36,7 +38,7 @@ package org.lwjgl.vulkan;
  * 
  * <dl>
  * <dt><b>Last Modified Date</b></dt>
- * <dd>2023-12-05</dd>
+ * <dd>2022-09-29</dd>
  * <dt><b>IP Status</b></dt>
  * <dd>No known IP claims.</dd>
  * <dt><b>Contributors</b></dt>
@@ -56,7 +58,7 @@ package org.lwjgl.vulkan;
 public final class KHRVideoDecodeH264 {
 
     /** The extension specification version. */
-    public static final int VK_KHR_VIDEO_DECODE_H264_SPEC_VERSION = 9;
+    public static final int VK_KHR_VIDEO_DECODE_H264_SPEC_VERSION = 8;
 
     /** The extension name. */
     public static final String VK_KHR_VIDEO_DECODE_H264_EXTENSION_NAME = "VK_KHR_video_decode_h264";

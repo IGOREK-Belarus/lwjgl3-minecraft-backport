@@ -16,9 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Deprecated, use {@link SpvcMslResourceBinding2}.
- * 
- * <p>Matches the binding index of a MSL resource for a binding within a descriptor set.</p>
+ * Matches the binding index of a MSL resource for a binding within a descriptor set.
  * 
  * <p>Taken together, the {@code stage}, {@code desc_set} and {@code binding} combine to form a reference to a resource descriptor used in a particular
  * shading stage. If using MSL 2.0 argument buffers, the descriptor set is not marked as a discrete descriptor set, and (for iOS only) the resource is not

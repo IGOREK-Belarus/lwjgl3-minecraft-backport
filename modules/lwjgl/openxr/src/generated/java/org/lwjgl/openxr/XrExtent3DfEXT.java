@@ -16,18 +16,55 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link XrExtent3Df}.
+ * Extent in three dimensions.
+ * 
+ * <h5>Description</h5>
+ * 
+ * <p>The {@link XrExtent3DfEXT} structure describes a axis aligned three-dimensional floating-point extent: This structure is used for component values that <b>may</b> be fractional (floating-point). If used to represent physical distances, values <b>must</b> be in meters.</p>
+ * 
+ * <p>The {@code width} (X), {@code height} (Y) and {@code depth} (Z) values <b>must</b> be non-negative.</p>
+ * 
+ * <h5>See Also</h5>
+ * 
+ * <p>{@link XrExtent2Df}, {@link XrPlaneDetectorBeginInfoEXT}</p>
  * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct XrExtent3DfEXT {
- *     float width;
- *     float height;
- *     float depth;
+ *     float {@link #width};
+ *     float {@link #height};
+ *     float {@link #depth};
  * }</code></pre>
  */
-public class XrExtent3DfEXT extends XrExtent3Df {
+public class XrExtent3DfEXT extends Struct<XrExtent3DfEXT> implements NativeResource {
+
+    /** The struct size in bytes. */
+    public static final int SIZEOF;
+
+    /** The struct alignment in bytes. */
+    public static final int ALIGNOF;
+
+    /** The struct member offsets. */
+    public static final int
+        WIDTH,
+        HEIGHT,
+        DEPTH;
+
+    static {
+        Layout layout = __struct(
+            __member(4),
+            __member(4),
+            __member(4)
+        );
+
+        SIZEOF = layout.getSize();
+        ALIGNOF = layout.getAlignment();
+
+        WIDTH = layout.offsetof(0);
+        HEIGHT = layout.offsetof(1);
+        DEPTH = layout.offsetof(2);
+    }
 
     protected XrExtent3DfEXT(long address, @Nullable ByteBuffer container) {
         super(address, container);
@@ -45,21 +82,27 @@ public class XrExtent3DfEXT extends XrExtent3Df {
      * <p>The created instance holds a strong reference to the container object.</p>
      */
     public XrExtent3DfEXT(ByteBuffer container) {
-        super(container);
+        super(memAddress(container), __checkContainer(container, SIZEOF));
     }
 
-    /** Sets the specified value to the {@code width} field. */
     @Override
+    public int sizeof() { return SIZEOF; }
+
+    /** the floating-point width of the extent. */
+    public float width() { return nwidth(address()); }
+    /** the floating-point height of the extent. */
+    public float height() { return nheight(address()); }
+    /** the floating-point depth of the extent. */
+    public float depth() { return ndepth(address()); }
+
+    /** Sets the specified value to the {@link #width} field. */
     public XrExtent3DfEXT width(float value) { nwidth(address(), value); return this; }
-    /** Sets the specified value to the {@code height} field. */
-    @Override
+    /** Sets the specified value to the {@link #height} field. */
     public XrExtent3DfEXT height(float value) { nheight(address(), value); return this; }
-    /** Sets the specified value to the {@code depth} field. */
-    @Override
+    /** Sets the specified value to the {@link #depth} field. */
     public XrExtent3DfEXT depth(float value) { ndepth(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
-    @Override
     public XrExtent3DfEXT set(
         float width,
         float height,
@@ -197,8 +240,24 @@ public class XrExtent3DfEXT extends XrExtent3Df {
 
     // -----------------------------------
 
+    /** Unsafe version of {@link #width}. */
+    public static float nwidth(long struct) { return UNSAFE.getFloat(null, struct + XrExtent3DfEXT.WIDTH); }
+    /** Unsafe version of {@link #height}. */
+    public static float nheight(long struct) { return UNSAFE.getFloat(null, struct + XrExtent3DfEXT.HEIGHT); }
+    /** Unsafe version of {@link #depth}. */
+    public static float ndepth(long struct) { return UNSAFE.getFloat(null, struct + XrExtent3DfEXT.DEPTH); }
+
+    /** Unsafe version of {@link #width(float) width}. */
+    public static void nwidth(long struct, float value) { UNSAFE.putFloat(null, struct + XrExtent3DfEXT.WIDTH, value); }
+    /** Unsafe version of {@link #height(float) height}. */
+    public static void nheight(long struct, float value) { UNSAFE.putFloat(null, struct + XrExtent3DfEXT.HEIGHT, value); }
+    /** Unsafe version of {@link #depth(float) depth}. */
+    public static void ndepth(long struct, float value) { UNSAFE.putFloat(null, struct + XrExtent3DfEXT.DEPTH, value); }
+
+    // -----------------------------------
+
     /** An array of {@link XrExtent3DfEXT} structs. */
-    public static class Buffer extends XrExtent3Df.Buffer {
+    public static class Buffer extends StructBuffer<XrExtent3DfEXT, Buffer> implements NativeResource {
 
         private static final XrExtent3DfEXT ELEMENT_FACTORY = XrExtent3DfEXT.create(-1L);
 
@@ -212,7 +271,7 @@ public class XrExtent3DfEXT extends XrExtent3Df {
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
         public Buffer(ByteBuffer container) {
-            super(container);
+            super(container, container.remaining() / SIZEOF);
         }
 
         public Buffer(long address, int cap) {
@@ -233,14 +292,18 @@ public class XrExtent3DfEXT extends XrExtent3Df {
             return ELEMENT_FACTORY;
         }
 
-        /** Sets the specified value to the {@code width} field. */
-        @Override
+        /** @return the value of the {@link XrExtent3DfEXT#width} field. */
+        public float width() { return XrExtent3DfEXT.nwidth(address()); }
+        /** @return the value of the {@link XrExtent3DfEXT#height} field. */
+        public float height() { return XrExtent3DfEXT.nheight(address()); }
+        /** @return the value of the {@link XrExtent3DfEXT#depth} field. */
+        public float depth() { return XrExtent3DfEXT.ndepth(address()); }
+
+        /** Sets the specified value to the {@link XrExtent3DfEXT#width} field. */
         public XrExtent3DfEXT.Buffer width(float value) { XrExtent3DfEXT.nwidth(address(), value); return this; }
-        /** Sets the specified value to the {@code height} field. */
-        @Override
+        /** Sets the specified value to the {@link XrExtent3DfEXT#height} field. */
         public XrExtent3DfEXT.Buffer height(float value) { XrExtent3DfEXT.nheight(address(), value); return this; }
-        /** Sets the specified value to the {@code depth} field. */
-        @Override
+        /** Sets the specified value to the {@link XrExtent3DfEXT#depth} field. */
         public XrExtent3DfEXT.Buffer depth(float value) { XrExtent3DfEXT.ndepth(address(), value); return this; }
 
     }

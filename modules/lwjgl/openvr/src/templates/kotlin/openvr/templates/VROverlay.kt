@@ -427,25 +427,21 @@ typedef struct HmdRect2_t
 
     EVROverlayError(
         "ShowOverlay",
-        "Shows the VR overlay. Not applicable for Dashboard Overlays.",
+        "Shows the VR overlay. For dashboard overlays, only the Dashboard Manager is allowed to call this.",
 
         VROverlayHandle_t("ulOverlayHandle", "")
     )
 
     EVROverlayError(
         "HideOverlay",
-        "Hides the VR overlay. Not applicable for Dashboard Overlays.",
+        "Hides the VR overlay. For dashboard overlays, only the Dashboard Manager is allowed to call this.",
 
         VROverlayHandle_t("ulOverlayHandle", "")
     )
 
     bool(
         "IsOverlayVisible",
-        """
-        Returns true if the overlay is currently visible, applicable for all overlay types except Dashboard Thumbnail overlays.
-
-        {@code VREvent_OverlayShown} and {@code VREvent_OverlayHidden} reflect changes to this value.
-        """,
+        "Returns true if the overlay is visible.",
 
         VROverlayHandle_t("ulOverlayHandle", "")
     )
@@ -725,7 +721,7 @@ typedef struct HmdRect2_t
 
     TrackedDeviceIndex_t(
         "GetPrimaryDashboardDevice",
-        "Returns the tracked device index that has the laser pointer in the dashboard, or the last one that was used.",
+        "Returns the tracked device that has the laser pointer in the dashboard.",
         void()
     )
 

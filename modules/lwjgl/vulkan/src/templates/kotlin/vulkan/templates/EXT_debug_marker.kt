@@ -43,7 +43,7 @@ val EXT_debug_marker = "EXTDebugMarker".nativeClassVK("EXT_debug_marker", type =
 
         <b>Example 2</b>
 
-        Annotating regions of a workload with naming information so that offline analysis tools can display a more usable visualization of the commands submitted.
+        Annotating regions of a workload with naming information so that offline analysis tools can display a more usable visualisation of the commands submitted.
 
         <pre><code>
 ￿    extern VkDevice device;
@@ -104,6 +104,7 @@ val EXT_debug_marker = "EXTDebugMarker".nativeClassVK("EXT_debug_marker", type =
 ￿    // End the house annotation started above
 ￿    pfnCmdDebugMarkerEndEXT(commandBuffer);</code></pre>
 
+        <h5>VK_EXT_debug_marker</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_debug_marker}</dd>
@@ -120,7 +121,7 @@ val EXT_debug_marker = "EXTDebugMarker".nativeClassVK("EXT_debug_marker", type =
             <dt><b>Extension and Version Dependencies</b></dt>
             <dd>{@link EXTDebugReport VK_EXT_debug_report}</dd>
 
-            <dt><b>Deprecation State</b></dt>
+            <dt><b>Deprecation state</b></dt>
             <dd><ul>
                 <li><em>Promoted</em> to {@link EXTDebugUtils VK_EXT_debug_utils} extension</li>
             </ul></dd>
@@ -223,10 +224,10 @@ val EXT_debug_marker = "EXTDebugMarker".nativeClassVK("EXT_debug_marker", type =
     VkResult(
         "DebugMarkerSetObjectNameEXT",
         """
-        Give an application-defined name to an object.
+        Give a user-friendly name to an object.
 
         <h5>C Specification</h5>
-        An object can be given an application-defined name by calling:
+        An object can be given a user-friendly name by calling:
 
         <pre><code>
 ￿VkResult vkDebugMarkerSetObjectNameEXT(

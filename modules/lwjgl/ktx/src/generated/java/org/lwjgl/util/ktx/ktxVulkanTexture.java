@@ -36,7 +36,6 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #depth};
  *     uint32_t {@link #levelCount};
  *     uint32_t {@link #layerCount};
- *     uint64_t {@link #allocationId};
  * }</code></pre>
  */
 public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements NativeResource {
@@ -60,8 +59,7 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
         HEIGHT,
         DEPTH,
         LEVELCOUNT,
-        LAYERCOUNT,
-        ALLOCATIONID;
+        LAYERCOUNT;
 
     static {
         Layout layout = __struct(
@@ -76,8 +74,7 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
             __member(4),
             __member(4),
             __member(4),
-            __member(4),
-            __member(8)
+            __member(4)
         );
 
         SIZEOF = layout.getSize();
@@ -95,7 +92,6 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
         DEPTH = layout.offsetof(9);
         LEVELCOUNT = layout.offsetof(10);
         LAYERCOUNT = layout.offsetof(11);
-        ALLOCATIONID = layout.offsetof(12);
     }
 
     protected ktxVulkanTexture(long address, @Nullable ByteBuffer container) {
@@ -135,7 +131,7 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
     /** layout of the created image. Has the same value as {@code layout} parameter passed to the loader. */
     @NativeType("VkImageLayout")
     public int imageLayout() { return nimageLayout(address()); }
-    /** the memory (sub)allocation for the image on the Vulkan device. Will not be used with suballocators. */
+    /** the memory allocated for the image on the Vulkan device */
     @NativeType("VkDeviceMemory")
     public long deviceMemory() { return ndeviceMemory(address()); }
     /** viewType corresponding to {@code image}. Reflects the dimensionality, cubeness and arrayness of the image. */
@@ -156,9 +152,6 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
     /** the number of array layers in the image */
     @NativeType("uint32_t")
     public int layerCount() { return nlayerCount(address()); }
-    /** an id referencing suballocation(s) */
-    @NativeType("uint64_t")
-    public long allocationId() { return nallocationId(address()); }
 
     // -----------------------------------
 
@@ -297,8 +290,6 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
     public static int nlevelCount(long struct) { return UNSAFE.getInt(null, struct + ktxVulkanTexture.LEVELCOUNT); }
     /** Unsafe version of {@link #layerCount}. */
     public static int nlayerCount(long struct) { return UNSAFE.getInt(null, struct + ktxVulkanTexture.LAYERCOUNT); }
-    /** Unsafe version of {@link #allocationId}. */
-    public static long nallocationId(long struct) { return UNSAFE.getLong(null, struct + ktxVulkanTexture.ALLOCATIONID); }
 
     // -----------------------------------
 
@@ -374,9 +365,6 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
         /** @return the value of the {@link ktxVulkanTexture#layerCount} field. */
         @NativeType("uint32_t")
         public int layerCount() { return ktxVulkanTexture.nlayerCount(address()); }
-        /** @return the value of the {@link ktxVulkanTexture#allocationId} field. */
-        @NativeType("uint64_t")
-        public long allocationId() { return ktxVulkanTexture.nallocationId(address()); }
 
     }
 

@@ -253,10 +253,14 @@ public final class Image {
             int output_w = Math.max(1, input_w >> 1);
             int output_h = Math.max(1, input_h >> 1);
 
-            ByteBuffer output_pixels = stbir_resize_uint8_srgb(
+            ByteBuffer output_pixels = memAlloc(output_w * output_h * comp);
+            stbir_resize_uint8_generic(
                 input_pixels, input_w, input_h, input_w * comp,
-                null, output_w, output_h, output_w * comp,
-                comp == 4 ? STBIR_RGBA_PM : STBIR_RGB
+                output_pixels, output_w, output_h, output_w * comp,
+                comp, comp == 4 ? 3 : STBIR_ALPHA_CHANNEL_NONE, STBIR_FLAG_ALPHA_PREMULTIPLIED,
+                STBIR_EDGE_CLAMP,
+                STBIR_FILTER_MITCHELL,
+                STBIR_COLORSPACE_SRGB
             );
 
             if (mipmapLevel == 0) {

@@ -30,7 +30,7 @@ class ReturnValue private constructor(override val nativeType: NativeType) : Qua
     // --- [ Helper functions & properties ] ---
 
     internal val isSpecial
-        get() = hasUnsafe || nativeType.mapping.isPseudoBoolean()
+        get() = hasUnsafe || nativeType.mapping === PrimitiveMapping.BOOLEAN4
 
     internal val isVoid
         get() = nativeType.mapping === TypeMapping.VOID
@@ -77,7 +77,6 @@ class Parameter(
     internal val isSpecial
         get() = hasUnsafe || when (nativeType.mapping) {
             PointerMapping.OPAQUE_POINTER -> (nativeType is WrappedPointerType || !has(nullable)) && this !== JNI_ENV
-            PrimitiveMapping.BOOLEAN2     -> true
             PrimitiveMapping.BOOLEAN4     -> true
             else                          -> false
         } || modifiers.any { it.value.isSpecial }

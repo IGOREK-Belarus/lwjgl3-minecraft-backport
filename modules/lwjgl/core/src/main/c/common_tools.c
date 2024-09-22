@@ -36,7 +36,7 @@ static inline void detachCurrentThread(void) {
 }
 
 static inline EnvData* createEnvData(jboolean async, JNIEnv* env) {
-    EnvData* data = (EnvData*)calloc(1, sizeof(EnvData));
+    EnvData* data = (EnvData*)calloc(sizeof(EnvData), 1);
 
     data->async = async;
     data->env = env;

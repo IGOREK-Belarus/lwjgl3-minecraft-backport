@@ -17,6 +17,7 @@ val EXT_metal_objects = "EXTMetalObjects".nativeClassVK("EXT_metal_objects", typ
 
         The intent is that this extension will be advertised and supported only on implementations that are layered on top of Metal on Apple device platforms.
 
+        <h5>VK_EXT_metal_objects</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_metal_objects}</dd>
@@ -28,7 +29,7 @@ val EXT_metal_objects = "EXTMetalObjects".nativeClassVK("EXT_metal_objects", typ
             <dd>312</dd>
 
             <dt><b>Revision</b></dt>
-            <dd>2</dd>
+            <dd>1</dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -42,7 +43,7 @@ val EXT_metal_objects = "EXTMetalObjects".nativeClassVK("EXT_metal_objects", typ
         <h5>Other Extension Metadata</h5>
         <dl>
             <dt><b>Last Modified Date</b></dt>
-            <dd>2024-04-04</dd>
+            <dd>2022-05-28</dd>
 
             <dt><b>IP Status</b></dt>
             <dd>No known IP claims.</dd>
@@ -58,7 +59,7 @@ val EXT_metal_objects = "EXTMetalObjects".nativeClassVK("EXT_metal_objects", typ
     IntConstant(
         "The extension specification version.",
 
-        "EXT_METAL_OBJECTS_SPEC_VERSION".."2"
+        "EXT_METAL_OBJECTS_SPEC_VERSION".."1"
     )
 
     StringConstant(

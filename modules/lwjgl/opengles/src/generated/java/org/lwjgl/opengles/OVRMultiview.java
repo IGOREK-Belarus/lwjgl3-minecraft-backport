@@ -50,8 +50,4 @@ public class OVRMultiview {
 
     public static native void glFramebufferTextureMultiviewOVR(@NativeType("GLenum") int target, @NativeType("GLenum") int attachment, @NativeType("GLuint") int texture, @NativeType("GLint") int level, @NativeType("GLint") int baseViewIndex, @NativeType("GLsizei") int numViews);
 
-    // --- [ glNamedFramebufferTextureMultiviewOVR ] ---
-
-    public static native void glNamedFramebufferTextureMultiviewOVR(@NativeType("GLuint") int framebuffer, @NativeType("GLenum") int attachment, @NativeType("GLuint") int texture, @NativeType("GLint") int level, @NativeType("GLint") int baseViewIndex, @NativeType("GLsizei") int numViews);
-
 }
